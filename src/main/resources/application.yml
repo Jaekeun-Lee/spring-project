@@ -8,15 +8,6 @@ spring:
     username: spring
     password: spring
 
-#TODO 개발 중에 필요하므로 true를 추천...
-  devtools:
-    livereload:
-      enabled: true
-#TODO 기본 설정이라 할 필요가 없어요..
-  thymeleaf:
-    prefix: classpath:templates/
-    suffix: .html
-
 mybatis:
   type-aliases-package: com.example.demo.*
   mapper-locations: classpath:sqlMappers/**/*.xml
