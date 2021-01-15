@@ -9,9 +9,7 @@ public class ApplicantVO {
 	private String userId;
 	private String profileImg;
 	private int applicantStatus;
-	private String applicantAnswerA;
-	private String applicantAnswerB;
-	private String applicantAnswerC;
+	private List<String> applicantAnswer;
 	private String introToMember;
 
 	public ApplicantVO() {
@@ -57,28 +55,12 @@ public class ApplicantVO {
 		this.applicantStatus = applicantStatus;
 	}
 
-	public String getApplicantAnswerA() {
-		return applicantAnswerA;
+	public List<String> getApplicantAnswer() {
+		return applicantAnswer;
 	}
 
-	public void setApplicantAnswerA(String applicantAnswerA) {
-		this.applicantAnswerA = applicantAnswerA;
-	}
-
-	public String getApplicantAnswerB() {
-		return applicantAnswerB;
-	}
-
-	public void setApplicantAnswerB(String applicantAnswerB) {
-		this.applicantAnswerB = applicantAnswerB;
-	}
-
-	public String getApplicantAnswerC() {
-		return applicantAnswerC;
-	}
-
-	public void setApplicantAnswerC(String applicantAnswerC) {
-		this.applicantAnswerC = applicantAnswerC;
+	public void setApplicantAnswer(List<String> applicantAnswer) {
+		this.applicantAnswer = applicantAnswer;
 	}
 
 	public String getIntroToMember() {
@@ -88,14 +70,4 @@ public class ApplicantVO {
 	public void setIntroToMember(String introToMember) {
 		this.introToMember = introToMember;
 	}
-
-	@Override
-	public String toString() {
-		return "ApplicantVO [applicantNo=" + applicantNo + ", projectNo=" + projectNo + ", userId=" + userId
-				+ ", profileImg=" + profileImg + ", applicantStatus=" + applicantStatus + ", applicantAnswerA="
-				+ applicantAnswerA + ", applicantAnswerB=" + applicantAnswerB + ", applicantAnswerC=" + applicantAnswerC
-				+ ", introToMember=" + introToMember + "]";
-	}
-
-	
 }

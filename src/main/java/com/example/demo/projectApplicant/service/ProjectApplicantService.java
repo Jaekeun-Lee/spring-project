@@ -17,7 +17,7 @@ public interface ProjectApplicantService {
 
 //    public Map<String,Object> getApplicantList(SearchVO searchVO);
 
-      //Rest - DTO
+    //Rest - DTO
 //    public int updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 
     public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus);
