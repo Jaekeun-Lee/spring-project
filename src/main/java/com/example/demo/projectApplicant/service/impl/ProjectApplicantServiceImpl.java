@@ -35,6 +35,7 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 
 	@Override
 	public ProjectVO getProject(int projectNo) {
+		System.out.println("@@@@@@@@@");
 		return projectapplicantDAO.getProject(projectNo);
 	}
 
