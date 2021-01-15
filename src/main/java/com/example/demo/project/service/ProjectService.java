@@ -1,7 +1,6 @@
 package com.example.demo.project.service;
 
 import com.example.demo.community.vo.ReplyVO;
-import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.ReviewVO;
 import com.example.demo.project.vo.TodoVO;
@@ -16,8 +15,8 @@ public interface ProjectService {
 
     public void addReview(List<ReviewVO> reviewVO);
 
-
-    public void addProjectReply(ProjectReplyDTO projectReplyDTO);
+    //Rest - DTO
+    //public void addProjectReply(ReplyDTO replyDTO);
 
     //Rest - DTO
     //public void addBookmark(BookmarkDTO bookmarkDTO);

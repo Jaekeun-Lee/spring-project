@@ -5,58 +5,7 @@
 		
 <mapper namespace="projectMapper">
 
-	<resultMap id="projectSelectMap" type="com.example.demo.projectApplicant.vo.TestHashVO">
-		<result property="projectNo"	    column="project_no"         jdbcType="NUMERIC"/>
-		<result property="leaderId"    		column="user_id"      		jdbcType="VARCHAR"/>
-		<result property="projectName" 		column="project_name"      		jdbcType="VARCHAR"/>
-		<result property="progressClassification"   column="progress_Classification"      		jdbcType="NUMERIC"/>
-		<result property="projectCategory"    		column="project_category"      		jdbcType="NUMERIC"/>
-		<result property="preStartDate"    		column="pre_start_date"      		jdbcType="DATE"/>
-		<result property="prePeriod"    		column="pre_period"      		jdbcType="VARCHAR"/>
-		<result property="regDate"    		column="reg_date"      		jdbcType="VARCHAR"/>
-		<result property="applicationDeadline"    		column="application_deadline"      		jdbcType="VARCHAR"/>
-		<result property="meetingMethod"    		column="meeting_method"      		jdbcType="VARCHAR"/>
-		<result property="meetingLocation"    		column="meeting_location"      		jdbcType="VARCHAR"/>
-		<result property="applicantQuestionA"    		column="applicantQuestionA"      		jdbcType="VARCHAR"/>
-		<result property="applicantQuestionB"    		column="applicantQuestionA"      		jdbcType="VARCHAR"/>
-		<result property="applicantQuestionC"    		column="applicantQuestionA"      		jdbcType="VARCHAR"/>
-		<result property="projectViewCnt"    		column="user_id"      		jdbcType="VARCHAR"/>
-		<result property="projectStatus"    		column="user_id"      		jdbcType="VARCHAR"/>
-		<result property="endProjectCnt"    		column="user_id"      		jdbcType="VARCHAR"/>
-
-		<!-- association-->
-		<association property="applicantsCnt"		javaType="int">
-			<result property="applicantsCnt" column="count" jdbcType="NUMERIC"/>
-		</association>
-		<association property="recruitmentMemberCnt" javaType="int">
-			<result property="recruitmentMemberCnt" column="count" jdbcType="NUMERIC"/>
-		</association>
-
-		<!-- collection -->
-		<collection property="teamMember" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.member.vo.MemberVO" select="getProjectMemberByProjectNo"/>
-		<collection property="skillHashTag" column="project_no" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProjectHashTagByProjectNo"/>
-		<collection property="projectReply" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.community.vo.ReplyVO" select="getProjectReplyByProjectNo"/>
 
 
-
-	</resultMap>
-
-	<select id = "getProjectHashTagByProjectNo" resultMap="java.lang.String">
-		SELECT hashtag
-		FROM skill_hashtag sh, hashtag h
-		WHERE sh.hashtag_no = h.hashtag_no AND sh.project_no = #{project_no}
-	</select>
-
-	<select id = "getProjectMemberByProjectNo" resultMap="com.example.demo.member.vo.MemberVO">
-		SELECT user_id as userId, profile_image
-		FROM MEMBER
-		WHERE PROJECT_NO = #{projectNo};
-	</select>
-
-	<select id = "getProjectReplyByProjectNo" resultMap="com.example.demo.community.vo.ReplyVO">
-		SELECT *
-		FROM REPLY
-		WHERE PROJECT_NO = #{projectNo};
-	</select>
 
 </mapper>
