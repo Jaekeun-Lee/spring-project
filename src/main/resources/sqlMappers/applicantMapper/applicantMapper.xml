@@ -5,6 +5,10 @@
 		
 <mapper namespace="applicantMapper">
 
+	<resultMap id="testSelectMap" type="com.example.demo.projectApplicant.vo.TestHashVO">
+		<result property="hashNo"	    column="hashtag_no"          jdbcType="NUMERIC"/>
+		<result property="hashTag"    column="hashtag"      jdbcType="VARCHAR"/>
+	</resultMap>
 
 
 
