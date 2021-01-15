@@ -1,6 +1,7 @@
 package com.example.demo.projectApplicant.service;
 
 import com.example.demo.member.vo.MemberVO;
+import com.example.demo.project.dto.UpdateApplicantStatusDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
@@ -18,7 +19,7 @@ public interface ProjectApplicantService {
 //    public Map<String,Object> getApplicantList(SearchVO searchVO);
 
     //Rest - DTO
-//    public int updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
+    public int updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 
     public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus);
 
