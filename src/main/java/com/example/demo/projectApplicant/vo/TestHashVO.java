@@ -20,7 +20,5 @@ public class TestHashVO {
 	public String toString() {
 		return "TestHashVO [hashNo=" + hashNo + ", hashTag=" + hashTag + "]";
 	}
-	
-	
 
 }
