@@ -30,7 +30,7 @@ public class ProjectApplicantDAOTest {
 	}
 	
 	@Test
-	public void GetProject() throws Exception{
+	public void getProject(){
 		
 		ProjectVO projectVO = new ProjectVO();
 		
