@@ -1,25 +1,25 @@
-package com.example.demo.projectApplicant.dao;
+package com.example.demo.projectApplicant.test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ProjectApplicantDAOTest {
+
+
+public class ProjectApplicantTest {
 	
 	@Autowired
 	@Qualifier("projectApplicantServiceImpl")
 	private ProjectApplicantService projectApplicantService;
 	
-	public ProjectApplicantDAOTest() {
+	public ProjectApplicantTest() {
 		System.out.println("TEST APP @@@@@");
 	}
 	
@@ -29,10 +29,9 @@ public class ProjectApplicantDAOTest {
 		ProjectVO projectVO = new ProjectVO();
 		
 		projectVO = projectApplicantService.getProject(1);
-		
 		System.out.println(projectVO);
 		
-		//junit.framework.Assert.assertEquals("", );
+		Assert.assertEquals("testProject", projectVO.getProjectName());
 	}
 	
 

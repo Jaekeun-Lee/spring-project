@@ -54,9 +54,15 @@
 	</select>
 
 	<select id = "getProjectReplyByProjectNo" resultMap="com.example.demo.community.vo.ReplyVO">
-		SELECT *
+		SELECT reply_no as replyNo, user_id as replyUserId, reply_content as replyContent, reg_date as replyRegDate
 		FROM REPLY
 		WHERE PROJECT_NO = #{projectNo};
 	</select>
+	
+	<select  id="getProject"  parameterType="string"	 resultMap="projectSelectMap">
+	  	SELECT *
+	  	FROM project
+	  	WHERE project_no = #{projectNo};					
+	 </select>
 
 </mapper>
