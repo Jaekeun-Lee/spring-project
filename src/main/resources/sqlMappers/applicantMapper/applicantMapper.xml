@@ -15,12 +15,18 @@
 			<result property="introToMember"    column="intro_to_member"      jdbcType="VARCHAR"/>
 	</resultMap>
 
+<<<<<<< HEAD
+	<resultMap id="testSelectMap" type="com.example.demo.projectApplicant.vo.TestHashVO">
+		<result property="hashNo"	    column="hashtag_no"          jdbcType="NUMERIC"/>
+		<result property="hashTag"    column="hashtag"      jdbcType="VARCHAR"/>
+=======
 	<resultMap id="toDoSelectMap" type="com.example.demo.project.vo.TodoVO">
 	        <result property="todoNo"	    column="todo_no"          jdbcType="NUMERIC"/>
 	        <result property="projectNO"    column="project_no"      jdbcType="NUMERIC"/>
 			<result property="todoContent"    column="user_id"      jdbcType="VARCHAR"/>
 			<result property="userId"    column="todo_content"      jdbcType="VARCHAR"/>
 			<result property="todoStatus"    column="todo_status"      jdbcType="NUMERIC"/>
+>>>>>>> refs/heads/hye1
 	</resultMap>
 
 	<resultMap id="reviewSelectMap" type="com.example.demo.project.vo.ReviewVO">
