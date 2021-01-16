@@ -38,6 +38,7 @@ public class ProjectApplicantDAOTest {
 		System.out.println(projectVO);
 		
 		Assert.assertEquals("testProject", projectVO.getProjectName());
+		Assert.assertEquals(3, projectVO.getProjectReply().get(0).getReplyNo());
 	}
 	
 
