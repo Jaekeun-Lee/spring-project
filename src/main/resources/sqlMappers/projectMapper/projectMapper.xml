@@ -20,14 +20,13 @@
 		<result property="applicantQuestionA"    	column="applicant_question_a"      	jdbcType="VARCHAR"/>
 		<result property="applicantQuestionB"    	column="applicant_question_b"      	jdbcType="VARCHAR"/>
 		<result property="applicantQuestionC"    	column="applicant_question_c"      	jdbcType="VARCHAR"/>
-<!--		<result property="projectViewCnt"    		column="user_id"      				jdbcType="NUMERIC"/>-->
-<!--		<result property="projectStatus"    		column="user_id"      				jdbcType="NUMERIC"/>-->
-<!--		<result property="endProjectCnt"    		column="user_id"      				jdbcType="NUMERIC"/>-->
+		<result property="projectViewCnt"    		column="project_view_cnt"      		jdbcType="NUMERIC"/>
+		<result property="projectStatus"    		column="project_status"      		jdbcType="NUMERIC"/>
+		<result property="endProjectCnt"    		column="endProject_cnt"   			jdbcType="NUMERIC"/>
 
-		<!-- association-->
-<!--		<association property="applicantsCnt"		javaType="int">-->
-<!--			<result property="applicantsCnt" 		column="count" jdbcType="NUMERIC"/>-->
-<!--		</association>-->
+		<!-- association -->
+		<association property="applicantsCnt"	column="project_no"		select="getApplicantsCnt"/>
+
 <!--		<association property="recruitmentMemberCnt" 	javaType="int">-->
 <!--			<result property="recruitmentMemberCnt" 	column="count" jdbcType="NUMERIC"/>-->
 <!--		</association>-->
@@ -35,22 +34,26 @@
 		<!-- collection -->
 		<collection property="teamMember" 	column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.member.vo.MemberVO" select="getProjectMemberByProjectNo"/>
 		<collection property="skillHashTag" column="project_no" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProjectHashTagByProjectNo"/>
-		<collection property="projectReply" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.community.vo.ReplyVO" select="getProjectReplyByProjectNo"/>
-
-
+		<collection property="projectReply" column="project_no" select="getProjectReplyByProjectNo"/>
 
 	</resultMap>
 
-	<select id = "getProjectHashTagByProjectNo" resultType="java.lang.String">
-		SELECT hashtag
-		FROM skill_hashtag sh, hashtag h
-		WHERE sh.hashtag_no = h.hashtag_no AND sh.project_no = #{project_no}
+	<select id="getApplicantsCnt" resultType="int">
+		SELECT count(*)
+		FROM APPLICANT
+		WHERE project_no = #{project_no}
 	</select>
 
 	<select id = "getProjectMemberByProjectNo" resultType="com.example.demo.member.vo.MemberVO">
 		SELECT user_id as userId, profile_image
 		FROM MEMBER
 		WHERE PROJECT_NO = #{projectNo}
+	</select>
+
+	<select id = "getProjectHashTagByProjectNo" resultType="java.lang.String">
+		SELECT hashtag
+		FROM skill_hashtag sh, hashtag h
+		WHERE sh.hashtag_no = h.hashtag_no AND sh.project_no = #{project_no}
 	</select>
 
 	<select id = "getProjectReplyByProjectNo" resultType="com.example.demo.community.vo.ReplyVO">
