@@ -31,9 +31,27 @@ public class ProjectVO {
     private int projectViewCnt;
     private int projectStatus;
     private int endProjectCnt;
+    private String projectDetail;
+    private Date endDate;
 
     public ProjectVO() {
     }
+    
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getProjectDetail() {
+		return projectDetail;
+	}
+
+	public void setProjectDetail(String projectDetail) {
+		this.projectDetail = projectDetail;
+	}
 
 	public int getProjectNo() {
 		return projectNo;

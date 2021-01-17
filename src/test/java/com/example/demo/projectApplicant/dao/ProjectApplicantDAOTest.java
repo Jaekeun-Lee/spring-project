@@ -2,6 +2,8 @@ package com.example.demo.projectApplicant.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +31,7 @@ public class ProjectApplicantDAOTest {
 		System.out.println("TEST APP @@@@@");
 	}
 	
-	@Test
+	//@Test
 	public void getProject(){
 		
 		ProjectVO projectVO = new ProjectVO();
@@ -41,6 +43,40 @@ public class ProjectApplicantDAOTest {
 		Assert.assertEquals(3, projectVO.getProjectReply().get(0).getReplyNo());
 		Assert.assertEquals(2,projectVO.getProjectReply().size());
 		Assert.assertEquals(2,projectVO.getApplicantsCnt());
+	}
+	
+	@Test
+	public void addProject() {
+		
+		//Change the project number to sequence... : hyein
+		ProjectVO projectVO = new ProjectVO();
+		Date deadLine = new Date(2021-01-10);
+		Date preStartDate = new Date(2021-01-11);
+		Date today = new Date();
+		
+		
+		projectVO.setApplicantQuestionA("test질문A");
+		projectVO.setApplicantQuestionB("test질문B");
+		projectVO.setApplicantQuestionC("test질문C");
+		projectVO.setApplicationDeadline(deadLine);
+		projectVO.setLeaderId("user02");
+		projectVO.setMeetingLocation("경기도 수원시");
+		projectVO.setMeetingMethod(2);
+		projectVO.setPrePeriod(3);
+		projectVO.setPreStartDate(preStartDate);
+		projectVO.setProgressClassification(2);
+		projectVO.setProjectCategory(1);
+		projectVO.setProjectName("기존 유지보수 프로젝트");
+		projectVO.setProjectNo(3);
+		projectVO.setRegDate(today);
+		projectVO.setRecruitmentMemberCnt(4);
+		projectVO.setProjectDetail("test프로젝트 디테일");
+		
+		projectApplicantService.addProject(projectVO);
+		
+		projectVO = projectApplicantService.getProject(3);
+		
+		Assert.assertEquals("user02", projectVO.getLeaderId());
 	}
 	
 

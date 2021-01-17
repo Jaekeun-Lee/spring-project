@@ -18,7 +18,6 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	ProjectApplicantDAO projectapplicantDAO;
 	public void setProjectapplicantDAO(ProjectApplicantDAO projectapplicantDAO) {
 		System.out.println("::"+getClass()+".projectApplicantDAOImpl Call....");
-		System.out.println("TEST APP SERVICE @@@@@");
 		this.projectapplicantDAO = projectapplicantDAO;
 	}
 	
@@ -29,13 +28,11 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	
 	@Override
 	public void addProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		
+		projectapplicantDAO.addProject(projectVO);
 	}
 
 	@Override
 	public ProjectVO getProject(int projectNo) {
-		System.out.println("@@@@@@@@@");
 		return projectapplicantDAO.getProject(projectNo);
 	}
 

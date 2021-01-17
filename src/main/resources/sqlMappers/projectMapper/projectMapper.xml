@@ -23,7 +23,10 @@
 		<result property="projectViewCnt"    		column="project_view_cnt"      		jdbcType="NUMERIC"/>
 		<result property="projectStatus"    		column="project_status"      		jdbcType="NUMERIC"/>
 		<result property="endProjectCnt"    		column="endProject_cnt"   			jdbcType="NUMERIC"/>
-
+		<result property="projectDetail"    		column="project_detail"      		jdbcType="VARCHAR"/>
+		<result property="endDate"    				column="end_date"      				jdbcType="DATE"/>
+		<result property="recruitmentMemberCnt"    	column="recruitmentmembercnt"      	jdbcType="NUMERIC"/>
+		
 		<!-- association -->
 		<association property="applicantsCnt"	column="project_no"		select="getApplicantsCnt"/>
 
@@ -67,5 +70,45 @@
 	  	FROM project
 	  	WHERE project_no = #{projectNo}
 	 </select>
+	 
+	 <insert id="addProject" parameterType="projectVO">
+		INSERT 
+		INTO PROJECT (
+			PROJECT_NO, 
+			USER_ID, 
+			PROJECT_NAME, 
+			PROGRESS_CLASSIFICATION, 
+			PROJECT_CATEGORY, 
+			PRE_START_DATE, 
+			PRE_PERIOD, 
+			MEETING_METHOD, 
+			MEETING_LOCATION, 
+			APPLICATION_DEADLINE, 
+			PROJECT_DETAIL, 
+			REG_DATE,  
+			APPLICANT_QUESTION_A, 
+			APPLICANT_QUESTION_B, 
+			APPLICANT_QUESTION_C,
+			RECRUITMENTMEMBERCNT
+			)  
+		VALUES(
+			#{projectNo},
+			#{leaderId},
+			#{projectName},
+			#{progressClassification},
+			#{projectCategory},
+			#{preStartDate},
+			#{prePeriod},
+			#{meetingMethod},
+			#{meetingLocation},
+			#{applicationDeadline},
+			#{projectDetail},
+			#{regDate},
+			#{applicantQuestionA},
+			#{applicantQuestionB},
+			#{applicantQuestionC},
+			#{recruitmentMemberCnt}
+			)
+	 </insert>
 
 </mapper>

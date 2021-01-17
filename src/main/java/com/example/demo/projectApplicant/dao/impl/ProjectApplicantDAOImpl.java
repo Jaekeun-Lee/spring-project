@@ -29,7 +29,7 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 
 	@Override
 	public void addProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub	
+		sqlSession.insert("projectMapper.addProject",projectVO);
 	}
 
 	@Override
