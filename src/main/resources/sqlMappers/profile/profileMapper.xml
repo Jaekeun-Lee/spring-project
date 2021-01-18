@@ -21,7 +21,15 @@
     <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.profile.vo.NotiVO" select="getNotiList"/>
         <collection property="review" column="review_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
         <collection property="skillHashTag" column="profile_no" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByProfileNo"/>
-
-
     </resultMap>
+
+    <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
+        UPDATE MEMBER
+        SET self_intro = #{selfIntro:VARCHAR},
+            profile_image = #{profileImg:VARCHAR},
+            link = #{link:VARCHAR}
+        WHERE user_id = #{userId}
+    </update>
+
+
 </mapper>
