@@ -2,7 +2,7 @@ package com.example.demo.project.dao.impl;
 
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.vo.ProjectVO;
-import com.example.demo.project.vo.ReviewVO;
+import com.example.demo.common.vo.ReviewVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,4 +31,5 @@ public class ProjectDAOImpl implements ProjectDAO {
     public void addReview(List<ReviewVO> reviewVO) {
 
     }
+
 }

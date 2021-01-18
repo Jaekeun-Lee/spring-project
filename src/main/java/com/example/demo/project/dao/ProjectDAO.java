@@ -1,8 +1,7 @@
 package com.example.demo.project.dao;
 
 import com.example.demo.project.vo.ProjectVO;
-import com.example.demo.project.vo.ReviewVO;
-import com.example.demo.project.vo.TodoVO;
+import com.example.demo.common.vo.ReviewVO;
 
 import java.util.List;
 

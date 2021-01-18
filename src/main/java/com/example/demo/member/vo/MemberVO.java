@@ -3,7 +3,7 @@ package com.example.demo.member.vo;
 import com.example.demo.authority.cd.AuthorityCd;
 import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.profile.vo.NotiVO;
-import com.example.demo.profile.vo.ReviewVO;
+import com.example.demo.common.vo.ReviewVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

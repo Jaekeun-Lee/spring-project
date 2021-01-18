@@ -4,7 +4,7 @@ import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.ProjectVO;
-import com.example.demo.project.vo.ReviewVO;
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.project.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

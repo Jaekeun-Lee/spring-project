@@ -1,9 +1,8 @@
 package com.example.demo.project.service;
 
-import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.ProjectVO;
-import com.example.demo.project.vo.ReviewVO;
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.project.vo.TodoVO;
 
 import java.util.List;
