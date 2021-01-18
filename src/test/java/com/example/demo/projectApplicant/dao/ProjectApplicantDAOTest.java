@@ -55,22 +55,22 @@ public class ProjectApplicantDAOTest {
 		Date today = new Date();
 		
 		
-		projectVO.setApplicantQuestionA("testÁú¹®A");
-		projectVO.setApplicantQuestionB("testÁú¹®B");
-		projectVO.setApplicantQuestionC("testÁú¹®C");
+		projectVO.setApplicantQuestionA("testï¿½ï¿½ï¿½ï¿½A");
+		projectVO.setApplicantQuestionB("testï¿½ï¿½ï¿½ï¿½B");
+		projectVO.setApplicantQuestionC("testï¿½ï¿½ï¿½ï¿½C");
 		projectVO.setApplicationDeadline(deadLine);
 		projectVO.setLeaderId("user02");
-		projectVO.setMeetingLocation("°æ±âµµ ¼ö¿ø½Ã");
+		projectVO.setMeetingLocation("ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		projectVO.setMeetingMethod(2);
 		projectVO.setPrePeriod(3);
 		projectVO.setPreStartDate(preStartDate);
 		projectVO.setProgressClassification(2);
 		projectVO.setProjectCategory(1);
-		projectVO.setProjectName("±âÁ¸ À¯Áöº¸¼ö ÇÁ·ÎÁ§Æ®");
+		projectVO.setProjectName("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®");
 		projectVO.setProjectNo(3);
 		projectVO.setRegDate(today);
 		projectVO.setRecruitmentMemberCnt(4);
-		projectVO.setProjectDetail("testÇÁ·ÎÁ§Æ® µðÅ×ÀÏ");
+		projectVO.setProjectDetail("testï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
 		projectApplicantService.addProject(projectVO);
 		
