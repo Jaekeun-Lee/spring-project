@@ -1,17 +1,17 @@
 package com.example.demo.community.vo;
 
+
 import java.util.Date;
 
 public class ReplyVO {
+
     private int replyNo;
     private int postNo;
     private int projectNo;
-    private String replyUserId;
+    private String replyUseId;
     private String replyContent;
-    private Date replyRegDate;
-
-    public ReplyVO() {
-    }
+    private String replyRegDate;
+    private Date reg_date;
 
     public int getReplyNo() {
         return replyNo;
@@ -37,12 +37,12 @@ public class ReplyVO {
         this.projectNo = projectNo;
     }
 
-    public String getReplyUserId() {
-        return replyUserId;
+    public String getReplyUseId() {
+        return replyUseId;
     }
 
-    public void setReplyUserId(String replyUserId) {
-        this.replyUserId = replyUserId;
+    public void setReplyUseId(String replyUseId) {
+        this.replyUseId = replyUseId;
     }
 
     public String getReplyContent() {
@@ -53,11 +53,35 @@ public class ReplyVO {
         this.replyContent = replyContent;
     }
 
-    public Date getReplyRegDate() {
+    public String getReplyRegDate() {
         return replyRegDate;
     }
 
-    public void setReplyRegDate(Date replyRegDate) {
+    public void setReplyRegDate(String replyRegDate) {
         this.replyRegDate = replyRegDate;
     }
+
+    public Date getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(Date reg_date) {
+        this.reg_date = reg_date;
+    }
+
+    @Override
+    public String toString() {
+        return "ReplyVO{" +
+                "replyNo=" + replyNo +
+                ", postNo=" + postNo +
+                ", projectNo=" + projectNo +
+                ", replyUseId='" + replyUseId + '\'' +
+                ", replyContent='" + replyContent + '\'' +
+                ", replyRegDate='" + replyRegDate + '\'' +
+                ", reg_date=" + reg_date +
+                '}';
+    }
 }
+
+
+

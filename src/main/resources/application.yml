@@ -1,12 +1,32 @@
 server:
   port: 8282
+  error:
+    whitelabel:
+      enabled: false
 
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: twinkle7018@gmail.com
+    password: dkdlxl7018
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521/xe
     username: spring
     password: spring
+
+
+  #TODO 개발 중에 필요하므로 true를 추천...
+  devtools:
+    livereload:
+      enabled: true
+
+
 
 mybatis:
   type-aliases-package: com.example.demo.*
