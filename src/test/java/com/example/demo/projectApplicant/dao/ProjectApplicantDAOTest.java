@@ -49,6 +49,7 @@ public class ProjectApplicantDAOTest {
 	public void addProject() {
 		
 		//Change the project number to sequence... : hyein
+		//Check userVO projectNO : hyein
 		ProjectVO projectVO = new ProjectVO();
 		Date deadLine = new Date(2021-01-10);
 		Date preStartDate = new Date(2021-01-11);
@@ -77,6 +78,12 @@ public class ProjectApplicantDAOTest {
 		projectVO = projectApplicantService.getProject(3);
 		
 		Assert.assertEquals("user02", projectVO.getLeaderId());
+	}
+	
+	@Test
+	public void addApplicant() {
+		
+		
 	}
 	
 
