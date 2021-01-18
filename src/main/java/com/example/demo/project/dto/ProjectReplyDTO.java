@@ -3,23 +3,13 @@ package com.example.demo.project.dto;
 import java.util.Date;
 
 public class ProjectReplyDTO {
-    private int replyNo;
     private int projectNo;
     private String replyUserId;
     private String replyContent;
-    private Date replyRegDate;
 
 
 
     public ProjectReplyDTO() {
-    }
-
-    public int getReplyNo() {
-        return replyNo;
-    }
-
-    public void setReplyNo(int replyNo) {
-        this.replyNo = replyNo;
     }
 
     public int getProjectNo() {
@@ -46,11 +36,4 @@ public class ProjectReplyDTO {
         this.replyContent = replyContent;
     }
 
-    public Date getReplyRegDate() {
-        return replyRegDate;
-    }
-
-    public void setReplyRegDate(Date replyRegDate) {
-        this.replyRegDate = replyRegDate;
-    }
 }

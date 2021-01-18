@@ -19,47 +19,20 @@ public class ProjectServiceImpl implements ProjectService {
     @Qualifier("projectDAOImpl")
     ProjectDAO projectDAO;
 
-    public void addProject(ProjectVO projectVO) {
-        projectDAO.addProject(projectVO);
+    @Override
+    public int addProject(ProjectVO projectVO) {
+        return projectDAO.addProject(projectVO);
     }
 
+    @Override
     public ProjectVO getProject(int projectNo) {
-        return null;
+        return projectDAO.getProject(projectNo);
     }
 
     @Override
-    public void addReview(List<ReviewVO> reviewVO) {
-
+    public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
+        return projectDAO.addProjectReply(projectReplyDTO);
     }
 
-    @Override
-    public void addProjectReply(ProjectReplyDTO projectReplyDTO) {
-
-    }
-
-    @Override
-    public void addTodoList(TodoVO todoVO) {
-
-    }
-
-    @Override
-    public ProjectVO getMyProject(int userId) {
-        return null;
-    }
-
-    @Override
-    public void updateProjectLeader(ProjectVO projectVO, String userId) {
-
-    }
-
-    @Override
-    public void updateProjectStatus() {
-
-    }
-
-    @Override
-    public void deleteProject(int projectNo) {
-
-    }
 
 }

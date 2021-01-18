@@ -1,6 +1,7 @@
 package com.example.demo.project.dao.impl;
 
 import com.example.demo.project.dao.ProjectDAO;
+import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.common.vo.ReviewVO;
 import org.apache.ibatis.session.SqlSession;
@@ -18,18 +19,20 @@ public class ProjectDAOImpl implements ProjectDAO {
     private SqlSession sqlSession;
 
     @Override
-    public void addProject(ProjectVO projectVO) {
-        sqlSession.insert("projectMapper.addProject", projectVO);
+    public int addProject(ProjectVO projectVO) {
+        return sqlSession.insert("projectMapper.addProject", projectVO);
     }
 
     @Override
     public ProjectVO getProject(int projectNo) {
-        return null;
+        return sqlSession.selectOne("projectMapper.getProject",projectNo);
     }
 
     @Override
-    public void addReview(List<ReviewVO> reviewVO) {
-
+    public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
+        return sqlSession.insert("projectMapper.addProjectReply",projectReplyDTO);
     }
+
+
 
 }
