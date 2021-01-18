@@ -3,6 +3,7 @@ package com.example.demo.project.service.impl;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
+import com.example.demo.project.vo.MyProjectVO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.project.vo.TodoVO;
@@ -32,6 +33,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
         return projectDAO.addProjectReply(projectReplyDTO);
+    }
+
+    @Override
+    public MyProjectVO getMyProject(int projectNo) {
+        return projectDAO.getMyProject(projectNo);
+    }
+
+    @Override
+    public int addTodo(TodoVO todoVO) {
+        return projectDAO.addTodo(todoVO);
     }
 
 

@@ -1,7 +1,7 @@
 package com.example.demo.profile.dto;
 
 import com.example.demo.member.vo.MemberVO;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ public class ProfileDTO {
         private String profileImg;
         private String selfInfo;
         private List<String> link;
+
+
 
         /**
          * dto로 전달 받은 데이터를 기준으로 DAO에서 사용할 수 있는 VO로 변환해주는 메소드
