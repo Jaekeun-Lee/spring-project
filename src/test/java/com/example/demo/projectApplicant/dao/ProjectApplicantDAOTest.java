@@ -57,22 +57,22 @@ public class ProjectApplicantDAOTest {
 		Date today = new Date();
 		
 		
-		projectVO.setApplicantQuestionA("testÁú¹®A");
-		projectVO.setApplicantQuestionB("testÁú¹®B");
-		projectVO.setApplicantQuestionC("testÁú¹®C");
+		projectVO.setApplicantQuestionA("testì§ˆë¬¸A");
+		projectVO.setApplicantQuestionB("testì§ˆë¬¸B");
+		projectVO.setApplicantQuestionC("testì§ˆë¬¸C");
 		projectVO.setApplicationDeadline(deadLine);
 		projectVO.setLeaderId("user02");
-		projectVO.setMeetingLocation("°æ±âµµ ¼ö¿ø½Ã");
+		projectVO.setMeetingLocation("ì„œìš¸ì‹œ ì¤‘ë‘êµ¬");
 		projectVO.setMeetingMethod(2);
 		projectVO.setPrePeriod(3);
 		projectVO.setPreStartDate(preStartDate);
 		projectVO.setProgressClassification(2);
 		projectVO.setProjectCategory(1);
-		projectVO.setProjectName("±âÁ¸ À¯Áöº¸¼ö ÇÁ·ÎÁ§Æ®");
+		projectVO.setProjectName("ê¸°ì¡´ ìœ ì§€ ë³´ìˆ˜ í”„ë¡œì íŠ¸");
 		projectVO.setProjectNo(3);
 		projectVO.setRegDate(today);
 		projectVO.setRecruitmentMemberCnt(4);
-		projectVO.setProjectDetail("testÇÁ·ÎÁ§Æ® µğÅ×ÀÏ");
+		projectVO.setProjectDetail("test ìƒì„¸ ì •ë³´");
 		
 		projectApplicantService.addProject(projectVO);
 		
@@ -90,7 +90,7 @@ public class ProjectApplicantDAOTest {
 		
 		System.out.println(applicantVO);
 		
-		Assert.assertEquals("¾ø½À´Ï´Ù", applicantVO.getApplicantAnswerA());
+		Assert.assertEquals("ì—†ìŠµë‹ˆë‹¤", applicantVO.getApplicantAnswerA());
 	}
 	
 	@Test
@@ -100,9 +100,9 @@ public class ProjectApplicantDAOTest {
 		ProjectVO projectVO = new ProjectVO();
 		projectVO.setProjectNo(1);
 		
-		applicantVO.setApplicantAnswerA("Ã³À½ÀÔ´Ï´Ù.");
+		applicantVO.setApplicantAnswerA("ë‹µë³€ì…ë‹ˆë‹¤");
 		applicantVO.setApplicantNo(2);
-		applicantVO.setIntroToMember("±×Ä¡¸¸ Àß ÇÒ ÀÚ½Å ÀÖ½À´Ï´Ù.");
+		applicantVO.setIntroToMember("ì˜í•˜ê² ìŠµë‹ˆë‹¤");
 		applicantVO.setProjectVO(projectVO);
 		applicantVO.setUserId("user05");
 		
