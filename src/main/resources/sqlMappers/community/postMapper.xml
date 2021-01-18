@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="community">
+<mapper namespace="postMapper">
 <!--    <sql id="postColumns">-->
 <!--        -->
 <!--    </sql>-->
-<!--    <resultMap id="PostSelectMap" type="com.example.demo.community.vo.PostVO">-->
-<!--        <result property="postNo" column=""-->
-<!--    </resultMap>-->
+    <resultMap id="postSelectMap" type="com.example.demo.community.vo.PostVO">
+        <result property="postNo" column="post_no"  jdbcType="NUMERIC"/>
+        <result property="postName"     column="post_name"      jdbcType="VARCHAR"/>
+        <result property="postContent"      column="post_content"       jdbcType="VARCHAR"/>
+        <result property="userId"       column="user_id"        jdbcType="VARCHAR"/>
+        <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
+        <result property="replyCnt"     column="reply_cnt"      jdbcType="NUMERIC"/>
+<!--        <result property="viewCnt"      column="view_cnt"       jdbcType="NUMERIC"/>-->
+    </resultMap>
+
+
     <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO">
-        insert into POST(post_no,
-                         user_id,
-                         post_name,
-                         post_content,
-                         reg_date)
+        insert
+        into POST(post_no,
+                  post_name,
+                  post_content,
+                  user_Id,
+                  reg_date,
+                  reply_Cnt,
+                  view_Cnt
+                  )
         values (#{postNo},
-                #{userId},
-                #{post_name},
+                #{postName},
                 #{postContent},
-                current_date)
+                #{userId},
+                #{regDate},
+                #{replyCnt},
+                #{viewCnt})
     </insert>
+
+
 
 
 

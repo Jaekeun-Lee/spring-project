@@ -13,6 +13,9 @@ public class ReplyVO {
     private String replyRegDate;
     private Date reg_date;
 
+    public ReplyVO() {
+    }
+
     public int getReplyNo() {
         return replyNo;
     }

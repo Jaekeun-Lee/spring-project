@@ -2,7 +2,7 @@ package com.example.demo.community.service;
 
 import com.example.demo.community.vo.PostVO;
 
-public interface CommunityService {
+public interface PostService {
 
     //게시물 등록
     public void addPost(PostVO postVO);
