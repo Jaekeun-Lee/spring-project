@@ -29,7 +29,7 @@
 			<result property="todoStatus"    column="todo_status"      jdbcType="NUMERIC"/>
 	</resultMap>
 
-	<resultMap id="reviewSelectMap" type="com.example.demo.project.vo.ReviewVO">
+	<resultMap id="reviewSelectMap" type="com.example.demo.common.vo.ReviewVO">
 	        <result property="reviewNo"	    column="review_no"          jdbcType="NUMERIC"/>
 	        <result property="projectNO"    column="project_no"      jdbcType="NUMERIC"/>
 			<result property="reviewGrade"    column="review_grade"      jdbcType="VARCHAR"/>

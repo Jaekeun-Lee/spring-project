@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community">
+<!--    <sql id="postColumns">-->
+<!--        -->
+<!--    </sql>-->
+<!--    <resultMap id="PostSelectMap" type="com.example.demo.community.vo.PostVO">-->
+<!--        <result property="postNo" column=""-->
+<!--    </resultMap>-->
+    <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO">
+        insert into POST(post_no,
+                         user_id,
+                         post_name,
+                         post_content,
+                         reg_date)
+        values (#{postNo},
+                #{userId},
+                #{post_name},
+                #{postContent},
+                current_date)
+    </insert>
+
+
+
+
+</mapper>

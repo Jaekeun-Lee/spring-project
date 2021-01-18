@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+    <select id="insertOne" resultType="com.example.demo.member.dto.MemberDTO$GetListReqDTO">
+        SELECT PRODUCT as product,
+               VERSION as version
+        FROM SYS.PRODUCT_COMPONENT_VERSION
+    </select>
+
+    <insert id="addMember" parameterType="com.example.demo.member.vo.MemberVO">
+        INSERT INTO MEMBER(USER_ID,
+                            NAME,
+                            PASSWORD,
+                            EMAIL,
+                            ROLE,
+                            MEMBER_STATUS,
+                            REG_DATE)
+        VALUES (#{userId},
+                #{name},
+                #{password},
+                #{email},
+                #{role},
+                #{status},
+                CURRENT_DATE)
+    </insert>
+
+    <select id="selectMemberList" parameterType="com.example.demo.member.vo.MemberVO"
+            resultType="com.example.demo.member.vo.MemberVO">
+        SELECT
+        USER_ID as userId,
+        NAME as name,
+        PASSWORD as password,
+        EMAIL as email,
+        ROLE as role,
+        MEMBER_STATUS as status,
+        REPORT_CNT as reportCnt,
+        LAST_LOGIN_DATE as lastLoginDate,
+        REG_DATE as regDate
+        FROM MEMBER
+        <if test="userId != null and userId != ''">
+            WHERE USER_ID = #{userId}
+        </if>
+        ORDER BY REG_DATE
+    </select>
+
+    <select id="selectReportMemberList" parameterType="com.example.demo.member.vo.MemberVO"
+            resultType="com.example.demo.member.vo.MemberVO">
+        SELECT
+        USER_ID as userId,
+        NAME as name,
+        PASSWORD as password,
+        EMAIL as email,
+        ROLE as role,
+        MEMBER_STATUS as status,
+        REPORT_CNT as reportCnt,
+        LAST_LOGIN_DATE as lastLoginDate,
+        REG_DATE as regDate
+        FROM MEMBER
+        <if test="userId != null and userId != ''">
+            WHERE USER_ID = #{userId}
+            AND REPORT_CNT BETWEEN 1 AND 6
+        </if>
+        ORDER BY REG_DATE
+    </select>
+
+    <select id="selectDormantMemberList" parameterType="com.example.demo.member.vo.MemberVO"
+            resultType="com.example.demo.member.vo.MemberVO">
+        SELECT
+        USER_ID as userId,
+        NAME as name,
+        PASSWORD as password,
+        EMAIL as email,
+        ROLE as role,
+        STATUS as status,
+        REPORT_CNT as reportCnt,
+        LAST_LOGIN_DATE as lastLoginDate,
+        REG_DATE as regDate
+        FROM MEMBERS
+        <if test="userId != null and userId != ''">
+            WHERE USER_ID = #{userId}
+            AND STATUS = DORMANT
+        </if>
+        ORDER BY REG_DATE
+    </select>
+</mapper>

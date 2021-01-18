@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="profileMapper">
+    <resultMap id="profileSelectMap" type="com.example.demo.member.vo.MemberVO">
+        <result property="userId" column="user_id"  jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="profileImg" column="profile_image" jdbcType="VARCHAR"/>
+        <result property="lastLoginDate" column="last_login_date" jdbcType="DATE"/>
+        <result property="regDate" column="reg_date" jdbcType="DATE"/>
+        <result property="projectWithdrawalDate" column="project_withdrawal_date" javaType="DATE"/>
+        <result property="reportCnt" column="report_cnt" jdbcType="INTEGER"/>
+        <result property="selfIntro" column="self_intro" jdbcType="VARCHAR"/>
+        <result property="status" column="member_status" jdbcType="VARCHAR"/>
+
+
+    <!-- collection -->
+    <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.profile.vo.NotiVO" select="getNotiList"/>
+        <collection property="review" column="review_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
+        <collection property="skillHashTag" column="profile_no" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByProfileNo"/>
+
+
+    </resultMap>
+</mapper>

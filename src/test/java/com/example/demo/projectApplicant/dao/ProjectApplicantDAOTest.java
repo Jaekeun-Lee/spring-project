@@ -31,7 +31,7 @@ public class ProjectApplicantDAOTest {
 		System.out.println("TEST APP @@@@@");
 	}
 	
-	//@Test
+	@Test
 	public void getProject(){
 		
 		ProjectVO projectVO = new ProjectVO();
