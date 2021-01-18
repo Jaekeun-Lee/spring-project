@@ -3,7 +3,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 		
-<mapper namespace="projectApplicantMapper">
+<mapper namespace="applicantMapper">
 	<resultMap id="applicantSelectMap" type="com.example.demo.projectApplicant.vo.ApplicantVO">
 	        <result property="applicantNo"	    column="applicant_no"          jdbcType="NUMERIC"/>
 	        <result property="projectNo"    column="hashtag"      jdbcType="VARCHAR"/>
@@ -13,6 +13,13 @@
 			<result property="applicantAnswerB"    column="applicant_answer_b"      jdbcType="VARCHAR"/>
 			<result property="applicantAnswerC"    column="applicant_answer_c"      jdbcType="VARCHAR"/>
 			<result property="introToMember"    column="intro_to_member"      jdbcType="VARCHAR"/>
+			
+			<association property="projectVO"  javaType="com.example.demo.project.vo.ProjectVO">
+				<id property="projectNo" 		column="project_no" 		jdbcType="NUMERIC"/>
+				<result property="applicantQuestionA"		column="applicant_question_a" 			jdbcType="VARCHAR"/>
+				<result property="applicantQuestionB" 	column="applicant_question_b" 		jdbcType="VARCHAR"/>
+				<result property="applicantQuestionC" 	column="applicant_question_c" 	jdbcType="VARCHAR"/>
+			</association>
 	</resultMap>
 
 
@@ -36,11 +43,49 @@
 			<result property="reviewComment"    column="review_comment"      jdbcType="VARCHAR"/>
 			<result property="userId"    column="user_id"      jdbcType="NUMERIC"/>
 	</resultMap>
-
-<insert id="test" parameterType="com.example.demo.projectApplicant.vo.TestHashVO"> 
-	INSERT
-	INTO hashtag
-	VALUES(#{hashNo}, #{hashTag})
-</insert>
+	
+	<select id="getApplicant" parameterType="int" resultMap="applicantSelectMap">
+		SELECT 
+		P.APPLICANT_QUESTION_A,
+		P.APPLICANT_QUESTION_B,
+		P.APPLICANT_QUESTION_C,
+		A.APPLICANT_NO,
+		A.USER_ID,
+		A.PROJECT_NO,
+		A.APPLICANT_ANSWER_A,
+		A.APPLICANT_ANSWER_B,
+		A.APPLICANT_ANSWER_C,
+		A.INTRO_TO_MEMBER
+		FROM
+		PROJECT P, APPLICANT A
+		WHERE
+		P.PROJECT_NO = A.PROJECT_NO
+		AND
+		APPLICANT_NO = #{applicantNo}
+	</select>
+	
+	<insert id="addApplicant" parameterType="ApplicantVO">
+		INSERT
+		INTO applicant(
+			APPLICANT_NO,
+			USER_ID,
+			PROJECT_NO,
+			APPLICANT_STATUS,
+			APPLICANT_ANSWER_A,
+			APPLICANT_ANSWER_B,
+			APPLICANT_ANSWER_C,
+			INTRO_TO_MEMBER
+		)
+		VALUES(
+			#{applicantNo},
+			#{userId},
+			#{projectVO.projectNo},
+			1,
+			#{applicantAnswerA:VARCHAR},
+			#{applicantAnswerB:VARCHAR},
+			#{applicantAnswerC:VARCHAR},
+			#{introToMember}
+		)
+	 </insert>
 
 </mapper>

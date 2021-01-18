@@ -38,14 +38,12 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 
 	@Override
 	public void addApplicant(ApplicantVO applicantVO) {
-		// TODO Auto-generated method stub
-		
+		projectapplicantDAO.addApplicant(applicantVO);
 	}
 
 	@Override
 	public ApplicantVO getApplicant(int applicantNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return projectapplicantDAO.getApplicant(applicantNo);
 	}
 
 	@Override
