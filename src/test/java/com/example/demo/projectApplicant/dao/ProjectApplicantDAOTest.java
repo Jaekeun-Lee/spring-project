@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
+import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,7 +32,7 @@ public class ProjectApplicantDAOTest {
 		System.out.println("TEST APP @@@@@");
 	}
 	
-	@Test
+	//@Test
 	public void getProject(){
 		
 		ProjectVO projectVO = new ProjectVO();
@@ -41,11 +42,11 @@ public class ProjectApplicantDAOTest {
 		
 		Assert.assertEquals("testProject", projectVO.getProjectName());
 		Assert.assertEquals(3, projectVO.getProjectReply().get(0).getReplyNo());
-		Assert.assertEquals(2,projectVO.getProjectReply().size());
-		Assert.assertEquals(2,projectVO.getApplicantsCnt());
+		Assert.assertEquals(1,projectVO.getProjectReply().size());
+		Assert.assertEquals(1,projectVO.getApplicantsCnt());
 	}
 	
-	@Test
+	//@Test
 	public void addProject() {
 		
 		//Change the project number to sequence... : hyein
@@ -80,10 +81,39 @@ public class ProjectApplicantDAOTest {
 		Assert.assertEquals("user02", projectVO.getLeaderId());
 	}
 	
+	//@Test
+	public void getApplicant() {
+		
+		ApplicantVO applicantVO = new ApplicantVO();
+		
+		applicantVO = projectApplicantService.getApplicant(1);
+		
+		System.out.println(applicantVO);
+		
+		Assert.assertEquals("없습니다", applicantVO.getApplicantAnswerA());
+	}
+	
 	@Test
 	public void addApplicant() {
 		
+		ApplicantVO applicantVO = new ApplicantVO();
+		ProjectVO projectVO = new ProjectVO();
+		projectVO.setProjectNo(1);
 		
+		applicantVO.setApplicantAnswerA("처음입니다.");
+		applicantVO.setApplicantNo(2);
+		applicantVO.setIntroToMember("그치만 잘 할 자신 있습니다.");
+		applicantVO.setProjectVO(projectVO);
+		applicantVO.setUserId("user05");
+		
+		System.out.println(applicantVO);
+		
+		projectApplicantService.addApplicant(applicantVO);
+		
+		applicantVO = projectApplicantService.getApplicant(1);
+		System.out.println(applicantVO);
+		
+		Assert.assertEquals("user05", applicantVO.getUserId());
 	}
 	
 

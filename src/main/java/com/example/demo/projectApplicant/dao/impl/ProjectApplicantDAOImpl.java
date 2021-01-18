@@ -39,14 +39,12 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 
 	@Override
 	public void addApplicant(ApplicantVO applicantVO) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.insert("applicantMapper.addApplicant",applicantVO);
 	}
 
 	@Override
 	public ApplicantVO getApplicant(int applicantNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("applicantMapper.getApplicant",applicantNo);
 	}
 
 	@Override
