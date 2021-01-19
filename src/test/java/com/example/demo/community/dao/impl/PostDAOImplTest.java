@@ -41,7 +41,11 @@ public class PostDAOImplTest {
         postVO.setReplyCnt(2);
         postVO.setViewCnt(1);
 
-//        postService.addPost(postVO);
+        postService.addPost(postVO);
+        PostVO postVO1 = postService.getPost(4);
+//        postVO = postService.getPost(4);
+        Assert.assertEquals("user03",postVO1.getUserId());
+//ㅅㅂ
     }
 
     @Test
@@ -66,9 +70,15 @@ public class PostDAOImplTest {
         PostVO postVO = new PostVO();
         Date today = new Date();
 
+        postVO.setPostNo(2);
+        postVO.setPostName("java");
+        postVO.setPostContent("업데이트테스트");
+        postVO.setRegDate(today);
 
+        postService.updatePost(postVO);
+        PostVO postVO1 = postService.getPost(2);
 
-
+        Assert.assertEquals(2,postVO1.getPostNo());
     }
 
 }

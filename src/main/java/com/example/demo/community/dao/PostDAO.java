@@ -14,6 +14,9 @@ public interface PostDAO {
     //udpatePost
     public void updatePost(PostVO postVO);
 
+//    //deleteUpdate
+//    public void deletePost(PostVO postVO);
+
 
 
 }
