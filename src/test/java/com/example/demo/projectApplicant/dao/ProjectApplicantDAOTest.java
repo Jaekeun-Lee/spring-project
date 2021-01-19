@@ -3,6 +3,8 @@ package com.example.demo.projectApplicant.dao;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
@@ -93,7 +96,7 @@ public class ProjectApplicantDAOTest {
 		Assert.assertEquals("없습니다", applicantVO.getApplicantAnswerA());
 	}
 	
-	@Test
+	//@Test
 	public void addApplicant() {
 		
 		ApplicantVO applicantVO = new ApplicantVO();
@@ -101,10 +104,10 @@ public class ProjectApplicantDAOTest {
 		projectVO.setProjectNo(1);
 		
 		applicantVO.setApplicantAnswerA("답변입니다");
-		applicantVO.setApplicantNo(2);
+		applicantVO.setApplicantNo(3);
 		applicantVO.setIntroToMember("잘하겠습니다");
 		applicantVO.setProjectVO(projectVO);
-		applicantVO.setUserId("user05");
+		applicantVO.setUserId("user03");
 		
 		System.out.println(applicantVO);
 		
@@ -116,5 +119,22 @@ public class ProjectApplicantDAOTest {
 		Assert.assertEquals("user05", applicantVO.getUserId());
 	}
 	
+	@Test
+	public void getApplicantList() {
+		
+		SearchVO searchVO = new SearchVO();
+		
+		searchVO.setCurrentPage(1);
+		searchVO.setPageSize(6);
+		
+		Map<String, Object> map = projectApplicantService.getApplicantList(searchVO);
+		
+		List<Object> list = (List<Object>)map.get("list");
+		System.out.println("@@@@@"+list);
+		Assert.assertEquals(2,  list.size());
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+	 	System.out.println(totalCount);
+	}
 
 }

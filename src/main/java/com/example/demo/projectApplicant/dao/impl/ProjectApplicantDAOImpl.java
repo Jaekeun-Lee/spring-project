@@ -1,10 +1,14 @@
 package com.example.demo.projectApplicant.dao.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dto.UpdateApplicantStatusDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.dao.ProjectApplicantDAO;
@@ -57,6 +61,16 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<ApplicantVO> getApplicantList(SearchVO searchVO) {
+		return sqlSession.selectList("applicantMapper.getApplicantList",searchVO);
+	}
+
+	@Override
+	public int getTotalCount(SearchVO searchVO) {
+		return sqlSession.selectOne("applicantMapper.getTotalCount", searchVO);
 	}
 
 }
