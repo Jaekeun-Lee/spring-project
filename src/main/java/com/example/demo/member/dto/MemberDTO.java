@@ -88,6 +88,18 @@ public class MemberDTO {
         }
     }
 
+    //블랙리스트 회원 조회
+    @Data
+    public static class GetListBlackReqDTO {
+        private String userId;
+        private String email;
+
+        public MemberVO convertSignUpDTOToMemberVO() {
+
+            return new MemberVO(this.getUserId(),this.getEmail());
+        }
+    }
+
 
     @Data
     public static class GetMemberInfoRes {

@@ -33,7 +33,7 @@ public class MemberVO {
     private String selfIntro; //프로필_자기소개
     private List<NotiVO> noti;
     private List<ReviewVO> review;
-    private List<String> link;
+    private String link;
 
 
     /**
@@ -90,8 +90,4 @@ public class MemberVO {
 
     }
 
-
-    public MemberVO(String profileImg, String selfInfo, List<String> link) {
-
-    }
 }
