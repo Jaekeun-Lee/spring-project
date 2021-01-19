@@ -31,7 +31,13 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     public PostVO getPost(int postNo){
+
         return sqlSession.selectOne("postMapper.getPost", postNo);
     }
 
+    @Override
+    public void updatePost(PostVO postVO){
+
+        sqlSession.update("postMapper.updatePost",postVO);
+    }
 }

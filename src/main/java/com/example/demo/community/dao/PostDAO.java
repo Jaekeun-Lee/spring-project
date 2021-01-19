@@ -11,6 +11,9 @@ public interface PostDAO {
     //포스트 상세조회
     public PostVO getPost(int postNo);
 
+    //udpatePost
+    public void updatePost(PostVO postVO);
+
 
 
 }
