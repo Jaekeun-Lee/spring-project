@@ -10,6 +10,7 @@ import com.example.demo.project.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectDAO projectDAO;
 
     @Override
-    public int addProject(ProjectVO projectVO) {
-        return projectDAO.addProject(projectVO);
+    public void addProject(ProjectVO projectVO) {
+        projectDAO.addProject(projectVO);
     }
 
     @Override

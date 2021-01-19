@@ -23,26 +23,27 @@ public class ProjectServiceImplTest {
     @Qualifier("projectServiceImpl")
     private ProjectService projectService;
 
-    //@Test
+    @Test
+
     public void addProject() {
 
         ProjectVO projectVO = new ProjectVO();
 
-        projectVO.setLeaderId("user01");
-        projectVO.setProjectName("ADD PROJECT TEST");
+        projectVO.setLeaderId("user06");
+        projectVO.setProjectName("맴버에도 추가하기");
         projectVO.setProgressClassification(2);
         projectVO.setProjectCategory(1);
-        projectVO.setPreStartDate(new Date(2021 - 01 - 11));
+        projectVO.setPreStartDate(new Date());
         projectVO.setPrePeriod(200);
         projectVO.setMeetingMethod(1);
-        projectVO.setMeetingLocation("경기도 이천시");
-        projectVO.setApplicationDeadline(new Date(2021 - 01 - 30));
-        projectVO.setProjectDetail("add project test detail");
+        projectVO.setMeetingLocation("경기도 수원시");
+        projectVO.setApplicationDeadline(new Date());
+        projectVO.setProjectDetail("project detail");
         projectVO.setApplicantQuestionA("applicantQuestionA");
-        projectVO.setApplicantQuestionB("applicantQuestionB");
-        projectVO.setRecruitmentMemberCnt(5);
+        projectVO.setRecruitmentMemberCnt(3);
 
-        Assert.assertEquals(1, projectService.addProject(projectVO));
+        projectService.addProject(projectVO);
+
 
     }
 
@@ -94,7 +95,7 @@ public class ProjectServiceImplTest {
 
     }
 
-    @Test
+    //@Test
     public void addTodo() {
 
         TodoVO todoVO = new TodoVO();
