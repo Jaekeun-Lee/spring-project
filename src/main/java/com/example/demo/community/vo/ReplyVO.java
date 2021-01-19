@@ -10,7 +10,6 @@ public class ReplyVO {
     private int projectNo;
     private String replyUseId;
     private String replyContent;
-    private String replyRegDate;
     private Date reg_date;
 
     public ReplyVO() {
@@ -56,14 +55,6 @@ public class ReplyVO {
         this.replyContent = replyContent;
     }
 
-    public String getReplyRegDate() {
-        return replyRegDate;
-    }
-
-    public void setReplyRegDate(String replyRegDate) {
-        this.replyRegDate = replyRegDate;
-    }
-
     public Date getReg_date() {
         return reg_date;
     }
@@ -80,7 +71,6 @@ public class ReplyVO {
                 ", projectNo=" + projectNo +
                 ", replyUseId='" + replyUseId + '\'' +
                 ", replyContent='" + replyContent + '\'' +
-                ", replyRegDate='" + replyRegDate + '\'' +
                 ", reg_date=" + reg_date +
                 '}';
     }

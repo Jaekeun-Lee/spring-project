@@ -9,7 +9,7 @@ public interface PostDAO {
     public void addPost(PostVO postVO);
 
     //포스트 상세조회
-//    public void getPost()
+    public PostVO getPost(int postNo);
 
 
 
