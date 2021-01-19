@@ -37,6 +37,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public boolean signUp(MemberDTO.SignUpDTO signUpDTO) {
+
+        signUpDTO.setPassword(passwordEncoder.encode(signUpDTO.getPassword())); // 비밀번호 단방향 암호화
+
         int dbResult = memberDAO.addMember(signUpDTO.convertSignUpDTOToMemberVO());
         if (dbResult != 1) { // transaction rollback을 위해서 의도적으로 예외처리를 함.
             throw new RuntimeException();

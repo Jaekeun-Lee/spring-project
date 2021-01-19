@@ -87,5 +87,27 @@
 			#{introToMember}
 		)
 	 </insert>
-
+	 
+	 <select  id="getApplicantList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="applicantSelectMap">
+	 	SELECT *
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+			FROM ( SELECT m.profile_image, a.user_id
+				FROM member m, applicant a
+				WHERE m.user_id = a.user_id
+				ORDER BY a.applicant_no) inner_table
+			WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}	 	
+	 </select>
+	 
+	 <select  id="getTotalCount"  parameterType="com.example.demo.common.vo.SearchVO"	 resultType="int">
+	 	SELECT COUNT(*)
+	  	FROM(	
+  			SELECT m.profile_image, a.user_id
+			FROM member m, applicant a
+			WHERE m.user_id = a.user_id
+			ORDER BY a.applicant_no 
+			) countTable		
+	 </select>
+	 
+	 
 </mapper>

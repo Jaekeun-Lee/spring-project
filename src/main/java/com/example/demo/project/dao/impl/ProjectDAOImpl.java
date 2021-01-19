@@ -2,14 +2,13 @@ package com.example.demo.project.dao.impl;
 
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectReplyDTO;
+import com.example.demo.project.vo.MyProjectVO;
 import com.example.demo.project.vo.ProjectVO;
-import com.example.demo.common.vo.ReviewVO;
+import com.example.demo.project.vo.TodoVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository("projectDAOImpl")
 public class ProjectDAOImpl implements ProjectDAO {
@@ -25,14 +24,23 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     @Override
     public ProjectVO getProject(int projectNo) {
-        return sqlSession.selectOne("projectMapper.getProject",projectNo);
+        return sqlSession.selectOne("projectMapper.getProject", projectNo);
     }
 
     @Override
     public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
-        return sqlSession.insert("projectMapper.addProjectReply",projectReplyDTO);
+        return sqlSession.insert("projectMapper.addProjectReply", projectReplyDTO);
     }
 
+    @Override
+    public MyProjectVO getMyProject(int projectNo) {
+        return sqlSession.selectOne("projectMapper.getMyProject", projectNo);
+    }
+
+    @Override
+    public int addTodo(TodoVO todoVO) {
+        return sqlSession.insert("projectMapper.addTodo", todoVO);
+    }
 
 
 }

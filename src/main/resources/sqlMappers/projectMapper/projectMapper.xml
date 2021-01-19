@@ -6,7 +6,7 @@
 <mapper namespace="projectMapper">
 
 	<resultMap id="projectSelectMap" type="projectVO">
-		<result property="projectNo"	    		column="project_no"         		jdbcType="INTEGER"/>
+		<id		property="projectNo"	    		column="project_no"         		jdbcType="INTEGER"/>
 		<result property="leaderId"    				column="user_id"      				jdbcType="VARCHAR"/>
 		<result property="projectName" 				column="project_name"      			jdbcType="VARCHAR"/>
 		<result property="progressClassification"   column="progress_Classification"    jdbcType="NUMERIC"/>
@@ -28,8 +28,7 @@
 		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"      	jdbcType="NUMERIC"/>
 
 		<!-- association -->
-		<association property="applicantsCnt"			column="project_no"		select="getApplicantsCnt"/>
-		<association property="recruitmentMemberCnt" 	column="project_no"		select="getRecruitmentMemberCnt"/>
+		<association property="applicantsCnt"			column="project_no"		select="getApplicantsCntByProjectNo"/>
 
 		<!-- collection -->
 		<collection property="teamMember" 	column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
@@ -38,6 +37,12 @@
 
 	</resultMap>
 
+	<resultMap id="getMyProjectByProjectNo" type="myProjectVO">
+		<id			property="projectNo"	column="project_no"		jdbcType="NUMERIC"/>
+		<result		property="projectName"	column="project_name"	jdbcType="VARCHAR"/>
+		<collection property="todoList" 	column="project_no" 	select="getTodoListByProjectNo"/>
+		<collection property="teamMember" 	column="project_no" 	select="getProjectMemberByProjectNo"/>
+	</resultMap>
 
 	<insert id="addProject" parameterType="projectVO">
 		INSERT
@@ -79,7 +84,7 @@
 			  )
 	</insert>
 
-	<select  id="getProject"  parameterType="int"	 resultMap="projectSelectMap">
+	<select id="getProject"  parameterType="int" resultMap="projectSelectMap">
 		SELECT PROJECT_NO,
 			   USER_ID,
 			   PROJECT_NAME,
@@ -105,15 +110,26 @@
 		VALUES ( SEQ_REPLY_NO.NEXTVAL, #{projectNo}, #{replyUserId}, #{replyContent}, SYSDATE)
 	</insert>
 
+	<select id="getMyProject" parameterType="int" resultMap="getMyProjectByProjectNo">
+		SELECT PROJECT_NO, PROJECT_NAME
+		FROM PROJECT p
+		WHERE PROJECT_NO = #{projectNo}
+	</select>
 
-	<select id="getApplicantsCnt" resultType="int">
+	<insert id="addTodo" parameterType="todoVO">
+		INSERT INTO TODO ( TODO_NO, PROJECT_NO, USER_ID, TODO_CONTENT )
+		VALUES (SEQ_TODO_NO.NEXTVAL, #{projectNO}, #{userId}, #{todoContent})
+	</insert>
+
+
+	<select id="getApplicantsCntByProjectNo" resultType="int">
 		SELECT COUNT(*)
 		FROM APPLICANT
 		WHERE PROJECT_NO = #{project_no}
 	</select>
 
 	<select id = "getProjectMemberByProjectNo" resultType="memberVO">
-		SELECT USER_ID as userId, PROFILE_IMAGE
+		SELECT USER_ID as userId, PROFILE_IMAGE as profileImg
 		FROM MEMBER
 		WHERE PROJECT_NO = #{projectNo}
 	</select>
@@ -136,6 +152,16 @@
 	<select id="getRecruitmentMemberCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM APPLICANT
+		WHERE PROJECT_NO = #{projectNo}
+	</select>
+
+	<select id="getTodoListByProjectNo" resultType="todoVO">
+		SELECT TODO_NO 		as todoNo,
+		       PROJECT_NO 	as projectNo,
+		       USER_ID 		as userId,
+		       TODO_CONTENT as todoContent,
+		       TODO_STATUS 	as todoStatus
+		FROM TODO
 		WHERE PROJECT_NO = #{projectNo}
 	</select>
 
