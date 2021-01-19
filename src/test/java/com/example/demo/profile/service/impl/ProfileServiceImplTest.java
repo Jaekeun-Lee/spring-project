@@ -19,7 +19,7 @@ public class ProfileServiceImplTest {
     private ProfileService profileService;
 
     //@Test
-    public void addMyProfile() {
+    public void updateMyProfile() {
 
         ProfileDTO.UpdateMyProfileDTO updateMyProfileDTO = new ProfileDTO.UpdateMyProfileDTO();
         updateMyProfileDTO.setUserId("user01");

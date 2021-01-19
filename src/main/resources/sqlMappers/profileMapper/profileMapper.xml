@@ -18,9 +18,9 @@
 
 
     <!-- collection -->
-    <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.profile.vo.NotiVO" select="getNotiList"/>
+    <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.NotiVO" select="getNotiList"/>
         <collection property="review" column="review_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
-        <collection property="skillHashTag" column="profile_no" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByProfileNo"/>
+        <collection property="skillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByUserId"/>
     </resultMap>
 
     <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
@@ -42,6 +42,13 @@
                link
         FROM member
         WHERE user_id = #{user_id}
+    </select>
+
+    <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
+        SELECT hashtag
+        FROM skill_hashtag as sh, hashtag as h
+        WHERE sh.skill_hashTag_no = h.hashTag_no
+          AND sh.user_id = #{user_id}
     </select>
 
 
