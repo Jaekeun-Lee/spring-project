@@ -1,9 +1,14 @@
 package com.example.demo.projectApplicant.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dto.UpdateApplicantStatusDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.dao.ProjectApplicantDAO;
@@ -56,6 +61,16 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Map<String, Object> getApplicantList(SearchVO searchVO) {
+		List<ApplicantVO> list = projectapplicantDAO.getApplicantList(searchVO);
+		int totalCount = projectapplicantDAO.getTotalCount(searchVO);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		return map;
 	}
 
 }
