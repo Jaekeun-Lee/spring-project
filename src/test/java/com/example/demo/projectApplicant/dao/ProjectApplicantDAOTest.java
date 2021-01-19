@@ -40,13 +40,11 @@ public class ProjectApplicantDAOTest {
 		
 		ProjectVO projectVO = new ProjectVO();
 		
-		projectVO = projectApplicantService.getProject(1);
+		projectVO = projectApplicantService.getProject(3);
 		System.out.println(projectVO);
 		
-		Assert.assertEquals("testProject", projectVO.getProjectName());
-		Assert.assertEquals(3, projectVO.getProjectReply().get(0).getReplyNo());
-		Assert.assertEquals(1,projectVO.getProjectReply().size());
-		Assert.assertEquals(1,projectVO.getApplicantsCnt());
+		Assert.assertEquals("user02", projectVO.getLeaderId());
+
 	}
 	
 	//@Test
@@ -101,11 +99,11 @@ public class ProjectApplicantDAOTest {
 		
 		ApplicantVO applicantVO = new ApplicantVO();
 		ProjectVO projectVO = new ProjectVO();
-		projectVO.setProjectNo(1);
+		projectVO.setProjectNo(2);
 		
-		applicantVO.setApplicantAnswerA("답변입니다");
-		applicantVO.setApplicantNo(3);
-		applicantVO.setIntroToMember("잘하겠습니다");
+		applicantVO.setApplicantAnswerA("답변입니다2");
+		applicantVO.setApplicantNo(4);
+		applicantVO.setIntroToMember("잘하겠습니다2");
 		applicantVO.setProjectVO(projectVO);
 		applicantVO.setUserId("user03");
 		
@@ -119,7 +117,7 @@ public class ProjectApplicantDAOTest {
 		Assert.assertEquals("user05", applicantVO.getUserId());
 	}
 	
-	@Test
+	//@Test
 	public void getApplicantList() {
 		
 		SearchVO searchVO = new SearchVO();
@@ -130,11 +128,30 @@ public class ProjectApplicantDAOTest {
 		Map<String, Object> map = projectApplicantService.getApplicantList(searchVO);
 		
 		List<Object> list = (List<Object>)map.get("list");
-		System.out.println("@@@@@"+list);
+		System.out.println(list);
 		Assert.assertEquals(2,  list.size());
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 	 	System.out.println(totalCount);
 	}
-
+	
+	@Test
+	public void getAppliedProjectList() {
+		
+		SearchVO searchVO = new SearchVO();
+		
+		searchVO.setCurrentPage(1);
+		searchVO.setPageSize(6);
+		searchVO.setUserId("user03");
+		searchVO.setSearchConditionB(1);
+		
+		Map<String, Object> map = projectApplicantService.getAppliedProjectList(searchVO);
+		
+		List<Object> list1 = (List<Object>)map.get("list1");
+		List<Object> list2 = (List<Object>)map.get("list2");
+		Assert.assertEquals(2, list1.size());
+		Assert.assertEquals(2, list2.size());
+		
+		Integer totalCount = (Integer)map.get("totalCount");
+	}
 }

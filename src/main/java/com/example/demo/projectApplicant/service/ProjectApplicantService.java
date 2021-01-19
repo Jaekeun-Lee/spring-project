@@ -19,7 +19,7 @@ public interface ProjectApplicantService {
 
     public ApplicantVO getApplicant(int applicantNo);
 
-//    public List<ProjectVO> getAppliedProjectList(SearchVO searchVO);
+    public Map<String,Object> getAppliedProjectList(SearchVO searchVO);
 
     public Map<String,Object> getApplicantList(SearchVO searchVO);
 

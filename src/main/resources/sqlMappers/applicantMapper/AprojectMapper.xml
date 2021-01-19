@@ -3,7 +3,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="projectMapper">
+<mapper namespace="AprojectMapper">
 
 	<resultMap id="projectSelectMap" type="projectVO">
 		<id		property="projectNo"	    		column="project_no"         		jdbcType="INTEGER"/>
@@ -34,93 +34,7 @@
 		<collection property="teamMember" 	column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
 		<collection property="skillHashTag" column="project_no" select="getProjectHashTagByProjectNo"/>
 		<collection property="projectReply" column="project_no" select="getProjectReplyByProjectNo"/>
-
 	</resultMap>
-
-	<resultMap id="getMyProjectByProjectNo" type="myProjectVO">
-		<id			property="projectNo"	column="project_no"		jdbcType="NUMERIC"/>
-		<result		property="projectName"	column="project_name"	jdbcType="VARCHAR"/>
-		<collection property="todoList" 	column="project_no" 	select="getTodoListByProjectNo"/>
-		<collection property="teamMember" 	column="project_no" 	select="getProjectMemberByProjectNo"/>
-	</resultMap>
-
-	<insert id="addProject" parameterType="projectVO">
-		INSERT
-		INTO PROJECT (
-			PROJECT_NO,
-			USER_ID,
-			PROJECT_NAME,
-			PROGRESS_CLASSIFICATION,
-			PROJECT_CATEGORY,
-			PRE_START_DATE,
-			PRE_PERIOD,
-			MEETING_METHOD,
-			MEETING_LOCATION,
-			APPLICATION_DEADLINE,
-			PROJECT_DETAIL,
-			REG_DATE,
-			APPLICANT_QUESTION_A,
-			APPLICANT_QUESTION_B,
-			APPLICANT_QUESTION_C,
-			RECRUITMENT_MEMBER_CNT
-		)
-		VALUES(
-				  seq_project_no.NEXTVAL,
-				  #{leaderId},
-				  #{projectName},
-				  #{progressClassification},
-				  #{projectCategory},
-				  #{preStartDate},
-				  #{prePeriod},
-				  #{meetingMethod:VARCHAR},
-				  #{meetingLocation},
-				  #{applicationDeadline},
-				  #{projectDetail},
-				  SYSDATE,
-				  #{applicantQuestionA:VARCHAR},
-				  #{applicantQuestionB:VARCHAR},
-				  #{applicantQuestionC:VARCHAR},
-				  #{recruitmentMemberCnt}
-			  )
-	</insert>
-
-	<select id="getProject"  parameterType="int" resultMap="projectSelectMap">
-		SELECT PROJECT_NO,
-			   USER_ID,
-			   PROJECT_NAME,
-			   PROGRESS_CLASSIFICATION,
-			   PROJECT_CATEGORY,
-			   PRE_START_DATE,
-			   PRE_PERIOD,
-			   MEETING_METHOD,
-			   MEETING_LOCATION,
-			   APPLICATION_DEADLINE,
-			   PROJECT_DETAIL,
-			   REG_DATE,
-			   APPLICANT_QUESTION_A,
-			   APPLICANT_QUESTION_B,
-			   APPLICANT_QUESTION_C,
-			   RECRUITMENT_MEMBER_CNT
-		FROM PROJECT
-		WHERE PROJECT_NO = #{projectNo}
-	</select>
-
-	<insert id="addProjectReply" parameterType="projectReplyDTO">
-		INSERT INTO REPLY (REPLY_NO, PROJECT_NO, USER_ID, REPLY_CONTENT, REG_DATE)
-		VALUES ( SEQ_REPLY_NO.NEXTVAL, #{projectNo}, #{replyUserId}, #{replyContent}, SYSDATE)
-	</insert>
-
-	<select id="getMyProject" parameterType="int" resultMap="getMyProjectByProjectNo">
-		SELECT PROJECT_NO, PROJECT_NAME
-		FROM PROJECT p
-		WHERE PROJECT_NO = #{projectNo}
-	</select>
-
-	<insert id="addTodo" parameterType="todoVO">
-		INSERT INTO TODO ( TODO_NO, PROJECT_NO, USER_ID, TODO_CONTENT )
-		VALUES (SEQ_TODO_NO.NEXTVAL, #{projectNO}, #{userId}, #{todoContent})
-	</insert>
-
 
 	<select id="getApplicantsCntByProjectNo" resultType="int">
 		SELECT COUNT(*)
@@ -148,21 +62,39 @@
 		FROM REPLY
 		WHERE PROJECT_NO = #{projectNo}
 	</select>
-
-	<select id="getRecruitmentMemberCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM APPLICANT
-		WHERE PROJECT_NO = #{projectNo}
-	</select>
-
-	<select id="getTodoListByProjectNo" resultType="todoVO">
-		SELECT TODO_NO 		as todoNo,
-		       PROJECT_NO 	as projectNo,
-		       USER_ID 		as userId,
-		       TODO_CONTENT as todoContent,
-		       TODO_STATUS 	as todoStatus
-		FROM TODO
-		WHERE PROJECT_NO = #{projectNo}
-	</select>
+	
+	<select  id="getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
+	 	SELECT *
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+			FROM ( 
+				SELECT
+				p.project_name,
+				p.project_detail,
+				p.reg_date,
+				p.user_id,
+				p.application_deadline,
+				p.recruitment_member_cnt
+				FROM
+				applicant a, project p
+				WHERE
+				a.project_no = p.project_no AND
+				a.user_id = #{userId}
+				<if test="searchConditionB != null">
+					<if test = "searchConditionB == 1" >
+						AND a.applicant_status = 1
+					</if>
+					<if test = "searchConditionB == 2" >
+						AND a.applicant_status = 2
+					</if>
+					<if test = "searchConditionB == 3" >
+						AND a.applicant_status = 3
+						AND a.applicant_status = 4
+					</if>
+				</if>
+				ORDER BY a.APPLICANT_NO
+				) inner_table
+			WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}	 	
+	 </select>
 
 </mapper>

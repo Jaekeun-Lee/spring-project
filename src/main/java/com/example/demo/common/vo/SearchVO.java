@@ -2,16 +2,59 @@ package com.example.demo.common.vo;
 
 public class SearchVO {
 	
+//	Applicant searchCondition
+//	searchConditionA : 조회기간
+//	searchConditionB : 신청서 상태
+//		1 : 정보검토중
+//		2 : 신청승인
+//		3 : 거절, 참가취소
+//	searchConditionC
+	
 	private int currentPage;
-	private String searchCondition;
+	private int searchConditionA;
+	private int searchConditionB;
+	private int searchConditionC;
 	private String searchKeyword;
 	private int pageSize;
 	private int endRowNum;
 	private int startRowNum;
 	private int sort;
+	private String userId;
 	
 	public SearchVO() {
 		super();
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	public int getSearchConditionA() {
+		return searchConditionA;
+	}
+
+	public void setSearchConditionA(int searchConditionA) {
+		this.searchConditionA = searchConditionA;
+	}
+
+	public int getSearchConditionB() {
+		return searchConditionB;
+	}
+
+	public void setSearchConditionB(int searchConditionB) {
+		this.searchConditionB = searchConditionB;
+	}
+
+	public int getSearchConditionC() {
+		return searchConditionC;
+	}
+
+	public void setSearchConditionC(int searchConditionC) {
+		this.searchConditionC = searchConditionC;
 	}
 
 	public int getCurrentPage() {
@@ -20,14 +63,6 @@ public class SearchVO {
 
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
-	}
-
-	public String getSearchCondition() {
-		return searchCondition;
-	}
-
-	public void setSearchCondition(String searchCondition) {
-		this.searchCondition = searchCondition;
 	}
 
 	public String getSearchKeyword() {
@@ -72,9 +107,10 @@ public class SearchVO {
 
 	@Override
 	public String toString() {
-		return "SearchVO [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
-				+ searchKeyword + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum
-				+ ", sort=" + sort + "]";
+		return "SearchVO [currentPage=" + currentPage + ", searchConditionA=" + searchConditionA + ", searchConditionB="
+				+ searchConditionB + ", searchConditionC=" + searchConditionC + ", searchKeyword=" + searchKeyword
+				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum + ", sort="
+				+ sort + "]";
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package com.example.demo.projectApplicant.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,21 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	@Override
 	public int getTotalCount(SearchVO searchVO) {
 		return sqlSession.selectOne("applicantMapper.getTotalCount", searchVO);
+	}
+
+	@Override
+	public List<ProjectVO> getAppliedProjectList(SearchVO searchVO) {
+		return sqlSession.selectList("AprojectMapper.getAppliedProjectList",searchVO);
+	}
+
+	@Override
+	public List<ApplicantVO> getAppliedApplicantList(SearchVO searchVO) {
+		return sqlSession.selectList("applicantMapper.getAppliedApplicantList",searchVO);
+	}
+
+	@Override
+	public int getAppliedTotalCount(SearchVO searchVO) {
+		return sqlSession.selectOne("applicantMapper.getAppliedTotalCount", searchVO);
 	}
 
 }
