@@ -27,8 +27,10 @@ spring:
       enabled: true
 
 
-
 mybatis:
   type-aliases-package: com.example.demo.*
   mapper-locations: classpath:sqlMappers/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true  #언더바 -> 카멜케이스
+    call-setters-on-nulls: true
 
