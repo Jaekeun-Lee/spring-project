@@ -14,9 +14,6 @@ public class ProfileDTO {
         private String profileImg;
         private String selfIntro;
         private String link;
-
-
-
     }
 
     //기본정보 조회
@@ -26,8 +23,10 @@ public class ProfileDTO {
         private String email;
         private String name;
         private String grade;
-        private String reportCnt;
-
+        private int reportCnt;
+        private String profileImg;
+        private String selfIntro;
+        private String link;
     }
 
 }

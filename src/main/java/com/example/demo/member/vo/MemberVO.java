@@ -5,6 +5,7 @@ import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.cd.AuthorityCd;
 import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.profile.vo.NotiVO;
+import com.example.demo.common.vo.ReviewVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class MemberVO {
     private String email;
     private String role; // 권한
     private String name;
+    //TODO userName으로 바꾸기
     private String grade; //등급
     private String status; // 회원의 상태
     private int reportCnt; // 유저가 신고당한 횟수
@@ -33,7 +35,7 @@ public class MemberVO {
     private String selfIntro; //프로필_자기소개
     private List<NotiVO> noti;
     private List<ReviewVO> review;
-    private List<String> link;
+    private String link;
 
 
     /**
@@ -44,8 +46,9 @@ public class MemberVO {
      * @param password
      * @param name
      * @param email
+     * @param grade
      */
-    public MemberVO(String userId, String password, String email, String name) {
+    public MemberVO(String userId, String password, String name, String email, String grade) {
         this.userId = userId;
         this.password = password;
         this.email = email;
@@ -90,8 +93,4 @@ public class MemberVO {
 
     }
 
-
-    public MemberVO(String profileImg, String selfInfo, List<String> link) {
-
-    }
 }

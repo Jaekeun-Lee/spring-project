@@ -9,6 +9,6 @@ public interface ProfileService {
     public int updateMyProfile(ProfileDTO.UpdateMyProfileDTO updateMyProfileDTO);
 
     //기본정보 조회
-    public MemberVO getMyProfile(ProfileDTO profileDTO);
+    public ProfileDTO.GetMyProfileDTO getMyProfile(String userId);
 
 }
