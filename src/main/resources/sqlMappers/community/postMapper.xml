@@ -12,9 +12,13 @@
         <result property="userId"       column="user_id"        jdbcType="VARCHAR"/>
         <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
         <result property="replyCnt"     column="reply_cnt"      jdbcType="NUMERIC"/>
-<!--        <result property="viewCnt"      column="view_cnt"       jdbcType="NUMERIC"/>-->
-    </resultMap>
+<!--        <result property=""-->
+        <result property="viewCnt"      column="view_cnt"       jdbcType="NUMERIC"/>
 
+
+    <collection property="postReply" column="post_no" select="getPostReplyByPostNo"/>
+
+    </resultMap>
 
     <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO">
         insert
@@ -25,6 +29,7 @@
                   reg_date,
                   reply_Cnt,
                   view_Cnt
+--                   reply추가
                   )
         values (#{postNo},
                 #{postName},
@@ -35,9 +40,29 @@
                 #{viewCnt})
     </insert>
 
+    <select id="getPost"    parameterType="int"     resultMap="postSelectMap">
+        SELECT POST_NO,
+                POST_NAME,
+                POST_CONTENT,
+                USER_ID,
+                REG_DATE
+        FROM POST
+        WHERE POST_NO = #{postNo}
+    </select>
 
 
 
+
+
+
+    <select id="getPostReplyByPostNo"   resultType="replyVO">
+        select REPLY_NO as replyNo,
+               USER_ID as replyUserId,
+               REPLY_CONTENT as replyContent,
+               REG_DATE as replyRegDate
+        FROM REPLY
+        WHERE POST_NO = #{postNo}
+    </select>
 
 
 </mapper>

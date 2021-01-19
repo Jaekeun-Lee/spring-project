@@ -33,17 +33,33 @@ public class PostDAOImplTest {
         PostVO postVO = new PostVO();
         Date today = new Date();
 
-        postVO.setPostNo(3);
-        postVO.setPostName("범내려온다");
-        postVO.setPostContent("범이내려온다");
-        postVO.setUserId("user03");
+        postVO.setPostNo(4);
+        postVO.setPostName("hihihi");
+        postVO.setPostContent("hihello");
+        postVO.setUserId("user04");
         postVO.setRegDate(today);
-        postVO.setReplyCnt(3);
-        postVO.setViewCnt(4);
+        postVO.setReplyCnt(2);
+        postVO.setViewCnt(1);
+
+//        postService.addPost(postVO);
+    }
+
+    @Test
+    public void getPost(){
+
+        PostVO postVO = new PostVO();
+        postVO = postService.getPost(1);
+        System.out.println("getPost() TEST::"+postVO);
+
+//        Assert.assertEquals("java", postVO.getPostName());
+//        Assert.assertEquals(1, postVO.getPostReply().get(0).getReplyNo());
+//        Assert.assertEquals(2, postVO.getPostReply().size());
+//        Assert.assertEquals(2, postVO.getReplyCnt());
+        }
 
 
 //        Assert.assertEquals("user02",postVO.getPostNo());
 
 
-    }
+
 }

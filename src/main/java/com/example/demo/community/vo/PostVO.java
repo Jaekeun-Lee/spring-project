@@ -4,6 +4,7 @@ package com.example.demo.community.vo;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class PostVO {
     private int postNo;
@@ -14,6 +15,7 @@ public class PostVO {
     private Date regDate;
     private int replyCnt;
     private int viewCnt;
+    private List<ReplyVO> PostReply;
 //    private String commBookmark;
 
 //    공지여부
@@ -105,7 +107,14 @@ public class PostVO {
         this.viewCnt = viewCnt;
     }
 
-//    public String getCommBookmark() {
+    public List<ReplyVO> getPostReply() {
+        return PostReply;
+    }
+
+    public void setPostReply(List<ReplyVO> postReply) {
+        PostReply = postReply;
+    }
+    //    public String getCommBookmark() {
 //
 //        return commBookmark;
 //    }
@@ -124,10 +133,10 @@ public class PostVO {
                 ", postContent='" + postContent + '\'' +
                 ", commFile='" + commFile + '\'' +
                 ", userId='" + userId + '\'' +
-                ", regDate='" + regDate + '\'' +
+                ", regDate=" + regDate +
                 ", replyCnt=" + replyCnt +
                 ", viewCnt=" + viewCnt +
-//                ", commBookmark='" + commBookmark + '\'' +
+                ", PostReply=" + PostReply +
                 '}';
     }
 }

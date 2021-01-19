@@ -28,5 +28,10 @@ public class PostServiceImpl implements PostService {
         postDAO.addPost(postVO);
 
     }
+
+    @Override
+    public PostVO getPost(int postNo) {
+        return postDAO.getPost(postNo);
+    }
     //목록조회
 }
