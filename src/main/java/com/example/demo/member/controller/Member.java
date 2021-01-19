@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 @RequiredArgsConstructor
 public class Member {
 
@@ -36,13 +36,6 @@ public class Member {
     public String loginPage() {
 
         return "login";
-    }
-
-    // 로그인 요청
-    @PostMapping("/login/req")
-    @ResponseBody
-    public ResponseEntity<Object> loginReq(@Valid MemberDTO.LoginReqDTO param) {
-        return memberService.loginReq(param.getId(), param.getPassword());
     }
 
     // 회원 가입 페이지

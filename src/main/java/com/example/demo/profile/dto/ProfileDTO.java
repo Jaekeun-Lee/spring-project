@@ -28,9 +28,6 @@ public class ProfileDTO {
         private String grade;
         private String reportCnt;
 
-        public MemberVO convertGetMyProfileDTOToMemberVO(){
-            return new MemberVO(this.getUserId(), this.getName(), this.getEmail(), this.getGrade(), this.getReportCnt());
-        }
     }
 
 }

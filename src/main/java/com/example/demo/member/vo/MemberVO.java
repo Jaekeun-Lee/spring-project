@@ -1,13 +1,15 @@
 package com.example.demo.member.vo;
 
-import com.example.demo.authority.cd.AuthorityCd;
+import com.example.demo.common.cd.MemberGradeCd;
+import com.example.demo.common.vo.ReviewVO;
+import com.example.demo.member.cd.AuthorityCd;
 import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.profile.vo.NotiVO;
-import com.example.demo.common.vo.ReviewVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -18,12 +20,11 @@ public class MemberVO {
     private String email;
     private String role; // 권한
     private String name;
-    //TODO userName으로 바꾸기
     private String grade; //등급
     private String status; // 회원의 상태
-    private String reportCnt; // 유저가 신고당한 횟수
-    private String lastLoginDate; // 마지막 로그인 일시
-    private String regDate; // 계정 생성일시
+    private int reportCnt; // 유저가 신고당한 횟수
+    private LocalDateTime lastLoginDate; // 마지막 로그인 일시
+    private LocalDateTime regDate; // 계정 생성일시
 
     private Date projectWithdrawalDate; //프로젝트 탈퇴날짜
     private int projectNo; //프로젝트No
@@ -32,26 +33,26 @@ public class MemberVO {
     private String selfIntro; //프로필_자기소개
     private List<NotiVO> noti;
     private List<ReviewVO> review;
-    private String link;
+    private List<String> link;
 
 
     /**
      * 회원 가입 할때 사용하는 생성
+     * (기본값을 포함한 생성자)
      *
      * @param userId
      * @param password
      * @param name
      * @param email
-     * @param grade
      */
-    public MemberVO(String userId, String password, String name, String email, String grade) {
+    public MemberVO(String userId, String password, String email, String name) {
         this.userId = userId;
         this.password = password;
         this.email = email;
         this.role = AuthorityCd.USER.name();
         this.status = MemberStatusCd.NORMAL.name();
         this.name = name;
-        this.grade = grade;
+        this.grade = MemberGradeCd.BRONZE.name();
     }
 
     /**
@@ -89,4 +90,8 @@ public class MemberVO {
 
     }
 
+
+    public MemberVO(String profileImg, String selfInfo, List<String> link) {
+
+    }
 }

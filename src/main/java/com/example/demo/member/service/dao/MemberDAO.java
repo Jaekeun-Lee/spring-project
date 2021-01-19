@@ -26,6 +26,10 @@ public class MemberDAO {
         return sqlSession.insert("member.addMember", member);
     }
 
+    public MemberVO selectMember(String userId) {
+        return sqlSession.selectOne("member.selectMember", userId);
+    }
+
     public List<MemberVO> selectMemberList(MemberVO param) {
         return sqlSession.selectList("member.selectMemberList", param);
     }
