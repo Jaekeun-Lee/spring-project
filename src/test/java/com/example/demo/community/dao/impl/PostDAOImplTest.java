@@ -60,6 +60,15 @@ public class PostDAOImplTest {
 
 //        Assert.assertEquals("user02",postVO.getPostNo());
 
+    @Test
+    public void updatePost(){
 
+        PostVO postVO = new PostVO();
+        Date today = new Date();
+
+
+
+
+    }
 
 }
