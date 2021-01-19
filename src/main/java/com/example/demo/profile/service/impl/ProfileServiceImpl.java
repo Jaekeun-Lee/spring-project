@@ -21,7 +21,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public MemberVO getMyProfile(ProfileDTO profileDTO) {
-        return profileDAO.getMyProfile(profileDTO);
+    public ProfileDTO.GetMyProfileDTO getMyProfile(String userId) {
+        return profileDAO.getMyProfile(userId);
     }
 }

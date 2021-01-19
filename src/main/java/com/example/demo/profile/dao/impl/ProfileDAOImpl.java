@@ -19,7 +19,7 @@ public class ProfileDAOImpl implements ProfileDAO {
         return sqlSession.insert("profileMapper.updateMyProfile", updateMyProfileDTO);
     }
 
-    public MemberVO getMyProfile(ProfileDTO profileDTO){
-        return sqlSession.selectOne("profileMapper.getMyProfile", profileDTO);
+    public ProfileDTO.GetMyProfileDTO getMyProfile(String userId){
+        return sqlSession.selectOne("profileMapper.getMyProfile", userId);
     }
 }

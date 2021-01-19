@@ -14,9 +14,6 @@ public class ProfileDTO {
         private String profileImg;
         private String selfIntro;
         private String link;
-
-
-
     }
 
     //기본정보 조회
@@ -26,11 +23,10 @@ public class ProfileDTO {
         private String email;
         private String name;
         private String grade;
-        private String reportCnt;
-
-        public MemberVO convertGetMyProfileDTOToMemberVO(){
-            return new MemberVO(this.getUserId(), this.getName(), this.getEmail(), this.getGrade(), this.getReportCnt());
-        }
+        private int reportCnt;
+        private String profileImg;
+        private String selfIntro;
+        private String link;
     }
 
 }

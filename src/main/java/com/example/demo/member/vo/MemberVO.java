@@ -21,7 +21,7 @@ public class MemberVO {
     //TODO userName으로 바꾸기
     private String grade; //등급
     private String status; // 회원의 상태
-    private String reportCnt; // 유저가 신고당한 횟수
+    private int reportCnt; // 유저가 신고당한 횟수
     private String lastLoginDate; // 마지막 로그인 일시
     private String regDate; // 계정 생성일시
 
