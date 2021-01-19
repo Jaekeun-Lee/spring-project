@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="portfolioMapper">
+    <resultMap id="portfolioSelectMap" type="com.example.demo.portfolio.vo.PortfolioVO">
+        <result property="portNo" column="portfolio_no" jdbcType="INTEGER"/>
+        <result property="userId"   column="user_id"    jdbcType="VARCHAR"/>
+        <result property="projectNo"    column="project_no" jdbcType="INTEGER"/>
+        <result property="portProjectStartDate" column="port_project_start_date" jdbcType="DATE"/>
+        <result property="portProjectEndDate" column="port_project_end_date"    jdbcType="DATE"/>
+        <result property="portDescription" column="port_description" jdbcType="VARCHAR"/>
+        <result property="portTitle" column="port_title" jdbcType="VARCHAR"/>
+        <result property="portMemberCnt" column="port_member_cnt" jdbcType="INTEGER"/>
+        <!--<result property="portThumbnailImg" column="port_thumbnail_image" jdbcType="VARCHAR"/>-->
+
+
+        <!-- collection -->
+        <collection property="portSkillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getPortHashTagByUserId"/>
+        <collection property="portFileName" column="portfolio_no" select="getFilesByPortfolioNo"/>
+    </resultMap>
+
+    <insert id="addExPort" parameterType="com.example.demo.portfolio.dto.PortfolioDTO$AddExPortDTO">
+        INSERT
+        INTO portfolio (
+                        portfolio_no,
+                        user_id,
+                        project_no,
+                        port_project_start_date,
+                        port_project_end_date,
+                        port_description,
+                        port_title,
+                        port_member_cnt
+        )
+        VALUES(
+               seq_portfolio_no.NEXTVAL,
+               #{userId},
+               #{projectNo:INTEGER},
+               #{portProjectStartDate},
+               #{portProjectEndDate},
+               #{portDescription},
+               #{portTitle},
+               #{portMemberCnt}
+              )
+    </insert>
+
+    <select id="getExPort" parameterType="int" resultType="com.example.demo.portfolio.dto.PortfolioDTO$GetExPortDTO">
+        SELECT portfolio_no as portNo,
+               user_id,
+               project_no,
+               port_project_start_date,
+               port_project_end_date,
+               port_description,
+               port_member_cnt
+        FROM portfolio
+        WHERE portfolio_no = #{portNo}
+    </select>
+
+</mapper>
