@@ -50,6 +50,10 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <select id="getReviewList" parameterType="com.example.demo.profile.dto.ReviewDTO$getReviewListDTO">
+        SELECT
+    </select>
+
     <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
         SELECT hashtag
         FROM skill_hashtag as sh, hashtag as h

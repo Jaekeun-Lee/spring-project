@@ -2,17 +2,25 @@ package com.example.demo.portfolio.dao;
 
 import com.example.demo.portfolio.vo.PortfolioVO;
 
+import java.util.List;
+
 public interface PortfolioDAO {
 
-    //외부 포트폴리오 등록
-    public int addExPort(PortfolioVO addExPort);
+    //포트폴리오 등록
+    public int addPort(PortfolioVO addPort);
 
-    //외부 포트폴리오 조회
+    //내부 포트폴리오 등록
+//    public int addInPort(PortfolioVO addInPort);
+
+    //포트폴리오 수정
+    public int updatePort(PortfolioVO updatePort);
+
+    //포트폴리오 삭제
+    public int deletePort(PortfolioVO deletePort);
+
+    //포트폴리오 상세 조회
     public PortfolioVO getPort(int portNo);
 
-    //외부 포트폴리오 삭제
-    public int deleteExPort(PortfolioVO deleteExPort);
-
-    //외부 포트폴리오 수정
-    public int updateExPort(PortfolioVO updateExPort);
+    //포트폴리오 목록 조회
+    public List<PortfolioVO> getPortList(String userId);
 }

@@ -1,5 +1,6 @@
 package com.example.demo.profile.dao.impl;
 
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.profile.dao.ProfileDAO;
 import com.example.demo.profile.dto.ProfileDTO;
@@ -30,6 +31,11 @@ public class ProfileDAOImpl implements ProfileDAO {
     @Override
     public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink){
         return sqlSession.update("profileMapper.updateLink ", updateLink);
+    }
+
+    @Override
+    public List<ReviewVO> getReviewList(ReviewVO reviewVO){
+        return sqlSession.selectList("profileMapper.getReviewList",reviewVO);
     }
 
 }

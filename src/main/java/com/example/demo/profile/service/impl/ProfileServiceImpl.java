@@ -1,5 +1,6 @@
 package com.example.demo.profile.service.impl;
 
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.profile.dao.ProfileDAO;
 import com.example.demo.profile.dto.ProfileDTO;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("profileServiceImpl")
 public class ProfileServiceImpl implements ProfileService {
@@ -29,6 +32,11 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink){
         return profileDAO.updateLink(updateLink);
+    }
+
+    @Override
+    public List<ReviewVO> getReviewList(ReviewVO reviewVO){
+        return profileDAO.getReviewList(reviewVO);
     }
 
 }

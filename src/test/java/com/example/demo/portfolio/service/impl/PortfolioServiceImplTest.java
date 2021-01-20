@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.sound.sampled.Port;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -24,23 +26,23 @@ public class PortfolioServiceImplTest {
     @Qualifier("portfolioServiceImpl")
     private PortfolioService portfolioService;
 
-    @Test
-    public void addExPort() {
+    //@Test
+    public void addPort() {
 
-        PortfolioVO addExPort = new PortfolioVO();
-        addExPort.setUserId("user02");
-        addExPort.setProjectNo(1);
-        addExPort.setPortProjectStartDate(new Date());
-        addExPort.setPortProjectEndDate(new Date());
-        addExPort.setPortDescription("테스트중");
-        addExPort.setPortTitle("설명이 어설프다");
-        addExPort.setPortMemberCnt(3);
+        PortfolioVO addPort = new PortfolioVO();
+        addPort.setUserId("user02");
+        addPort.setProjectNo(3);
+        addPort.setPortProjectStartDate(new Date());
+        addPort.setPortProjectEndDate(new Date());
+        addPort.setPortDescription("아 맛있는 거 먹고 싶다 예를들면 팥빙수");
+        addPort.setPortTitle("새벽공부가 집중이 더 잘 되는 이유");
+        addPort.setPortMemberCnt(2);
 //        addExPortDTO.setPortFileName("메일인증코드.docx");
 //        addExPortDTO.setPortThumbnailImg("Vv.jpg");
 //        addExPortDTO.setPortSkillTag(Collections.singletonList("Java"));
 
 
-        Assert.assertEquals(1,portfolioService.addExPort(addExPort));
+        Assert.assertEquals(1,portfolioService.addPort(addPort));
 
     }
 
@@ -59,23 +61,36 @@ public class PortfolioServiceImplTest {
     }
 
     //@Test
-    public void deleteExPort() {
-        PortfolioVO deleteExPort = new PortfolioVO();
-        deleteExPort.setPortNo(12);
+    public void deletePort() {
+        PortfolioVO deletePort = new PortfolioVO();
+        deletePort.setPortNo(16);
 
-        Assert.assertEquals(1,portfolioService.deleteExPort(deleteExPort));
+        Assert.assertEquals(1,portfolioService.deletePort(deletePort));
     }
 
     //@Test
-    public void updateExPort(){
-        PortfolioVO updateExPort = new PortfolioVO();
-        updateExPort.setPortNo(13);
-        updateExPort.setPortProjectStartDate(new Date());
-        updateExPort.setPortProjectEndDate(new Date());
-        updateExPort.setPortDescription("오늘은 규리언니가 치즈감자튀김을 자랑했다 도영이는 떡 먹고 있던데 다들 잘 먹고 다니네");
-        updateExPort.setPortMemberCnt(3);
-        updateExPort.setPortTitle("3조 먹성");
+    public void updatePort(){
+        PortfolioVO updatePort = new PortfolioVO();
+        updatePort.setPortNo(13);
+        updatePort.setPortProjectStartDate(new Date());
+        updatePort.setPortProjectEndDate(new Date());
+        updatePort.setPortDescription("오늘은 규리언니가 치즈감자튀김을 자랑했다 도영이는 떡 먹고 있던데 다들 잘 먹고 다니네");
+        updatePort.setPortMemberCnt(3);
+        updatePort.setPortTitle("3조 먹성");
 
-        Assert.assertEquals(1,portfolioService.updateExPort(updateExPort));
+        Assert.assertEquals(1,portfolioService.updatePort(updatePort));
+    }
+
+    @Test
+    public void getPortList(){
+
+        PortfolioVO getPortList = new PortfolioVO();
+
+        getPortList.setUserId("user02");
+
+        List<PortfolioVO> getPortList01 = portfolioService.getPortList("user02");
+        Assert.assertEquals(3,getPortList01.size());
+
+
     }
 }

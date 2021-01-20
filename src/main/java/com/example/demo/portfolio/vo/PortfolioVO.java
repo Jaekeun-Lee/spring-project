@@ -15,6 +15,7 @@ public class PortfolioVO {
     private String portThumbnailImg;    //대표 이미지
     private String portFileName;        //첨부파일
     private List<String> portSkillTag;
+    private Date regDate;
 
     public PortfolioVO() {
     }
@@ -107,7 +108,31 @@ public class PortfolioVO {
         this.portSkillTag = portSkillTag;
     }
 
+    public Date getRegDate() {
+        return regDate;
+    }
 
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
+    @Override
+    public String toString() {
+        return "PortfolioVO{" +
+                "portNo=" + portNo +
+                ", userId='" + userId + '\'' +
+                ", projectNo=" + projectNo +
+                ", portProjectStartDate=" + portProjectStartDate +
+                ", portProjectEndDate=" + portProjectEndDate +
+                ", portDescription='" + portDescription + '\'' +
+                ", portTitle='" + portTitle + '\'' +
+                ", portMemberCnt=" + portMemberCnt +
+                ", portThumbnailImg='" + portThumbnailImg + '\'' +
+                ", portFileName='" + portFileName + '\'' +
+                ", portSkillTag=" + portSkillTag +
+                ", regDate=" + regDate +
+                '}';
+    }
 }
 
 

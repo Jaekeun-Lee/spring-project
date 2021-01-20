@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.sound.sampled.Port;
+import java.util.List;
 
 @Repository("portfolioDAOImpl")
 public class PortfolioDAOImpl implements PortfolioDAO {
@@ -16,22 +17,32 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     @Qualifier("sqlSessionTemplate")
     private SqlSession sqlSession;
 
-    public int addExPort(PortfolioVO addExPort){
-        return sqlSession.insert("portfolioMapper.addExPort", addExPort);
+    @Override
+    public int addPort(PortfolioVO addPort){
+        return sqlSession.insert("portfolioMapper.addPort", addPort);
     }
 
+//    public int addInPort(PortfolioVO addInPort){
+//        return sqlSession.insert("portfolioMapper.addInPort", addInPort);
+//    }
+
+    @Override
+    public int updatePort(PortfolioVO updatePort){
+        return sqlSession.update("portfolioMapper.updatePort", updatePort);
+    }
+
+    @Override
+    public int deletePort(PortfolioVO deletePort){
+        return sqlSession.delete("portfolioMapper.deletePort", deletePort);
+    }
+
+    @Override
     public PortfolioVO getPort(int portNo){
         return sqlSession.selectOne("portfolioMapper.getPort", portNo);
     }
 
-    public int deleteExPort(PortfolioVO deleteExPort){
-        return sqlSession.delete("portfolioMapper.deleteExPort", deleteExPort);
+    @Override
+    public List<PortfolioVO> getPortList(String userId) {
+        return sqlSession.selectList("portfolioMapper.getPortList",userId);
     }
-
-    public int updateExPort(PortfolioVO updateExPort){
-        return sqlSession.update("portfolioMapper.updateExPort", updateExPort);
-    }
-
-
-
 }

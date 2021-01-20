@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("portfolioServiceImpl")
 public class PortfolioServiceImpl implements PortfolioService {
 
@@ -15,8 +17,23 @@ public class PortfolioServiceImpl implements PortfolioService {
     PortfolioDAO portfolioDAO;
 
     @Override
-    public int addExPort(PortfolioVO addExPort){
-        return portfolioDAO.addExPort(addExPort);
+    public int addPort(PortfolioVO addPort){
+        return portfolioDAO.addPort(addPort);
+    }
+
+//    @Override
+//    public int addInPort(PortfolioVO addInPort){
+//        return portfolioDAO.addInPort(addInPort);
+//    }
+
+    @Override
+    public int updatePort(PortfolioVO updatePort){
+        return portfolioDAO.updatePort(updatePort);
+    }
+
+    @Override
+    public int deletePort(PortfolioVO deletePort){
+        return portfolioDAO.deletePort(deletePort);
     }
 
     @Override
@@ -25,13 +42,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public int deleteExPort(PortfolioVO deleteExPort){
-        return portfolioDAO.deleteExPort(deleteExPort);
-    }
-
-    @Override
-    public int updateExPort(PortfolioVO updateExPort){
-        return portfolioDAO.updateExPort(updateExPort);
+    public List<PortfolioVO> getPortList(String userId) {
+        return portfolioDAO.getPortList(userId);
     }
 }
 
