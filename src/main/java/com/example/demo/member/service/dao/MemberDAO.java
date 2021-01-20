@@ -42,5 +42,9 @@ public class MemberDAO {
         return sqlSession.selectList("selectDormantMemberList", param);
     }
 
+    public List<MemberVO> selectMemberBackList(MemberVO param) {
+        return sqlSession.selectList("selectBlackMemberList", param);
+    }
+
 }
 
