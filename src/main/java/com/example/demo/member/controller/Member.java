@@ -10,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -37,6 +35,16 @@ public class Member {
 
         return "login";
     }
+
+//    @GetMapping("/login")
+//    public String login(@RequestParam(value = "error", required = false) String error,
+//                        @RequestParam(value = "exception", required = false) String exception,
+//                        Model model)
+//    {
+//        model.addAttribute("error",error);
+//        model.addAttribute("exception",exception);
+//        return "login";
+//    }
 
     // 회원 가입 페이지
     @GetMapping("/signUp")

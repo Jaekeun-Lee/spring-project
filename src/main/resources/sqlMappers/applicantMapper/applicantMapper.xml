@@ -171,5 +171,25 @@
 			) countTable		
 	 </select>
 	 
+	 <update	id="updateApplicantStatus"	parameterType="updateApplicantStatusDTO" >
+	   	UPDATE applicant
+	   	<set>
+	   		APPLICANT_STATUS 	= #{applicantStatus}
+	   	</set>
+	   	WHERE APPLICANT_NO = #{applicantNo}
+	 </update>
+	 
+	 <update id="updateProjectMember" parameterType="updateApplicantStatusDTO">
+		UPDATE MEMBER
+		SET PROJECT_NO = #{projectNo}
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<select id="getProjectNo" parameterType="updateApplicantStatusDTO" resultType="int">
+		SELECT PROJECT_NO
+		FROM   applicant
+		WHERE APPLICANT_NO = #{applicantNo}
+	</select>
+	 
 	 
 </mapper>

@@ -59,7 +59,16 @@ public class MemberManage {
         return "admin/manage/dormant";
     }
 
-    //TODO 블랙리스트 관리
+    @GetMapping("/member/list/black")
+    public String list(@Valid MemberDTO.GetListBlackReqDTO param, Model model) {
+
+        List<MemberVO> memberBackList = memberDAO.selectMemberBackList(param.convertSignUpDTOToMemberVO());
+
+        model.addAttribute("memberBlackList", memberBackList);
+
+        return "admin/manage/black";
+    }
+
 
     //TODO 회원 탈퇴 
 

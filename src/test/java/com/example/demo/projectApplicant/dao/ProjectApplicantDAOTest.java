@@ -20,6 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.ProjectVO;
+import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
@@ -135,7 +136,7 @@ public class ProjectApplicantDAOTest {
 	 	System.out.println(totalCount);
 	}
 	
-	@Test
+	//@Test
 	public void getAppliedProjectList() {
 		
 		SearchVO searchVO = new SearchVO();
@@ -154,4 +155,21 @@ public class ProjectApplicantDAOTest {
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 	}
+	
+	@Test
+	public void updateApplicantStatus() {
+		
+		UpdateApplicantStatusDTO updateApplicantStatusDTO = new UpdateApplicantStatusDTO();
+		updateApplicantStatusDTO.setApplicantNo(2);
+		updateApplicantStatusDTO.setApplicantStatus(5);
+		updateApplicantStatusDTO.setUserId("user03");
+		
+		projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
+		
+		ApplicantVO applicantVO = new ApplicantVO();
+		applicantVO = projectApplicantService.getApplicant(2);
+		
+		Assert.assertEquals(2, applicantVO.getApplicantStatus());
+	}
+
 }
