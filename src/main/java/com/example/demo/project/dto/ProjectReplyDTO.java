@@ -7,11 +7,6 @@ public class ProjectReplyDTO {
     private String replyUserId;
     private String replyContent;
 
-
-
-    public ProjectReplyDTO() {
-    }
-
     public int getProjectNo() {
         return projectNo;
     }

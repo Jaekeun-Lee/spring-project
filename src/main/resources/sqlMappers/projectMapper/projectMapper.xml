@@ -86,21 +86,18 @@
 		       #{recruitmentMemberCnt})
 	</insert>
 
-	<select id="getProjectNo" parameterType="java.lang.String" resultType="hashmap">
-		SELECT PROJECT_NO,
-		       USER_ID
-		FROM   PROJECT
-		WHERE  USER_ID = #{leaderId} AND PROJECT_STATUS = 1
-	</select>
-
-	<update id="updateMemberProjectNo" parameterType="hashMap">
+	<update id="updateMemberProjectNo" parameterType="string">
 		UPDATE MEMBER
-		SET PROJECT_NO = #{PROJECT_NO}
-		WHERE USER_ID = #{USER_ID}
+		<set>
+		    PROJECT_NO = (SELECT PROJECT_NO
+						  FROM PROJECT
+						  WHERE USER_ID = #{value} AND PROJECT_STATUS = 1)
+		</set>
+		WHERE USER_ID = #{value}
 	</update>
 
 
-	<select id="getProject"  parameterType="getProjectDTO" resultMap="projectSelectMap">
+	<select id="getProject"  parameterType="hashMap" resultMap="projectSelectMap">
 		SELECT P.*, COUNT(*) OVER () AS bookmarkCheck
 		FROM PROJECT P, BOOKMARK B
 		WHERE  P.PROJECT_NO(+) = B.PROJECT_NO AND P.PROJECT_NO=#{projectNo} AND B.USER_ID=#{userId}
@@ -207,40 +204,47 @@
 	</select>
 
 
-	<!--<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
+	<delete id="deleteProject" parameterType="int">
+		DELETE
+		FROM PROJECT
+		WHERE PROJECT_NO = #{value}
+	</delete>
+
+
+
+	<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
 		SELECT *
 		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
-				FROM (
-					SELECT
-					p.project_name,
-					p.project_detail,
-					p.reg_date,
-					p.user_id,
-					p.application_deadline,
-					p.recruitment_member_cnt
-					FROM
-					applicant a, project p
-					WHERE
-					a.project_no = p.project_no AND
-					a.user_id = #{userId}
-					<if test="searchConditionB != null">
-						<if test = "searchConditionB == 1" >
-							AND a.applicant_status = 1
-						</if>
-						<if test = "searchConditionB == 2" >
-							AND a.applicant_status = 2
-						</if>
-						<if test = "searchConditionB == 3" >
-							AND a.applicant_status = 3
-							AND a.applicant_status = 4
-						</if>
-					</if>
-					ORDER BY a.APPLICANT_NO
-				) inner_table
-				WHERE ROWNUM &lt;= #{endRowNum} )
+		FROM (
+		SELECT
+		p.project_name,
+		p.project_detail,
+		p.reg_date,
+		p.user_id,
+		p.application_deadline,
+		p.recruitment_member_cnt
+		FROM
+		applicant a, project p
+		WHERE
+		a.project_no = p.project_no AND
+		a.user_id = #{userId}
+		<if test="searchConditionB != null">
+			<if test = "searchConditionB == 1" >
+				AND a.applicant_status = 1
+			</if>
+			<if test = "searchConditionB == 2" >
+				AND a.applicant_status = 2
+			</if>
+			<if test = "searchConditionB == 3" >
+				AND a.applicant_status = 3
+				AND a.applicant_status = 4
+			</if>
+		</if>
+		ORDER BY a.APPLICANT_NO
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
-	</select>-->
-
+	</select>
 
 
 
@@ -281,5 +285,6 @@
 		FROM   TODO
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
+
 
 </mapper>

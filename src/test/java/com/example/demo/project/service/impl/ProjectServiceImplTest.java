@@ -1,7 +1,6 @@
 package com.example.demo.project.service.impl;
 
 import com.example.demo.common.vo.SearchVO;
-import com.example.demo.project.dto.GetProjectDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
@@ -17,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,7 +34,7 @@ public class ProjectServiceImplTest {
         ProjectVO projectVO = new ProjectVO();
 
         projectVO.setLeaderId("user06");
-        projectVO.setProjectName("맴버에도 추가하기");
+        projectVO.setProjectName("업데이트문안에셀렉트문");
         projectVO.setProgressClassification(2);
         projectVO.setProjectCategory(1);
         projectVO.setPreStartDate(new Date());
@@ -53,10 +54,12 @@ public class ProjectServiceImplTest {
     //@Test
     public void getProject() {
 
-        GetProjectDTO getProjectDTO = new GetProjectDTO();
-        getProjectDTO.setProjectNo(1);
-        getProjectDTO.setUserId("user01");
-        ProjectVO projectVO = projectService.getProject(getProjectDTO);
+        Map<String, Object> getProjectMap = new HashMap<>();
+
+        getProjectMap.put("projectNo", 1);
+        getProjectMap.put("userId", "user01");
+
+        ProjectVO projectVO = projectService.getProject(getProjectMap);
 
         //테스트 데이터 프로젝트 명
         Assert.assertEquals("testProject", projectVO.getProjectName());
@@ -130,11 +133,11 @@ public class ProjectServiceImplTest {
         ProjectBookmarkDTO projectBookmarkDTO = new ProjectBookmarkDTO();
         projectBookmarkDTO.setBookmarkNo(10);
 
-        Assert.assertEquals(1,projectService.deleteBookmark(projectBookmarkDTO));
+        Assert.assertEquals(1, projectService.deleteBookmark(projectBookmarkDTO));
 
     }
 
-    @Test
+    //@Test
     public void getProjectList() {
 
         SearchVO searchVO = new SearchVO();
@@ -160,36 +163,26 @@ public class ProjectServiceImplTest {
         //sort 정렬조건 = 1: 최신등록순, 2:모집 마감 임박 순
         searchVO.setSort(1);
 
+        searchVO.setUserId("user01"); //로그인 된 아이디 ( 북마크 체킹용 )
 
         List<ProjectVO> projectVOList = projectService.getProjectList(searchVO);
-        Assert.assertEquals(1,projectVOList.size());
-
-
-        //목록에서 북마크 추가 표시 확인
-        //searchVO.setUserId("user01");
+        Assert.assertEquals(1, projectVOList.size());
 
 
     }
 
-    /*
-    @Test
-    public void getAppliedProjectList() {
+    //@Test
+    public void deleteProject() {
+        /*
 
-        SearchVO searchVO = new SearchVO();
+        TODO 테이블 데이터 날리기 vs 컬럼추가해서 플래그처리 선택
 
-        searchVO.setCurrentPage(1);
-        searchVO.setPageSize(6);
-        searchVO.setUserId("user03");
-        searchVO.setSearchConditionB(1);
+        TODO 테이블 데이터 날리기 = 연관컬럼 on set NULL or on delete cascade 설정해주기
+        TODO 컬럼추가해서 플래그처리 = MEMBER 테이블 연관 데이터만 null처리 해주기
 
-        Map<String, Object> map = projectService.getAppliedProjectList(searchVO);
+        */
 
-        List<Object> list1 = (List<Object>)map.get("list1");
-        List<Object> list2 = (List<Object>)map.get("list2");
-        Assert.assertEquals(2, list1.size());
-        Assert.assertEquals(2, list2.size());
-
-        Integer totalCount = (Integer)map.get("totalCount");
+        //Assert.assertEquals(1,projectService.deleteProject(4));
     }
-    */
+
 }
