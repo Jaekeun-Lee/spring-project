@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.vo.SearchVO;
-import com.example.demo.project.dto.UpdateApplicantStatusDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.dao.ProjectApplicantDAO;
+import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
@@ -52,15 +52,14 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	}
 
 	@Override
-	public int updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus) {
-		// TODO Auto-generated method stub
-		
+	public void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
+		projectapplicantDAO.updateApplicantStatus(updateApplicantStatusDTO);
+		if(updateApplicantStatusDTO.getApplicantStatus()==5) {
+			System.out.println("되는지 확인하는거임!!!!!!!!@@@@@");
+			int pjNO = projectapplicantDAO.getProjectNo(updateApplicantStatusDTO);
+			updateApplicantStatusDTO.setProjectNo(pjNO);
+			projectapplicantDAO.updateProjectMember(updateApplicantStatusDTO);
+		}
 	}
 
 	@Override

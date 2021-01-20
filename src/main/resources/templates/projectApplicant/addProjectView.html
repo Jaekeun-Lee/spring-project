@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<label for="projectName" class="col-sm-offset-1 col-sm-3 control-label">프로젝트제목</label>
+  	<input type="text" class="form-control" id="projectName" name="projectName" placeholder="예)미디어 커머스 플랫폼구축" >
+  	
+  	<p>프로젝트 진행 분류</p>
+	<label><input type="radio" name="progressClassification" value="1"> 신규</label>
+	<label><input type="radio" name="progressClassification" value="2"> 진행중</label>
+	
+	<p>모집인원수</p>
+	<select name="recruitmentMemberCnt">
+	<option value="2">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	</select>
+	
+	<p>프로젝트 카테고리</p>
+	<label><input type="radio" name="projectCategory" value="1"> 개발</label>
+	<label><input type="radio" name="projectCategory" value="2"> 디자인</label>
+	<label><input type="radio" name="projectCategory" value="3"> 기획</label><br><br>
+  	
+  	<label for="projectDetail" class="col-sm-offset-1 col-sm-3 control-label">프로젝트상세내용</label><br>
+  	<input type="text" class="form-control" style="width:300px;height:300px;" id="projectDetail" name="projectDetail" placeholder="상세내용~~" >
+  	
+  	<p>예상 시작일</p>
+  	<p><input type="date" id="preStartDate"></p>
+  	
+  	<p>예상 진행기간</p>
+  	<input type="number" class="form-control" id="projectName" name="projectName" >
+  	
+  	<p>미팅방식</p>
+  	<label><input type="radio" name="meetingMethod" value="1"> 온라인</label>
+	<label><input type="radio" name="meetingMethod" value="2"> 오프라인</label>
+	
+	<p>미팅위치</p>
+	<input type="text" class="form-control" id="meetingLocation" name="meetingLocation">
+  	
+  	
+  	<p></p>
+</body>
+</html>

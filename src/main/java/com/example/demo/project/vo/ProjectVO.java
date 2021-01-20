@@ -33,24 +33,9 @@ public class ProjectVO {
     private int endProjectCnt;
     private String projectDetail;
     private Date endDate;
+    private int bookmarkCheck;
 
-    public ProjectVO() {
-    }
-    
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getProjectDetail() {
-		return projectDetail;
-	}
-
-	public void setProjectDetail(String projectDetail) {
-		this.projectDetail = projectDetail;
+	public ProjectVO() {
 	}
 
 	public int getProjectNo() {
@@ -237,21 +222,60 @@ public class ProjectVO {
 		this.endProjectCnt = endProjectCnt;
 	}
 
+	public String getProjectDetail() {
+		return projectDetail;
+	}
+
+	public void setProjectDetail(String projectDetail) {
+		this.projectDetail = projectDetail;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getBookmarkCheck() {
+		return bookmarkCheck;
+	}
+
+	public void setBookmarkCheck(int bookmarkCheck) {
+		this.bookmarkCheck = bookmarkCheck;
+	}
+
 	@Override
 	public String toString() {
-		return "ProjectVO [projectNo=" + projectNo + ", leaderId=" + leaderId + ", teamMember=" + teamMember
-				+ ", projectName=" + projectName + ", progressClassification=" + progressClassification
-				+ ", projectCategory=" + projectCategory + ", preStartDate=" + preStartDate + ", startDate=" + startDate
-				+ ", prePeriod=" + prePeriod + ", regDate=" + regDate + ", applicationDeadline=" + applicationDeadline
-				+ ", meetingMethod=" + meetingMethod + ", meetingLocation=" + meetingLocation + ", skillHashTag="
-				+ skillHashTag + ", applicantQuestionA=" + applicantQuestionA + ", applicantQuestionB="
-				+ applicantQuestionB + ", applicantQuestionC=" + applicantQuestionC + ", projectReply=" + projectReply
-				+ ", applicantsCnt=" + applicantsCnt + ", recruitmentMemberCnt=" + recruitmentMemberCnt
-				+ ", projectViewCnt=" + projectViewCnt + ", projectStatus=" + projectStatus + ", endProjectCnt="
-				+ endProjectCnt + "]";
+		final StringBuffer sb = new StringBuffer("ProjectVO{");
+		sb.append("projectNo=").append(projectNo);
+		sb.append(", leaderId='").append(leaderId).append('\'');
+		sb.append(", teamMember=").append(teamMember);
+		sb.append(", projectName='").append(projectName).append('\'');
+		sb.append(", progressClassification=").append(progressClassification);
+		sb.append(", projectCategory=").append(projectCategory);
+		sb.append(", preStartDate=").append(preStartDate);
+		sb.append(", startDate=").append(startDate);
+		sb.append(", prePeriod=").append(prePeriod);
+		sb.append(", regDate=").append(regDate);
+		sb.append(", applicationDeadline=").append(applicationDeadline);
+		sb.append(", meetingMethod=").append(meetingMethod);
+		sb.append(", meetingLocation='").append(meetingLocation).append('\'');
+		sb.append(", skillHashTag=").append(skillHashTag);
+		sb.append(", applicantQuestionA='").append(applicantQuestionA).append('\'');
+		sb.append(", applicantQuestionB='").append(applicantQuestionB).append('\'');
+		sb.append(", applicantQuestionC='").append(applicantQuestionC).append('\'');
+		sb.append(", projectReply=").append(projectReply);
+		sb.append(", applicantsCnt=").append(applicantsCnt);
+		sb.append(", recruitmentMemberCnt=").append(recruitmentMemberCnt);
+		sb.append(", projectViewCnt=").append(projectViewCnt);
+		sb.append(", projectStatus=").append(projectStatus);
+		sb.append(", endProjectCnt=").append(endProjectCnt);
+		sb.append(", projectDetail='").append(projectDetail).append('\'');
+		sb.append(", endDate=").append(endDate);
+		sb.append(", bookmarkCheck=").append(bookmarkCheck);
+		sb.append('}');
+		return sb.toString();
 	}
-    
-    
-
-
 }

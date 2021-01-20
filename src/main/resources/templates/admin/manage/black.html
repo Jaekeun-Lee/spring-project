@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Member manage Dormant list page</title>
+    <title>Member manage Black list page</title>
 
     <link href="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="even pointer" th:each="member : ${memberDormantList}">
+                <tr class="even pointer" th:each="member : ${memberBlackList}">
                     <td class=" " th:text="${member.userId}"></td>
                     <td class=" " th:text="${member.name}"></td>
                     <td class=" " th:text="${member.email}"></td>

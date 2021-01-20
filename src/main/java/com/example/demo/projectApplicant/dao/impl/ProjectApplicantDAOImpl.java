@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.common.vo.SearchVO;
-import com.example.demo.project.dto.UpdateApplicantStatusDTO;
+
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.dao.ProjectApplicantDAO;
+import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 @Repository("projectApplicantDAOImpl")
@@ -53,15 +54,13 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	}
 
 	@Override
-	public int updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
+		sqlSession.update("applicantMapper.updateApplicantStatus",updateApplicantStatusDTO);
 	}
 
 	@Override
-	public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus) {
-		// TODO Auto-generated method stub
-		
+	public void updateProjectMember(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
+		sqlSession.update("applicantMapper.updateProjectMember",updateApplicantStatusDTO);
 	}
 
 	@Override
@@ -87,6 +86,11 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	@Override
 	public int getAppliedTotalCount(SearchVO searchVO) {
 		return sqlSession.selectOne("applicantMapper.getAppliedTotalCount", searchVO);
+	}
+
+	@Override
+	public int getProjectNo(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
+		return sqlSession.selectOne("applicantMapper.getProjectNo", updateApplicantStatusDTO);
 	}
 
 }
