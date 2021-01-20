@@ -1,7 +1,7 @@
 package com.example.demo.common.vo;
 
 public class SearchVO {
-	
+
 //	Applicant searchCondition
 //	searchConditionA : 조회기간
 //	searchConditionB : 신청서 상태
@@ -9,22 +9,23 @@ public class SearchVO {
 //		2 : 신청승인
 //		3 : 거절, 참가취소
 //	searchConditionC
-	
+
 	private int currentPage;
 	private int searchConditionA;
 	private int searchConditionB;
 	private int searchConditionC;
+	private int searchConditionD;
 	private String searchKeyword;
 	private int pageSize;
 	private int endRowNum;
 	private int startRowNum;
 	private int sort;
 	private String userId;
-	
+
 	public SearchVO() {
 		super();
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -32,7 +33,7 @@ public class SearchVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	public int getSearchConditionA() {
 		return searchConditionA;
 	}
@@ -55,6 +56,14 @@ public class SearchVO {
 
 	public void setSearchConditionC(int searchConditionC) {
 		this.searchConditionC = searchConditionC;
+	}
+
+	public int getSearchConditionD() {
+		return searchConditionD;
+	}
+
+	public void setSearchConditionD(int searchConditionD) {
+		this.searchConditionD = searchConditionD;
 	}
 
 	public int getCurrentPage() {
@@ -107,10 +116,19 @@ public class SearchVO {
 
 	@Override
 	public String toString() {
-		return "SearchVO [currentPage=" + currentPage + ", searchConditionA=" + searchConditionA + ", searchConditionB="
-				+ searchConditionB + ", searchConditionC=" + searchConditionC + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum=" + startRowNum + ", sort="
-				+ sort + "]";
+		final StringBuffer sb = new StringBuffer("SearchVO{");
+		sb.append("currentPage=").append(currentPage);
+		sb.append(", searchConditionA=").append(searchConditionA);
+		sb.append(", searchConditionB=").append(searchConditionB);
+		sb.append(", searchConditionC=").append(searchConditionC);
+		sb.append(", searchConditionD=").append(searchConditionD);
+		sb.append(", searchKeyword='").append(searchKeyword).append('\'');
+		sb.append(", pageSize=").append(pageSize);
+		sb.append(", endRowNum=").append(endRowNum);
+		sb.append(", startRowNum=").append(startRowNum);
+		sb.append(", sort=").append(sort);
+		sb.append(", userId='").append(userId).append('\'');
+		sb.append('}');
+		return sb.toString();
 	}
-
 }

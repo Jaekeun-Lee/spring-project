@@ -26,14 +26,15 @@
 		<result property="projectDetail"    		column="project_detail"      		jdbcType="VARCHAR"/>
 		<result property="endDate"    				column="end_date"      				jdbcType="DATE"/>
 		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"     jdbcType="NUMERIC"/>
+		<result property="bookmarkCheck"			column="bookmarkCheck" 				jdbcType="NUMERIC"/>
 
 		<!-- association -->
 		<association property="applicantsCnt"		column="project_no"		select="getApplicantsCntByProjectNo"/>
 
 		<!-- collection -->
-		<collection property="teamMember" 	column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
-		<collection property="skillHashTag" column="project_no" select="getProjectHashTagByProjectNo"/>
-		<collection property="projectReply" column="project_no" select="getProjectReplyByProjectNo"/>
+		<collection property="teamMember" 			column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
+		<collection property="skillHashTag" 		column="project_no" select="getProjectHashTagByProjectNo"/>
+		<collection property="projectReply" 		column="project_no" select="getProjectReplyByProjectNo"/>
 
 	</resultMap>
 
@@ -99,27 +100,12 @@
 	</update>
 
 
-
-	<select id="getProject"  parameterType="int" resultMap="projectSelectMap">
-		SELECT PROJECT_NO,
-			   USER_ID,
-			   PROJECT_NAME,
-			   PROGRESS_CLASSIFICATION,
-			   PROJECT_CATEGORY,
-			   PRE_START_DATE,
-			   PRE_PERIOD,
-			   MEETING_METHOD,
-			   MEETING_LOCATION,
-			   APPLICATION_DEADLINE,
-			   PROJECT_DETAIL,
-			   REG_DATE,
-			   APPLICANT_QUESTION_A,
-			   APPLICANT_QUESTION_B,
-			   APPLICANT_QUESTION_C,
-			   RECRUITMENT_MEMBER_CNT
-		FROM   PROJECT
-		WHERE  PROJECT_NO = #{projectNo}
+	<select id="getProject"  parameterType="getProjectDTO" resultMap="projectSelectMap">
+		SELECT P.*, COUNT(*) OVER () AS bookmarkCheck
+		FROM PROJECT P, BOOKMARK B
+		WHERE  P.PROJECT_NO(+) = B.PROJECT_NO AND P.PROJECT_NO=#{projectNo} AND B.USER_ID=#{userId}
 	</select>
+
 
 	<insert id="addProjectReply" parameterType="projectReplyDTO">
 		INSERT
@@ -135,12 +121,14 @@
 		        SYSDATE)
 	</insert>
 
+
 	<select id="getMyProject" parameterType="int" resultMap="getMyProjectByProjectNo">
 		SELECT PROJECT_NO,
 		       PROJECT_NAME
-		FROM   PROJECT p
+		FROM   PROJECT
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
+
 
 	<insert id="addTodo" parameterType="todoVO">
 		INSERT INTO TODO (TODO_NO,
@@ -154,8 +142,72 @@
 	</insert>
 
 
+	<insert id="addBookmark" parameterType="projectBookmarkDTO">
+		INSERT INTO BOOKMARK(BOOKMARK_NO,
+		                     USER_ID,
+		                     PROJECT_NO)
+		VALUES (SEQ_BOOKMARK_NO.NEXTVAL, #{userId} , #{projectNo})
+	</insert>
+	
 
-	<select  id="getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
+	<delete id="deleteBookmark" parameterType="projectBookmarkDTO">
+		DELETE
+		FROM BOOKMARK
+		WHERE BOOKMARK_NO = #{bookmarkNo}
+	</delete>
+
+
+	<select id="getProjectList" parameterType="searchVO" resultMap="projectSelectMap">
+		SELECT *
+		FROM ( SELECT ROW_NUMBER() OVER(ORDER BY
+		<choose>
+			<when test="sort == 1">P.REG_DATE DESC</when>
+			<when test="sort == 2">P.APPLICATION_DEADLINE DESC</when>
+			<otherwise>P.PROJECT_NO DESC</otherwise>
+		</choose>
+		) RN, P.*, B.BOOKMARK_NO
+		FROM PROJECT P, ( SELECT BOOKMARK_NO
+						  FROM BOOKMARK
+						  WHERE USER_ID = #{userId:VARCHAR} ) B
+		<if test="searchConditionC != null and searchConditionC == 2">
+			,(SELECT HASHTAG, SH.PROJECT_NO PROJECT_NO
+			  FROM HASHTAG HA, SKILL_HASHTAG SH
+			  WHERE HA.HASHTAG_NO = SH.HASHTAG_NO) H
+		</if>
+		<where>
+			P.PROJECT_NO = B.BOOKMARK_NO(+)
+
+			<if test="searchConditionA != null">
+				<if test="searchConditionA == 1">AND P.PROJECT_CATEGORY = 1 </if>
+				<if test="searchConditionA == 2">AND P.PROJECT_CATEGORY = 2 </if>
+				<if test="searchConditionA == 3">AND P.PROJECT_CATEGORY = 3 </if>
+			</if>
+			<if test="searchConditionB != null">
+				<if test="searchConditionB == 1 ">AND P.MEETING_METHOD = 1</if>
+				<if test="searchConditionB == 2 ">AND P.MEETING_METHOD = 2</if>
+			</if>
+			<if test="searchConditionC != null">
+				<if test="searchConditionC == 1">AND P.PROJECT_NAME LIKE '%'||#{searchKeyword}||'%' </if>
+				<if test="searchConditionC == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG = #{searchKeyword} </if>
+				<if test="searchConditionC == 3">AND P.PROJECT_DETAIL LIKE '%'||#{searchKeyword}||'%' </if>
+			</if>
+			<if test="searchConditionD != null">
+				<if test="searchConditionD == 1">AND P.PROJECT_STATUS = 1</if>
+				<if test="searchConditionD == 2">AND P.PROJECT_STATUS = 2</if>
+				<if test="searchConditionD == 3">AND P.PROJECT_STATUS = 3</if>
+			</if>
+			)
+		</where>
+
+		<where>
+			RN BETWEEN #{startRowNum} AND #{endRowNum}
+
+		</where>
+
+	</select>
+
+
+	<!--<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
 		SELECT *
 		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
 				FROM (
@@ -187,7 +239,7 @@
 				) inner_table
 				WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
-	</select>
+	</select>-->
 
 
 

@@ -1,6 +1,9 @@
 package com.example.demo.project.service.impl;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dao.ProjectDAO;
+import com.example.demo.project.dto.GetProjectDTO;
+import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.MyProjectVO;
@@ -27,8 +30,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectVO getProject(int projectNo) {
-        return projectDAO.getProject(projectNo);
+    public ProjectVO getProject(GetProjectDTO getProjectDTO) {
+        return projectDAO.getProject(getProjectDTO);
     }
 
     @Override
@@ -44,6 +47,21 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public int addTodo(TodoVO todoVO) {
         return projectDAO.addTodo(todoVO);
+    }
+
+    @Override
+    public int addBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
+        return projectDAO.addBookmark(projectBookmarkDTO);
+    }
+
+    @Override
+    public int deleteBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
+        return projectDAO.deleteBookmark(projectBookmarkDTO);
+    }
+
+    @Override
+    public List<ProjectVO> getProjectList(SearchVO searchVO) {
+        return projectDAO.getProjectList(searchVO);
     }
 
 
