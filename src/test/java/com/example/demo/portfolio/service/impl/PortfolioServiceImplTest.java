@@ -24,7 +24,7 @@ public class PortfolioServiceImplTest {
     @Qualifier("portfolioServiceImpl")
     private PortfolioService portfolioService;
 
-    //@Test
+    @Test
     public void addExPort() {
 
         PortfolioDTO.AddExPortDTO addExPortDTO = new PortfolioDTO.AddExPortDTO();
@@ -32,19 +32,20 @@ public class PortfolioServiceImplTest {
         addExPortDTO.setProjectNo(1);
         addExPortDTO.setPortProjectStartDate(new Date());
         addExPortDTO.setPortProjectEndDate(new Date());
-        addExPortDTO.setPortDescription("언니가 성공하면 회원가입 시켜준댔다. 이번엔 버튼이 제대로 작동해야할텐데 허허");
-        addExPortDTO.setPortTitle("효은언니 메일인증 성공기");
-        addExPortDTO.setPortMemberCnt(2);
+        addExPortDTO.setPortDescription("테스트중");
+        addExPortDTO.setPortTitle("설명이 어설프다");
+        addExPortDTO.setPortMemberCnt(3);
 //        addExPortDTO.setPortFileName("메일인증코드.docx");
 //        addExPortDTO.setPortThumbnailImg("Vv.jpg");
 //        addExPortDTO.setPortSkillTag(Collections.singletonList("Java"));
+
 
         Assert.assertEquals(1,portfolioService.addExPort(addExPortDTO));
 
     }
 
-    @Test
-    public void getExPort() {
+    //@Test
+   /* public void getExPort() {
         PortfolioDTO.GetExPortDTO getExPortDTO = new PortfolioDTO.GetExPortDTO();
 
         getExPortDTO = portfolioService.getExPort(12);
@@ -55,5 +56,26 @@ public class PortfolioServiceImplTest {
         System.out.println(getExPortDTO.getPortProjectStartDate());
         System.out.println(getExPortDTO.getPortProjectEndDate());
         Assert.assertEquals(2,getExPortDTO.getPortMemberCnt());
+    }*/
+
+    //@Test
+    public void deleteExPort() {
+        PortfolioDTO.DeleteExPortDTO deleteExPortDTO = new PortfolioDTO.DeleteExPortDTO();
+        deleteExPortDTO.setPortNo(12);
+
+        Assert.assertEquals(1,portfolioService.deleteExPort(deleteExPortDTO));
+    }
+
+    //@Test
+    public void updateExPort(){
+        PortfolioDTO.UpdateExPortDTO updateExPortDTO = new PortfolioDTO.UpdateExPortDTO();
+        updateExPortDTO.setPortNo(13);
+        updateExPortDTO.setPortProjectStartDate(new Date());
+        updateExPortDTO.setPortProjectEndDate(new Date());
+        updateExPortDTO.setPortDescription("오늘은 규리언니가 치즈감자튀김을 자랑했다 도영이는 떡 먹고 있던데 다들 잘 먹고 다니네");
+        updateExPortDTO.setPortMemberCnt(3);
+        updateExPortDTO.setPortTitle("3조 먹성");
+
+        Assert.assertEquals(1,portfolioService.updateExPort(updateExPortDTO));
     }
 }

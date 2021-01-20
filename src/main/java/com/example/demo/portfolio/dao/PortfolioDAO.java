@@ -8,5 +8,11 @@ public interface PortfolioDAO {
     public int addExPort(PortfolioDTO.AddExPortDTO addExPortDTO);
 
     //외부 포트폴리오 조회
-    public PortfolioDTO.GetExPortDTO getExPort(int portNo);
+    public PortfolioDTO.GetPortDTO getPort(int portNo);
+
+    //외부 포트폴리오 삭제
+    public int deleteExPort(PortfolioDTO.DeleteExPortDTO deleteExPortDTO);
+
+    //외부 포트폴리오 수정
+    public int updateExPort(PortfolioDTO.UpdateExPortDTO updateExPortDTO);
 }

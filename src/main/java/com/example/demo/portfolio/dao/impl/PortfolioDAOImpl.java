@@ -20,9 +20,18 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         return sqlSession.insert("portfolioMapper.addExPort", addExPortDTO);
     }
 
-    public PortfolioDTO.GetExPortDTO getExPort(int portNo){
-        return sqlSession.selectOne("portfolioMapper.getExPort", portNo);
+    public PortfolioDTO.GetPortDTO getPort(int portNo){
+        return sqlSession.selectOne("portfolioMapper.getPort", portNo);
     }
+
+    public int deleteExPort(PortfolioDTO.DeleteExPortDTO deleteExPortDTO){
+        return sqlSession.delete("portfolioMapper.deleteExPort", deleteExPortDTO);
+    }
+
+    public int updateExPort(PortfolioDTO.UpdateExPortDTO updateExPortDTO){
+        return sqlSession.update("portfolioMapper.updateExPort", updateExPortDTO);
+    }
+
 
 
 }

@@ -11,4 +11,8 @@ public interface ProfileService {
     //기본정보 조회
     public ProfileDTO.GetMyProfileDTO getMyProfile(String userId);
 
+    //링크 등록/수정
+    public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink);
+
+
 }

@@ -20,7 +20,18 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioDTO.GetExPortDTO getExPort(int portNo){
-        return portfolioDAO.getExPort(portNo);
+    public PortfolioDTO.GetPortDTO getPort(int portNo){
+        return portfolioDAO.getPort(portNo);
+    }
+
+    @Override
+    public int deleteExPort(PortfolioDTO.DeleteExPortDTO deleteExPortDTO){
+        return portfolioDAO.deleteExPort(deleteExPortDTO);
+    }
+
+    @Override
+    public int updateExPort(PortfolioDTO.UpdateExPortDTO updateExPortDTO){
+        return portfolioDAO.updateExPort(updateExPortDTO);
     }
 }
+

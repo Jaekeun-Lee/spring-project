@@ -22,7 +22,7 @@ public class PortfolioVO {
 //    private List<String> portSkillTag;
 
     /**
-     * 외부 포트폴리오 조회
+     * 외부 포트폴리오 조회/삭제
      *
      * @param portNo
      * @param userId
@@ -54,7 +54,7 @@ public class PortfolioVO {
     }
 
     /**
-     * 외부 포트폴리오 등록
+     * 외부 포트폴리오 등록/수정
      *
      * @param portProjectEndDate
      * @param portProjectStartDate
