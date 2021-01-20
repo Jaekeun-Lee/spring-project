@@ -44,7 +44,7 @@ public class PostDAOImplTest {
 //        postService.addPost(postVO);
     }
 
-    @Test
+    //@Test
     public void getPost(){
 
         PostVO postVO = new PostVO();
