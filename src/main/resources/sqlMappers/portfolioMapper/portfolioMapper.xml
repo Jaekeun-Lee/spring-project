@@ -21,7 +21,7 @@
         <collection property="portFileName" column="portfolio_no" select="getFilesByPortfolioNo"/>
     </resultMap>
 
-    <insert id="addExPort" parameterType="com.example.demo.portfolio.dto.PortfolioDTO$AddExPortDTO">
+    <insert id="addExPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
         INSERT
         INTO portfolio (
                         portfolio_no,
@@ -45,7 +45,7 @@
               )
     </insert>
 
-    <select id="getExPort" parameterType="int" resultType="com.example.demo.portfolio.dto.PortfolioDTO$GetExPortDTO">
+    <select id="getPort" parameterType="int" resultType="com.example.demo.portfolio.vo.PortfolioVO">
         SELECT portfolio_no as portNo,
                user_id,
                project_no,
@@ -62,7 +62,7 @@
         WHERE portfolio_no = #{portNo}
     </delete>
 
-    <update id="updateExPort" parameterType="com.example.demo.portfolio.dto.PortfolioDTO$UpdateExPortDTO">
+    <update id="updateExPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
         UPDATE portfolio
         SET port_project_start_date = #{portProjectStartDate},
             port_project_end_date = #{portProjectEndDate},

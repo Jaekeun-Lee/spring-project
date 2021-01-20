@@ -1,8 +1,8 @@
 package com.example.demo.portfolio.service.impl;
 
 import com.example.demo.portfolio.dao.PortfolioDAO;
-import com.example.demo.portfolio.dto.PortfolioDTO;
 import com.example.demo.portfolio.service.PortfolioService;
+import com.example.demo.portfolio.vo.PortfolioVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -15,23 +15,23 @@ public class PortfolioServiceImpl implements PortfolioService {
     PortfolioDAO portfolioDAO;
 
     @Override
-    public int addExPort(PortfolioDTO.AddExPortDTO addExPortDTO){
-        return portfolioDAO.addExPort(addExPortDTO);
+    public int addExPort(PortfolioVO addExPort){
+        return portfolioDAO.addExPort(addExPort);
     }
 
     @Override
-    public PortfolioDTO.GetPortDTO getPort(int portNo){
+    public PortfolioVO getPort(int portNo){
         return portfolioDAO.getPort(portNo);
     }
 
     @Override
-    public int deleteExPort(PortfolioDTO.DeleteExPortDTO deleteExPortDTO){
-        return portfolioDAO.deleteExPort(deleteExPortDTO);
+    public int deleteExPort(PortfolioVO deleteExPort){
+        return portfolioDAO.deleteExPort(deleteExPort);
     }
 
     @Override
-    public int updateExPort(PortfolioDTO.UpdateExPortDTO updateExPortDTO){
-        return portfolioDAO.updateExPort(updateExPortDTO);
+    public int updateExPort(PortfolioVO updateExPort){
+        return portfolioDAO.updateExPort(updateExPort);
     }
 }
 

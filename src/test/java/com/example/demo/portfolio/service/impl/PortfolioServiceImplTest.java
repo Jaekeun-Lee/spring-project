@@ -1,7 +1,7 @@
 package com.example.demo.portfolio.service.impl;
 
-import com.example.demo.portfolio.dto.PortfolioDTO;
 import com.example.demo.portfolio.service.PortfolioService;
+import com.example.demo.portfolio.vo.PortfolioVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,55 +27,55 @@ public class PortfolioServiceImplTest {
     @Test
     public void addExPort() {
 
-        PortfolioDTO.AddExPortDTO addExPortDTO = new PortfolioDTO.AddExPortDTO();
-        addExPortDTO.setUserId("user02");
-        addExPortDTO.setProjectNo(1);
-        addExPortDTO.setPortProjectStartDate(new Date());
-        addExPortDTO.setPortProjectEndDate(new Date());
-        addExPortDTO.setPortDescription("테스트중");
-        addExPortDTO.setPortTitle("설명이 어설프다");
-        addExPortDTO.setPortMemberCnt(3);
+        PortfolioVO addExPort = new PortfolioVO();
+        addExPort.setUserId("user02");
+        addExPort.setProjectNo(1);
+        addExPort.setPortProjectStartDate(new Date());
+        addExPort.setPortProjectEndDate(new Date());
+        addExPort.setPortDescription("테스트중");
+        addExPort.setPortTitle("설명이 어설프다");
+        addExPort.setPortMemberCnt(3);
 //        addExPortDTO.setPortFileName("메일인증코드.docx");
 //        addExPortDTO.setPortThumbnailImg("Vv.jpg");
 //        addExPortDTO.setPortSkillTag(Collections.singletonList("Java"));
 
 
-        Assert.assertEquals(1,portfolioService.addExPort(addExPortDTO));
+        Assert.assertEquals(1,portfolioService.addExPort(addExPort));
 
     }
 
     //@Test
-   /* public void getExPort() {
-        PortfolioDTO.GetExPortDTO getExPortDTO = new PortfolioDTO.GetExPortDTO();
+    public void getPort() {
+        PortfolioVO getPort = new PortfolioVO();
 
-        getExPortDTO = portfolioService.getExPort(12);
+        getPort = portfolioService.getPort(12);
 
-        Assert.assertEquals(12,getExPortDTO.getPortNo());
-        Assert.assertEquals("user02",getExPortDTO.getUserId());
-        Assert.assertEquals(1,getExPortDTO.getProjectNo());
-        System.out.println(getExPortDTO.getPortProjectStartDate());
-        System.out.println(getExPortDTO.getPortProjectEndDate());
-        Assert.assertEquals(2,getExPortDTO.getPortMemberCnt());
-    }*/
+        Assert.assertEquals(12,getPort.getPortNo());
+        Assert.assertEquals("user02",getPort.getUserId());
+        Assert.assertEquals(1,getPort.getProjectNo());
+        System.out.println(getPort.getPortProjectStartDate());
+        System.out.println(getPort.getPortProjectEndDate());
+        Assert.assertEquals(2,getPort.getPortMemberCnt());
+    }
 
     //@Test
     public void deleteExPort() {
-        PortfolioDTO.DeleteExPortDTO deleteExPortDTO = new PortfolioDTO.DeleteExPortDTO();
-        deleteExPortDTO.setPortNo(12);
+        PortfolioVO deleteExPort = new PortfolioVO();
+        deleteExPort.setPortNo(12);
 
-        Assert.assertEquals(1,portfolioService.deleteExPort(deleteExPortDTO));
+        Assert.assertEquals(1,portfolioService.deleteExPort(deleteExPort));
     }
 
     //@Test
     public void updateExPort(){
-        PortfolioDTO.UpdateExPortDTO updateExPortDTO = new PortfolioDTO.UpdateExPortDTO();
-        updateExPortDTO.setPortNo(13);
-        updateExPortDTO.setPortProjectStartDate(new Date());
-        updateExPortDTO.setPortProjectEndDate(new Date());
-        updateExPortDTO.setPortDescription("오늘은 규리언니가 치즈감자튀김을 자랑했다 도영이는 떡 먹고 있던데 다들 잘 먹고 다니네");
-        updateExPortDTO.setPortMemberCnt(3);
-        updateExPortDTO.setPortTitle("3조 먹성");
+        PortfolioVO updateExPort = new PortfolioVO();
+        updateExPort.setPortNo(13);
+        updateExPort.setPortProjectStartDate(new Date());
+        updateExPort.setPortProjectEndDate(new Date());
+        updateExPort.setPortDescription("오늘은 규리언니가 치즈감자튀김을 자랑했다 도영이는 떡 먹고 있던데 다들 잘 먹고 다니네");
+        updateExPort.setPortMemberCnt(3);
+        updateExPort.setPortTitle("3조 먹성");
 
-        Assert.assertEquals(1,portfolioService.updateExPort(updateExPortDTO));
+        Assert.assertEquals(1,portfolioService.updateExPort(updateExPort));
     }
 }

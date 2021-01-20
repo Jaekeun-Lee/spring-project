@@ -1,7 +1,7 @@
 package com.example.demo.portfolio.dao.impl;
 
 import com.example.demo.portfolio.dao.PortfolioDAO;
-import com.example.demo.portfolio.dto.PortfolioDTO;
+import com.example.demo.portfolio.vo.PortfolioVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,20 +16,20 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     @Qualifier("sqlSessionTemplate")
     private SqlSession sqlSession;
 
-    public int addExPort(PortfolioDTO.AddExPortDTO addExPortDTO){
-        return sqlSession.insert("portfolioMapper.addExPort", addExPortDTO);
+    public int addExPort(PortfolioVO addExPort){
+        return sqlSession.insert("portfolioMapper.addExPort", addExPort);
     }
 
-    public PortfolioDTO.GetPortDTO getPort(int portNo){
+    public PortfolioVO getPort(int portNo){
         return sqlSession.selectOne("portfolioMapper.getPort", portNo);
     }
 
-    public int deleteExPort(PortfolioDTO.DeleteExPortDTO deleteExPortDTO){
-        return sqlSession.delete("portfolioMapper.deleteExPort", deleteExPortDTO);
+    public int deleteExPort(PortfolioVO deleteExPort){
+        return sqlSession.delete("portfolioMapper.deleteExPort", deleteExPort);
     }
 
-    public int updateExPort(PortfolioDTO.UpdateExPortDTO updateExPortDTO){
-        return sqlSession.update("portfolioMapper.updateExPort", updateExPortDTO);
+    public int updateExPort(PortfolioVO updateExPort){
+        return sqlSession.update("portfolioMapper.updateExPort", updateExPort);
     }
 
 
