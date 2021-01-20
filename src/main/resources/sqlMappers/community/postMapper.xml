@@ -53,15 +53,22 @@
     <update id="updatePost"     parameterType="com.example.demo.community.vo.PostVO">
         UPDATE POST
         <set>
-            POST_NAME = #{postName}
-            POST_CONTENT = #{postContent}
+            POST_NAME = #{postName},
+            POST_CONTENT = #{postContent},
             REG_DATE = #{regDate}
 
         </set>
-        WHERE POST_NAME = #{postName}
+        WHERE POST_No = #{postNo}
     </update>
 
+    <delete id="deletePost"     parameterType="postVO">
+        DELETE
 
+        FROM POST
+
+        WHERE POST_NO = #{postNo}
+
+    </delete>
 
 
 
