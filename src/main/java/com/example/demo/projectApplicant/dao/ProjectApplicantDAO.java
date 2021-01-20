@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.demo.common.vo.SearchVO;
-import com.example.demo.project.dto.UpdateApplicantStatusDTO;
+
 import com.example.demo.project.vo.ProjectVO;
+import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 public interface ProjectApplicantDAO {
@@ -25,11 +26,13 @@ public interface ProjectApplicantDAO {
 	
 	public List<ApplicantVO> getAppliedApplicantList(SearchVO searchVO);
 	
-	public int updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
+	public void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 	
-	public void updateProjectMember(int projectNo, String userId, int applicantNo, int applicantStatus);
+	public void updateProjectMember(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 	
 	public int getTotalCount(SearchVO searchVO);
 	
 	public int getAppliedTotalCount(SearchVO searchVO);
+	
+	public int getProjectNo(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 }
