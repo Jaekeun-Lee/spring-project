@@ -1,6 +1,9 @@
 package com.example.demo.project.dao.impl;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dao.ProjectDAO;
+import com.example.demo.project.dto.GetProjectDTO;
+import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.MyProjectVO;
 import com.example.demo.project.vo.ProjectVO;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Repository("projectDAOImpl")
 public class ProjectDAOImpl implements ProjectDAO {
@@ -20,32 +24,49 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Qualifier("sqlSessionTemplate")
     private SqlSession sqlSession;
 
+    private final String NAMESPACE = "projectMapper.";
+
     @Override
     @Transactional
     public void addProject(ProjectVO projectVO) {
-        sqlSession.insert("projectMapper.addProject", projectVO);
-        HashMap hashMap = sqlSession.selectOne("projectMapper.getProjectNo", projectVO.getLeaderId());
-        sqlSession.update("projectMapper.updateMemberProjectNo", hashMap);
+        sqlSession.insert(NAMESPACE +"addProject", projectVO);
+        HashMap hashMap = sqlSession.selectOne(NAMESPACE +"getProjectNo", projectVO.getLeaderId());
+        sqlSession.update(NAMESPACE +"updateMemberProjectNo", hashMap);
     }
 
     @Override
-    public ProjectVO getProject(int projectNo) {
-        return sqlSession.selectOne("projectMapper.getProject", projectNo);
+    public ProjectVO getProject(GetProjectDTO getProjectDTO) {
+        return sqlSession.selectOne(NAMESPACE +"getProject", getProjectDTO);
     }
 
     @Override
     public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
-        return sqlSession.insert("projectMapper.addProjectReply", projectReplyDTO);
+        return sqlSession.insert(NAMESPACE +"addProjectReply", projectReplyDTO);
     }
 
     @Override
     public MyProjectVO getMyProject(int projectNo) {
-        return sqlSession.selectOne("projectMapper.getMyProject", projectNo);
+        return sqlSession.selectOne(NAMESPACE +"getMyProject", projectNo);
     }
 
     @Override
     public int addTodo(TodoVO todoVO) {
-        return sqlSession.insert("projectMapper.addTodo", todoVO);
+        return sqlSession.insert(NAMESPACE +"addTodo", todoVO);
+    }
+
+    @Override
+    public int addBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
+        return sqlSession.insert(NAMESPACE+"addBookmark",projectBookmarkDTO);
+    }
+
+    @Override
+    public int deleteBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
+        return sqlSession.delete(NAMESPACE+"deleteBookmark",projectBookmarkDTO);
+    }
+
+    @Override
+    public List<ProjectVO> getProjectList(SearchVO searchVO) {
+        return sqlSession.selectList(NAMESPACE+"getProjectList",searchVO);
     }
 
 

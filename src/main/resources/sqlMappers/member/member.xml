@@ -53,17 +53,7 @@
 
     <select id="selectMemberList" parameterType="com.example.demo.member.vo.MemberVO"
             resultType="com.example.demo.member.vo.MemberVO">
-        SELECT
-        USER_ID as userId,
-        NAME as name,
-        PASSWORD as password,
-        EMAIL as email,
-        ROLE as role,
-        MEMBER_STATUS as status,
-        REPORT_CNT as reportCnt,
-        LAST_LOGIN_DATE as lastLoginDate,
-        REG_DATE as regDate
-        FROM MEMBER
+        <include refid="from_select" />
         <if test="userId != null and userId != ''">
             WHERE USER_ID = #{userId}
         </if>
@@ -72,17 +62,7 @@
 
     <select id="selectReportMemberList" parameterType="com.example.demo.member.vo.MemberVO"
             resultType="com.example.demo.member.vo.MemberVO">
-        SELECT
-        USER_ID as userId,
-        NAME as name,
-        PASSWORD as password,
-        EMAIL as email,
-        ROLE as role,
-        MEMBER_STATUS as status,
-        REPORT_CNT as reportCnt,
-        LAST_LOGIN_DATE as lastLoginDate,
-        REG_DATE as regDate
-        FROM MEMBER
+        <include refid="from_select" />
         <if test="userId != null and userId != ''">
             WHERE USER_ID = #{userId}
             AND REPORT_CNT BETWEEN 1 AND 6
@@ -92,20 +72,20 @@
 
     <select id="selectDormantMemberList" parameterType="com.example.demo.member.vo.MemberVO"
             resultType="com.example.demo.member.vo.MemberVO">
-        SELECT
-        USER_ID as userId,
-        NAME as name,
-        PASSWORD as password,
-        EMAIL as email,
-        ROLE as role,
-        STATUS as status,
-        REPORT_CNT as reportCnt,
-        LAST_LOGIN_DATE as lastLoginDate,
-        REG_DATE as regDate
-        FROM MEMBERS
+        <include refid="from_select" />
         <if test="userId != null and userId != ''">
             WHERE USER_ID = #{userId}
             AND STATUS = DORMANT
+        </if>
+        ORDER BY REG_DATE
+    </select>
+
+    <select id="selectBlackMemberList" parameterType="com.example.demo.member.vo.MemberVO"
+            resultType="com.example.demo.member.vo.MemberVO">
+        <include refid="from_select" />
+        <if test="userId != null and userId != ''">
+            WHERE USER_ID = #{userId}
+            AND STATUS = BLACK
         </if>
         ORDER BY REG_DATE
     </select>
