@@ -25,10 +25,10 @@
 		<result property="endProjectCnt"    		column="endProject_cnt"   			jdbcType="NUMERIC"/>
 		<result property="projectDetail"    		column="project_detail"      		jdbcType="VARCHAR"/>
 		<result property="endDate"    				column="end_date"      				jdbcType="DATE"/>
-		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"      	jdbcType="NUMERIC"/>
+		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"     jdbcType="NUMERIC"/>
 
 		<!-- association -->
-		<association property="applicantsCnt"			column="project_no"		select="getApplicantsCntByProjectNo"/>
+		<association property="applicantsCnt"		column="project_no"		select="getApplicantsCntByProjectNo"/>
 
 		<!-- collection -->
 		<collection property="teamMember" 	column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
@@ -43,6 +43,9 @@
 		<collection property="todoList" 	column="project_no" 	select="getTodoListByProjectNo"/>
 		<collection property="teamMember" 	column="project_no" 	select="getProjectMemberByProjectNo"/>
 	</resultMap>
+
+
+
 
 	<insert id="addProject" parameterType="projectVO">
 		INSERT
@@ -64,25 +67,38 @@
 			APPLICANT_QUESTION_C,
 			RECRUITMENT_MEMBER_CNT
 		)
-		VALUES(
-				  seq_project_no.NEXTVAL,
-				  #{leaderId},
-				  #{projectName},
-				  #{progressClassification},
-				  #{projectCategory},
-				  #{preStartDate},
-				  #{prePeriod},
-				  #{meetingMethod:VARCHAR},
-				  #{meetingLocation},
-				  #{applicationDeadline},
-				  #{projectDetail},
-				  SYSDATE,
-				  #{applicantQuestionA:VARCHAR},
-				  #{applicantQuestionB:VARCHAR},
-				  #{applicantQuestionC:VARCHAR},
-				  #{recruitmentMemberCnt}
-			  )
+		VALUES(seq_project_no.NEXTVAL,
+		       #{leaderId},
+		       #{projectName},
+		       #{progressClassification},
+		       #{projectCategory},
+		       #{preStartDate},
+		       #{prePeriod},
+		       #{meetingMethod:VARCHAR},
+		       #{meetingLocation},
+		       #{applicationDeadline},
+		       #{projectDetail},
+		       SYSDATE,
+		       #{applicantQuestionA:VARCHAR},
+		       #{applicantQuestionB:VARCHAR},
+		       #{applicantQuestionC:VARCHAR},
+		       #{recruitmentMemberCnt})
 	</insert>
+
+	<select id="getProjectNo" parameterType="java.lang.String" resultType="hashmap">
+		SELECT PROJECT_NO,
+		       USER_ID
+		FROM   PROJECT
+		WHERE  USER_ID = #{leaderId} AND PROJECT_STATUS = 1
+	</select>
+
+	<update id="updateMemberProjectNo" parameterType="hashMap">
+		UPDATE MEMBER
+		SET PROJECT_NO = #{PROJECT_NO}
+		WHERE USER_ID = #{USER_ID}
+	</update>
+
+
 
 	<select id="getProject"  parameterType="int" resultMap="projectSelectMap">
 		SELECT PROJECT_NO,
@@ -101,68 +117,117 @@
 			   APPLICANT_QUESTION_B,
 			   APPLICANT_QUESTION_C,
 			   RECRUITMENT_MEMBER_CNT
-		FROM PROJECT
-		WHERE PROJECT_NO = #{projectNo}
+		FROM   PROJECT
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
 	<insert id="addProjectReply" parameterType="projectReplyDTO">
-		INSERT INTO REPLY (REPLY_NO, PROJECT_NO, USER_ID, REPLY_CONTENT, REG_DATE)
-		VALUES ( SEQ_REPLY_NO.NEXTVAL, #{projectNo}, #{replyUserId}, #{replyContent}, SYSDATE)
+		INSERT
+		INTO REPLY(REPLY_NO,
+		           PROJECT_NO,
+		           USER_ID,
+		           REPLY_CONTENT,
+		           REG_DATE)
+		VALUES (SEQ_REPLY_NO.NEXTVAL,
+		        #{projectNo},
+		        #{replyUserId},
+		        #{replyContent},
+		        SYSDATE)
 	</insert>
 
 	<select id="getMyProject" parameterType="int" resultMap="getMyProjectByProjectNo">
-		SELECT PROJECT_NO, PROJECT_NAME
-		FROM PROJECT p
-		WHERE PROJECT_NO = #{projectNo}
+		SELECT PROJECT_NO,
+		       PROJECT_NAME
+		FROM   PROJECT p
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
 	<insert id="addTodo" parameterType="todoVO">
-		INSERT INTO TODO ( TODO_NO, PROJECT_NO, USER_ID, TODO_CONTENT )
-		VALUES (SEQ_TODO_NO.NEXTVAL, #{projectNO}, #{userId}, #{todoContent})
+		INSERT INTO TODO (TODO_NO,
+		                  PROJECT_NO,
+		                  USER_ID,
+		                  TODO_CONTENT )
+		VALUES (SEQ_TODO_NO.NEXTVAL,
+		        #{projectNO},
+		        #{userId},
+		        #{todoContent})
 	</insert>
 
 
-	<select id="getApplicantsCntByProjectNo" resultType="int">
-		SELECT COUNT(*)
-		FROM APPLICANT
-		WHERE PROJECT_NO = #{project_no}
+
+	<select  id="getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
+		SELECT *
+		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
+				FROM (
+					SELECT
+					p.project_name,
+					p.project_detail,
+					p.reg_date,
+					p.user_id,
+					p.application_deadline,
+					p.recruitment_member_cnt
+					FROM
+					applicant a, project p
+					WHERE
+					a.project_no = p.project_no AND
+					a.user_id = #{userId}
+					<if test="searchConditionB != null">
+						<if test = "searchConditionB == 1" >
+							AND a.applicant_status = 1
+						</if>
+						<if test = "searchConditionB == 2" >
+							AND a.applicant_status = 2
+						</if>
+						<if test = "searchConditionB == 3" >
+							AND a.applicant_status = 3
+							AND a.applicant_status = 4
+						</if>
+					</if>
+					ORDER BY a.APPLICANT_NO
+				) inner_table
+				WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 
-	<select id = "getProjectMemberByProjectNo" resultType="memberVO">
+
+
+
+
+	<select id = "getApplicantsCntByProjectNo" 	resultType="int">
+		SELECT COUNT(*)
+		FROM   APPLICANT
+		WHERE  PROJECT_NO = #{project_no}
+	</select>
+
+	<select id = "getProjectMemberByProjectNo" 	resultType="memberVO">
 		SELECT USER_ID as userId, PROFILE_IMAGE as profileImg
-		FROM MEMBER
-		WHERE PROJECT_NO = #{projectNo}
+		FROM   MEMBER
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
 	<select id = "getProjectHashTagByProjectNo" resultType="java.lang.String">
 		SELECT HASHTAG
-		FROM SKILL_HASHTAG sh, HASHTAG h
-		WHERE sh.HASHTAG_NO = h.HASHTAG_NO AND sh.PROJECT_NO = #{project_no}
+		FROM   SKILL_HASHTAG sh, HASHTAG h
+		WHERE  sh.HASHTAG_NO = h.HASHTAG_NO AND sh.PROJECT_NO = #{project_no}
 	</select>
 
-	<select id = "getProjectReplyByProjectNo" resultType="replyVO">
-		SELECT REPLY_NO as replyNo,
-			   USER_ID as replyUserId,
-			   REPLY_CONTENT as replyContent,
-			   REG_DATE as replyRegDate
-		FROM REPLY
-		WHERE PROJECT_NO = #{projectNo}
+	<select id = "getProjectReplyByProjectNo" 	resultType="replyVO">
+		SELECT REPLY_NO,
+			   USER_ID,
+			   REPLY_CONTENT,
+			   REG_DATE
+		FROM   REPLY
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
-	<select id="getRecruitmentMemberCnt" resultType="int">
-		SELECT COUNT(*)
-		FROM APPLICANT
-		WHERE PROJECT_NO = #{projectNo}
-	</select>
-
-	<select id="getTodoListByProjectNo" resultType="todoVO">
-		SELECT TODO_NO 		as todoNo,
-		       PROJECT_NO 	as projectNo,
-		       USER_ID 		as userId,
-		       TODO_CONTENT as todoContent,
-		       TODO_STATUS 	as todoStatus
-		FROM TODO
-		WHERE PROJECT_NO = #{projectNo}
+	<select id = "getTodoListByProjectNo" 		resultType="todoVO">
+		SELECT TODO_NO,
+		       PROJECT_NO,
+		       USER_ID,
+		       TODO_CONTENT,
+		       TODO_STATUS
+		FROM   TODO
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
 </mapper>

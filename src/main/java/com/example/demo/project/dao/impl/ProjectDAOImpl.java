@@ -9,6 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 
 @Repository("projectDAOImpl")
 public class ProjectDAOImpl implements ProjectDAO {
@@ -18,8 +21,11 @@ public class ProjectDAOImpl implements ProjectDAO {
     private SqlSession sqlSession;
 
     @Override
-    public int addProject(ProjectVO projectVO) {
-        return sqlSession.insert("projectMapper.addProject", projectVO);
+    @Transactional
+    public void addProject(ProjectVO projectVO) {
+        sqlSession.insert("projectMapper.addProject", projectVO);
+        HashMap hashMap = sqlSession.selectOne("projectMapper.getProjectNo", projectVO.getLeaderId());
+        sqlSession.update("projectMapper.updateMemberProjectNo", hashMap);
     }
 
     @Override
