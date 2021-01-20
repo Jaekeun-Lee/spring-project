@@ -41,9 +41,9 @@ public class PostDAOImpl implements PostDAO {
         sqlSession.update("postMapper.updatePost",postVO);
     }
 
-//    @Override
-//    public void deletePost(PostVO postVO){
-//
-//        sqlSession.delete("postMapper.deletePost",postVO);
-//    }
+    @Override
+    public void deletePost(PostVO postVO){
+
+        sqlSession.delete("postMapper.deletePost",postVO);
+    }
 }

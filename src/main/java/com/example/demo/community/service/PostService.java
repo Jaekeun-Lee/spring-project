@@ -16,4 +16,5 @@ public interface PostService {
     public void updatePost(PostVO postVO);
 
 //    게시물 삭제
+    public void deletePost(PostVO postVO);
 }

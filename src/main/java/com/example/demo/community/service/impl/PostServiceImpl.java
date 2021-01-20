@@ -39,4 +39,10 @@ public class PostServiceImpl implements PostService {
 
         postDAO.updatePost(postVO);
     }
+
+    @Override
+    public void deletePost(PostVO postVO){
+
+        postDAO.deletePost(postVO);
+    }
 }

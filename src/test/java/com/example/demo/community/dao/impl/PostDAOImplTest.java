@@ -42,27 +42,26 @@ public class PostDAOImplTest {
         postVO.setViewCnt(1);
 
         postService.addPost(postVO);
+        //애드로직 끝
         PostVO postVO1 = postService.getPost(4);
-//        postVO = postService.getPost(4);
+        //getPost() 같이 실행해서 VO생성자 또 만듦.
         Assert.assertEquals("user03",postVO1.getUserId());
-//ㅅㅂ
+        //assert - 내가 기대하고 있는 값, 실제로 넣은 값.
     }
 
     @Test
     public void getPost(){
 
         PostVO postVO = new PostVO();
-        postVO = postService.getPost(1);
+        postVO = postService.getPost(3);
         System.out.println("getPost() TEST::"+postVO);
 
-//        Assert.assertEquals("java", postVO.getPostName());
+        Assert.assertEquals("범내려온다", postVO.getPostName());
 //        Assert.assertEquals(1, postVO.getPostReply().get(0).getReplyNo());
 //        Assert.assertEquals(2, postVO.getPostReply().size());
-//        Assert.assertEquals(2, postVO.getReplyCnt());
+        Assert.assertEquals(0, postVO.getReplyCnt());
         }
 
-
-//        Assert.assertEquals("user02",postVO.getPostNo());
 
     @Test
     public void updatePost(){
@@ -79,6 +78,14 @@ public class PostDAOImplTest {
         PostVO postVO1 = postService.getPost(2);
 
         Assert.assertEquals(2,postVO1.getPostNo());
+    }
+
+    @Test
+    public void deletePost(){
+
+        PostVO postVO = new PostVO();
+
+
     }
 
 }

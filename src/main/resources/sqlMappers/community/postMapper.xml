@@ -61,11 +61,14 @@
         WHERE POST_No = #{postNo}
     </update>
 
-    <delete id="deletePost"     parameterType="postVO"/>
+    <delete id="deletePost"     parameterType="postVO">
+        DELETE
+
+        FROM POST
+
+        WHERE POST_NO = #{postNo}
 
     </delete>
-
-
 
 
 
