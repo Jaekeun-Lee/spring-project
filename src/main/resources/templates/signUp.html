@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -21,7 +21,7 @@
         <!-- 회원 가입 -->
         <div id="register" class="animate form">
             <section class="login_content">
-                <form method="post" action="/user/signUp">
+                <form th:method="post" th:action="@{/signUp}">
                     <h1>Create Account</h1>
                     <div>
                         <input type="text" name="name" class="form-control" placeholder="Name" required="" >
@@ -41,7 +41,7 @@
                     <div class="clearfix"></div>
                     <div class="separator">
                         <p class="change_link">Already a member ?
-                            <a href="/user/login" class="to_register"> Log in </a>
+                            <a th:href="@{/login}" class="to_register"> Log in </a>
                         </p>
                         <div class="clearfix"></div>
                         <br>
