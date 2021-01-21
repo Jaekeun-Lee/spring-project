@@ -21,4 +21,7 @@ public interface ProfileDAO {
     //리뷰 목록 조회
     public List<ReviewVO> getReviewList(ReviewVO reviewVO);
 
+    //북마크 목록 조회
+
+
 }

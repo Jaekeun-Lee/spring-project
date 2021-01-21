@@ -1,6 +1,6 @@
 package com.example.demo.profile.service.impl;
 
-import com.example.demo.member.vo.MemberVO;
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
 import org.junit.Assert;
@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -61,5 +63,16 @@ public class ProfileServiceImplTest {
         Assert.assertEquals(1,profileService.updateMyProfile(deleteMyProfileDTO));
     }
 
+    @Test
+    public void getReviewList(){
+
+        ReviewVO reviewVO = new ReviewVO();
+
+        reviewVO.setProjectNo(2);
+
+        List<ReviewVO> getReviewList = profileService.getReviewList(reviewVO);
+
+        Assert.assertEquals(2, getReviewList.size());
+    }
 
 }

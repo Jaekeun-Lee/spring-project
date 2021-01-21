@@ -19,7 +19,7 @@
 
     <!-- collection -->
     <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.NotiVO" select="getNotiList"/>
-        <collection property="review" column="review_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
+        <collection property="review" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
         <collection property="skillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByUserId"/>
     </resultMap>
 
@@ -50,8 +50,14 @@
         WHERE user_id = #{user_id}
     </select>
 
-    <select id="getReviewList" parameterType="com.example.demo.profile.dto.ReviewDTO$getReviewListDTO">
-        SELECT
+    <select id="getReviewList" parameterType="com.example.demo.common.vo.ReviewVO" resultMap="profileSelectMap">
+        SELECT review_no as reviewNo,
+               user_id as userId,
+               project_no as projectNo,
+               review_grade as reviewGrade,
+               review_comment as reviewComment
+        FROM review
+        WHERE project_no = #{projectNo}
     </select>
 
     <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
