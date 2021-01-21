@@ -1,5 +1,6 @@
 package com.example.demo.community.dao.impl;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
 import org.junit.Assert;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,17 +52,17 @@ public class PostDAOImplTest {
         //assert - 내가 기대하고 있는 값, 실제로 넣은 값.
     }
 
-    //@Test
+    @Test
     public void getPost(){
 
         PostVO postVO = new PostVO();
-        postVO = postService.getPost(3);
+        postVO = postService.getPost(4);
         System.out.println("getPost() TEST::"+postVO);
 
-        Assert.assertEquals("범내려온다", postVO.getPostName());
+        Assert.assertEquals("hihihi", postVO.getPostName());
 //        Assert.assertEquals(1, postVO.getPostReply().get(0).getReplyNo());
 //        Assert.assertEquals(2, postVO.getPostReply().size());
-        Assert.assertEquals(0, postVO.getReplyCnt());
+        Assert.assertEquals(2, postVO.getReplyCnt());
         }
 
 
@@ -92,4 +95,34 @@ public class PostDAOImplTest {
 
     }
 
+//    @Test
+//    public void getPostList(){
+//
+//        SearchVO searchVO = new SearchVO();
+//
+//        searchVO.setCurrentPage(1);
+//        searchVO.setPageSize(4);
+//
+//        Map<String, Object> map = postService.getPostList(searchVO);
+//
+//        List<Object> list = (List<Object>) map.get("list");
+//        System.out.println("getPostList 테스트코드::"+list);
+////        Assert.assertEquals(2, list.size());
+//
+//        Integer totalCount = (Integer) map.get("totalCount");
+//        System.out.println("getPostList 테스트코드::"+totalCount);
+//    }
+
+    @Test
+//    댓글번호가 조인되서 같이 나온다. mapper부분 다시 보기
+    public void getPostList(){
+
+        PostVO postVO=new PostVO();
+
+        postVO.setUserId("user01");
+
+        List<PostVO> getPostList01= postService.getPostList(postVO);
+        Assert.assertEquals(4, getPostList01.size());
+        System.out.println(getPostList01.get(0).getUserId());
+    }
 }

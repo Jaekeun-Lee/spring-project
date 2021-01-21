@@ -1,8 +1,10 @@
 package com.example.demo.community.service;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.PostVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PostService {
 
@@ -17,4 +19,8 @@ public interface PostService {
 
 //    게시물 삭제
     public void deletePost(PostVO postVO);
+
+//    게시물목록조회
+//    public Map<String, Object> getPostList(SearchVO searchVO);
+    public List<PostVO> getPostList(PostVO postVO);
 }

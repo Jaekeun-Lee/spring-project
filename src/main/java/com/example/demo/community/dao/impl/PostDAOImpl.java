@@ -1,11 +1,14 @@
 package com.example.demo.community.dao.impl;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.vo.PostVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("postDAOImpl")
 public class PostDAOImpl implements PostDAO {
@@ -45,5 +48,23 @@ public class PostDAOImpl implements PostDAO {
     public void deletePost(PostVO postVO){
 
         sqlSession.delete("postMapper.deletePost",postVO);
+    }
+
+//    @Override
+//    public List<PostVO> getPostList(SearchVO searchVO){
+//        return sqlSession.selectList("postMapper.getPostList", searchVO);
+//    }
+    @Override
+    public List<PostVO> getPostList(PostVO postVO){
+        return sqlSession.selectList("postMapper.getPostList",postVO);
+    }
+
+
+
+
+
+    @Override
+    public int getTotalCount(SearchVO searchVO){
+        return sqlSession.selectOne("PostMapper.getTotalCount", searchVO);
     }
 }
