@@ -23,8 +23,6 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
 	public void setSqlSession(SqlSession sqlSession) {
-		System.out.println("::"+getClass()+".setSqlSession() Call....");
-	    System.out.println("TEST APP DAO@@@");
 		this.sqlSession = sqlSession;
 	 }
 	
@@ -74,11 +72,6 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	}
 
 	@Override
-	public List<ProjectVO> getAppliedProjectList(SearchVO searchVO) {
-		return sqlSession.selectList("AprojectMapper.getAppliedProjectList",searchVO);
-	}
-
-	@Override
 	public List<ApplicantVO> getAppliedApplicantList(SearchVO searchVO) {
 		return sqlSession.selectList("applicantMapper.getAppliedApplicantList",searchVO);
 	}
@@ -86,11 +79,6 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	@Override
 	public int getAppliedTotalCount(SearchVO searchVO) {
 		return sqlSession.selectOne("applicantMapper.getAppliedTotalCount", searchVO);
-	}
-
-	@Override
-	public int getProjectNo(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
-		return sqlSession.selectOne("applicantMapper.getProjectNo", updateApplicantStatusDTO);
 	}
 
 }

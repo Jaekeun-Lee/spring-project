@@ -110,23 +110,32 @@
 				SELECT
 				a.applicant_no,
 				a.applicant_status,
-				a.reg_date
+				a.reg_date,
+				p.project_name,
+				p.project_detail,
+				p.user_id,
+				p.application_deadline,
+				p.recruitment_member_cnt
 				FROM
 				applicant a, project p
 				WHERE
 				a.project_no = p.project_no 
 				AND a.user_id = #{userId}
+				<!--현제부터 몇개월 까지의 list를 출력할건지-->
+				<if test="searchConditionA != null">
+					<if test="searchConditionA == 1">AND a.REG_DATE BETWEEN TRUNC(ADD_MONTHS(sysdate,-1)+1) - TO_CHAR(sysdate,'DD')
+													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
+					<if test="searchConditionA == 2">AND a.REG_DATE BETWEEN TRUNC(ADD_MONTHS(sysdate,-2)+1) - TO_CHAR(sysdate,'DD')
+													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
+					<if test="searchConditionA == 3">AND a.REG_DATE BETWEEN TRUNC(ADD_MONTHS(sysdate,-3)+1) - TO_CHAR(sysdate,'DD')
+													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
+				</if>
+				<!--신청서 상태-->
 				<if test="searchConditionB != null">
-					<if test = "searchConditionB == 1" >
-						AND a.applicant_status = 1
-					</if>
-					<if test = "searchConditionB == 2" >
-						AND a.applicant_status = 2
-					</if>
-					<if test = "searchConditionB == 3" >
-						AND a.applicant_status = 3
-						AND a.applicant_status = 4
-					</if>
+					<if test = "searchConditionB == 1" >AND a.applicant_status = 1</if>
+					<if test = "searchConditionB == 2" >AND a.applicant_status = 2</if>
+					<if test = "searchConditionB == 3" >AND a.applicant_status = 3
+														AND a.applicant_status = 4</if>
 				</if>
 				ORDER BY a.APPLICANT_NO
 				) inner_table
@@ -181,15 +190,13 @@
 	 
 	 <update id="updateProjectMember" parameterType="updateApplicantStatusDTO">
 		UPDATE MEMBER
-		SET PROJECT_NO = #{projectNo}
+		<set>
+			PROJECT_NO = (SELECT PROJECT_NO
+						  FROM APPLICANT
+						  WHERE APPLICANT_NO=#{applicantNo})
+		</set>
 		WHERE USER_ID = #{userId}
 	</update>
-	
-	<select id="getProjectNo" parameterType="updateApplicantStatusDTO" resultType="int">
-		SELECT PROJECT_NO
-		FROM   applicant
-		WHERE APPLICANT_NO = #{applicantNo}
-	</select>
 	 
 	 
 </mapper>

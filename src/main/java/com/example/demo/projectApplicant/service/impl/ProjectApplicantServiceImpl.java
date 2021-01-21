@@ -55,9 +55,6 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	public void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO) {
 		projectapplicantDAO.updateApplicantStatus(updateApplicantStatusDTO);
 		if(updateApplicantStatusDTO.getApplicantStatus()==5) {
-			System.out.println("되는지 확인하는거임!!!!!!!!@@@@@");
-			int pjNO = projectapplicantDAO.getProjectNo(updateApplicantStatusDTO);
-			updateApplicantStatusDTO.setProjectNo(pjNO);
 			projectapplicantDAO.updateProjectMember(updateApplicantStatusDTO);
 		}
 	}
@@ -74,12 +71,10 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 
 	@Override
 	public Map<String, Object> getAppliedProjectList(SearchVO searchVO) {
-		List<ProjectVO> list1 = projectapplicantDAO.getAppliedProjectList(searchVO);
-		List<ApplicantVO> list2 = projectapplicantDAO.getAppliedApplicantList(searchVO);
+		List<ApplicantVO> list = projectapplicantDAO.getAppliedApplicantList(searchVO);
 		int totalCount = projectapplicantDAO.getAppliedTotalCount(searchVO);
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("list1", list1);
-		map.put("list2", list2);
+		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
