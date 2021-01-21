@@ -1,5 +1,6 @@
 package com.example.demo.profile.service.impl;
 
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
 import org.junit.Assert;
@@ -18,19 +19,25 @@ public class ProfileServiceImplTest {
     @Qualifier("profileServiceImpl")
     private ProfileService profileService;
 
-    //@Test
+    @Test
     public void updateMyProfile() {
 
         ProfileDTO.UpdateMyProfileDTO updateMyProfileDTO = new ProfileDTO.UpdateMyProfileDTO();
-        updateMyProfileDTO.setUserId("user01");
-        updateMyProfileDTO.setProfileImg("choco.jpg");
-        updateMyProfileDTO.setLink("www.intellij.com");
-        updateMyProfileDTO.setSelfIntro("안녕안녕");
+        updateMyProfileDTO.setUserId("user02");
+        updateMyProfileDTO.setProfileImg("abc.jpg");
+        ProfileDTO.GetMyProfileDTO getMyProfileDTO = profileService.getMyProfile("user02");
+
+        String link = "www.cyworld.net";
+        String csvLink = getMyProfileDTO.getLink()+","+link;
+        updateMyProfileDTO.setLink(csvLink);
+        System.out.println(getMyProfileDTO.getLink());
+
+        updateMyProfileDTO.setSelfIntro("설명중입니다~");
 
         Assert.assertEquals(1,profileService.updateMyProfile(updateMyProfileDTO));
     }
 
-    @Test
+    //@Test
     public void getMyProfile() {
         ProfileDTO.GetMyProfileDTO getMyProfileDTO = new ProfileDTO.GetMyProfileDTO();
 
@@ -44,7 +51,15 @@ public class ProfileServiceImplTest {
         Assert.assertEquals(4,getMyProfileDTO.getReportCnt());
         Assert.assertEquals("안녕안녕",getMyProfileDTO.getSelfIntro());
         Assert.assertEquals("www.intellij.com",getMyProfileDTO.getLink());
-
-
     }
+
+    //@Test
+    public void deleteMyProfile(){
+        ProfileDTO.UpdateMyProfileDTO deleteMyProfileDTO = new ProfileDTO.UpdateMyProfileDTO();
+        deleteMyProfileDTO.setUserId("user01");
+
+        Assert.assertEquals(1,profileService.updateMyProfile(deleteMyProfileDTO));
+    }
+
+
 }

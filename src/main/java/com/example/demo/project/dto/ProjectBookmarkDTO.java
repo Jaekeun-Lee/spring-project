@@ -6,9 +6,6 @@ public class ProjectBookmarkDTO {
     private int projectNo;
     private String userId;
 
-    public ProjectBookmarkDTO() {
-    }
-
     public int getBookmarkNo() {
         return bookmarkNo;
     }
@@ -33,13 +30,4 @@ public class ProjectBookmarkDTO {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("ProjectBookmarkDTO{");
-        sb.append("bookmarkNo=").append(bookmarkNo);
-        sb.append(", projectNo=").append(projectNo);
-        sb.append(", userId='").append(userId).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
 }

@@ -34,6 +34,9 @@ public class ProjectVO {
     private String projectDetail;
     private Date endDate;
     private int bookmarkCheck;
+    private List<String> uploadFile;
+
+
 
 	public ProjectVO() {
 	}
@@ -246,6 +249,14 @@ public class ProjectVO {
 		this.bookmarkCheck = bookmarkCheck;
 	}
 
+	public List<String> getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(List<String> uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("ProjectVO{");
@@ -275,6 +286,7 @@ public class ProjectVO {
 		sb.append(", projectDetail='").append(projectDetail).append('\'');
 		sb.append(", endDate=").append(endDate);
 		sb.append(", bookmarkCheck=").append(bookmarkCheck);
+		sb.append(", uploadFile=").append(uploadFile);
 		sb.append('}');
 		return sb.toString();
 	}

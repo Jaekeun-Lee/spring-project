@@ -2,20 +2,18 @@ package com.example.demo.project.service.impl;
 
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dao.ProjectDAO;
-import com.example.demo.project.dto.GetProjectDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.MyProjectVO;
 import com.example.demo.project.vo.ProjectVO;
-import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.project.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("projectServiceImpl")
 public class ProjectServiceImpl implements ProjectService {
@@ -30,8 +28,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectVO getProject(GetProjectDTO getProjectDTO) {
-        return projectDAO.getProject(getProjectDTO);
+    public ProjectVO getProject(Map<String, Object> getProjectMap) {
+        return projectDAO.getProject(getProjectMap);
     }
 
     @Override
@@ -62,6 +60,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectVO> getProjectList(SearchVO searchVO) {
         return projectDAO.getProjectList(searchVO);
+    }
+
+    @Override
+    public int deleteProject(int projectNo) {
+        if (projectDAO.getMyProject(projectNo).getTeamMember().size() == 1){
+            return projectDAO.deleteProject(projectNo);
+        } else {
+            return 0;
+        }
+
     }
 
 

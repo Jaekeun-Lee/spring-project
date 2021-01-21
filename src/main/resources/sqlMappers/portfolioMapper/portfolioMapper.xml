@@ -13,15 +13,16 @@
         <result property="portDescription" column="port_description" jdbcType="VARCHAR"/>
         <result property="portTitle" column="port_title" jdbcType="VARCHAR"/>
         <result property="portMemberCnt" column="port_member_cnt" jdbcType="INTEGER"/>
+        <result property="regDate" column="reg_date" jdbcType="DATE"/>
         <!--<result property="portThumbnailImg" column="port_thumbnail_image" jdbcType="VARCHAR"/>-->
 
 
         <!-- collection -->
-        <collection property="portSkillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getPortHashTagByUserId"/>
-        <collection property="portFileName" column="portfolio_no" select="getFilesByPortfolioNo"/>
+       <!-- <collection property="portSkillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getPortHashTagByUserId"/>
+        <collection property="portFileName" column="portfolio_no" select="getFilesByPortfolioNo"/>-->
     </resultMap>
 
-    <insert id="addExPort" parameterType="com.example.demo.portfolio.dto.PortfolioDTO$AddExPortDTO">
+    <insert id="addPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
         INSERT
         INTO portfolio (
                         portfolio_no,
@@ -31,7 +32,8 @@
                         port_project_end_date,
                         port_description,
                         port_title,
-                        port_member_cnt
+                        port_member_cnt,
+                        reg_date
         )
         VALUES(
                seq_portfolio_no.NEXTVAL,
@@ -41,11 +43,22 @@
                #{portProjectEndDate},
                #{portDescription},
                #{portTitle},
-               #{portMemberCnt}
+               #{portMemberCnt},
+               SYSDATE
               )
     </insert>
 
-    <select id="getExPort" parameterType="int" resultType="com.example.demo.portfolio.dto.PortfolioDTO$GetExPortDTO">
+    <update id="updatePort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
+        UPDATE portfolio
+        SET port_project_start_date = #{portProjectStartDate},
+            port_project_end_date = #{portProjectEndDate},
+            port_description = #{portDescription},
+            port_member_cnt = #{portMemberCnt},
+            port_title = #{portTitle}
+        WHERE portfolio_no = #{portNo}
+    </update>
+
+    <select id="getPort" parameterType="int" resultType="com.example.demo.portfolio.vo.PortfolioVO">
         SELECT portfolio_no as portNo,
                user_id,
                project_no,
@@ -55,6 +68,20 @@
                port_member_cnt
         FROM portfolio
         WHERE portfolio_no = #{portNo}
+    </select>
+
+    <delete id="deletePort" parameterType="int" >
+        DELETE FROM portfolio
+        WHERE portfolio_no = #{portNo}
+    </delete>
+
+    <select id="getPortList" parameterType="com.example.demo.portfolio.vo.PortfolioVO" resultMap="portfolioSelectMap">
+        SELECT portfolio_no,
+               user_id,
+               port_title,
+               reg_date
+        FROM portfolio
+        WHERE user_id = #{userId}
     </select>
 
 </mapper>

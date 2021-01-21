@@ -27,9 +27,15 @@
         UPDATE MEMBER
         SET self_intro = #{selfIntro:VARCHAR},
             profile_image = #{profileImg:VARCHAR},
-            link = #{link:VARCHAR}
         WHERE user_id = #{userId}
     </update>
+
+    <update id="updateLink" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
+        UPDATE member
+        SET link = #{link}
+        WHERE user_id = #{userId}
+    </update>
+
 
     <select id="getMyProfile" parameterType="string" resultType="com.example.demo.profile.dto.ProfileDTO$GetMyProfileDTO">
         SELECT user_id as userId,
@@ -44,12 +50,18 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <select id="getReviewList" parameterType="com.example.demo.profile.dto.ReviewDTO$getReviewListDTO">
+        SELECT
+    </select>
+
     <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
         SELECT hashtag
         FROM skill_hashtag as sh, hashtag as h
         WHERE sh.skill_hashTag_no = h.hashTag_no
           AND sh.user_id = #{user_id}
     </select>
+
+
 
 
 </mapper>

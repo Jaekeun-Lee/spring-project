@@ -49,7 +49,7 @@ public class PostDAOImplTest {
         //assert - 내가 기대하고 있는 값, 실제로 넣은 값.
     }
 
-    @Test
+    //@Test
     public void getPost(){
 
         PostVO postVO = new PostVO();
