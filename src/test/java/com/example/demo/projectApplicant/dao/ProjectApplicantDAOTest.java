@@ -33,7 +33,6 @@ public class ProjectApplicantDAOTest {
 	private ProjectApplicantService projectApplicantService;
 	
 	public ProjectApplicantDAOTest() {
-		System.out.println("TEST APP @@@@@");
 	}
 	
 	//@Test
@@ -144,14 +143,13 @@ public class ProjectApplicantDAOTest {
 		searchVO.setCurrentPage(1);
 		searchVO.setPageSize(6);
 		searchVO.setUserId("user03");
-		searchVO.setSearchConditionB(1);
+		searchVO.setSearchConditionA(2);
 		
 		Map<String, Object> map = projectApplicantService.getAppliedProjectList(searchVO);
 		
-		List<Object> list1 = (List<Object>)map.get("list1");
-		List<Object> list2 = (List<Object>)map.get("list2");
-		Assert.assertEquals(2, list1.size());
-		Assert.assertEquals(2, list2.size());
+		List<Object> list = (List<Object>)map.get("list1");
+
+		Assert.assertEquals(2, list.size());
 		
 		Integer totalCount = (Integer)map.get("totalCount");
 	}

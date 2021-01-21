@@ -12,20 +12,20 @@ import java.util.Map;
 
 public interface ProjectApplicantService {
 	
-	public void addProject(ProjectVO projectVO);
+	void addProject(ProjectVO projectVO);
 	
-	public ProjectVO getProject(int projectNo);
+	ProjectVO getProject(int projectNo);
 
-    public void addApplicant(ApplicantVO applicantVO);
+    void addApplicant(ApplicantVO applicantVO);
 
-    public ApplicantVO getApplicant(int applicantNo);
+    ApplicantVO getApplicant(int applicantNo);
 
-    public Map<String,Object> getAppliedProjectList(SearchVO searchVO);
+    Map<String,Object> getAppliedProjectList(SearchVO searchVO);
 
-    public Map<String,Object> getApplicantList(SearchVO searchVO);
+    Map<String,Object> getApplicantList(SearchVO searchVO);
 
     //Rest - DTO
-    public void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
+    void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 
 }
 
