@@ -1,7 +1,9 @@
 package com.example.demo.profile.service.impl;
 
+import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.vo.MemberVO;
+import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dao.ProfileDAO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
@@ -30,6 +32,16 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public ProfileDTO.GetAdminProfileDTO getAdminProfile(String userId){
+        return profileDAO.getAdminProfile(userId);
+    }
+
+    @Override
+    public List<PortfolioVO> getAllProfile(PortfolioVO portfolioVO){
+        return profileDAO.getAllProfile(portfolioVO);
+    }
+
+    @Override
     public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink){
         return profileDAO.updateLink(updateLink);
     }
@@ -37,6 +49,11 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public List<ReviewVO> getReviewList(ReviewVO reviewVO){
         return profileDAO.getReviewList(reviewVO);
+    }
+
+    @Override
+    public List<BookmarkVO> getBookmarkList(BookmarkVO bookmarkVO){
+        return profileDAO.getBookmarkList(bookmarkVO);
     }
 
 }

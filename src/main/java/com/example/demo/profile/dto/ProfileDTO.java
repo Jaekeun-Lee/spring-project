@@ -1,6 +1,7 @@
 package com.example.demo.profile.dto;
 
 import com.example.demo.member.vo.MemberVO;
+import com.example.demo.portfolio.vo.PortfolioVO;
 import lombok.Data;
 
 import java.util.List;
@@ -27,6 +28,24 @@ public class ProfileDTO {
         private String profileImg;
         private String selfIntro;
         private String link;
+    }
+
+    //관리자 프로필 조회
+    @Data
+    public static class GetAdminProfileDTO{
+        private String userId;
+        private String email;
+        private String name;
+        private String role;
+    }
+
+    //전체보기 조회
+    @Data
+    public static class GetAllProfileDTO{
+        private String userId;
+        private String link;
+        private String selfIntro;
+        private List<PortfolioVO> portfolio;
     }
 
 }
