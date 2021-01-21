@@ -1,5 +1,6 @@
 package com.example.demo.project.service.impl;
 
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +30,15 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectVO getProject(Map<String, Object> getProjectMap) {
+    public ProjectVO getProject(int projectNo, String userId) {
+
+        Map<String, Object> getProjectMap = new HashMap<>();
+
+        getProjectMap.put("projectNo", projectNo);
+        getProjectMap.put("userId", userId);
+
         return projectDAO.getProject(getProjectMap);
+
     }
 
     @Override
@@ -64,7 +73,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public int deleteProject(int projectNo) {
-        if (projectDAO.getMyProject(projectNo).getTeamMember().size() == 1){
+
+        if (projectDAO.getMyProject(projectNo).getTeamMember().size() == 1) {
             return projectDAO.deleteProject(projectNo);
         } else {
             return 0;
@@ -72,5 +82,48 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    @Override
+    public int withdrawProject(String userId) {
+        return projectDAO.withdrawProject(userId);
+    }
+
+    @Override
+    public int updateProjectLeader(int projectNo, String beforeLeaderId, String afterLeaderId) {
+
+        Map<String, Object> updateProjectLeaderMap = new HashMap<>();
+
+        updateProjectLeaderMap.put("projectNo", projectNo);
+        updateProjectLeaderMap.put("beforeLeaderId", beforeLeaderId);
+        updateProjectLeaderMap.put("afterLeaderId", afterLeaderId);
+
+
+        return projectDAO.updateProjectLeader(updateProjectLeaderMap);
+    }
+
+    @Override
+    public int addEndProjectCount(int projectNo, String userId, int teamMemberCnt, int votedMemberCnt) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("projectNo", projectNo);
+        map.put("userId", userId);
+
+        if (teamMemberCnt - 1 == votedMemberCnt) {
+            projectDAO.updateProjectStatus(map);
+        }
+
+        return projectDAO.addEndProjectCount(map);
+
+    }
+
+//    @Override
+//    public void applicationDeadlineCheck() {
+//
+//    }
+
+    @Override
+    public int addReview(List<ReviewVO> reviewVOList) {
+        return projectDAO.addReview(reviewVOList);
+    }
 
 }

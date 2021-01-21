@@ -30,7 +30,6 @@ public class ProjectVO {
     private int recruitmentMemberCnt;
     private int projectViewCnt;
     private int projectStatus;
-    private int endProjectCnt;
     private String projectDetail;
     private Date endDate;
     private int bookmarkCheck;
@@ -217,14 +216,6 @@ public class ProjectVO {
 		this.projectStatus = projectStatus;
 	}
 
-	public int getEndProjectCnt() {
-		return endProjectCnt;
-	}
-
-	public void setEndProjectCnt(int endProjectCnt) {
-		this.endProjectCnt = endProjectCnt;
-	}
-
 	public String getProjectDetail() {
 		return projectDetail;
 	}
@@ -282,7 +273,6 @@ public class ProjectVO {
 		sb.append(", recruitmentMemberCnt=").append(recruitmentMemberCnt);
 		sb.append(", projectViewCnt=").append(projectViewCnt);
 		sb.append(", projectStatus=").append(projectStatus);
-		sb.append(", endProjectCnt=").append(endProjectCnt);
 		sb.append(", projectDetail='").append(projectDetail).append('\'');
 		sb.append(", endDate=").append(endDate);
 		sb.append(", bookmarkCheck=").append(bookmarkCheck);
