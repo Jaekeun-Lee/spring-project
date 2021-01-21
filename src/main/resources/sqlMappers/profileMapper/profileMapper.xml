@@ -21,12 +21,14 @@
     <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.NotiVO" select="getNotiList"/>
         <collection property="review" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
         <collection property="skillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByUserId"/>
+        <collection property="portfolio" column="user_id" javaType="java.util.ArrayList" ofType="com.example.demo.portfolio.vo.PortfolioVO" select="getAllProfileList"/>
     </resultMap>
 
     <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
         UPDATE MEMBER
         SET self_intro = #{selfIntro:VARCHAR},
             profile_image = #{profileImg:VARCHAR},
+            link = #{link:VARCHAR}
         WHERE user_id = #{userId}
     </update>
 
@@ -50,6 +52,30 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <select id="getAdminProfile" parameterType="string" resultType="com.example.demo.profile.dto.ProfileDTO$GetAdminProfileDTO">
+        SELECT user_id as userId,
+               email,
+               name,
+               role
+        FROM member
+        WHERE user_id = #{user_id} AND role = 'ADMIN'
+    </select>
+
+    <select id="getAllProfileList" parameterType="string" resultType="com.example.demo.portfolio.vo.PortfolioVO" resultMap="profileSelectMap">
+        SELECT m.user_id as userId,
+               m.self_intro as selfIntro,
+               m.link,
+               p.portfolio_no as portNo,
+               p.port_title,
+               p.reg_date
+
+        FROM member m, portfolio p
+        WHERE m.user_id = #{userId} AND
+              m.user_id = p.user_id
+
+
+    </select>
+
     <select id="getReviewList" parameterType="com.example.demo.common.vo.ReviewVO" resultMap="profileSelectMap">
         SELECT review_no as reviewNo,
                user_id as userId,
@@ -60,12 +86,22 @@
         WHERE project_no = #{projectNo}
     </select>
 
+    <select id="getBookmarkList" parameterType="com.example.demo.common.vo.BookmarkVO" resultMap="profileSelectMap">
+        SELECT bookmark_no as bookmarkNo,
+               user_id as userId,
+               post_no as postNo,
+               project_no as projectNo
+        FROM bookmark
+        WHERE user_id = #{userId}
+    </select>
+
     <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
         SELECT hashtag
         FROM skill_hashtag as sh, hashtag as h
         WHERE sh.skill_hashTag_no = h.hashTag_no
           AND sh.user_id = #{user_id}
     </select>
+
 
 
 
