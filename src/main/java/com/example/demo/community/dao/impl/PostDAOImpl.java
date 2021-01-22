@@ -50,14 +50,14 @@ public class PostDAOImpl implements PostDAO {
         sqlSession.delete("postMapper.deletePost",postVO);
     }
 
-//    @Override
-//    public List<PostVO> getPostList(SearchVO searchVO){
-//        return sqlSession.selectList("postMapper.getPostList", searchVO);
-//    }
     @Override
-    public List<PostVO> getPostList(PostVO postVO){
-        return sqlSession.selectList("postMapper.getPostList",postVO);
+    public List<PostVO> getPostList(SearchVO searchVO){
+        return sqlSession.selectList("postMapper.getPostList", searchVO);
     }
+//    @Override
+//    public List<PostVO> getPostList(PostVO postVO){
+//        return sqlSession.selectList("postMapper.getPostList",postVO);
+//    }
 
 
 
@@ -65,6 +65,6 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     public int getTotalCount(SearchVO searchVO){
-        return sqlSession.selectOne("PostMapper.getTotalCount", searchVO);
+        return sqlSession.selectOne("postMapper.getTotalCount", searchVO);
     }
 }

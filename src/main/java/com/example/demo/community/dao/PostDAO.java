@@ -21,8 +21,8 @@ public interface PostDAO {
     public void deletePost(PostVO postVO);
 
     //getPostList
-//    public List<PostVO> getPostList(SearchVO searchVO);
-    public List<PostVO> getPostList(PostVO postVO);
+    public List<PostVO> getPostList(SearchVO searchVO);
+//    public List<PostVO> getPostList(PostVO postVO);
 
     //검색
     public int getTotalCount(SearchVO searchVO);

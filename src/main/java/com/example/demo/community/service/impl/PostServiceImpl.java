@@ -51,17 +51,17 @@ public class PostServiceImpl implements PostService {
         postDAO.deletePost(postVO);
     }
 
-//    @Override
-//    public Map<String,Object> getPostList(SearchVO searchVO){
-//        List<PostVO> list = postDAO.getPostList(searchVO);
-//        int totalcount = postDAO.getTotalCount(searchVO);
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("list", list);
-//        map.put("totalCount", new Integer(totalcount));
-//        return map;
-//    }
     @Override
-    public List<PostVO> getPostList(PostVO postVO){
-        return postDAO.getPostList(postVO);
+    public Map<String,Object> getPostList(SearchVO searchVO){
+        List<PostVO> list = postDAO.getPostList(searchVO);
+        int totalcount = postDAO.getTotalCount(searchVO);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("list", list);
+        map.put("totalCount", new Integer(totalcount));
+        return map;
     }
+//    @Override
+//    public List<PostVO> getPostList(PostVO postVO){
+//        return postDAO.getPostList(postVO);
+//    }
 }

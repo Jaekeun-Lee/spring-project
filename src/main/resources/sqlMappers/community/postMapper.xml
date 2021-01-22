@@ -31,11 +31,11 @@
                   view_Cnt
 --                   reply추가
                   )
-        values (#{postNo},
+        values (SEQ_REPLY_NO.NEXTVAL,
                 #{postName},
                 #{postContent},
                 #{userId},
-                #{regDate},
+                SYSDATE,
                 #{replyCnt},
                 #{viewCnt})
     </insert>
@@ -73,33 +73,77 @@
 
     </delete>
 
-<!--    <select id="getPostList"    parameterType="postVO"  resultMap="postSelectMap">-->
+    <select id="getPostList"    parameterType="searchVO"  resultMap="postSelectMap">
+        SELECT *
+        FROM (SELECT inner_table.*, ROWNUM as row_seq
+            FROM(
+                SELECT POST_NO,
+                        POST_NAME,
+                        POST_CONTENT,
+                        USER_ID,
+                        REG_DATE,
+                        REPLY_CNT,
+                        VIEW_CNT
+                FROM POST
+                where
+                    <if test="searchConditionA != null">
+                        <if test="searchConditionA == 1">
+                            POST_NAME Like '%'||#{searchKeyword}||'%'
+                        </if>
+                        <if test="searchConditionA == 2" >
+                            POST_CONTENT LIKE '%'||#{searchKeyword}||'%'
+                        </if>
+                        <if test="searchConditionA == 3">
+                            USER_ID LIKE '%'||#{searchKeyword}||'%'
+                        </if>
+                    </if>
+                ORDER BY POST_NO ) inner_table
+            WHERE ROWNUM &lt;=#{endRowNum} )
+        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+    </select>
+
+<!--    <select id="getPostList"    parameterType="searchVO"  resultMap="postSelectMap">-->
 <!--        SELECT *-->
 <!--        FROM (SELECT inner_table.*, ROWNUM as row_seq-->
-<!--            FROM(SELECT POST_NO as 번호,-->
-<!--                        POST_NAME as 제목,-->
-<!--                        USER_ID as 작성자,-->
-<!--                        REG_DATE as 작성날짜,-->
-<!--                        REPLY_CNT as 댓글수,-->
-<!--                        VIEW_CNT as 조회수-->
+<!--            FROM(SELECT POST_NO,-->
+<!--                        POST_NAME,-->
+<!--                        POST_CONTENT,-->
+<!--                        USER_ID,-->
+<!--                        REG_DATE,-->
+<!--                        REPLY_CNT,-->
+<!--                        VIEW_CNT-->
 <!--                 FROM POST-->
-<!--                 WHERE USER_ID = #{userId}-->
-<!--                 ORDER BY POST_NO )inner_table-->
-<!--            WHERE ROWNUM <=#{endRowNum} )-->
+<!--                 <if test="searchConditionA != null">-->
+<!--                     <if test="searchConditionA == 1">-->
+<!--                         AND POST_NAME = #{searchKeyword}-->
+<!--                     </if>-->
+<!--                     <if test="searchConditionA == 2" >-->
+<!--                         AND POST_CONTENT = #{searchKeyword}-->
+<!--                     </if>-->
+<!--                     <if test="searchConditionA == 3">-->
+<!--                         AND USER_ID = #{searchKeyword}-->
+<!--                     </if>-->
+<!--                 </if>-->
+<!--                 ORDER BY -->
+<!--                 <choose>-->
+<!--                     <when test="sort == 1">POST_CONTENT DESC</when>-->
+<!--                     <when test="sort == 2">POST_CONTENT</when>-->
+<!--                     <otherwise>POST_NO</otherwise>-->
+<!--                 </choose> POST_NO)inner_table-->
+<!--            WHERE ROWNUM &lt;=#{endRowNum} )-->
 <!--        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}-->
-
-
 <!--    </select>-->
-    <select id="getPostList"    parameterType="postVO"      resultMap="postSelectMap">
-        SELECT
-                POST_NO,
-                POST_NAME,
-                USER_ID,
-                REG_DATE,
-                REPLY_CNT,
-                VIEW_CNT
-        FROM POST
-    </select>
+
+<!--    <select id="getPostList"    parameterType="postVO"      resultMap="postSelectMap">-->
+<!--        SELECT-->
+<!--                POST_NO,-->
+<!--                POST_NAME,-->
+<!--                USER_ID,-->
+<!--                REG_DATE,-->
+<!--                REPLY_CNT,-->
+<!--                VIEW_CNT-->
+<!--        FROM POST-->
+<!--    </select>-->
 
 
 

@@ -21,6 +21,6 @@ public interface PostService {
     public void deletePost(PostVO postVO);
 
 //    게시물목록조회
-//    public Map<String, Object> getPostList(SearchVO searchVO);
-    public List<PostVO> getPostList(PostVO postVO);
+    public Map<String, Object> getPostList(SearchVO searchVO);
+//    public List<PostVO> getPostList(PostVO postVO);
 }
