@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:text="${portfolio.portTitle}"></div>
+<div th:text="${portfolio.portMemberCnt}"></div>
+<div th:text="${portfolio.portProjectStartDate}"></div>
+<div th:text="${portfolio.portProjectEndDate}"></div>
+<div th:text="${portfolio.portSkillTag}"></div>
+<div th:text="${portfolio.portDescription}"></div>
+
+<form action="/port/updatePort" method="post">
+<input type="text" th:value="${portfolio.portTitle}"></input>
+<div th:text="${portfolio.portMemberCnt}"></div>
+<div th:text="${portfolio.portProjectStartDate}"></div>
+<div th:text="${portfolio.portProjectEndDate}"></div>
+<div th:text="${portfolio.portSkillTag}"></div>
+<div th:text="${portfolio.portDescription}"></div>
+    <input type="submit" value="수정">
+</form>
