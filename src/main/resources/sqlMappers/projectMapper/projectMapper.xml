@@ -183,25 +183,18 @@
 		<where>
 			P.PROJECT_NO = B.BOOKMARK_NO(+)
 
-			<if test="searchConditionA != null">
-				<if test="searchConditionA == 1">AND P.PROJECT_CATEGORY = 1 </if>
-				<if test="searchConditionA == 2">AND P.PROJECT_CATEGORY = 2 </if>
-				<if test="searchConditionA == 3">AND P.PROJECT_CATEGORY = 3 </if>
-			</if>
-			<if test="searchConditionB != null">
-				<if test="searchConditionB == 1 ">AND P.MEETING_METHOD = 1</if>
-				<if test="searchConditionB == 2 ">AND P.MEETING_METHOD = 2</if>
-			</if>
+			<if test="searchConditionA != null and searchConditionA != 0">AND P.PROJECT_CATEGORY = #{searchConditionA} </if>
+
+			<if test="searchConditionB != null and searchConditionB != 0">AND P.MEETING_METHOD = #{searchConditionB}</if>
+
 			<if test="searchConditionC != null">
 				<if test="searchConditionC == 1">AND P.PROJECT_NAME LIKE '%'||#{searchKeyword}||'%' </if>
 				<if test="searchConditionC == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG = #{searchKeyword} </if>
 				<if test="searchConditionC == 3">AND P.PROJECT_DETAIL LIKE '%'||#{searchKeyword}||'%' </if>
 			</if>
-			<if test="searchConditionD != null">
-				<if test="searchConditionD == 1">AND P.PROJECT_STATUS = 1</if>
-				<if test="searchConditionD == 2">AND P.PROJECT_STATUS = 2</if>
-				<if test="searchConditionD == 3">AND P.PROJECT_STATUS = 3</if>
-			</if>
+
+			<if test="searchConditionD != null and searchConditionD != 0">AND P.PROJECT_STATUS = #{searchConditionD}</if>
+
 			)
 		</where>
 
