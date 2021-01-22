@@ -3,6 +3,7 @@ package com.example.demo.projectApplicant.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,15 +24,19 @@ public class ProjectApplicant {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value = "/addProject", method = RequestMethod.GET)
+	@RequestMapping(value = "/addApplicant", method = RequestMethod.GET)
 	public String addProject() throws Exception{
-		System.out.println("/addProject GET");
-		return "projectApplicant/addProjectView";
+		System.out.println("/addApplicant GET");
+		return "projectApplicant/addApplicant";
 	}
 	
-	@RequestMapping(value = "/addProject", method = RequestMethod.POST)
-	public String addProject(@ModelAttribute("project")ProjectVO projectVO) throws Exception{
-		System.out.println("/addProject POST");
-		return "forward:/applicant/수정수정.html";
-	}
+//	@RequestMapping(value = "/addApplicant", method = RequestMethod.GET)
+//	public String addProject(@ModelAttribute("project")ProjectVO projectVO, Model model) throws Exception{
+//		System.out.println("/addApplicant GET");
+//		System.out.println(projectVO);
+//		
+//		model.addAttribute("projectVO",projectVO);
+//		
+//		return "projectApplicant/addApplicant";
+//	}
 }
