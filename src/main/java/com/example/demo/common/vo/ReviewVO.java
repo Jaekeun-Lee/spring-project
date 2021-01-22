@@ -4,12 +4,9 @@ public class ReviewVO {
 
     private int reviewNo;
     private int projectNo;
-    private String reviewGrade;
+    private int reviewGrade;
     private String reviewComment;
     private String userId;
-
-    public ReviewVO() {
-    }
 
     public int getReviewNo() {
         return reviewNo;
@@ -27,11 +24,11 @@ public class ReviewVO {
         this.projectNo = projectNo;
     }
 
-    public String getReviewGrade() {
+    public int getReviewGrade() {
         return reviewGrade;
     }
 
-    public void setReviewGrade(String reviewGrade) {
+    public void setReviewGrade(int reviewGrade) {
         this.reviewGrade = reviewGrade;
     }
 

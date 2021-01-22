@@ -1,5 +1,6 @@
 package com.example.demo.project.service.impl;
 
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
@@ -15,10 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -51,16 +49,12 @@ public class ProjectServiceImplTest {
 
     }
 
-    //@Test
+    @Test
     public void getProject() {
 
-        Map<String, Object> getProjectMap = new HashMap<>();
+        ProjectVO projectVO = projectService.getProject(1, "user01");
 
-        getProjectMap.put("projectNo", 1);
-        getProjectMap.put("userId", "user01");
-
-        ProjectVO projectVO = projectService.getProject(getProjectMap);
-
+        System.out.println(projectVO.getProjectNo());
         //테스트 데이터 프로젝트 명
         Assert.assertEquals("testProject", projectVO.getProjectName());
         //테스트 데이터 댓글 수
@@ -182,7 +176,50 @@ public class ProjectServiceImplTest {
 
         */
 
-        //Assert.assertEquals(1,projectService.deleteProject(4));
+        Assert.assertEquals(1, projectService.deleteProject(4));
+    }
+
+    //@Test
+    public void withdrawProject() {
+        Assert.assertEquals(1, projectService.withdrawProject("user07"));
+    }
+
+    //@Test
+    public void updateProjectLeader() {
+
+        Assert.assertEquals(1, projectService.updateProjectLeader(1, "user07", "user01"));
+
+    }
+
+    @Test
+    public void addReview() {
+
+        ReviewVO reviewVO1 = new ReviewVO();
+        ReviewVO reviewVO2 = new ReviewVO();
+        ReviewVO reviewVO3 = new ReviewVO();
+
+        reviewVO1.setReviewGrade(1);
+        reviewVO1.setProjectNo(1);
+        reviewVO1.setReviewComment("nice!");
+        reviewVO1.setUserId("user01");
+
+        reviewVO2.setReviewGrade(1);
+        reviewVO2.setProjectNo(1);
+        reviewVO2.setReviewComment("goooood");
+        reviewVO2.setUserId("user01");
+
+        reviewVO3.setReviewGrade(-1);
+        reviewVO3.setProjectNo(1);
+        reviewVO3.setReviewComment("baddddd");
+        reviewVO3.setUserId("user01");
+
+        List<ReviewVO> list = new ArrayList<>();
+        list.add(reviewVO1);
+        list.add(reviewVO2);
+        list.add(reviewVO3);
+
+        Assert.assertEquals(3, projectService.addReview(list));
+
     }
 
 }

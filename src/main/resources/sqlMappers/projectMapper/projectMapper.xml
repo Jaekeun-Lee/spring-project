@@ -43,6 +43,7 @@
 		<result		property="projectName"	column="project_name"	jdbcType="VARCHAR"/>
 		<collection property="todoList" 	column="project_no" 	select="getTodoListByProjectNo"/>
 		<collection property="teamMember" 	column="project_no" 	select="getProjectMemberByProjectNo"/>
+		<collection property="votedMember"	column="project_no" 	select="getVotedMemberByProjectNo"/>
 	</resultMap>
 
 
@@ -86,6 +87,7 @@
 		       #{recruitmentMemberCnt})
 	</insert>
 
+
 	<update id="updateMemberProjectNo" parameterType="string">
 		UPDATE MEMBER
 		<set>
@@ -102,6 +104,13 @@
 		FROM PROJECT P, BOOKMARK B
 		WHERE  P.PROJECT_NO(+) = B.PROJECT_NO AND P.PROJECT_NO=#{projectNo} AND B.USER_ID=#{userId}
 	</select>
+
+
+	<update id="updateViewCnt" parameterType="hashMap">
+		UPDATE PROJECT
+		SET PROJECT_VIEW_CNT = PROJECT_VIEW_CNT + 1
+		WHERE PROJECT_NO = #{projectNo}
+	</update>
 
 
 	<insert id="addProjectReply" parameterType="projectReplyDTO">
@@ -211,6 +220,54 @@
 	</delete>
 
 
+	<update id="withdrawProject" parameterType="string">
+		UPDATE MEMBER
+		SET PROJECT_NO = NULL, PROJECT_WITHDRAWAL_DATE = SYSDATE
+		WHERE USER_ID = #{value}
+	</update>
+
+
+	<update id="updateProjectLeader" parameterType="hashMap">
+		UPDATE PROJECT
+		SET USER_ID = #{afterLeaderId}
+		WHERE PROJECT_NO = #{projectNo}
+	</update>
+
+
+	<update id="updateMemberProjectToNull" parameterType="string">
+		UPDATE MEMBER
+		SET PROJECT_NO = NULL
+		WHERE USER_ID = #{value}
+	</update>
+
+	
+	<insert id="addEndProjectCount" parameterType="hashMap">
+		INSERT INTO END_VOTE (END_VOTE_NO, USER_ID, PROJECT_NO)
+		VALUES (seq_vote_no.NEXTVAL, #{userId}, #{projectNo})
+	</insert>
+
+
+	<update id="updateProjectStatus" parameterType="hashMap">
+		UPDATE PROJECT
+		SET PROJECT_STATUS = 3
+		WHERE PROJECT_NO = #{projectNo}
+	</update>
+
+
+	<insert id="addReview" parameterType="list">
+		INSERT INTO REVIEW (REVIEW_NO, USER_ID, PROJECT_NO, REVIEW_GRADE, REVIEW_COMMENT)
+			SELECT SEQ_REVIEW_NO.NEXTVAL, T.*
+				FROM (
+					<foreach collection="list" item="item" index="index" separator="UNION ALL">
+						SELECT #{item.userId} ,
+							   #{item.projectNo} ,
+							   #{item.reviewGrade:NUMERIC} ,
+							   #{item.reviewComment:VARCHAR}
+						FROM SYS.DUAL
+					</foreach>
+					) T
+	</insert>
+
 
 	<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
 		SELECT *
@@ -261,7 +318,7 @@
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
-	<select id = "getProjectHashTagByProjectNo" resultType="java.lang.String">
+	<select id = "getProjectHashTagByProjectNo" resultType="string">
 		SELECT HASHTAG
 		FROM   SKILL_HASHTAG sh, HASHTAG h
 		WHERE  sh.HASHTAG_NO = h.HASHTAG_NO AND sh.PROJECT_NO = #{project_no}
@@ -286,5 +343,10 @@
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
+	<select id = "getVotedMemberByProjectNo"	resultType="string">
+		SELECT USER_ID
+		FROM END_VOTE
+		WHERE PROJECT_NO = #{projectNo}
+	</select>
 
 </mapper>
