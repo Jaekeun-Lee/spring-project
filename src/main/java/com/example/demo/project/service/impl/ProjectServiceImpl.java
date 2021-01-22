@@ -25,8 +25,8 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectDAO projectDAO;
 
     @Override
-    public void addProject(ProjectVO projectVO) {
-        projectDAO.addProject(projectVO);
+    public int addProject(ProjectVO projectVO) {
+        return projectDAO.addProject(projectVO);
     }
 
     @Override
