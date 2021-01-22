@@ -80,7 +80,7 @@
 			REG_DATE
 		)
 		VALUES(
-			#{applicantNo},
+			seq_applicant_no.NEXTVAL,
 			#{userId},
 			#{projectVO.projectNo},
 			1,

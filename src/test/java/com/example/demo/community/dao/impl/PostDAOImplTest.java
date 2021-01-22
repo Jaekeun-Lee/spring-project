@@ -56,13 +56,13 @@ public class PostDAOImplTest {
     public void getPost(){
 
         PostVO postVO = new PostVO();
-        postVO = postService.getPost(4);
+        postVO = postService.getPost(2);
         System.out.println("getPost() TEST::"+postVO);
 
-        Assert.assertEquals("hihihi", postVO.getPostName());
+        Assert.assertEquals("java", postVO.getPostName());
 //        Assert.assertEquals(1, postVO.getPostReply().get(0).getReplyNo());
 //        Assert.assertEquals(2, postVO.getPostReply().size());
-        Assert.assertEquals(2, postVO.getReplyCnt());
+        Assert.assertEquals(0, postVO.getReplyCnt());
         }
 
 
@@ -95,34 +95,38 @@ public class PostDAOImplTest {
 
     }
 
-//    @Test
-//    public void getPostList(){
-//
-//        SearchVO searchVO = new SearchVO();
-//
-//        searchVO.setCurrentPage(1);
-//        searchVO.setPageSize(4);
-//
-//        Map<String, Object> map = postService.getPostList(searchVO);
-//
-//        List<Object> list = (List<Object>) map.get("list");
-//        System.out.println("getPostList 테스트코드::"+list);
-////        Assert.assertEquals(2, list.size());
-//
-//        Integer totalCount = (Integer) map.get("totalCount");
-//        System.out.println("getPostList 테스트코드::"+totalCount);
-//    }
-
     @Test
-//    댓글번호가 조인되서 같이 나온다. mapper부분 다시 보기
     public void getPostList(){
 
-        PostVO postVO=new PostVO();
+        SearchVO searchVO = new SearchVO();
 
-        postVO.setUserId("user01");
+        searchVO.setCurrentPage(1);
+        searchVO.setPageSize(4);
 
-        List<PostVO> getPostList01= postService.getPostList(postVO);
-        Assert.assertEquals(4, getPostList01.size());
-        System.out.println(getPostList01.get(0).getUserId());
+        //searchConditionA 검색 조건 - 1: 포스트제목 2: 포스트내용 3: 작성자
+        searchVO.setSearchConditionA(3);
+        searchVO.setSearchKeyword("");
+
+
+        Map<String, Object> map = postService.getPostList(searchVO);
+
+        List<Object> list = (List<Object>) map.get("list");
+        System.out.println("getPostList 테스트코드::"+list);
+//        Assert.assertEquals(2, list.size());
+
+        Integer totalCount = (Integer) map.get("totalCount");
+        System.out.println("getPostList 테스트코드::"+totalCount);
     }
+
+//    @Test
+////    댓글번호가 조인되서 같이 나온다. mapper부분 다시 보기
+//    public void getPostList(){
+//
+//        PostVO postVO=new PostVO();
+//
+////        postVO.setUserId("user01");
+//
+//        List<PostVO> getPostList01= postService.getPostList(postVO);
+//        System.out.println(getPostList01.get(0).getUserId());
+//    }
 }
