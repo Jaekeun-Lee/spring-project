@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 	<meta charset="utf-8">
@@ -63,7 +63,7 @@
 </head>
 
 <body>
-<form id="detailForm" th:method="post" th:action="@{/applicant/json/addApplicant}">
+<form id="detailForm" method="post" th:action="@{/applicant/json/addApplicant}" th:object="${applicantVO}">
 	<!-- Button that triggers the popup -->
 	<button id="add_applicant_get" class="btn btn-default">신청서 등록</button>
 	<!-- Element to pop up -->

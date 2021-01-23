@@ -1,5 +1,7 @@
 package com.example.demo.projectApplicant.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
+import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 @Controller
 @RequestMapping("/applicant/*")
@@ -25,7 +28,7 @@ public class ProjectApplicant {
 	}
 	
 	@RequestMapping(value = "/addApplicant", method = RequestMethod.GET)
-	public String addProject() throws Exception{
+	public String addProject(ApplicantVO applicantVO, Model model) throws Exception{
 		System.out.println("/addApplicant GET");
 		return "projectApplicant/addApplicant";
 	}
