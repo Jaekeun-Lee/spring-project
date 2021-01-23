@@ -28,7 +28,7 @@ public class ProjectApplicant {
 	}
 	
 	@RequestMapping(value = "/addApplicant", method = RequestMethod.GET)
-	public String addProject(ApplicantVO applicantVO, Model model) throws Exception{
+	public String addProject() throws Exception{
 		System.out.println("/addApplicant GET");
 		return "projectApplicant/addApplicant";
 	}

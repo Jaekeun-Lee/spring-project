@@ -32,7 +32,7 @@ public class ProjectApplicantRest {
 	}
 	
 	@RequestMapping(value="/json/addApplicant", method=RequestMethod.POST)
-	public String addApplicant(Model model, ApplicantVO applicantVO, HttpServletRequest request) {
+	public String addApplicant(@ModelAttribute("applicant") ApplicantVO applicantVO) {
 		System.out.println("/json/addApplicant");
 		System.out.println("@@@@@@@"+applicantVO);
 		//projectApplicantService.addApplicant(applicantVO);
