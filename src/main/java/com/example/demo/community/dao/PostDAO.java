@@ -18,11 +18,20 @@ public interface PostDAO {
     //포스트 상세조회
     public PostVO getPost(int postNo);
 
+    //reply상세조회
+    public ReplyVO getReply(String replyUserId);
+
     //udpatePost
     public void updatePost(PostVO postVO);
 
+    //reply수정
+    public void updateReply(ReplyVO replyVO);
+
     //deletePost
     public void deletePost(PostVO postVO);
+
+    //reply삭제
+    public void deleteReply(ReplyVO replyVO);
 
     //getPostList
     public List<PostVO> getPostList(SearchVO searchVO);

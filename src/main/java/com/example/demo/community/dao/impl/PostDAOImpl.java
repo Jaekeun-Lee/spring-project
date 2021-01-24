@@ -35,6 +35,7 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     public void addReply(ReplyVO replyVO){
+
         sqlSession.insert("postMapper.addReply", replyVO);
     }
 
@@ -45,15 +46,33 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
+    public ReplyVO getReply(String replyUserId){
+
+        return sqlSession.selectOne("postMapper.getReply", replyUserId);
+    }
+
+    @Override
     public void updatePost(PostVO postVO){
 
         sqlSession.update("postMapper.updatePost",postVO);
     }
 
     @Override
+    public void updateReply(ReplyVO replyVO){
+
+        sqlSession.update("postMapper.updateReply",replyVO);
+    }
+
+    @Override
     public void deletePost(PostVO postVO){
 
         sqlSession.delete("postMapper.deletePost",postVO);
+    }
+
+    @Override
+    public void deleteReply(ReplyVO replyVO){
+
+        sqlSession.delete("postMapper.deleteReply", replyVO);
     }
 
     @Override

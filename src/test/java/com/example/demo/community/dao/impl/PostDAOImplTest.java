@@ -83,6 +83,18 @@ public class PostDAOImplTest {
         }
 
 
+
+    @Test
+    public void getReply(){
+
+        ReplyVO replyVO = new ReplyVO();
+        replyVO = postService.getReply("user02");
+        System.out.println("getReply() TEST::"+replyVO);
+
+//        Assert.assertEquals("");
+//        여유있을때 한번더 공부하고 적용해보기
+    }
+
     @Test
     public void updatePost(){
 
@@ -101,6 +113,20 @@ public class PostDAOImplTest {
     }
 
     @Test
+    public void updateReply(){
+
+        ReplyVO replyVO = new ReplyVO();
+
+        replyVO.setReplyContent("11수정댓글");
+//        replyVO.setReg_date();
+
+        postService.updateReply(replyVO);
+        PostVO postVO = postService.getPost(1);
+
+        Assert.assertEquals(1,postVO.getPostNo());
+    }
+
+    @Test
     public void deletePost(){
 
         PostVO postVO = new PostVO();
@@ -109,7 +135,13 @@ public class PostDAOImplTest {
         postService.deletePost(postVO);
 //        postVO = postService.getPost(4);
 
+    }
 
+    @Test
+    public void deleteReply(){
+
+        ReplyVO replyVO = new ReplyVO();
+//        replyVO = postService.d;
     }
 
     @Test

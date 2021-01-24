@@ -37,6 +37,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void addReply(ReplyVO replyVO){
+
         postDAO.addReply(replyVO);
     }
 
@@ -46,15 +47,32 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public ReplyVO getReply(String replyUserId) {
+        return postDAO.getReply(replyUserId);
+    }
+
+    @Override
     public void updatePost(PostVO postVO){
 
         postDAO.updatePost(postVO);
     }
 
     @Override
+    public void updateReply(ReplyVO replyVO){
+
+        postDAO.updateReply(replyVO);
+    }
+
+    @Override
     public void deletePost(PostVO postVO){
 
         postDAO.deletePost(postVO);
+    }
+
+    @Override
+    public void deleteReply(ReplyVO replyVO){
+
+        postDAO.deleteReply(replyVO);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class ReplyVO {
     private int projectNo;
     private String replyUserId;
     private String replyContent;
-    private Date regdate;
+    private Date regDate;
 
     public ReplyVO() {
     }
@@ -56,11 +56,11 @@ public class ReplyVO {
     }
 
     public Date getReg_date() {
-        return regdate;
+        return regDate;
     }
 
     public void setReg_date(Date reg_date) {
-        this.regdate = reg_date;
+        this.regDate = reg_date;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ReplyVO {
                 ", projectNo=" + projectNo +
                 ", replyUseId='" + replyUserId + '\'' +
                 ", replyContent='" + replyContent + '\'' +
-                ", reg_date=" + regdate +
+                ", reg_date=" + regDate +
                 '}';
     }
 }

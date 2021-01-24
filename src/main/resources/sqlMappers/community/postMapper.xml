@@ -29,6 +29,14 @@
         <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
     </resultMap>
 
+    <resultMap id="getReply" type="replyVO">
+        <result property="replyNo"  column="reply_no"   jdbcType="NUMERIC"/>
+        <result property="postNo"   column="post_no"    jdbcType="NUMERIC"/>
+        <result property="projectNo"    column="project_no"     jdbcType="NUMERIC"/>
+        <result property="replyContent"     column="reply_content"      jdbcType="VARCHAR"/>
+        <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
+    </resultMap>
+
     <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO">
         insert
         into POST(post_no,
@@ -79,6 +87,17 @@
         WHERE POST_NO = #{postNo}
     </select>
 
+    <select id="getReply"       parameterType="String"      resultMap="getReply">
+        SELECT post_no,
+               project_no,
+               reply_no,
+               reply_content,
+               reg_date
+        FROM REPLY
+        WHERE USER_ID = #{replyUserId}
+    </select>
+
+
     <update id="updatePost"     parameterType="com.example.demo.community.vo.PostVO">
         UPDATE POST
         <set>
@@ -90,6 +109,16 @@
         WHERE POST_No = #{postNo}
     </update>
 
+    <update id="updateReply"    parameterType="replyVO">
+        UPDATE REPLY
+        <set>
+            REPLY_CONTENT = #{replyContent}
+            REG_DATE = #{regDate}
+        </set>
+        WHERE
+            POST_NO = #{postNo} and USER_ID=#{replyUserId}
+    </update>
+
     <delete id="deletePost"     parameterType="postVO">
         DELETE
 
@@ -97,6 +126,14 @@
 
         WHERE POST_NO = #{postNo}
 
+    </delete>
+
+    <delete id="deleteReply"    parameterType="replyVO">
+        DELETE
+
+        FROM REPLY
+
+        WHERE REPLY_NO = #{replyNO}
     </delete>
 
     <select id="getPostList"    parameterType="searchVO"  resultMap="postSelectMap">
