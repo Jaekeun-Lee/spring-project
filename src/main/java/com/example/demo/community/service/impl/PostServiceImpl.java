@@ -4,6 +4,7 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.community.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,11 @@ public class PostServiceImpl implements PostService {
     public void addPost(PostVO postVO){
         postDAO.addPost(postVO);
 
+    }
+
+    @Override
+    public void addReply(ReplyVO replyVO){
+        postDAO.addReply(replyVO);
     }
 
     @Override

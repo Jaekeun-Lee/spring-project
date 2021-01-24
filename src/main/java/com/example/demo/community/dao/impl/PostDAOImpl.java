@@ -3,6 +3,7 @@ package com.example.demo.community.dao.impl;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.community.vo.ReplyVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +31,11 @@ public class PostDAOImpl implements PostDAO {
     public void addPost(PostVO postVO){
 
         sqlSession.insert("postMapper.addPost",postVO);
+    }
+
+    @Override
+    public void addReply(ReplyVO replyVO){
+        sqlSession.insert("postMapper.addReply", replyVO);
     }
 
     @Override

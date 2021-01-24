@@ -3,6 +3,7 @@ package com.example.demo.community.dao.impl;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.community.vo.ReplyVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,13 +37,13 @@ public class PostDAOImplTest {
         PostVO postVO = new PostVO();
         Date today = new Date();
 
-        postVO.setPostNo(4);
-        postVO.setPostName("hihihi");
-        postVO.setPostContent("hihello");
-        postVO.setUserId("user04");
-        postVO.setRegDate(today);
-        postVO.setReplyCnt(2);
-        postVO.setViewCnt(1);
+//        postVO.setPostNo(4);
+        postVO.setPostName("제목");
+        postVO.setPostContent("내용");
+        postVO.setUserId("user05");
+//        postVO.setRegDate(today);
+        postVO.setReplyCnt(4);
+        postVO.setViewCnt(2);
 
         postService.addPost(postVO);
         //애드로직 끝
@@ -53,10 +54,26 @@ public class PostDAOImplTest {
     }
 
     @Test
+    public void addReply(){
+        ReplyVO replyVO = new ReplyVO();
+
+        replyVO.setPostNo(1);
+        replyVO.setReplyUseId("user03");
+        replyVO.setReplyContent("reply테스트4번째");
+
+        postService.addReply(replyVO);
+
+        PostVO postVO = postService.getPost(1);
+
+        Assert.assertEquals(1,replyVO.getPostNo());
+
+    }
+
+    @Test
     public void getPost(){
 
         PostVO postVO = new PostVO();
-        postVO = postService.getPost(2);
+        postVO = postService.getPost(1);
         System.out.println("getPost() TEST::"+postVO);
 
         Assert.assertEquals("java", postVO.getPostName());

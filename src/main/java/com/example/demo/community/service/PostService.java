@@ -2,6 +2,7 @@ package com.example.demo.community.service;
 
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.community.vo.ReplyVO;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ public interface PostService {
 
     //게시물 등록
     public void addPost(PostVO postVO);
+
+    //reply등록
+    public void addReply(ReplyVO replyVO);
 
 //    게시물 상세조회(postNo로 데이터 조인값 불러오기)
     public PostVO getPost(int postNo);

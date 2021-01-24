@@ -20,6 +20,15 @@
 
     </resultMap>
 
+    <resultMap id="replySelectMap" type="com.example.demo.community.vo.ReplyVO">
+        <result property="replyNo"  column="reply_no"   jdbcType="NUMERIC"/>
+        <result property="postNo"   column="post_no"    jdbcType="NUMERIC"/>
+        <result property="projectNo"    column="project_no"     jdbcType="NUMERIC"/>
+        <result property="replyUserId"  column="user_id"        jdbcType="VARCHAR"/>
+        <result property="replyContent"     column="reply_content"      jdbcType="VARCHAR"/>
+        <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
+    </resultMap>
+
     <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO">
         insert
         into POST(post_no,
@@ -29,9 +38,8 @@
                   reg_date,
                   reply_Cnt,
                   view_Cnt
---                   reply추가
                   )
-        values (SEQ_REPLY_NO.NEXTVAL,
+        values (SEQ_POST_NO.NEXTVAL,
                 #{postName},
                 #{postContent},
                 #{userId},
@@ -39,6 +47,24 @@
                 #{replyCnt},
                 #{viewCnt})
     </insert>
+
+    <select id="addReply"   parameterType="replyVO">
+        insert
+        into REPLY(
+                   reply_no,
+                   post_no,
+                   user_id,
+                   reply_content,
+                   reg_date
+        )
+        VALUES (
+                SEQ_REPLY_NO.NEXTVAL,
+                #{postNo},
+                #{replyUserId},
+                #{replyContent},
+                SYSDATE
+               )
+    </select>
 
     <select id="getPost"    parameterType="int"     resultMap="postSelectMap">
         SELECT POST_NO,
@@ -144,6 +170,7 @@
 <!--                VIEW_CNT-->
 <!--        FROM POST-->
 <!--    </select>-->
+
 
 
 
