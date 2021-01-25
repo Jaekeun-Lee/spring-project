@@ -44,7 +44,7 @@ public class MemberDTO {
     @Data
     public static class LoginReqDTO {
         @NotBlank(message = "id can not be null or empty")
-        private String id;
+        private String userId;
         @NotBlank(message = "password can not be null or empty")
         private String password;
     }
@@ -100,6 +100,17 @@ public class MemberDTO {
         }
     }
 
+    @Data
+    public static class WithdrawalDTO {
+        private String userId;
+        private String password;
+
+        public MemberVO convertSignUpDTOToMemberVO() {
+
+            return new MemberVO(this.getUserId(),this.getPassword());
+        }
+    }
+
 
     @Data
     public static class GetMemberInfoRes {
@@ -110,12 +121,4 @@ public class MemberDTO {
         private String status;
         private String reportId;
     }
-
-    @Data
-    public static class MailDto {
-        private String address;
-        private String title;
-        private String message;
-    }
-
 }
