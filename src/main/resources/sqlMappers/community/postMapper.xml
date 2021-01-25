@@ -29,7 +29,7 @@
         <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
     </resultMap>
 
-    <resultMap id="getReply" type="replyVO">
+    <resultMap id="getReply" type="com.example.demo.community.vo.ReplyVO">
         <result property="replyNo"  column="reply_no"   jdbcType="NUMERIC"/>
         <result property="postNo"   column="post_no"    jdbcType="NUMERIC"/>
         <result property="projectNo"    column="project_no"     jdbcType="NUMERIC"/>
@@ -61,6 +61,7 @@
         into REPLY(
                    reply_no,
                    post_no,
+                   project_no,
                    user_id,
                    reply_content,
                    reg_date
@@ -68,6 +69,7 @@
         VALUES (
                 SEQ_REPLY_NO.NEXTVAL,
                 #{postNo},
+                #{projectNo},
                 #{replyUserId},
                 #{replyContent},
                 SYSDATE
@@ -106,17 +108,16 @@
             REG_DATE = #{regDate}
 
         </set>
-        WHERE POST_No = #{postNo}
+        WHERE POST_NO = #{postNo}
     </update>
 
     <update id="updateReply"    parameterType="replyVO">
         UPDATE REPLY
         <set>
             REPLY_CONTENT = #{replyContent}
-            REG_DATE = #{regDate}
         </set>
         WHERE
-            POST_NO = #{postNo} and USER_ID=#{replyUserId}
+        reply_NO=#{replyNo}
     </update>
 
     <delete id="deletePost"     parameterType="postVO">
@@ -128,12 +129,12 @@
 
     </delete>
 
-    <delete id="deleteReply"    parameterType="replyVO">
+    <delete id="deleteReply"    parameterType="com.example.demo.community.vo.ReplyVO">
         DELETE
 
         FROM REPLY
 
-        WHERE REPLY_NO = #{replyNO}
+        WHERE REPLY_NO = #{replyNo}
     </delete>
 
     <select id="getPostList"    parameterType="searchVO"  resultMap="postSelectMap">

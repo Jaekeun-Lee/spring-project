@@ -38,18 +38,18 @@ public class PostDAOImplTest {
         Date today = new Date();
 
 //        postVO.setPostNo(4);
-        postVO.setPostName("제목");
-        postVO.setPostContent("내용");
-        postVO.setUserId("user05");
+        postVO.setPostName("추가제목");
+        postVO.setPostContent("추가내용");
+        postVO.setUserId("user03");
 //        postVO.setRegDate(today);
         postVO.setReplyCnt(4);
-        postVO.setViewCnt(2);
+        postVO.setViewCnt(0);
 
         postService.addPost(postVO);
         //애드로직 끝
-        PostVO postVO1 = postService.getPost(4);
+        PostVO postVO1 = postService.getPost(11);
         //getPost() 같이 실행해서 VO생성자 또 만듦.
-        Assert.assertEquals("user03",postVO1.getUserId());
+        Assert.assertEquals("user02",postVO1.getUserId());
         //assert - 내가 기대하고 있는 값, 실제로 넣은 값.
     }
 
@@ -57,13 +57,15 @@ public class PostDAOImplTest {
     public void addReply(){
         ReplyVO replyVO = new ReplyVO();
 
-        replyVO.setPostNo(1);
-        replyVO.setReplyUseId("user03");
-        replyVO.setReplyContent("reply테스트4번째");
+        replyVO.setPostNo(2);
+        //둘중에 하나만 넣으려면 mapper에서 해당 No 주석처리...커플링?
+        replyVO.setProjectNo(2);
+        replyVO.setReplyUserId("user01");
+        replyVO.setReplyContent("reply테스트6번째");
 
         postService.addReply(replyVO);
 
-        PostVO postVO = postService.getPost(1);
+        PostVO postVO = postService.getPost(4);
 
         Assert.assertEquals(1,replyVO.getPostNo());
 
@@ -116,14 +118,21 @@ public class PostDAOImplTest {
     public void updateReply(){
 
         ReplyVO replyVO = new ReplyVO();
+        System.out.println("테스트 replyVO생성");
 
+        replyVO.setReplyNo(2);
+        System.out.println("setReplNo설정");
         replyVO.setReplyContent("11수정댓글");
+        System.out.println("댓글내용수정");
+//        replyVO.setReplyUserId("user02");
 //        replyVO.setReg_date();
 
         postService.updateReply(replyVO);
+//        System.out.println("postService인터페이스 실행");
         PostVO postVO = postService.getPost(1);
+//        System.out.println("게시글 하나 가져옴");
 
-        Assert.assertEquals(1,postVO.getPostNo());
+//        Assert.assertEquals(1,postVO.getPostNo());
     }
 
     @Test
@@ -141,7 +150,9 @@ public class PostDAOImplTest {
     public void deleteReply(){
 
         ReplyVO replyVO = new ReplyVO();
-//        replyVO = postService.d;
+        replyVO = postService.getReply("user01");
+
+        postService.deleteReply(replyVO);
     }
 
     @Test
