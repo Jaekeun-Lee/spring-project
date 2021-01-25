@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<form th:action="@{/comm/addPost}" th:method="post">
+    제목 : <input type="text"  name="postName">
+    내용 : <input type="text"  name="postContent">
+    <input type="submit"    value="작성">
+    <input type="submit"    value="취소">
+</form>
+</body>
+</html>
