@@ -1,6 +1,9 @@
 package com.example.demo.projectApplicant.vo;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.demo.project.vo.ProjectVO;
 
@@ -15,6 +18,17 @@ public class ApplicantVO {
 	private String applicantAnswerC;
 	private String introToMember;
 	private ProjectVO projectVO;
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
+	private Date aRegDate;
+	
+
+	public Date getaRegDate() {
+		return aRegDate;
+	}
+
+	public void setaRegDate(Date aRegDate) {
+		this.aRegDate = aRegDate;
+	}
 
 	public ApplicantVO() {
 	}
@@ -96,7 +110,7 @@ public class ApplicantVO {
 		return "ApplicantVO [applicantNo=" + applicantNo + ", userId=" + userId + ", profileImg=" + profileImg
 				+ ", applicantStatus=" + applicantStatus + ", applicantAnswerA=" + applicantAnswerA
 				+ ", applicantAnswerB=" + applicantAnswerB + ", applicantAnswerC=" + applicantAnswerC
-				+ ", introToMember=" + introToMember + "]";
+				+ ", introToMember=" + introToMember + ", projectVO=" + projectVO + ", aRegDate=" + aRegDate + "]";
 	}
 
 }

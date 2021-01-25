@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<!--  ////////////////////// Bootstrap /////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+	<!--  /////////////////////// JQuery //////////////////////// -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
+    
+    <!--  ///////////////////////// CSS ////////////////////////// -->
+    <style>
+    #get_applicant_pop_up { 
+    background-color:#fff;
+    border-radius:15px;
+    color:#000;
+    display:none; 
+    padding:20px;
+    min-width:400px;
+    min-height: 200px;
+	}
+	.b-close{
+    cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:5px;
+	}
+    </style>
+    
+	<!--  ////////////////////// JavaScript /////////////////////// -->
+	<script type="text/javascript">
+	<!-- 레이어 팝업 -->
+    ;(function($) {
+        $(function() {
+            $('td:nth-child(4)').bind('click', function(e) {
+            	console.log('hi');
+            	var applicantNo = $(this).find('div').text().trim();
+            	e.preventDefault();
+                // Triggering bPopup when click event is fired
+                $('#get_applicant_pop_up').bPopup({
+                	contentContainer:'.content',
+                    loadUrl: 'getApplicant?applicantNo='+applicantNo //Uses jQuery.load()
+                })
+            });
+        });
+    })(jQuery);
+
+    
+    $(function(){
+    	$('#').on("click", function(){
+    		alert('hi');
+    	});
+    });
+    </script>
+	<title>appllicantList</title>
+</head>
+<body>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+			<tr>
+				<th class="column-title" width="100"> </th>
+				<th class="column-title" width="100">유저아이디</th>
+				<th class="column-title" width="100">신청일</th>
+				<th class="column-title" width="100"> </th>
+			</tr>
+			
+			<tr>
+			<td colspan="11" bgcolor="808285" height="1"></td>
+			</tr>
+			
+			<tbody>
+			<tr class="" th:each="applicantVO : ${applicantList}">
+				<td class="" th:text="이미지"></td>
+				<td class="" th:text="${applicantVO.userId}"></td>
+				<td class="" th:text="${#dates.format(applicantVO.aRegDate, 'yyyy-MM-dd')}"></td>
+				<td class=""><button id="getApplicant" class="btn btn-default">신청서보기</button>
+							 <div  style="display:none" th:text="${applicantVO.applicantNo}"/>
+				</td>
+			</tr>
+			</tbody>
+			
+			<div id="get_applicant_pop_up" class="layerpop" background-color: white; style="width: 700px; height: 350px; overflow:auto;">
+				<div class='content'>
+					<include-html target=getApplicant.html/>
+				</div>
+			</div>
+		</table>
+</body>
+</html>
