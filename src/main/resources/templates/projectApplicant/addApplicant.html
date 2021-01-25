@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 	<meta charset="utf-8">
@@ -63,11 +63,11 @@
 </head>
 
 <body>
-<form id="detailForm" th:method="post" th:action="@{/applicant/json/addApplicant}">
 	<!-- Button that triggers the popup -->
 	<button id="add_applicant_get" class="btn btn-default">신청서 등록</button>
 	<!-- Element to pop up -->
 	<div id="add_applicant_get_pop_up" class="layerpop" background-color: white; style="width: 700px; height: 350px;">
+	<form id="detailForm" method="post" th:action="@{/applicant/json/addApplicant}" th:object="${applicantVO}">
 	    <h2><label for="Title" class="control-label">신   청   서</label></h2>
 	    <br>
 	    
@@ -83,7 +83,7 @@
 		<div style='width:100px;float: right;'>
 			<button id="add_applicant_post" class="btn btn-default">신청서 제출</button>
 		</div>
+		</form>
 	</div>
-</form>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.demo.community.dao.impl;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.community.vo.ReplyVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,9 +34,21 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
+    public void addReply(ReplyVO replyVO){
+
+        sqlSession.insert("postMapper.addReply", replyVO);
+    }
+
+    @Override
     public PostVO getPost(int postNo){
 
         return sqlSession.selectOne("postMapper.getPost", postNo);
+    }
+
+    @Override
+    public ReplyVO getReply(String replyUserId){
+
+        return sqlSession.selectOne("postMapper.getReply", replyUserId);
     }
 
     @Override
@@ -45,9 +58,21 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
+    public void updateReply(ReplyVO replyVO){
+
+        sqlSession.update("postMapper.updateReply",replyVO);
+    }
+
+    @Override
     public void deletePost(PostVO postVO){
 
         sqlSession.delete("postMapper.deletePost",postVO);
+    }
+
+    @Override
+    public void deleteReply(ReplyVO replyVO){
+
+        sqlSession.delete("postMapper.deleteReply", replyVO);
     }
 
     @Override

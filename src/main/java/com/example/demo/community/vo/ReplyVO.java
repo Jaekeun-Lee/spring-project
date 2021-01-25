@@ -8,9 +8,9 @@ public class ReplyVO {
     private int replyNo;
     private int postNo;
     private int projectNo;
-    private String replyUseId;
+    private String replyUserId;
     private String replyContent;
-    private Date reg_date;
+    private Date regDate;
 
     public ReplyVO() {
     }
@@ -40,11 +40,11 @@ public class ReplyVO {
     }
 
     public String getReplyUseId() {
-        return replyUseId;
+        return replyUserId;
     }
 
     public void setReplyUseId(String replyUseId) {
-        this.replyUseId = replyUseId;
+        this.replyUserId = replyUseId;
     }
 
     public String getReplyContent() {
@@ -56,11 +56,11 @@ public class ReplyVO {
     }
 
     public Date getReg_date() {
-        return reg_date;
+        return regDate;
     }
 
     public void setReg_date(Date reg_date) {
-        this.reg_date = reg_date;
+        this.regDate = reg_date;
     }
 
     @Override
@@ -69,9 +69,9 @@ public class ReplyVO {
                 "replyNo=" + replyNo +
                 ", postNo=" + postNo +
                 ", projectNo=" + projectNo +
-                ", replyUseId='" + replyUseId + '\'' +
+                ", replyUseId='" + replyUserId + '\'' +
                 ", replyContent='" + replyContent + '\'' +
-                ", reg_date=" + reg_date +
+                ", reg_date=" + regDate +
                 '}';
     }
 }

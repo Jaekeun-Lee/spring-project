@@ -1,5 +1,7 @@
 package com.example.demo.projectApplicant.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
+import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 @Controller
 @RequestMapping("/applicant/*")

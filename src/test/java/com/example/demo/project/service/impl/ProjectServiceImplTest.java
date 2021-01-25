@@ -31,8 +31,8 @@ public class ProjectServiceImplTest {
 
         ProjectVO projectVO = new ProjectVO();
 
-        projectVO.setLeaderId("user06");
-        projectVO.setProjectName("업데이트문안에셀렉트문");
+        projectVO.setLeaderId("user07");
+        projectVO.setProjectName("프로젝트 등록 테스트");
         projectVO.setProgressClassification(2);
         projectVO.setProjectCategory(1);
         projectVO.setPreStartDate(new Date());
@@ -42,19 +42,31 @@ public class ProjectServiceImplTest {
         projectVO.setApplicationDeadline(new Date());
         projectVO.setProjectDetail("project detail");
         projectVO.setApplicantQuestionA("applicantQuestionA");
-        projectVO.setRecruitmentMemberCnt(3);
+        projectVO.setRecruitmentMemberCnt(5);
 
         projectService.addProject(projectVO);
 
 
     }
 
-    @Test
+    //@Test
+    public void addProjectReply() {
+
+        ProjectReplyDTO projectReplyDTO = new ProjectReplyDTO();
+        projectReplyDTO.setProjectNo(1);
+        projectReplyDTO.setReplyContent("addReplyTest");
+        projectReplyDTO.setReplyUserId("user02");
+
+        Assert.assertEquals(1, projectService.addProjectReply(projectReplyDTO));
+
+    }
+
+    //@Test
     public void getProject() {
 
         ProjectVO projectVO = projectService.getProject(1, "user01");
 
-        System.out.println(projectVO.getProjectNo());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+projectVO);
         //테스트 데이터 프로젝트 명
         Assert.assertEquals("testProject", projectVO.getProjectName());
         //테스트 데이터 댓글 수
@@ -68,18 +80,6 @@ public class ProjectServiceImplTest {
         Assert.assertEquals("DEFAULTImage.jpg", projectVO.getTeamMember().get(0).getProfileImg());
         //테스트 데이터 북마크여부
         Assert.assertEquals(1, projectVO.getBookmarkCheck());
-
-    }
-
-    //@Test
-    public void addProjectReply() {
-
-        ProjectReplyDTO projectReplyDTO = new ProjectReplyDTO();
-        projectReplyDTO.setProjectNo(1);
-        projectReplyDTO.setReplyContent("addReplyTest");
-        projectReplyDTO.setReplyUserId("user02");
-
-        Assert.assertEquals(1, projectService.addProjectReply(projectReplyDTO));
 
     }
 
@@ -127,11 +127,11 @@ public class ProjectServiceImplTest {
         ProjectBookmarkDTO projectBookmarkDTO = new ProjectBookmarkDTO();
         projectBookmarkDTO.setBookmarkNo(10);
 
-        Assert.assertEquals(1, projectService.deleteBookmark(projectBookmarkDTO));
+        //Assert.assertEquals(1, projectService.deleteBookmark(projectBookmarkDTO));
 
     }
 
-    //@Test
+    @Test
     public void getProjectList() {
 
         SearchVO searchVO = new SearchVO();
@@ -149,10 +149,10 @@ public class ProjectServiceImplTest {
         //searchVO.setSearchConditionC(1);
 
         //searchConditionD 프로젝트 상태 조건 = 1:모집중, 2:모집완료, 3:종료
-        searchVO.setSearchConditionD(3);
+        searchVO.setSearchConditionD(1);
 
 
-        //searchVO.setSearchKeyword("test");
+        searchVO.setSearchKeyword("test");
 
         //sort 정렬조건 = 1: 최신등록순, 2:모집 마감 임박 순
         searchVO.setSort(1);
@@ -160,7 +160,7 @@ public class ProjectServiceImplTest {
         searchVO.setUserId("user01"); //로그인 된 아이디 ( 북마크 체킹용 )
 
         List<ProjectVO> projectVOList = projectService.getProjectList(searchVO);
-        Assert.assertEquals(1, projectVOList.size());
+        Assert.assertEquals(6, projectVOList.size());
 
 
     }
@@ -176,7 +176,7 @@ public class ProjectServiceImplTest {
 
         */
 
-        Assert.assertEquals(1, projectService.deleteProject(4));
+        //Assert.assertEquals(1, projectService.deleteProject(4));
     }
 
     //@Test
@@ -191,7 +191,7 @@ public class ProjectServiceImplTest {
 
     }
 
-    @Test
+    //@Test
     public void addReview() {
 
         ReviewVO reviewVO1 = new ReviewVO();
