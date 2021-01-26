@@ -319,7 +319,7 @@
 
 	<select id = "getProjectReplyByProjectNo" 	resultType="replyVO">
 		SELECT REPLY_NO,
-			   USER_ID,
+			   USER_ID as replyUserId,
 			   REPLY_CONTENT,
 			   REG_DATE
 		FROM   REPLY

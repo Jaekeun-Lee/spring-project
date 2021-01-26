@@ -5,10 +5,8 @@ import com.example.demo.project.vo.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/project")
@@ -25,9 +23,18 @@ public class Project {
     }
 
     @PostMapping("/addProject")
-    public String addProject(@ModelAttribute("project")ProjectVO projectVO){
+    public String addProject(@ModelAttribute("project") ProjectVO projectVO) {
         System.out.println(projectVO);
         return "welcome";
+    }
+
+    @GetMapping("/getProject")
+    public String getProject(@RequestParam("projectNo") int projectNo, Model model) {
+        String sessionId = "user01";
+
+        model.addAttribute("project", projectService.getProject(projectNo, sessionId));
+
+        return "project/getProject";
     }
 
 }
