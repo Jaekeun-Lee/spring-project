@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(function () {
+            $("#preStartDate").datepicker({dateFormat: 'yy-mm-dd'});
+            $("#applicationDeadline").datepicker({dateFormat: 'yy-mm-dd'});
+
+            $("#projectCategory1").on("click", function () {
+                $("btn-secondary")
+            });
+
+
+            $("#addProject-btn").on("click", function () {
+                $("#addProjectForm").submit();
+            });
+
+        });
+
+
+    </script>
+</head>
+<body>
+<div class="row wrapper">
+    <div class="container col-lg-4 col-xs-12">aaaaaaaaaaaaaaaa</div>
+    <div class="container col-lg-8">
+        <div class="page-name col-xs-12"><h1>ADD PROJECT</h1></div>
+        <div>
+            <form id="addProjectForm" method="POST" th:action="@{/project/addProject}">
+                <div class="row form-group col-xs-12">
+                    <label for="projectName">프로젝트 제목</label>
+                    <input type="text" id="projectName" name="projectName" class="form-control"
+                           placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" required="required"/>
+                </div>
+
+                <div class="form-group container col-xs-12">
+                    <p>프로젝트 카테고리</p>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio1" name="progressClassification" class="custom-control-input"
+                               value="1" checked>
+                        <label class="custom-control-label" for="customRadio1">신규프로젝트를 진행하려고 합니다.</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="progressClassification" class="custom-control-input"
+                               value="2">
+                        <label class="custom-control-label" for="customRadio2">기존프로젝트 유지보수를 하려고 합니다.</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <label for="recruitmentMemberCnt">모집인원수</label>
+                    <select class="form-control" id="recruitmentMemberCnt" name="recruitmentMemberCnt">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <p>명</p>
+                </div>
+
+
+
+                <p>프로젝트 카테고리</p>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="projectCategory" id="projectCategory1" checked=""> 개발
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="projectCategory" id="projectCategory2"> 디자인
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="projectCategory" id="projectCategory3"> 기획
+                    </label>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="projectDetail">프로젝트 상세내용</label>
+                    <textarea class="form-control" id="projectDetail" name="projectDetail" rows="3">
+    <프로젝트의 현재 상황>
+    예시) 디자인 준비 상황, 진행 계획 등
+
+    <상세한 업무 내용>
+    예시) 페이지 수, 레이아웃(비슷한 페이지) 수, 반응형 여부 등
+
+    <참고자료 / 유의사항>
+    예시) 참고사이트, 기타 유의사항 등
+                    </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="preStartDate">예상 시작일</label>
+                    <input type="text" id="preStartDate" name="preStartDate" class="form-control" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="prePeriod">예상진행기간</label>
+                    <div class="input-group mb-3">
+                        <input type="text" id="prePeriod" name="prePeriod" class="form-control" placeholder="ex) 100">
+                        <div class="input-group-append">
+                            <span class="input-group-text">일</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                            <label class="custom-file-label" for="inputGroupFile02">프로젝트 관련자료 추가@@@@@@@@@ </label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    해시태그@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                    @@@@@@@@@@@@@@@@@@@<br/>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">미팅 방식</label>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="meetingMethod1" name="meetingMethod" class="custom-control-input" value="1"
+                               checked="">
+                        <label class="custom-control-label" for="meetingMethod1">온라인 미팅 ( 카카오톡 , 화상채팅 등)</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="meetingMethod2" name="meetingMethod" class="custom-control-input" value="2">
+                        <label class="custom-control-label" for="meetingMethod2">오프라인 미팅</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="meetingLocation1">미팅 위치</label>
+                    <select class="form-control" id="meetingLocation1" name="meetingLocation1">
+                        <option selected>시/도</option>
+                        <option value="경기도">경기도</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+
+                    <label for="meetingLocation2">Example select</label>
+                    <select class="form-control" id="meetingLocation2" name="meetingLocation2">
+                        <option selected>시/군/구</option>
+                        <option value="이천시">이천시</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicationDeadline">신청서 제출 마감일</label>
+                    <p>Date: <input type="text" id="applicationDeadline" name="applicationDeadline" autocomplete="off"></p>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="applicantQuestionA">신청자 지원 전 질문사항 등록</label>
+                    <input type="text" id="applicantQuestionA" name="applicantQuestionA" class="form-control"
+                           placeholder="예) 스프링부트 관련 프로젝트를 진행해본적이 있나요?"/>
+                </div>
+
+
+            </form>
+            <button type="button" id="addProject-btn" class="btn btn-outline-primary">등록완료</button>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.example.demo.project.vo;
 
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.vo.MemberVO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -14,10 +15,12 @@ public class ProjectVO {
     private String projectName;
     private int progressClassification;
     private int projectCategory;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date preStartDate;
     private Date startDate;
     private int prePeriod;
     private Date regDate;
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date applicationDeadline;
     private int meetingMethod;
     private String meetingLocation;

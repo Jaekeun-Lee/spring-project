@@ -28,9 +28,10 @@ public class ProjectDAOImpl implements ProjectDAO {
     private final String NAMESPACE = "projectMapper.";
 
     @Override
-    public void addProject(ProjectVO projectVO) {
+    public int addProject(ProjectVO projectVO) {
+
         sqlSession.insert(NAMESPACE + "addProject", projectVO);
-        sqlSession.update(NAMESPACE + "updateMemberProjectNo", projectVO.getLeaderId());
+        return sqlSession.update(NAMESPACE + "updateMemberProjectNo", projectVO.getLeaderId());
     }
 
     @Override

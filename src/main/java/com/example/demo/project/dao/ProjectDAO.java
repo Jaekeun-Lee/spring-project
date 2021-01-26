@@ -14,7 +14,7 @@ import java.util.Map;
 public interface ProjectDAO {
 
     //프로젝트 등록
-    void addProject(ProjectVO projectVO);
+    int addProject(ProjectVO projectVO);
 
     //프로젝트 상세정보 조회
     ProjectVO getProject(Map<String, Object> getProjectMap);

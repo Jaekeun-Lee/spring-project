@@ -4,6 +4,7 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.community.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void addReply(ReplyVO replyVO){
+
+        postDAO.addReply(replyVO);
+    }
+
+    @Override
     public PostVO getPost(int postNo) {
+
+
         return postDAO.getPost(postNo);
+    }
+
+    @Override
+    public ReplyVO getReply(String replyUserId) {
+        return postDAO.getReply(replyUserId);
     }
 
     @Override
@@ -46,9 +60,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void updateReply(ReplyVO replyVO){
+
+        postDAO.updateReply(replyVO);
+    }
+
+    @Override
     public void deletePost(PostVO postVO){
 
         postDAO.deletePost(postVO);
+    }
+
+    @Override
+    public void deleteReply(ReplyVO replyVO){
+
+        postDAO.deleteReply(replyVO);
     }
 
     @Override
