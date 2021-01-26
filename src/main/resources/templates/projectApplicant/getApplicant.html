@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>getApplicant</title>
+</head>
+<body>
+<form id="detailForm" method="post" th:action="@{/applicant/addApplicant?projectVO.projectNo=1}" th:object="${applicantVO}">
+	    <h2><label for="Title" class="control-label">신   청   서</label></h2>
+	    <br>
+
+		<div class="form-group">
+			<li th:if="${applicantVO.projectVO.applicantQuestionA}!=null">
+				<strong><div th:text="${applicantVO.projectVO.applicantQuestionA}"></div></strong>
+				<div th:text="${applicantVO.applicantAnswerA}"></div>
+				
+				<li th:if="${applicantVO.projectVO.applicantQuestionB}!=null">
+					<strong><div th:text="${applicantVO.projectVO.applicantQuestionB}"></div></strong>
+					<div th:text="${applicantVO.applicantAnswerB}"></div>
+				
+					<li th:if="${applicantVO.projectVO.applicantQuestionC}!=null">
+						<strong><div th:text="${applicantVO.projectVO.applicantQuestionC}"></div></strong>
+						<div th:text="${applicantVO.applicantAnswerC}"></div>
+					</li>
+				</li>
+			</li>
+		</div>
+		
+		<div class="form-group">
+			<label for="projectDetail">자기소개</label>
+			<div th:text="${applicantVO.introToMember}"></div>
+		</div>
+		
+		<button type="button" id="addProject-btn" class="btn btn-outline-primary">수락</button>
+		<button type="button" id="addProject-btn" class="btn btn-outline-primary">거절</button>
+		
+			
+</form>
+</body>
+</html>

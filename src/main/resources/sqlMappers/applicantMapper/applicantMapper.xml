@@ -13,6 +13,7 @@
 			<result property="applicantAnswerB"    column="applicant_answer_b"      jdbcType="VARCHAR"/>
 			<result property="applicantAnswerC"    column="applicant_answer_c"      jdbcType="VARCHAR"/>
 			<result property="introToMember"    column="intro_to_member"      jdbcType="VARCHAR"/>
+			<result property="aRegDate"    column="reg_date"      jdbcType="DATE"/>
 			
 			<association property="projectVO"  javaType="com.example.demo.project.vo.ProjectVO">
 				<id property="projectNo" 		column="project_no" 		jdbcType="NUMERIC"/>
@@ -57,7 +58,8 @@
 		A.APPLICANT_ANSWER_A,
 		A.APPLICANT_ANSWER_B,
 		A.APPLICANT_ANSWER_C,
-		A.INTRO_TO_MEMBER
+		A.INTRO_TO_MEMBER,
+		A.REG_DATE AS aRegDate
 		FROM
 		PROJECT P, APPLICANT A
 		WHERE
@@ -94,10 +96,14 @@
 	 
 	 <select  id="getApplicantList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="applicantSelectMap">
 	 	SELECT *
-		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
-			FROM ( SELECT m.profile_image, a.user_id
-				FROM member m, applicant a
-				WHERE m.user_id = a.user_id
+		FROM (  SELECT inner_table.*, ROWNUM AS row_seq
+				FROM (  SELECT m.profile_image, a.user_id, a.reg_date, a.applicant_no
+						FROM member m, applicant a
+						WHERE m.user_id = a.user_id
+						AND a.project_no = ( SELECT
+						project_no
+						FROM member
+						WHERE user_id=#{userId})
 				ORDER BY a.applicant_no) inner_table
 			WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}	 	
