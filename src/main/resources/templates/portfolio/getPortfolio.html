@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<div th:text="${portfolio.portTitle}"></div>
-<div th:text="${portfolio.portMemberCnt}"></div>
-<div th:text="${portfolio.portProjectStartDate}"></div>
-<div th:text="${portfolio.portProjectEndDate}"></div>
-<div th:text="${portfolio.portSkillTag}"></div>
-<div th:text="${portfolio.portDescription}"></div>
+<meta charset="UTF-8">
+<head>
 
-<form action="/port/updatePort" method="post">
-<input type="text" th:value="${portfolio.portTitle}"></input>
-<div th:text="${portfolio.portMemberCnt}"></div>
-<div th:text="${portfolio.portProjectStartDate}"></div>
-<div th:text="${portfolio.portProjectEndDate}"></div>
-<div th:text="${portfolio.portSkillTag}"></div>
-<div th:text="${portfolio.portDescription}"></div>
-    <input type="submit" value="수정">
+    <title>포트폴리오 상세보기</title>
+
+</head>
+<body>
+<form th:action="@{/port/getPort}" th:method="get">
+    <input type="hidden" id="portNo" name="portNo" th:value="${portfolio.getPortNo()}"/>
+제목 : <div th:text="${portfolio.portTitle}"></div>
+인원 수 : <div th:text="${portfolio.portMemberCnt}"></div>
+시작일 : <div th:text="${portfolio.portProjectStartDate}"></div>
+종료일 : <div th:text="${portfolio.portProjectEndDate}"></div>
+해시태그 : <div th:text="${portfolio.portSkillTag}"></div>
+설명글 : <div th:text="${portfolio.portDescription}"></div>
+
+<input type="submit" value="확인">
+    <a href="#" th:href="@{/port/updatePort/{portNo}(portNo=${portfolio.portNo})}">수정</a>
 </form>
+</body>

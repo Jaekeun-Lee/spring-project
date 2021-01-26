@@ -7,15 +7,15 @@ public class PortfolioVO {
     private int portNo;
     private String userId;
     private int projectNo;
-    private Date portProjectStartDate;  //포트포리오에 등록할 프로젝트 시작 날짜
-    private Date portProjectEndDate;    //포트포리오에 등록할 프로젝트 종료 날짜
+    private String portProjectStartDate;  //포트포리오에 등록할 프로젝트 시작 날짜
+    private String portProjectEndDate;    //포트포리오에 등록할 프로젝트 종료 날짜
     private String portDescription;     //설명글
     private String portTitle;           //포트폴리오 제목
     private int portMemberCnt;          //프로젝트 참가 총 인원 수
     private String portThumbnailImg;    //대표 이미지
     private String portFileName;        //첨부파일
     private List<String> portSkillTag;
-    private Date regDate;
+    private String regDate;
 
     public PortfolioVO() {
     }
@@ -44,19 +44,19 @@ public class PortfolioVO {
         this.projectNo = projectNo;
     }
 
-    public Date getPortProjectStartDate() {
+    public String getPortProjectStartDate() {
         return portProjectStartDate;
     }
 
-    public void setPortProjectStartDate(Date portProjectStartDate) {
+    public void setPortProjectStartDate(String portProjectStartDate) {
         this.portProjectStartDate = portProjectStartDate;
     }
 
-    public Date getPortProjectEndDate() {
+    public String getPortProjectEndDate() {
         return portProjectEndDate;
     }
 
-    public void setPortProjectEndDate(Date portProjectEndDate) {
+    public void setPortProjectEndDate(String portProjectEndDate) {
         this.portProjectEndDate = portProjectEndDate;
     }
 
@@ -108,11 +108,11 @@ public class PortfolioVO {
         this.portSkillTag = portSkillTag;
     }
 
-    public Date getRegDate() {
+    public String getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
 

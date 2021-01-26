@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/port/*")
 public class Portfolio {
@@ -23,9 +25,12 @@ public class Portfolio {
 
     //포트폴리오 등록
     @PostMapping("addPort")
-    public String addPort(@ModelAttribute PortfolioVO portfolioVO){
-        System.out.println("포트폴리오연결합니다"+portfolioVO);
+    public String addPort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
+        System.out.println("포트폴리오추가합니다"+portfolioVO);
+        session.setAttribute("userId","user01"); //session이 있으면 통째로 지우면 됨. 왜냐면 session에 알아서 들어감.
+        portfolioVO.setUserId((String)session.getAttribute("userId"));
         portfolioService.addPort(portfolioVO);
+        model.addAttribute("portfolio",portfolioVO);
         return "portfolio/getPortfolio";
 
     }
@@ -37,6 +42,22 @@ public class Portfolio {
 
         model.addAttribute("portfolio",portfolioVO);    //정보(=디비에서 가져옴)를 주머니에 담음
         return "portfolio/getPortfolio"; //정보가 출발했다.
+    }
+
+    @GetMapping("updatePort")
+    public String updatePortView(){
+        return "portfolio/updatePortfolio";
+    }
+
+    @PostMapping("updatePort")
+    public String updatePort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
+        System.out.println("포트폴리오수정합니다."+portfolioVO);
+        session.setAttribute("userId","user01");
+        portfolioVO.setUserId((String)session.getAttribute("userId"));
+        portfolioService.updatePort(portfolioVO);
+        model.addAttribute("portfolio",portfolioVO);
+        return "portfolio/getPortfolio";
+
     }
 
 
