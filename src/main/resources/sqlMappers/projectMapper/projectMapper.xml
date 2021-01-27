@@ -26,11 +26,11 @@
 		<result property="projectDetail"    		column="project_detail"      		jdbcType="VARCHAR"/>
 		<result property="endDate"    				column="end_date"      				jdbcType="DATE"/>
 		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"     jdbcType="NUMERIC"/>
-		<result property="bookmarkCheck"			column="bookmarkCheck" 				jdbcType="NUMERIC"/>
+
 
 		<!-- association -->
-		<association property="applicantsCnt"		column="project_no"		select="getApplicantsCntByProjectNo"/>
-
+		<association property="applicantsCnt"		column="project_no"			select="getApplicantsCntByProjectNo"/>
+		<association property="bookmarkNo"			column="{projectNo=PROJECT_NO,bookmarkCheckId=bookmarkCheckId}" 	 select="getBookmarkCheckByProjectNo"/>
 		<!-- collection -->
 		<collection property="teamMember" 			column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
 		<collection property="skillHashTag" 		column="project_no" select="getProjectHashTagByProjectNo"/>
@@ -100,9 +100,11 @@
 
 
 	<select id="getProject"  parameterType="hashMap" resultMap="projectSelectMap">
-		SELECT P.*, COUNT(*) OVER () AS bookmarkCheck
-		FROM PROJECT P, BOOKMARK B
-		WHERE  P.PROJECT_NO(+) = B.PROJECT_NO AND P.PROJECT_NO=#{projectNo} AND B.USER_ID=#{userId}
+
+		SELECT P.*, #{userId} AS bookmarkCheckId
+		FROM PROJECT P
+		WHERE P.PROJECT_NO = #{projectNo}
+
 	</select>
 
 
@@ -296,6 +298,13 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 
+	<select id="getBookmark" parameterType="projectBookmarkDTO" resultType="bookmarkVO">
+		SELECT BOOKMARK_NO
+		FROM BOOKMARK
+		WHERE USER_ID = #{userId} AND PROJECT_NO = #{projectNo}
+	</select>
+
+
 
 
 
@@ -342,4 +351,9 @@
 		WHERE PROJECT_NO = #{projectNo}
 	</select>
 
+	<select id = "getBookmarkCheckByProjectNo" 	parameterType="map" resultType="int">
+		SELECT BOOKMARK_NO
+		FROM BOOKMARK
+		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{bookmarkCheckId}
+	</select>
 </mapper>

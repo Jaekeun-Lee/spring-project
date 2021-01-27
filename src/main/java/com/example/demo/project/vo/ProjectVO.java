@@ -35,7 +35,7 @@ public class ProjectVO {
     private int projectStatus;
     private String projectDetail;
     private Date endDate;
-    private int bookmarkCheck;
+    private int bookmarkNo;
     private List<String> uploadFile;
 
 
@@ -235,12 +235,12 @@ public class ProjectVO {
 		this.endDate = endDate;
 	}
 
-	public int getBookmarkCheck() {
-		return bookmarkCheck;
+	public int getBookmarkNo() {
+		return bookmarkNo;
 	}
 
-	public void setBookmarkCheck(int bookmarkCheck) {
-		this.bookmarkCheck = bookmarkCheck;
+	public void setBookmarkNo(int bookmarkNo) {
+		this.bookmarkNo = bookmarkNo;
 	}
 
 	public List<String> getUploadFile() {
@@ -278,7 +278,7 @@ public class ProjectVO {
 		sb.append(", projectStatus=").append(projectStatus);
 		sb.append(", projectDetail='").append(projectDetail).append('\'');
 		sb.append(", endDate=").append(endDate);
-		sb.append(", bookmarkCheck=").append(bookmarkCheck);
+		sb.append(", bookmarkNo=").append(bookmarkNo);
 		sb.append(", uploadFile=").append(uploadFile);
 		sb.append('}');
 		return sb.toString();
