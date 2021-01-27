@@ -1,15 +1,19 @@
-textarea {
-    padding:50px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+
+#projectDetail {
+    padding:30px;
     min-height: 500px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#recruitmentMemberCnt {
+    width: 50%;
 }
 
 .wrapper {
+    float:none;
+    width: 90%;
     margin: 100px auto;
-}
-.container {
-
 }
 
 .page-name {
@@ -23,4 +27,71 @@ textarea {
 
 #addProject {
     width: 100%;
+}
+
+#project-info-box{
+    padding: 20px;
+}
+
+#team-info-box {
+    padding: 20px;
+}
+
+.card-box {
+    width: 100%;
+    text-align: center;
+}
+
+.card-box-unit {
+    display:inline-block;
+    margin: 20px;
+    padding: 10px;
+    width: 200px;
+    height: 100px;
+    border: 1px solid #333;
+}
+
+.card-subtitle {
+    text-align: left;
+}
+
+.member-count-box {
+    display: inline-block;
+}
+
+.text-box-menu, .text-box-content{
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.project-detail-box {
+    margin: 50px auto;
+    padding: 10px;
+    border : 1px solid rgba(0, 0, 0, 0.5);
+    width: 95%;
+    height: 1000px;
+}
+
+.project-question-box{
+    margin: 50px auto;
+    padding: 10px;
+    border : 1px solid rgba(0, 0, 0, 0.5);
+    width: 95%;
+    height: 300px;
+}
+
+#add_applicant_get_pop_up {
+    background-color:#fff;
+    border-radius:15px;
+    color:#000;
+    display:none;
+    padding:20px;
+    min-width:400px;
+    min-height: 180px;
+}
+.b-close{
+    cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:5px;
 }

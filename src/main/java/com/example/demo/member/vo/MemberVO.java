@@ -1,12 +1,11 @@
 package com.example.demo.member.vo;
 
 import com.example.demo.common.cd.MemberGradeCd;
-import com.example.demo.common.vo.BookmarkVO;
+import com.example.demo.common.vo.NotiVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.cd.AuthorityCd;
 import com.example.demo.common.cd.MemberStatusCd;
-import com.example.demo.common.vo.NotiVO;
-import com.example.demo.portfolio.vo.PortfolioVO;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,9 +34,7 @@ public class MemberVO {
     private String selfIntro; //프로필_자기소개
     private List<NotiVO> noti;
     private List<ReviewVO> review;
-    private String link;
-    private List<String> skillHashTag;
-    private List<PortfolioVO> portfolio;
+    private List<String> link;
 
 
     /**
@@ -91,6 +88,11 @@ public class MemberVO {
         this.userId = userId;
         this.name = name;
         this.status = status;
+
+    }
+
+
+    public MemberVO(String profileImg, String selfInfo, List<String> link) {
 
     }
 }

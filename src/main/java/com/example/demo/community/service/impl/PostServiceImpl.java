@@ -43,6 +43,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostVO getPost(int postNo) {
+
+
         return postDAO.getPost(postNo);
     }
 

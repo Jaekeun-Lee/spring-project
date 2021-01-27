@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * spring security 에서 유저 인증, 인가 처리를 할 수 있게 유저 정보를 조회하는 서비스
- *
  */
 @Service
 @RequiredArgsConstructor
@@ -24,14 +23,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         MemberVO memberVO = memberDAO.selectMember(username);
-        if(memberVO == null) {
+        if (memberVO == null) {
             throw new UsernameNotFoundException("등록된 유저가 없습니다.");
         }
 
         SecurityMemberVO securityMemberVO = new SecurityMemberVO(memberVO.getUserId(), memberVO.getPassword(), memberVO.getRole());
 
-        //TODO 유저의 각종 상태에 따른 추가 설정
-        if(MemberStatusCd.BLACK.name().equals(memberVO.getStatus())) {
+        //유저의 각종 상태에 따른 추가 설정
+        if (MemberStatusCd.BLACK.name().equals(memberVO.getStatus())) {
+            securityMemberVO.setAccountNonLocked(false);
+        }
+        if (MemberStatusCd.DORMANT.name().equals(memberVO.getStatus())) {
             securityMemberVO.setAccountNonLocked(false);
         }
 
