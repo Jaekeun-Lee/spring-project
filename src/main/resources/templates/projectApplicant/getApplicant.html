@@ -4,28 +4,81 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<!--  ////////////////////// Bootstrap /////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+	<!--  /////////////////////// JQuery //////////////////////// -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
+	
+	<!--  ////////////////////// JavaScript /////////////////////// -->
+	<script type="text/javascript">
+		$(function(){
+	    	$('#updateApplicant_2_btn').on("click", function(){
+	    		console.log('hi');
+	    		var applicantNo = $("div").find('#applicantNo').text().trim();
+	    		console.log(applicantNo);
+	    		test(2,applicantNo)
+	    		opener.parent.location.reload();
+	    		window.opener = self;
+	    		self.close();
+	    	});
+	    });
+		
+		$(function(){
+	    	$('#updateApplicant_3_btn').on("click", function(){
+	    		console.log('hi');
+	    		var applicantNo = $("div").find('#applicantNo').text().trim();
+	    		
+	    	});
+	    });
+		
+		function test(applicantStatus, applicantNo){
+			alert('bye');
+			$.ajax({
+					url : "/applicant/json/updateApplicantStatus/"+applicantStatus+"/"+applicantNo,
+					method : "get" ,
+					dataType : "html" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(JSONData , status) {
+						console.log("성공")
+						var displayValue = "신청서가 성공적으로 처리되었습니다."
+						$('#delete').empty();
+						$('#append').append(displayValue);
+					}
+				})
+			
+		}
+	
+	</script>
+	
 <title>getApplicant</title>
 </head>
 <body>
-<form id="detailForm" method="post" th:action="@{/applicant/addApplicant?projectVO.projectNo=1}" th:object="${applicantVO}">
+<form id="detailForm">
 	    <h2><label for="Title" class="control-label">신   청   서</label></h2>
 	    <br>
 
 		<div class="form-group">
-			<li th:if="${applicantVO.projectVO.applicantQuestionA}!=null">
+			<div th:if="${applicantVO.projectVO.applicantQuestionA}!=null">
 				<strong><div th:text="${applicantVO.projectVO.applicantQuestionA}"></div></strong>
-				<div th:text="${applicantVO.applicantAnswerA}"></div>
+				<div th:text="${applicantVO.applicantAnswerA}"></div><br/>
 				
-				<li th:if="${applicantVO.projectVO.applicantQuestionB}!=null">
+				<div th:if="${applicantVO.projectVO.applicantQuestionB}!=null">
 					<strong><div th:text="${applicantVO.projectVO.applicantQuestionB}"></div></strong>
-					<div th:text="${applicantVO.applicantAnswerB}"></div>
+					<div th:text="${applicantVO.applicantAnswerB}"></div><br/>
 				
-					<li th:if="${applicantVO.projectVO.applicantQuestionC}!=null">
+					<div th:if="${applicantVO.projectVO.applicantQuestionC}!=null">
 						<strong><div th:text="${applicantVO.projectVO.applicantQuestionC}"></div></strong>
-						<div th:text="${applicantVO.applicantAnswerC}"></div>
-					</li>
-				</li>
-			</li>
+						<div th:text="${applicantVO.applicantAnswerC}"></div><br/>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<div class="form-group">
@@ -33,10 +86,14 @@
 			<div th:text="${applicantVO.introToMember}"></div>
 		</div>
 		
-		<button type="button" id="addProject-btn" class="btn btn-outline-primary">수락</button>
-		<button type="button" id="addProject-btn" class="btn btn-outline-primary">거절</button>
-		
-			
+		<div th:if="${applicantVO.applicantStatus}==1">
+			<div id = "append"></div>
+			<div id = "delete">
+				<button type="button" id="updateApplicant_2_btn" class="btn btn-outline-primary">수락</button>
+				<button type="button" id="updateApplicant_3_btn" class="btn btn-outline-primary">거절</button>
+				<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
+			</div>
+		</div>	
 </form>
 </body>
 </html>

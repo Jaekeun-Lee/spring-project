@@ -36,16 +36,6 @@ public class Member {
         return "login";
     }
 
-//    @GetMapping("/login")
-//    public String login(@RequestParam(value = "error", required = false) String error,
-//                        @RequestParam(value = "exception", required = false) String exception,
-//                        Model model)
-//    {
-//        model.addAttribute("error",error);
-//        model.addAttribute("exception",exception);
-//        return "login";
-//    }
-
     // 회원 가입 페이지
     @GetMapping("/signUp")
     public String signUpPage() {
@@ -56,9 +46,21 @@ public class Member {
     @PostMapping("/signUp")
     @ResponseBody
     public ResponseEntity<Object> signUpReq(@Valid MemberDTO.SignUpDTO param) {
+        System.out.println(param.getName());
 
         return memberService.signUp(param) ? ResponseEntity.ok().body("회원이 되신걸 축하합니다.") :
                 ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버에 문제가 발생해 회원 가입에 실패 했습니다.");
+    }
+
+    @GetMapping("/logOut")
+    public String logOutPage() {
+        return "logOut";
+    }
+
+    // 비밀번호 찾기 폼
+    @RequestMapping(value = "/findPassword")
+    public String findPassword() throws Exception{
+        return "findPassword";
     }
 
 }

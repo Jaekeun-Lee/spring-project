@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.net.ssl.SSLSession;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,12 +40,29 @@ public class MemberDAO {
     }
 
     public List<MemberVO> selectMemberDormantList(MemberVO param) {
-        return sqlSession.selectList("selectDormantMemberList", param);
+        return sqlSession.selectList("member.selectDormantMemberList", param);
     }
 
     public List<MemberVO> selectMemberBackList(MemberVO param) {
-        return sqlSession.selectList("selectBlackMemberList", param);
+        return sqlSession.selectList("member.selectBlackMemberList", param);
     }
 
+    public int deleteMember(MemberVO member) {
+        return sqlSession.delete("member.deleteMember", member);
+    }
+
+
+    public MemberVO findUserByUserId(String email) {
+        return null;
+    }
+
+    public MemberVO findUserByUserPassword(Map<String, Object> param) {
+        return sqlSession.selectOne("member.selectFindUserByPassword", param);
+    }
+
+    public void updateUserPassword(String id, String password) {
+    }
 }
+
+
 
