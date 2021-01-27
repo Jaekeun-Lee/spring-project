@@ -38,7 +38,6 @@
     ;(function($) {
         $(function() {
             $('td:nth-child(4)').bind('click', function(e) {
-            	console.log('hi');
             	var applicantNo = $(this).find('div').text().trim();
             	e.preventDefault();
                 // Triggering bPopup when click event is fired
@@ -50,12 +49,6 @@
         });
     })(jQuery);
 
-    
-    $(function(){
-    	$('#').on("click", function(){
-    		alert('hi');
-    	});
-    });
     </script>
 	<title>appllicantList</title>
 </head>
@@ -66,6 +59,7 @@
 				<th class="column-title" width="100">유저아이디</th>
 				<th class="column-title" width="100">신청일</th>
 				<th class="column-title" width="100"> </th>
+				<th class="column-title" width="100">신청서상태</th>
 			</tr>
 			
 			<tr>
@@ -80,6 +74,18 @@
 				<td class=""><button id="getApplicant" class="btn btn-default">신청서보기</button>
 							 <div  style="display:none" th:text="${applicantVO.applicantNo}"/>
 				</td>
+				<div th:if="${applicantVO.applicantStatus}==1">
+					<td class="">대기</td>
+				</div>
+				<div th:if="${applicantVO.applicantStatus}==2">
+					<td class="">수락</td>
+				</div>
+				<div th:if="${applicantVO.applicantStatus}==3">
+					<td class="">거절</td>
+				</div>
+				<div th:if="${applicantVO.applicantStatus}==4">
+					<td class="">취소</td>
+				</div>
 			</tr>
 			</tbody>
 			

@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 
-@Controller
+@RestController
 @RequestMapping("/applicant/*")
 public class ProjectApplicantRest {
 	
@@ -31,6 +33,18 @@ public class ProjectApplicantRest {
 	
 	public ProjectApplicantRest() {
 		System.out.println(this.getClass());
+	}
+
+	@RequestMapping(value="json/updateApplicantStatus/{applicantStatus}/{applicantNo}", method=RequestMethod.GET)
+	public ApplicantVO updateApplicantStatus(@ModelAttribute("updateApplicantStatusDTO")UpdateApplicantStatusDTO updateApplicantStatusDTO,
+								HttpSession session) {
+		System.out.println("@@@@@@"+updateApplicantStatusDTO.getApplicantStatus());
+		int applicantNo = updateApplicantStatusDTO.getApplicantNo();
+		
+		projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
+		ApplicantVO applicantVO = projectApplicantService.getApplicant(applicantNo);
+		
+		return applicantVO;
 	}
 	
 
