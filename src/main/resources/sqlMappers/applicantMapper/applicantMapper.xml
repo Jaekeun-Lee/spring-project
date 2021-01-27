@@ -59,7 +59,6 @@
 		A.APPLICANT_ANSWER_B,
 		A.APPLICANT_ANSWER_C,
 		A.INTRO_TO_MEMBER,
-		A.applicant_status,
 		A.REG_DATE AS aRegDate
 		FROM
 		PROJECT P, APPLICANT A
@@ -98,7 +97,7 @@
 	 <select  id="getApplicantList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="applicantSelectMap">
 	 	SELECT *
 		FROM (  SELECT inner_table.*, ROWNUM AS row_seq
-				FROM (  SELECT m.profile_image, a.user_id, a.reg_date, a.applicant_no, a.applicant_status
+				FROM (  SELECT m.profile_image, a.user_id, a.reg_date, a.applicant_no
 						FROM member m, applicant a
 						WHERE m.user_id = a.user_id
 						AND a.project_no = ( SELECT
