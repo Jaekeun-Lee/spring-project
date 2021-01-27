@@ -17,6 +17,10 @@
 			
 			<association property="projectVO"  javaType="com.example.demo.project.vo.ProjectVO">
 				<id property="projectNo" 		column="project_no" 		jdbcType="NUMERIC"/>
+				<result property="projectName"	column="project_name"	jdbcType="VARCHAR"/>
+				<result property="projectDetail"	column="project_detail"	jdbcType="VARCHAR"/>
+				<result property="applicationDeadline"	column="application_deadline"	jdbcType="DATE"/>
+				<result property="recruitmentMemberCnt"	column="recruitment_member_cnt"	jdbcType="NUMERIC"/>
 				<result property="applicantQuestionA"		column="applicant_question_a" 			jdbcType="VARCHAR"/>
 				<result property="applicantQuestionB" 	column="applicant_question_b" 		jdbcType="VARCHAR"/>
 				<result property="applicantQuestionC" 	column="applicant_question_c" 	jdbcType="VARCHAR"/>

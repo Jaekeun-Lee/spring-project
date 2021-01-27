@@ -8,7 +8,7 @@
 	<!--  ////////////////////// Bootstrap /////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
@@ -17,26 +17,19 @@
 	<script type="text/javascript">
 		$(function(){
 	    	$('#updateApplicant_2_btn').on("click", function(){
-	    		console.log('hi');
 	    		var applicantNo = $("div").find('#applicantNo').text().trim();
-	    		console.log(applicantNo);
 	    		test(2,applicantNo)
-	    		opener.parent.location.reload();
-	    		window.opener = self;
-	    		self.close();
 	    	});
 	    });
 		
 		$(function(){
 	    	$('#updateApplicant_3_btn').on("click", function(){
-	    		console.log('hi');
 	    		var applicantNo = $("div").find('#applicantNo').text().trim();
-	    		
+	    		test(3,applicantNo)
 	    	});
 	    });
 		
 		function test(applicantStatus, applicantNo){
-			alert('bye');
 			$.ajax({
 					url : "/applicant/json/updateApplicantStatus/"+applicantStatus+"/"+applicantNo,
 					method : "get" ,
@@ -61,7 +54,7 @@
 </head>
 <body>
 <form id="detailForm">
-	    <h2><label for="Title" class="control-label">신   청   서</label></h2>
+	    <h1><label for="Title" class="control-label">신   청   서</label></h1>
 	    <br>
 
 		<div class="form-group">
@@ -89,8 +82,8 @@
 		<div th:if="${applicantVO.applicantStatus}==1">
 			<div id = "append"></div>
 			<div id = "delete">
-				<button type="button" id="updateApplicant_2_btn" class="btn btn-outline-primary">수락</button>
-				<button type="button" id="updateApplicant_3_btn" class="btn btn-outline-primary">거절</button>
+				<button type="button" id="updateApplicant_2_btn" class="btn btn-success">수락</button>
+				<button type="button" id="updateApplicant_3_btn" class="btn btn-primary">거절</button>
 				<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
 			</div>
 		</div>	

@@ -71,6 +71,21 @@ public class ProjectApplicant {
 		return "projectApplicant/applicantList";
 	}
 	
+	@RequestMapping(value = "/appliedProjectList", method = RequestMethod.GET)
+	public String appliedProjectList(@ModelAttribute("searchVO") SearchVO searchVO,
+									Model model)throws Exception{
+		System.out.println("/appliedProjectList GET");
+		searchVO.setPageSize(6);
+		searchVO.setUserId("user02");
+		if(searchVO.getCurrentPage() == 0 ){
+			searchVO.setCurrentPage(1);
+		}
+		Map<String , Object> map=projectApplicantService.getAppliedProjectList(searchVO);
+		model.addAttribute("appliedList", map.get("list"));
+		System.out.println(map);
+		return "projectApplicant/appliedProjectList";
+	}
+	
 	@RequestMapping(value = "/getApplicant", method = RequestMethod.GET)
 	public String getApplicant(@RequestParam("applicantNo")String applicantNo,
 							   Model model)throws Exception {
