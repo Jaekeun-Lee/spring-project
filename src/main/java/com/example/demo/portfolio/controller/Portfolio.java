@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/port/*")
@@ -35,15 +36,6 @@ public class Portfolio {
 
     }
 
-    //포트폴리오 상세조회
-    @GetMapping("getPort")
-    public String getPort(@RequestParam("portNo") int portNo, Model model){ //"portNo" = key, int portNo = value
-        PortfolioVO portfolioVO = portfolioService.getPort(portNo); //value로 디비에서 정보를 가져옴
-
-        model.addAttribute("portfolio",portfolioVO);    //정보(=디비에서 가져옴)를 주머니에 담음
-        return "portfolio/getPortfolio"; //정보가 출발했다.
-    }
-
     @GetMapping("updatePort")
     public String updatePortView(){
         return "portfolio/updatePortfolio";
@@ -59,6 +51,28 @@ public class Portfolio {
         return "portfolio/getPortfolio";
 
     }
+
+    //포트폴리오 상세조회
+    @GetMapping("getPort")
+    public String getPort(@RequestParam("portNo") int portNo, Model model){ //"portNo" = key, int portNo = value
+        PortfolioVO portfolioVO = portfolioService.getPort(portNo); //value로 디비에서 정보를 가져옴
+
+        model.addAttribute("portfolio",portfolioVO);    //정보(=디비에서 가져옴)를 주머니에 담음
+        return "portfolio/getPortfolio"; //정보가 출발했다.
+    }
+
+    //포트폴리오 목록조회
+    @GetMapping("portList")
+    public String getPortList(HttpSession session, Model model){
+        session.setAttribute("userId","user01");
+        /*portfolioVO.setUserId((String)session.getAttribute("userId"));*/
+        List<PortfolioVO> portfolioVOList = portfolioService.getPortList((String)session.getAttribute("userId"));
+       model.addAttribute("portfolio", portfolioVOList);
+       return "portfolio/getPortfolioList";
+
+    }
+
+
 
 
     //모델어트리뷰트는 오브젝트 스코프야. session, request, application
