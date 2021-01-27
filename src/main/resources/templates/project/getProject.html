@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
+
+    <script type="text/javascript">
+
+        <!-- 레이어 팝업 -->
+        ;(function($) {
+            // DOM Ready
+            $(function() {
+                // Binding a click event
+                // From jQuery v.1.7.0 use .on() instead of .bind()
+                $('#add_applicant_get').bind('click', function(e) {
+                    // Prevents the default action to be triggered.
+                    e.preventDefault();
+                    // Triggering bPopup when click event is fired
+                    $('#add_applicant_get_pop_up').bPopup();
+                });
+            });
+        })(jQuery);
+
+
+        $(function(){
+            $('#add_applicant_post').on("click", function(){
+                alert('hi');
+                $("#detailForm").submit();
+
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-lg-9" id="project-info-box">
+            <div class="subject" style="width: 100%;">
+
+                <!-- 프로젝트 상태 -->
+                <th:block th:switch="${project.projectStatus}">
+                    <span class="badge badge-success" th:case="1">모집중</span>
+                    <span class="badge badge-primary" th:case="2">모집완료</span>
+                    <span class="badge badge-danger" th:case="3">종료</span>
+                </th:block>
+
+                <!-- 프로젝트 등록일 -->
+                <span th:text="${#dates.format(project.regDate, 'yyyy-MM-dd')}" style="float: right;"></span>
+                <span style="float: right;">등록일자</span>
+
+                <!-- 프로젝트 제목 -->
+                <h2 th:text="${project.projectName}">프로젝트 제목</h2>
+                <th:block th:switch="${project.projectStatus}">
+                    <span th:case="1">개발</span>
+                    <span th:case="2">기획</span>
+                    <span th:case="3">디자인</span>
+                </th:block>
+
+                <!-- 프로젝트 조회수 -->
+                <span th:text="${project.projectViewCnt}" style="float: right;"></span>
+                <span style="float: right;">조회수 : </span>
+
+            </div>
+            <hr>
+
+            <!-- 프로젝트 중간 박스 3개 -->
+            <div class="card-box">
+
+                <!-- 예상기간 박스 -->
+                <div class="card-box-unit">
+                    <h6 class="card-subtitle mb-2 text-muted">예상기간</h6>
+                    <span th:text="${project.prePeriod}"></span>
+                    <span>일</span>
+                </div>
+
+                <!-- 현재인원 / 모집인원 박스 -->
+                <div class="card-box-unit">
+                    <h6 class="card-subtitle mb-2 text-muted">현재인원/모집인원</h6>
+                    <span th:text="${project.teamMember.size()}"></span>
+                    <span> / </span>
+                    <span th:text="${project.recruitmentMemberCnt}"></span>
+                    <span>명</span>
+                </div>
+
+                <!-- 지원자 수 박스 -->
+                <div class="card-box-unit">
+                    <h6 class="card-subtitle mb-2 text-muted">지원자 수</h6>
+                    <span>??</span>
+                    <span>명</span>
+                </div>
+            </div>
+
+
+            <!-- 박스아래 프로젝트 추가정보 -->
+            <div class="text-box">
+
+                <!-- 추가정보 양식 -->
+                <div class="text-box-menu">
+                    <h6>신청서 마감 기간</h6>
+                    <h6>예상 시작일</h6>
+                    <h6>프로젝트 진행분류</h6>
+                    <h6>미팅방식</h6>
+                </div>
+
+                <!-- 추가정보 값 -->
+                <div class="text-box-content">
+
+                    <!-- 신청서 마감 기간 -->
+                    <h6 th:text="${#dates.format(project.applicationDeadline, 'yyyy-MM-dd')}"></h6>
+
+                    <!-- 예상 시작일 -->
+                    <h6 th:text="${#dates.format(project.preStartDate, 'yyyy-MM-dd')}"></h6>
+
+                    <!-- 프로젝트 진행분류 -->
+                    <th:block th:switch="${project.progressClassification}">
+                        <h6 th:case="1">신규 프로젝트를 진행하려 합니다.</h6>
+                        <h6 th:case="2">기존프로젝트 유지보수를 하려고 합니다.</h6>
+                    </th:block>
+
+                    <!-- 미팅방식 -->
+                    <th:block th:switch="${project.meetingMethod}">
+                        <th:block th:case="1">
+                            <span>대면</span>
+                            <span>/</span>
+                            <span th:text="${project.meetingLocation}"></span>
+                        </th:block>
+
+                        <span th:case="2">비대면</span>
+                    </th:block>
+
+                </div>
+            </div>
+            <hr>
+
+
+            <!-- 프로젝트 상세정보 -->
+            <div class="project-detail-box">
+                <p th:text="${project.projectDetail}"></p>
+            </div>
+
+
+            <!-- 신청전 질문 -->
+            <div class="project-question-box">
+                신청전 질문
+                <h4 th:if="${project.applicantQuestionA != null}" th:text="${project.applicantQuestionA}"></h4>
+                <h4 th:if="${project.applicantQuestionB != null}" th:text="${project.applicantQuestionB}"></h4>
+                <h4 th:if="${project.applicantQuestionC != null}" th:text="${project.applicantQuestionC}"></h4>
+            </div>
+
+
+            <div class="etc-box">
+                <!-- 해시태그 -->
+                <h5>기술</h5>
+                <span th:each="tag : ${project.skillHashTag}" th:text="${tag}" class="badge badge-pill badge-primary"></span>
+
+                <!-- 업로드 파일 -->
+                <h5>관련자료</h5>
+            </div>
+
+
+            <!-- 프로젝트 댓글 -->
+            <div class="reply-box">
+                <h5>댓글</h5>
+                <div th:each="replyVO : ${project.projectReply}" class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div th:text="${replyVO.replyUseId}" class="card-header"></div>
+                    <div class="card-body">
+                        <h4 th:text="${replyVO.replyContent}" class="card-title"></h4>
+                        <p th:text="${#dates.format(replyVO.reg_date, 'yyyy-MM-dd')}" class="card-text"></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="card-header">로그인정보 띄워주기</div>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 167px;"></textarea>
+                    <div class="card-header" style="text-align: right;">
+                        <button type="button" class="btn btn-primary">작성완료</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-lg-3" id="team-info-box">
+
+            <!-- Button that triggers the popup -->
+            <button id="add_applicant_get" class="btn btn-success btn-lg">신청서 등록</button>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+<!-- Element to pop up -->
+<div id="add_applicant_get_pop_up" class="layerpop" style="width: 700px; height: 350px;">
+    <form id="detailForm" method="post" th:action="@{/applicant/json/addApplicant}" th:object="${applicantVO}">
+        <h2>신   청   서</h2>
+        <br>
+
+        <th:block th:if="${project.applicantQuestionA != null}">
+            <label for="applicantAnswerA" class="control-label" th:text="Q1.+${project.applicantQuestionA}"></label>
+            <input type="text" class="form-control" id="applicantAnswerA" name="applicantAnswerA" placeholder="1번대답" >
+        </th:block>
+
+        <th:block th:if="${project.applicantQuestionB != null}">
+            <label for="applicantAnswerB" class="control-label" th:text="Q1.+${project.applicantQuestionB}"></label>
+            <input type="text" class="form-control" id="applicantAnswerB" name="applicantAnswerB" placeholder="1번대답" >
+        </th:block>
+
+        <th:block th:if="${project.applicantQuestionC != null}">
+            <label for="applicantAnswerC" class="control-label" th:text="Q1.+${project.applicantQuestionC}"></label>
+            <input type="text" class="form-control" id="applicantAnswerC" name="applicantAnswerC" placeholder="1번대답" >
+        </th:block>
+
+        <div style="width:100px;float: right;">
+            <button id="add_applicant_post" class="btn btn-default">신청서 제출</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

@@ -10,10 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * spring security에 전반적인 설정을 셋팅하는 설정 클래스 정의
- *
  */
 @Configuration
 @RequiredArgsConstructor
@@ -26,7 +26,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().mvcMatchers("/resources/**");
     }
-
 
 
     @Override
@@ -44,7 +43,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         });
 
 
-
         http.formLogin()
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
@@ -53,10 +51,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password") // 로그인 페이지의 password에 해당하는 부분의 name attribute
                 .loginProcessingUrl("/login/req") // 로그인 요청시 사용하는 uri(로그인 페이지의 로그인 요청 버튼의 uri 임)
         ;
+
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true);
+
+        http.exceptionHandling()
+                .accessDeniedPage("/main"); // 권한이 없는 사용자가 접근했을 경우 이동할 경로를 지정
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.vo.ProjectVO;
+import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
 
@@ -72,12 +74,21 @@ public class ProjectApplicant {
 	@RequestMapping(value = "/getApplicant", method = RequestMethod.GET)
 	public String getApplicant(@RequestParam("applicantNo")String applicantNo,
 							   Model model)throws Exception {
-		System.out.println("hi");
 		int intApplicantNo = Integer.parseInt(applicantNo);
 		ApplicantVO applicantVO = projectApplicantService.getApplicant(intApplicantNo);
 		
 		model.addAttribute("applicantVO",applicantVO);
 		return "projectApplicant/getApplicant";
+	}
+	
+	@RequestMapping(value = "/updateApplicantStatus", method = RequestMethod.GET)
+	public String updateApplicantStatus(@ModelAttribute("updateApplicantStatusDTO")UpdateApplicantStatusDTO updateApplicantStatusDTO,
+										HttpSession session) {
+		updateApplicantStatusDTO.setUserId("user03");
+		System.out.println("hi");
+		System.out.println(updateApplicantStatusDTO);
+		//projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
+		return null;
 	}
 	
 }

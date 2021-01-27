@@ -75,7 +75,7 @@ public class KakaoLogin {
             e.printStackTrace();
         }
 
-        return "user/login";
+        return "login";
     }
 
 }

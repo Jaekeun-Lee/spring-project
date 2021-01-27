@@ -42,6 +42,10 @@ public class UpdateApplicantStatusDTO {
 	public void setApplicantStatus(int applicantStatus) {
 		this.applicantStatus = applicantStatus;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "UpdateApplicantStatusDTO [applicantNo=" + applicantNo + ", applicantStatus=" + applicantStatus
+				+ ", projectNo=" + projectNo + ", userId=" + userId + "]";
+	}
 }
