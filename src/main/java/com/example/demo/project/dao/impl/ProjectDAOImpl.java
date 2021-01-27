@@ -1,5 +1,6 @@
 package com.example.demo.project.dao.impl;
 
+import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dao.ProjectDAO;
@@ -100,6 +101,11 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Override
     public int addReview(List<ReviewVO> reviewVOList) {
         return sqlSession.insert(NAMESPACE + "addReview", reviewVOList);
+    }
+
+    @Override
+    public BookmarkVO getBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
+        return sqlSession.selectOne(NAMESPACE+"getBookmark", projectBookmarkDTO);
     }
 
 
