@@ -161,7 +161,7 @@
 	<delete id="deleteBookmark" parameterType="projectBookmarkDTO">
 		DELETE
 		FROM BOOKMARK
-		WHERE BOOKMARK_NO = #{bookmarkNo}
+		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{userId}
 	</delete>
 
 
@@ -299,7 +299,7 @@
 	</select>
 
 	<select id="getBookmark" parameterType="projectBookmarkDTO" resultType="bookmarkVO">
-		SELECT BOOKMARK_NO
+		SELECT BOOKMARK_NO as bookmarkNo
 		FROM BOOKMARK
 		WHERE USER_ID = #{userId} AND PROJECT_NO = #{projectNo}
 	</select>

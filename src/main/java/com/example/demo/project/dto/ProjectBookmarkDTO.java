@@ -5,6 +5,7 @@ public class ProjectBookmarkDTO {
     private int bookmarkNo;
     private int projectNo;
     private String userId;
+    private int bookmarkControl;
 
     public int getBookmarkNo() {
         return bookmarkNo;
@@ -30,4 +31,11 @@ public class ProjectBookmarkDTO {
         this.userId = userId;
     }
 
+    public int getBookmarkControl() {
+        return bookmarkControl;
+    }
+
+    public void setBookmarkControl(int bookmarkControl) {
+        this.bookmarkControl = bookmarkControl;
+    }
 }

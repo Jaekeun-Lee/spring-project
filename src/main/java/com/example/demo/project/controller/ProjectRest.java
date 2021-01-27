@@ -8,24 +8,39 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/project/*")
+@RequestMapping("/project")
 public class ProjectRest {
 
     @Autowired
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
 
-    @RequestMapping(value="json/addBookmark", method=RequestMethod.POST)
-    public BookmarkVO addBookmark(@RequestBody ProjectBookmarkDTO projectBookmarkDTO) throws Exception {
+    
+    //세션 구현후 포스트로
+    @GetMapping("/addBookmark")
+    @ResponseBody
+    public BookmarkVO addBookmark(@RequestParam("projectNo") int projectNo,
+                                  @RequestParam("bookmarkControl") int bookmarkControl) {
 
-        System.out.println("@@@@@@@@@@@@@@@"+projectBookmarkDTO);
+
+        //세션구현시 세션으로
         String sessionId = "user03";
+        ProjectBookmarkDTO projectBookmarkDTO = new ProjectBookmarkDTO();
+
         projectBookmarkDTO.setUserId(sessionId);
+        projectBookmarkDTO.setProjectNo(projectNo);
 
-        BookmarkVO bookmark = projectService.getBookmark(projectBookmarkDTO);
+        if (bookmarkControl == 1) {
+            if (projectService.addBookmark(projectBookmarkDTO) == 1) {
+                return projectService.getBookmark(projectBookmarkDTO);
+            }
+        } else if (bookmarkControl == 2) {
+            projectService.deleteBookmark(projectBookmarkDTO);
 
-        return projectService.addBookmark(projectBookmarkDTO) == 1 ? bookmark : null ;
+        }
+        return new BookmarkVO();
 
     }
+
 
 }

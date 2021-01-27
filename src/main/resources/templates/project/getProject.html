@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Title</title>
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -31,42 +31,43 @@
 
 
         $(function(){
-            $('#add_applicant_post').on("click", function(){
+            let projectNo = $('#projectNo').val();
+
+            $('#add_applicant_post').on('click', function(){
                 console.log('hello');
                 $("#detailForm").submit();
             });
 
 
-            $('#add-bookmark').on("click", function () {
-                $.ajax({
-                    url: "/project/json/addBookmark",
-                    method: "POST",
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    },
-                    dataType:"json",
-                    data: JSON.stringify({
-                        projectNo: $('#projectNo').val()
-                    }),
-                    success: function (data) {
-                        console.log(this.data)
-                        let html = "<button>북마크 해제</button>";
-                        $('#add-bookmark').html(html);
+            $("#bookmark-click").on("click", function () {
 
+                $.ajax({
+                    method:'GET',
+                    url:'/project/addBookmark',
+                    data:{
+                        projectNo:projectNo,
+                        bookmarkControl:$('#bookmark-click').children().val()
                     },
-                    error: function (e) {
-                        alert(e)
+                    dataType:'json',
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    success : function (data) {
+                        let bookmarkCheck = $('#bookmark-click').children().val();
+
+                        if( bookmarkCheck === "1") {
+                            $("#bookmark-click").children().attr('class', 'btn btn-danger');
+                            $("#bookmark-click").children().attr('value', 2);
+                            $("#bookmark-click").children().text('북마크 제거');
+                        } else {
+                            $("#bookmark-click").children().attr('class', 'btn btn-secondary')
+                            $("#bookmark-click").children().attr('value', 1);
+                            $("#bookmark-click").children().text('북마크 추가');
+                        }
                     }
                 });
             })
-
-
-            $('#delete-bookmark').on("click", function () {
-                console.log('delete');
-            })
-
-
         });
 
 
@@ -234,10 +235,10 @@
                 <h6 th:each="member : ${project.teamMember}" th:text="${member.userId}"></h6>
             </div>
 
-            <h2 th:text="${project.bookmarkNo}"></h2>
-
-            <button th:if="${project.bookmarkNo == 0}" id="add-bookmark" class="btn btn-secondary">북마크 추가</button>
-            <button th:if="${project.bookmarkNo != 0}" id="delete-bookmark" class="btn btn-danger">북마크 해제</button>
+            <div id="bookmark-click" th:switch="${project.bookmarkNo}">
+                <button th:case="0" class="btn btn-secondary" th:value="1">북마크 추가</button>
+                <button th:case="*" class="btn btn-danger" th:value="2">북마크 제거</button>
+            </div>
 
         </div>
 
