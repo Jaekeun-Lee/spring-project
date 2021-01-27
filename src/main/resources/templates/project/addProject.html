@@ -16,31 +16,39 @@
     <script>
 
         $(function () {
-            $("#preStartDate").datepicker({dateFormat: 'yy-mm-dd'});
-            $("#applicationDeadline").datepicker({dateFormat: 'yy-mm-dd'});
+            $("#preStartDate").datepicker({
+                dateFormat: 'yy-mm-dd',
+                onClose: function( selectedDate ) {
+                    $("#applicationDeadline").datepicker("option", "minDate", selectedDate);
+                }
+
+            });
+            $("#applicationDeadline").datepicker({
+                dateFormat: 'yy-mm-dd',
+                onClose: function( selectedDate ) {
+                    $("#preStartDate").datepicker("option", "maxDate", selectedDate);
+                }
+            });
 
             $("#projectCategory1").on("click", function () {
                 $("btn-secondary")
             });
 
-
             $("#addProject-btn").on("click", function () {
                 $("#addProjectForm").submit();
             });
-
         });
-
 
     </script>
 </head>
 <body>
-<div class="row wrapper">
-    <div class="container col-lg-4 col-xs-12">aaaaaaaaaaaaaaaa</div>
-    <div class="container col-lg-8">
-        <div class="page-name col-xs-12"><h1>ADD PROJECT</h1></div>
-        <div>
+<div class="wrapper">
+    <div class="row">
+        <div class="container col-lg-4 col-xs-12">aa</div>
+        <div class="container col-lg-8 col-xs-12">
+            <div class="page-name col-xs-12"><h1>ADD PROJECT</h1></div>
             <form id="addProjectForm" method="POST" th:action="@{/project/addProject}">
-                <div class="row form-group col-xs-12">
+                <div class="form-group col-xs-12">
                     <label for="projectName">프로젝트 제목</label>
                     <input type="text" id="projectName" name="projectName" class="form-control"
                            placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" required="required"/>
@@ -74,32 +82,33 @@
 
 
 
-                <p>프로젝트 카테고리</p>
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="projectCategory" id="projectCategory1" checked=""> 개발
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="projectCategory" id="projectCategory2"> 디자인
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="projectCategory" id="projectCategory3"> 기획
-                    </label>
+                <div class="form-group col-xs-12">
+                    <p>프로젝트 카테고리</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="projectCategory" id="projectCategory1" checked=""> 개발
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="projectCategory" id="projectCategory2"> 디자인
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="projectCategory" id="projectCategory3"> 기획
+                        </label>
+                    </div>
                 </div>
-
 
 
                 <div class="form-group">
                     <label for="projectDetail">프로젝트 상세내용</label>
                     <textarea class="form-control" id="projectDetail" name="projectDetail" rows="3">
-    <프로젝트의 현재 상황>
-    예시) 디자인 준비 상황, 진행 계획 등
+<프로젝트의 현재 상황>
+예시) 디자인 준비 상황, 진행 계획 등
 
-    <상세한 업무 내용>
-    예시) 페이지 수, 레이아웃(비슷한 페이지) 수, 반응형 여부 등
+<상세한 업무 내용>
+예시) 페이지 수, 레이아웃(비슷한 페이지) 수, 반응형 여부 등
 
-    <참고자료 / 유의사항>
-    예시) 참고사이트, 기타 유의사항 등
+<참고자료 / 유의사항>
+예시) 참고사이트, 기타 유의사항 등
                     </textarea>
                 </div>
 

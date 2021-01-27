@@ -11,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -48,5 +51,37 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
+    @Override
+    public ResponseEntity<Object> logOutReq(String userId, String password) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public boolean withdrawal(MemberDTO.WithdrawalDTO withdrawalDTO) {
+
+        withdrawalDTO.setPassword(passwordEncoder.encode(withdrawalDTO.getPassword()));
+
+        int dbResult = memberDAO.deleteMember(withdrawalDTO.convertSignUpDTOToMemberVO());
+        if (dbResult != 1) {
+            throw new RuntimeException();
+        }
+        return true;
+    }
+
+    //해당 email로 가입된 정보가 있는지 확인한다.
+    public boolean userEmailCheck(String Email, String Name) {
+
+        MemberVO user = memberDAO.findUserByUserId(Email);
+        if(user!=null && user.getName().equals(Name)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
 }
+
 

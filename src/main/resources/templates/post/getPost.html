@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<form th:action="@{/post/getPost}" th:method="get">
+    <div th:text="${post.postName}"></div>
+    <div th:text="${post.postContent}"></div>
+
+    <input type="submit"    value="목록">
+    <input type="submit"    value="대충">
+
+</form>
+</body>

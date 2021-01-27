@@ -39,12 +39,12 @@ public class ReplyVO {
         this.projectNo = projectNo;
     }
 
-    public String getReplyUseId() {
+    public String getReplyUserId() {
         return replyUserId;
     }
 
-    public void setReplyUseId(String replyUseId) {
-        this.replyUserId = replyUseId;
+    public void setReplyUserId(String replyUserId) {
+        this.replyUserId = replyUserId;
     }
 
     public String getReplyContent() {
