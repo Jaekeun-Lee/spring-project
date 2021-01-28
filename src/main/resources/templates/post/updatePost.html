@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
+    <title>Title</title>
+</head>
+
+<body bgcolor="#808080" text="black">
+<!--<form th:action="@{/post/updatePost}" th:method="get">-->
+<form th:action="@{/post/updatePost}"   th:method="POST">
+    <input type="hidden"    id="postNo"    name="postNo"   th:value="${postVO.postNo}"/>
+
+    <input type="text"  name="postName"     th:value="${postVO.postName}"><br>
+    <textarea name="postContent"     th:text="${postVO.postContent}"></textarea>
+
+
+</form>
+<a th:href="@{/post/getPost(postNo=${postVO.postNo})}">완료</a>
+<a href="@{/post/getPost}">뒤로가기</a>
+</body>
+</html>
