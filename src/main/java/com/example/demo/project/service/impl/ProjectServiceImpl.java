@@ -1,5 +1,6 @@
 package com.example.demo.project.service.impl;
 
+import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dao.ProjectDAO;
@@ -125,5 +126,11 @@ public class ProjectServiceImpl implements ProjectService {
     public int addReview(List<ReviewVO> reviewVOList) {
         return projectDAO.addReview(reviewVOList);
     }
+
+    @Override
+    public BookmarkVO getBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
+        return projectDAO.getBookmark(projectBookmarkDTO);
+    }
+
 
 }
