@@ -32,8 +32,8 @@ public class PortfolioServiceImplTest {
         PortfolioVO addPort = new PortfolioVO();
         addPort.setUserId("user02");
         addPort.setProjectNo(3);
-        addPort.setPortProjectStartDate(new Date());
-        addPort.setPortProjectEndDate(new Date());
+//        addPort.setPortProjectStartDate(new Date());
+//        addPort.setPortProjectEndDate(new Date());
         addPort.setPortDescription("아 맛있는 거 먹고 싶다 예를들면 팥빙수");
         addPort.setPortTitle("새벽공부가 집중이 더 잘 되는 이유");
         addPort.setPortMemberCnt(2);
@@ -72,8 +72,8 @@ public class PortfolioServiceImplTest {
     public void updatePort(){
         PortfolioVO updatePort = new PortfolioVO();
         updatePort.setPortNo(13);
-        updatePort.setPortProjectStartDate(new Date());
-        updatePort.setPortProjectEndDate(new Date());
+//        updatePort.setPortProjectStartDate(new Date());
+//        updatePort.setPortProjectEndDate(new Date());
         updatePort.setPortDescription("오늘은 규리언니가 치즈감자튀김을 자랑했다 도영이는 떡 먹고 있던데 다들 잘 먹고 다니네");
         updatePort.setPortMemberCnt(3);
         updatePort.setPortTitle("3조 먹성");
@@ -86,10 +86,10 @@ public class PortfolioServiceImplTest {
 
         PortfolioVO getPortList = new PortfolioVO();
 
-        getPortList.setUserId("user02");
+        getPortList.setUserId("user01");
 
-        List<PortfolioVO> getPortList01 = portfolioService.getPortList("user02");
-        Assert.assertEquals(3,getPortList01.size());
+        List<PortfolioVO> getPortList01 = portfolioService.getPortList("user01");
+        Assert.assertEquals(9,getPortList01.size());
 
 
     }

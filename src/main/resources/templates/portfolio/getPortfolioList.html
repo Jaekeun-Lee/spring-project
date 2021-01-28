@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+        $(function(){
+            console.log($("td[name='getDate확인']").text());
+        })
+
+        console.log()
+    </script>
+    <title>포트폴리오 목록</title>
+</head>
+<body>
+
+<table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
+    <thead>
+    <tr>
+        <!--<th class="column-title" width="100"></th>-->
+        <th class="column-title" width="100">제목</th>
+        <th class="column-title" width="100">작성날짜</th>
+        <!--<th class="column-title" width="100"></th>-->
+    </tr>
+
+    <tr>
+        <td colspan="11" bgcolor="808285" height="1"></td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr class="" th:each="portfolioVO:${portfolio}">
+        <td>
+        <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
+        th:text="${portfolioVO.portTitle}"></a></td>
+        <!--<td class="" th:text="${#dates.format(portfolioVO.regDate,'yyyy-mm-dd')}"></td>-->
+        <td th:text="${portfolioVO.regDate}" name="getDate확인"></td>
+
+    </tr>
+
+<td class="">
+      <a th:href="@{/port/addPort}"/>글쓰기
+    </td>
+    </tbody>
+</table>
+
+</body>
+</html>
+
+

@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/port/*")
 public class Portfolio {
@@ -23,11 +27,45 @@ public class Portfolio {
 
     //포트폴리오 등록
     @PostMapping("addPort")
-    public String addPort(@ModelAttribute PortfolioVO portfolioVO){
-        System.out.println("포트폴리오연결합니다"+portfolioVO);
+    public String addPort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
+        System.out.println("포트폴리오추가합니다"+portfolioVO);
+        session.setAttribute("userId","user01"); //session이 있으면 통째로 지우면 됨. 왜냐면 session에 알아서 들어감.
+        portfolioVO.setUserId((String)session.getAttribute("userId"));
         portfolioService.addPort(portfolioVO);
+        /*model.addAttribute("portfolio",portfolioVO);*/
+        return "redirect:/port/portList";
+
+    }
+
+    //포트폴리오 수정
+    @GetMapping("updatePort")
+    public String updatePortView(@RequestParam("portNo") int param, Model model){
+        PortfolioVO portfolioVO = portfolioService.getPort(param);
+        model.addAttribute("portfolio",portfolioVO);
+        return "portfolio/updatePortfolio";
+    }
+
+    @PostMapping("updatePort")
+    public String updatePort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
+        System.out.println("포트폴리오수정합니다."+portfolioVO);
+        session.setAttribute("userId","user01");
+        portfolioVO.setUserId((String)session.getAttribute("userId"));  //사용자가 수정한 내용을 DB에 보내는 것
+        portfolioService.updatePort(portfolioVO);
+        /*portfolioService.getPort(portfolioVO.getPortNo());*/
+        model.addAttribute("portfolio",portfolioService.getPort(portfolioVO.getPortNo()));
         return "portfolio/getPortfolio";
 
+    }
+
+    //포트폴리오 삭제
+    @GetMapping("deletePort")
+    public String deletePort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
+        System.out.println("포트폴리오삭제합니다."+portfolioVO);
+        session.setAttribute("userId","user01");
+        portfolioVO.setUserId((String)session.getAttribute("userId"));
+        portfolioService.deletePort(portfolioVO);
+        /*model.addAttribute("portfolio",portfolioVO);*/
+        return "redirect:/port/portList";
     }
 
     //포트폴리오 상세조회
@@ -38,6 +76,19 @@ public class Portfolio {
         model.addAttribute("portfolio",portfolioVO);    //정보(=디비에서 가져옴)를 주머니에 담음
         return "portfolio/getPortfolio"; //정보가 출발했다.
     }
+
+    //포트폴리오 목록조회
+    @GetMapping("portList")
+    public String getPortList(HttpSession session, Model model){
+        session.setAttribute("userId","user01");
+        /*portfolioVO.setUserId((String)session.getAttribute("userId"));*/
+        List<PortfolioVO> portfolioVOList = portfolioService.getPortList((String)session.getAttribute("userId"));
+       model.addAttribute("portfolio", portfolioVOList);
+       return "portfolio/getPortfolioList";
+
+    }
+
+
 
 
     //모델어트리뷰트는 오브젝트 스코프야. session, request, application
