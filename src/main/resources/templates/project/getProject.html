@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
@@ -31,42 +31,77 @@
 
 
         $(function(){
-            let projectNo = $('#projectNo').val();
+            let projectNo = $('#projectNo').val()
 
             $('#add_applicant_post').on('click', function(){
                 console.log('hello');
                 $("#detailForm").submit();
             });
 
-
             $("#bookmark-click").on("click", function () {
-
                 $.ajax({
-                    method:'GET',
-                    url:'/project/addBookmark',
-                    data:{
-                        projectNo:projectNo,
-                        bookmarkControl:$('#bookmark-click').children().val()
-                    },
-                    dataType:'json',
-                    headers:{
-                        'Accept':'application/json',
-                        'Content-Type':'application/json'
-                    },
+                    type : 'POST',
+                    url  : '/project/addBookmark',
+                    data : JSON.stringify({
+                        projectNo : projectNo,
+                        bookmarkControl : $('#bookmark-click').children().val()
+                    }),
+                    contentType : 'application/json',
                     success : function (data) {
-                        let bookmarkCheck = $('#bookmark-click').children().val();
+                        if(data === 1) {
+                            let bookmarkCheck = $('#bookmark-click').children().val();
 
-                        if( bookmarkCheck === "1") {
-                            $("#bookmark-click").children().attr('class', 'btn btn-danger');
-                            $("#bookmark-click").children().attr('value', 2);
-                            $("#bookmark-click").children().text('북마크 제거');
-                        } else {
-                            $("#bookmark-click").children().attr('class', 'btn btn-secondary')
-                            $("#bookmark-click").children().attr('value', 1);
-                            $("#bookmark-click").children().text('북마크 추가');
+                            if( bookmarkCheck === "1") {
+                                $("#bookmark-click").children().attr('class', 'btn btn-danger');
+                                $("#bookmark-click").children().attr('value', 2);
+                                $("#bookmark-click").children().text('북마크 제거');
+                            } else {
+                                $("#bookmark-click").children().attr('class', 'btn btn-secondary')
+                                $("#bookmark-click").children().attr('value', 1);
+                                $("#bookmark-click").children().text('북마크 추가');
+                            }
                         }
+                        else {
+                            alert("북마크 추가 실패");
+                        }
+                    },
+                    error: function (e){
+                        alert("북마크 추가 실패 = "+e)
                     }
                 });
+            })
+
+
+            $('#add-reply-btn').on('click', function () {
+                $.ajax({
+                    type : 'POST',
+                    url  : '/project/addReply',
+                    data : JSON.stringify({
+                        projectNo : projectNo,
+                        replyContent : $('#replyContent').val()
+                    }),
+                    dataType:'text',
+                    contentType : 'application/json',
+                    success : function (data) {
+                        const replyVO = JSON.parse(data);
+                        const regDate = replyVO.regDate.substring(0,10);
+
+                        let html =
+                            "<div class=\"card bg-secondary mb-3\" style=\"max-width: 20rem;\">"  +
+                            "   <div class=\"card-header\">"+ replyVO.replyUserId +"</div>"       +
+                            "       <div class=\"card-body\">"                                    +
+                            "           <h4 class=\"card-title\">"+ replyVO.replyContent +"</h4>" +
+                            "       <p class=\"card-text\">" + regDate + "</p>" +
+                            "   </div>" +
+                            "</div>"
+
+                        $("#reply-list").append(html);
+                        $('#replyContent').val("");
+                    },
+                    error: function (e){
+                        alert("댓글 등록 실패"+e)
+                    }
+                })
             })
         });
 
@@ -128,7 +163,7 @@
                 <!-- 지원자 수 박스 -->
                 <div class="card-box-unit">
                     <h6 class="card-subtitle mb-2 text-muted">지원자 수</h6>
-                    <span>??</span>
+                    <span th:text="${project.applicantsCnt}"></span>
                     <span>명</span>
                 </div>
             </div>
@@ -204,20 +239,20 @@
 
             <!-- 프로젝트 댓글 -->
             <div class="reply-box">
-                <h5>댓글</h5>
+                <h5 id="reply-list">댓글</h5>
                 <div th:each="replyVO : ${project.projectReply}" class="card bg-secondary mb-3" style="max-width: 20rem;">
                     <div th:text="${replyVO.replyUserId}" class="card-header"></div>
                     <div class="card-body">
                         <h4 th:text="${replyVO.replyContent}" class="card-title"></h4>
-                        <p th:text="${#dates.format(replyVO.reg_date, 'yyyy-MM-dd')}" class="card-text"></p>
+                        <p th:text="${#dates.format(replyVO.regDate, 'yyyy-MM-dd')}" class="card-text"></p>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="card-header">로그인정보 띄워주기</div>
-                    <textarea class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 167px;"></textarea>
+                    <input class="form-control" id="replyContent" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 167px;"></input>
                     <div class="card-header" style="text-align: right;">
-                        <button type="button" class="btn btn-primary">작성완료</button>
+                        <button type="button" id="add-reply-btn" class="btn btn-primary">작성완료</button>
                     </div>
                 </div>
             </div>

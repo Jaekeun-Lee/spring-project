@@ -1,13 +1,16 @@
 package com.example.demo.project.controller;
 
-import com.example.demo.common.vo.BookmarkVO;
+import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
+import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@ResponseBody
 @RequestMapping("/project")
 public class ProjectRest {
 
@@ -15,32 +18,33 @@ public class ProjectRest {
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
 
-    
-    //세션 구현후 포스트로
-    @GetMapping("/addBookmark")
-    @ResponseBody
-    public BookmarkVO addBookmark(@RequestParam("projectNo") int projectNo,
-                                  @RequestParam("bookmarkControl") int bookmarkControl) {
+
+    @PostMapping("/addBookmark")
+    public int addBookmark(@RequestBody ProjectBookmarkDTO projectBookmarkDTO) {
 
 
         //세션구현시 세션으로
         String sessionId = "user03";
-        ProjectBookmarkDTO projectBookmarkDTO = new ProjectBookmarkDTO();
-
         projectBookmarkDTO.setUserId(sessionId);
-        projectBookmarkDTO.setProjectNo(projectNo);
 
-        if (bookmarkControl == 1) {
-            if (projectService.addBookmark(projectBookmarkDTO) == 1) {
-                return projectService.getBookmark(projectBookmarkDTO);
-            }
-        } else if (bookmarkControl == 2) {
-            projectService.deleteBookmark(projectBookmarkDTO);
-
+        if (projectBookmarkDTO.getBookmarkControl() == 1) {
+            return projectService.addBookmark(projectBookmarkDTO);
+        } else if (projectBookmarkDTO.getBookmarkControl() == 2) {
+            return projectService.deleteBookmark(projectBookmarkDTO);
+        } else {
+            return 0;
         }
-        return new BookmarkVO();
-
     }
+
+    @PostMapping("/addReply")
+    public ReplyVO addReply(@RequestBody ProjectReplyDTO projectReplyDTO){
+        //세션구현시 세션으로
+        String sessionId = "user03";
+        projectReplyDTO.setReplyUserId(sessionId);
+
+        return projectService.addProjectReply(projectReplyDTO);
+    }
+
 
 
 }

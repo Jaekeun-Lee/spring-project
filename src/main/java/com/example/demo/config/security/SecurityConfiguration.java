@@ -30,6 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
         // 모든 리퀘스트에 대해 인증을 요구하는 설정
         http.authorizeRequests(authorize -> {
 
