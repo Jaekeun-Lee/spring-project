@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>프로젝트 등록하기</title>
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
@@ -30,13 +30,6 @@
                 }
             });
 
-            $("#projectCategory1").on("click", function () {
-                $("btn-secondary")
-            });
-
-            $("#addProject-btn").on("click", function () {
-                $("#addProjectForm").submit();
-            });
         });
 
     </script>
@@ -114,13 +107,13 @@
 
                 <div class="form-group">
                     <label for="preStartDate">예상 시작일</label>
-                    <input type="text" id="preStartDate" name="preStartDate" class="form-control" autocomplete="off">
+                    <input type="text" id="preStartDate" name="preStartDate" class="form-control" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="prePeriod">예상진행기간</label>
                     <div class="input-group mb-3">
-                        <input type="text" id="prePeriod" name="prePeriod" class="form-control" placeholder="ex) 100">
+                        <input type="text" id="prePeriod" name="prePeriod" class="form-control" placeholder="ex) 100" required>
                         <div class="input-group-append">
                             <span class="input-group-text">일</span>
                         </div>
@@ -192,7 +185,7 @@
 
                 <div class="form-group">
                     <label for="applicationDeadline">신청서 제출 마감일</label>
-                    <p>Date: <input type="text" id="applicationDeadline" name="applicationDeadline" autocomplete="off"></p>
+                    <p>Date: <input type="text" id="applicationDeadline" name="applicationDeadline" autocomplete="off" required></p>
                 </div>
 
 
@@ -202,9 +195,9 @@
                            placeholder="예) 스프링부트 관련 프로젝트를 진행해본적이 있나요?"/>
                 </div>
 
-
+                <input type="submit" id="addProject-btn" class="btn btn-outline-primary" value="등록완료"/>
             </form>
-            <button type="button" id="addProject-btn" class="btn btn-outline-primary">등록완료</button>
+
 
         </div>
 

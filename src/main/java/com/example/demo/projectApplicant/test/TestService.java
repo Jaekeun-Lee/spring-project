@@ -20,7 +20,7 @@ public class TestService {
 	
 	///Constructor
 	public TestService() {
-		System.out.println("TestService@@@@@@@@@@@@@@@@");
+
 	}
 	
 	public void Test(TestHashVO vo) throws Exception {

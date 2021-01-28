@@ -16,12 +16,11 @@ public class TestDao {
 	private SqlSession sqlSession;
 	
 	public void setSqlSession(SqlSession sqlSession) {
-		System.out.println("SQLSESSION @@@@@++++");
 	    this.sqlSession = sqlSession;
 	 }
 	//Constructor
 	public TestDao() {
-		System.out.println("TestDAO@@@@@@");
+
 	}
 
 	public void Test(TestHashVO vo) {

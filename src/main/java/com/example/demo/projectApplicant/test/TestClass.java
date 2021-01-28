@@ -18,7 +18,7 @@ public class TestClass {
 	private TestService testService;
 	
 	public TestClass() {
-		System.out.println("TestClass @@@@@@@@@@");
+
 	}
 	
 	@RequestMapping(value="/test")
