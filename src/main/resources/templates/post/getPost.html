@@ -11,21 +11,21 @@
 
 
     </script>
-<title>getPost</title>
+<title>게시물 상세조회</title>
 </head>
 <body>
-<form id="detailForm">
-
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
-    <div th:text="${post.postNo}">번호</div>
-    <div th:text="${post.postName}">제목</div>
-    <div th:text="${post.postContent}">내용</div>
-    <div th:text="${post.regDate}">작성날짜</div>
-    <div th:text="${post.replyCnt}">댓글수</div>
-    <div th:text="${post.viewCnt}">조회수</div>
+    <input type="hidden"    name="postNo"      th:value="${postVO.postNo}">
+<!--    <div th:text="${postVO.postNo}">번호</div>-->
+    <div th:text="${postVO.postName}">제목</div>
+    <div th:text="${postVO.userId}">작성자</div>
+    <div th:text="${#dates.format(postVO.regDate, 'yyyy-MM-dd')}">작성날짜</div>
+<!--    <div th:text="${postVO.postContent}">내용</div>-->
+    <textarea cols="80" rows="40" name="postContent"     th:text="${postVO.postContent}">내용</textarea><br>
 
-    <a th:href="@{/post/getPostList}">목록</a>
-    <a th:href="@{/post/updatePost(postNo=${post.postNo})}">수정</a>
 
-</form>
+    <a th:href="@{/comm/getPostList}">목록</a>
+    <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
+    <a th:href="@{/comm/deletePost}">삭제</a>
+
 </body>
