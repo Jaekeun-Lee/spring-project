@@ -1,8 +1,8 @@
 package com.example.demo.project.service;
 
-import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
+import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.MyProjectVO;
@@ -10,7 +10,6 @@ import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ProjectService {
 
@@ -21,7 +20,7 @@ public interface ProjectService {
     ProjectVO getProject(int projectNo, String userId);
 
     //프로젝트 댓글 작성
-    int addProjectReply(ProjectReplyDTO projectReplyDTO);
+    ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO);
 
     //진행중인 프로젝트 조회
     MyProjectVO getMyProject(int projectNo);
@@ -55,8 +54,6 @@ public interface ProjectService {
 
     //리뷰작성
     int addReview(List<ReviewVO> reviewVOList);
-
-    BookmarkVO getBookmark(ProjectBookmarkDTO projectBookmarkDTO);
 
 
     //파일 다운로드 - 보류

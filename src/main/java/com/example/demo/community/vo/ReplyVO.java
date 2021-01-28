@@ -1,6 +1,8 @@
 package com.example.demo.community.vo;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class ReplyVO {
@@ -10,10 +12,8 @@ public class ReplyVO {
     private int projectNo;
     private String replyUserId;
     private String replyContent;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date regDate;
-
-    public ReplyVO() {
-    }
 
     public int getReplyNo() {
         return replyNo;
@@ -55,24 +55,25 @@ public class ReplyVO {
         this.replyContent = replyContent;
     }
 
-    public Date getReg_date() {
+    public Date getRegDate() {
         return regDate;
     }
 
-    public void setReg_date(Date reg_date) {
-        this.regDate = reg_date;
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
 
     @Override
     public String toString() {
-        return "ReplyVO{" +
-                "replyNo=" + replyNo +
-                ", postNo=" + postNo +
-                ", projectNo=" + projectNo +
-                ", replyUseId='" + replyUserId + '\'' +
-                ", replyContent='" + replyContent + '\'' +
-                ", reg_date=" + regDate +
-                '}';
+        final StringBuffer sb = new StringBuffer("ReplyVO{");
+        sb.append("replyNo=").append(replyNo);
+        sb.append(", postNo=").append(postNo);
+        sb.append(", projectNo=").append(projectNo);
+        sb.append(", replyUserId='").append(replyUserId).append('\'');
+        sb.append(", replyContent='").append(replyContent).append('\'');
+        sb.append(", regDate=").append(regDate);
+        sb.append('}');
+        return sb.toString();
     }
 }
 

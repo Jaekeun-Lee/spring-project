@@ -1,8 +1,8 @@
 package com.example.demo.project.service.impl;
 
-import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
+import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
@@ -43,7 +43,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
+    public ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO) {
         return projectDAO.addProjectReply(projectReplyDTO);
     }
 
@@ -117,20 +117,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
-//    @Override
-//    public void applicationDeadlineCheck() {
-//
-//    }
-
     @Override
     public int addReview(List<ReviewVO> reviewVOList) {
         return projectDAO.addReview(reviewVOList);
     }
-
-    @Override
-    public BookmarkVO getBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
-        return projectDAO.getBookmark(projectBookmarkDTO);
-    }
-
 
 }

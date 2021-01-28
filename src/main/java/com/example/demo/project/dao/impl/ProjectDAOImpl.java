@@ -3,6 +3,7 @@ package com.example.demo.project.dao.impl;
 import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
+import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
@@ -30,7 +31,6 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     @Override
     public int addProject(ProjectVO projectVO) {
-
         sqlSession.insert(NAMESPACE + "addProject", projectVO);
         return sqlSession.update(NAMESPACE + "updateMemberProjectNo", projectVO.getLeaderId());
     }
@@ -42,8 +42,9 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     @Override
-    public int addProjectReply(ProjectReplyDTO projectReplyDTO) {
-        return sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO);
+    public ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO) {
+        sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO);
+        return sqlSession.selectOne(NAMESPACE + "getProjectReply", projectReplyDTO);
     }
 
     @Override
@@ -103,10 +104,6 @@ public class ProjectDAOImpl implements ProjectDAO {
         return sqlSession.insert(NAMESPACE + "addReview", reviewVOList);
     }
 
-    @Override
-    public BookmarkVO getBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
-        return sqlSession.selectOne(NAMESPACE+"getBookmark", projectBookmarkDTO);
-    }
 
 
 }

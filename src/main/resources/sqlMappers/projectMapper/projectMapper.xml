@@ -210,15 +210,15 @@
 
 	<delete id="deleteProject" parameterType="int">
 		DELETE
-		FROM PROJECT
+		FROM  PROJECT
 		WHERE PROJECT_NO = #{value}
 	</delete>
 
 
 	<update id="withdrawProject" parameterType="string">
-		UPDATE MEMBER
-		SET PROJECT_NO = NULL, PROJECT_WITHDRAWAL_DATE = SYSDATE
-		WHERE USER_ID = #{value}
+		UPDATE  MEMBER
+		SET 	PROJECT_NO = NULL, PROJECT_WITHDRAWAL_DATE = SYSDATE
+		WHERE 	USER_ID = #{value}
 	</update>
 
 
@@ -252,59 +252,55 @@
 	<insert id="addReview" parameterType="list">
 		INSERT INTO REVIEW (REVIEW_NO, USER_ID, PROJECT_NO, REVIEW_GRADE, REVIEW_COMMENT)
 			SELECT SEQ_REVIEW_NO.NEXTVAL, T.*
-				FROM (
-					<foreach collection="list" item="item" index="index" separator="UNION ALL">
-						SELECT #{item.userId} ,
-							   #{item.projectNo} ,
-							   #{item.reviewGrade:NUMERIC} ,
-							   #{item.reviewComment:VARCHAR}
-						FROM SYS.DUAL
-					</foreach>
-					) T
+			FROM (
+				<foreach collection="list" item="item" index="index" separator="UNION ALL">
+					SELECT #{item.userId} ,
+						   #{item.projectNo} ,
+						   #{item.reviewGrade:NUMERIC} ,
+						   #{item.reviewComment:VARCHAR}
+					FROM SYS.DUAL
+				</foreach>
+			) T
 	</insert>
 
 
 	<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
 		SELECT *
 		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
-		FROM (
-		SELECT
-		p.project_name,
-		p.project_detail,
-		p.reg_date,
-		p.user_id,
-		p.application_deadline,
-		p.recruitment_member_cnt
-		FROM
-		applicant a, project p
-		WHERE
-		a.project_no = p.project_no AND
-		a.user_id = #{userId}
-		<if test="searchConditionB != null">
-			<if test = "searchConditionB == 1" >
-				AND a.applicant_status = 1
-			</if>
-			<if test = "searchConditionB == 2" >
-				AND a.applicant_status = 2
-			</if>
-			<if test = "searchConditionB == 3" >
-				AND a.applicant_status = 3
-				AND a.applicant_status = 4
-			</if>
-		</if>
-		ORDER BY a.APPLICANT_NO
-		) inner_table
-		WHERE ROWNUM &lt;= #{endRowNum} )
+			   FROM (SELECT p.project_name,
+			                p.project_detail,
+			                p.reg_date,
+			                p.user_id,
+			                p.application_deadline,
+			                p.recruitment_member_cnt
+					 FROM applicant a, project p
+			   		 WHERE a.project_no = p.project_no AND a.user_id = #{userId}
+						   <if test="searchConditionB != null">
+							   <if test = "searchConditionB == 1" >
+								   AND a.applicant_status = 1
+							   </if>
+							   <if test = "searchConditionB == 2" >
+								   AND a.applicant_status = 2
+							   </if>
+							   <if test = "searchConditionB == 3" >
+								   AND a.applicant_status = 3
+								   AND a.applicant_status = 4
+							   </if>
+						   </if>
+					 ORDER BY a.APPLICANT_NO) inner_table
+			   WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 
-	<select id="getBookmark" parameterType="projectBookmarkDTO" resultType="bookmarkVO">
-		SELECT BOOKMARK_NO as bookmarkNo
-		FROM BOOKMARK
-		WHERE USER_ID = #{userId} AND PROJECT_NO = #{projectNo}
+	<select id="getProjectReply" parameterType="projectReplyDTO" resultType="replyVO">
+		SELECT REPLY_NO ,
+		       PROJECT_NO ,
+		       USER_ID as replyUserId,
+		       REPLY_CONTENT ,
+			   TO_DATE(TO_CHAR(REG_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') as regDate
+		FROM REPLY
+		WHERE USER_ID = #{replyUserId} AND REPLY_CONTENT = #{replyContent}
 	</select>
-
-
 
 
 
@@ -315,7 +311,8 @@
 	</select>
 
 	<select id = "getProjectMemberByProjectNo" 	resultType="memberVO">
-		SELECT USER_ID as userId, PROFILE_IMAGE as profileImg
+		SELECT USER_ID,
+		       PROFILE_IMAGE as profileImg
 		FROM   MEMBER
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
@@ -327,12 +324,14 @@
 	</select>
 
 	<select id = "getProjectReplyByProjectNo" 	resultType="replyVO">
-		SELECT REPLY_NO,
+		SELECT ROW_NUMBER() over (ORDER BY REG_DATE DESC) as num,
+		       REPLY_NO,
 			   USER_ID as replyUserId,
 			   REPLY_CONTENT,
 			   REG_DATE
 		FROM   REPLY
 		WHERE  PROJECT_NO = #{projectNo}
+		ORDER BY REG_DATE DESC
 	</select>
 
 	<select id = "getTodoListByProjectNo" 		resultType="todoVO">
