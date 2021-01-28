@@ -18,12 +18,15 @@
 			<association property="projectVO"  javaType="com.example.demo.project.vo.ProjectVO">
 				<id property="projectNo" 		column="project_no" 		jdbcType="NUMERIC"/>
 				<result property="projectName"	column="project_name"	jdbcType="VARCHAR"/>
+				<result property="leaderId"    	column="user_id"      				jdbcType="VARCHAR"/>
 				<result property="projectDetail"	column="project_detail"	jdbcType="VARCHAR"/>
 				<result property="applicationDeadline"	column="application_deadline"	jdbcType="DATE"/>
 				<result property="recruitmentMemberCnt"	column="recruitment_member_cnt"	jdbcType="NUMERIC"/>
 				<result property="applicantQuestionA"		column="applicant_question_a" 			jdbcType="VARCHAR"/>
 				<result property="applicantQuestionB" 	column="applicant_question_b" 		jdbcType="VARCHAR"/>
 				<result property="applicantQuestionC" 	column="applicant_question_c" 	jdbcType="VARCHAR"/>
+				<result property="projectStatus"    		column="project_status"      		jdbcType="NUMERIC"/>
+				<result property="meetingLocation"    		column="meeting_location"      		jdbcType="VARCHAR"/>
 			</association>
 	</resultMap>
 
@@ -126,7 +129,9 @@
 				p.project_detail,
 				p.user_id,
 				p.application_deadline,
-				p.recruitment_member_cnt
+				p.recruitment_member_cnt,
+				p.project_status,
+				p.meeting_location
 				FROM
 				applicant a, project p
 				WHERE

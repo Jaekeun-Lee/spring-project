@@ -39,6 +39,7 @@ public class ProjectApplicantRest {
 	public ApplicantVO updateApplicantStatus(@ModelAttribute("updateApplicantStatusDTO")UpdateApplicantStatusDTO updateApplicantStatusDTO,
 								HttpSession session) {
 		System.out.println("@@@@@@@"+updateApplicantStatusDTO.getApplicantStatus());
+		updateApplicantStatusDTO.setUserId("user02");
 		int applicantNo = updateApplicantStatusDTO.getApplicantNo();
 		
 		projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
