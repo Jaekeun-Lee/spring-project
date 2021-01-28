@@ -2,15 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
+
+    <script type="text/javascript">
+
+
+    </script>
+<title>getPost</title>
 </head>
 <body>
-<form th:action="@{/post/getPost}" th:method="get">
-    <div th:text="${post.postName}"></div>
-    <div th:text="${post.postContent}"></div>
+<form id="detailForm">
 
-    <input type="submit"    value="목록">
-    <input type="submit"    value="수정">
+<!--<form th:action="@{/post/getPost}" th:method="get">-->
+    <div th:text="${post.postNo}">번호</div>
+    <div th:text="${post.postName}">제목</div>
+    <div th:text="${post.postContent}">내용</div>
+    <div th:text="${post.regDate}">작성날짜</div>
+    <div th:text="${post.replyCnt}">댓글수</div>
+    <div th:text="${post.viewCnt}">조회수</div>
+
+    <a th:href="@{/post/getPostList}">목록</a>
+    <a th:href="@{/post/updatePost(postNo=${post.postNo})}">수정</a>
 
 </form>
 </body>

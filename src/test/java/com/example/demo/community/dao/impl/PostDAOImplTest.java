@@ -103,9 +103,9 @@ public class PostDAOImplTest {
         PostVO postVO = new PostVO();
         Date today = new Date();
 
-        postVO.setPostNo(2);
-        postVO.setPostName("java");
-        postVO.setPostContent("업데이트테스트");
+        postVO.setPostNo(39);
+        postVO.setPostName("프리 550 vs 정규직 연봉 6000");
+        postVO.setPostContent("택1 하라면 어느것을 하실래요?");
         postVO.setRegDate(today);
 
         postService.updatePost(postVO);

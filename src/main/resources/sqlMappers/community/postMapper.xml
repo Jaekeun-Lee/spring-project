@@ -149,7 +149,7 @@
                         REPLY_CNT,
                         VIEW_CNT
                 FROM POST
-                where
+                <where>
                     <if test="searchConditionA != null">
                         <if test="searchConditionA == 1">
                             POST_NAME Like '%'||#{searchKeyword}||'%'
@@ -161,6 +161,7 @@
                             USER_ID LIKE '%'||#{searchKeyword}||'%'
                         </if>
                     </if>
+                </where>
                 ORDER BY POST_NO ) inner_table
             WHERE ROWNUM &lt;=#{endRowNum} )
         WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}

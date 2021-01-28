@@ -35,17 +35,19 @@ public class Community {
         System.out.println("addPost 컨트롤러::" + postVO);
 
 //        데이터 임의세팅
-        httpSession.setAttribute("userId", "user02");
+        httpSession.setAttribute("userId", "user01");
         postVO.setUserId((String) httpSession.getAttribute("userId"));
         postService.addPost(postVO);
 
         model.addAttribute("post", postVO);
 
-        return "post/getPost";
+        return "welcome";
     }
 
+    /*URI에  postNo 적고 검색(K,V)*/
     @GetMapping("getPost")
-    public String getPost(@RequestParam("postNo") int postNo, Model model) {
+    public String getPost(@RequestParam("postNo") int postNo,
+                          Model model) throws Exception {
         PostVO postVO = postService.getPost(postNo);
 
         model.addAttribute("post", postVO);
@@ -94,31 +96,62 @@ public class Community {
 //        System.out.println("searchVO::"+searchVO);
 //
 //        model.addAttribute("postList", map.get("list"));
-////        model.addAttribute("searchVO",searchVO);
+//        model.addAttribute("searchVO",searchVO);
 //        System.out.println("list");
 //
 //        return "post/getPostList";
 //
 //    }
 
-//    @GetMapping("getPostList")
-//    public Map getPostList(@RequestParam("postNo")int postNo)throws Exception{
-//        System.out.println("getPostList : GET");
-//
-//        Map<String,Object> map = new HashMap<String, Object>();
-//
-//        List<PostVO> postList = postService.getPostList()
-//    }
+    @GetMapping("getPostList")
+    public String getPostList(@ModelAttribute("searchVO") SearchVO  searchVO,
+                              Model model)throws Exception{
+
+        System.out.println("getPostList : GET");
+        searchVO.setPageSize(20);
+        searchVO.setUserId("user02");
+        if(searchVO.getCurrentPage() == 0 ){
+            searchVO.setCurrentPage(1);
+        }
+
+        Map<String,Object> map = postService.getPostList(searchVO);
+        System.out.println("searchVO::"+searchVO);
+
+        model.addAttribute("postList",map.get("list"));
+
+        return "post/getPostList";
+
+    }
+
 
     @GetMapping("updatePost")
     public String updatePostView(@RequestParam("postNo")int postNo,
                                  Model model)throws Exception {
         System.out.println("/updatePostView GET");
 
-//        PostVO postVO = new PostVO();
-//        postService.updatePost(postVO);
+
+        PostVO postVO = postService.getPost(postNo);
+
+
+        model.addAttribute("postVO",postVO);
 
         return "post/updatePost";
+    }
+
+    @PostMapping("updatePost")
+    public String updatePost(@ModelAttribute("post") PostVO postVO,
+                             Model model,
+                             HttpSession httpSession) throws Exception{
+
+        System.out.println("/updatePost POST");
+        int postNo = postVO.getPostNo();
+        System.out.println(postNo);
+
+        postService.updatePost(postVO);
+
+        model.addAttribute("postVO", postVO);
+
+        return "post/getPost";
     }
 
 }
