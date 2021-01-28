@@ -17,7 +17,8 @@
 설명글 : <div th:text="${portfolio.portDescription}"></div>
 
 <input type="submit" value="확인">
-    <a href="#" th:href="@{/port/updatePort/{portNo}(portNo=${portfolio.portNo})}">수정</a>
+    <a th:href="@{/port/updatePort(portNo=${portfolio.portNo})}">수정</a>
+
     <!--
     #은 수정 전 페이지를 의미하는 것   ????
     <a href="#" th:href="@{/port/updatePort/{portNo}(portNo=${portfolio.portNo})}">수정</a>

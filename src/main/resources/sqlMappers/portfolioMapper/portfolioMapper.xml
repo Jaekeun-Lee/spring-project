@@ -66,10 +66,11 @@
         SELECT portfolio_no as portNo,
                user_id,
                project_no,
+               port_title,
+               port_member_cnt,
                port_project_start_date,
                port_project_end_date,
-               port_description,
-               port_member_cnt
+               port_description
         FROM portfolio
         WHERE portfolio_no = #{portNo}
     </select>
@@ -83,7 +84,7 @@
         SELECT portfolio_no,
                user_id,
                port_title,
-               reg_date
+               to_char(reg_date,'YYYY-MM-DD') reg_date
         FROM portfolio
         WHERE user_id = #{userId}
     </select>

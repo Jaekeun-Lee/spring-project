@@ -86,10 +86,10 @@ public class PortfolioServiceImplTest {
 
         PortfolioVO getPortList = new PortfolioVO();
 
-        getPortList.setUserId("user02");
+        getPortList.setUserId("user01");
 
-        List<PortfolioVO> getPortList01 = portfolioService.getPortList("user02");
-        Assert.assertEquals(3,getPortList01.size());
+        List<PortfolioVO> getPortList01 = portfolioService.getPortList("user01");
+        Assert.assertEquals(9,getPortList01.size());
 
 
     }

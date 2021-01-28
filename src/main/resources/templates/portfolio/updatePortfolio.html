@@ -53,12 +53,13 @@
 <body>
 
 <form th:action="@{/port/updatePort}" th:method="post">
-    <input type="text" name="portTitle">
-    <input type="text" name="portMemberCnt">
-    <input type="text" name="portDescription">
-    <input id="startDate" type="text" name="portProjectStartDate" autocomplete="off">
-    <input id="endDate" type="text" name="portProjectEndDate" autocomplete="off">
-    <input type="text" name="portSkillTag">
-    <input type="submit" value="수정">
+    <input type="text" name="portTitle" th:value="${portfolio.portTitle}"></br>
+    <input type="text" name="portMemberCnt" th:value="${portfolio.portMemberCnt}"></br>
+    <!--<input type="text" name="portDescription">-->
+    <input id="startDate" type="text" name="portProjectStartDate" th:value="${portfolio.portProjectStartDate}" autocomplete="off"></br>
+    <input id="endDate" type="text" name="portProjectEndDate" th:value="${portfolio.portProjectEndDate}" autocomplete="off"></br>
+    <textarea name="content" th:text="${portfolio.portDescription}"></textarea></br>
+    <input type="text" name="portSkillTag" th:value="${portfolio.portSkillTag}"></br>
+    <input type="submit" value="확인">
 </form>
 </body>

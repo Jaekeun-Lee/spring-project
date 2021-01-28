@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,7 +38,9 @@ public class Portfolio {
     }
 
     @GetMapping("updatePort")
-    public String updatePortView(){
+    public String updatePortView(@RequestParam("portNo") int param, Model model){
+        PortfolioVO portfolioVO = portfolioService.getPort(param);
+        model.addAttribute("portfolio",portfolioVO);
         return "portfolio/updatePortfolio";
     }
 
@@ -45,7 +48,7 @@ public class Portfolio {
     public String updatePort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
         System.out.println("포트폴리오수정합니다."+portfolioVO);
         session.setAttribute("userId","user01");
-        portfolioVO.setUserId((String)session.getAttribute("userId"));
+        portfolioVO.setUserId((String)session.getAttribute("userId"));  //사용자가 수정한 내용을 DB에 보내는 것
         portfolioService.updatePort(portfolioVO);
         model.addAttribute("portfolio",portfolioVO);
         return "portfolio/getPortfolio";
@@ -64,7 +67,7 @@ public class Portfolio {
     //포트폴리오 목록조회
     @GetMapping("portList")
     public String getPortList(HttpSession session, Model model){
-        session.setAttribute("userId","user01");
+        session.setAttribute("userId","user02");
         /*portfolioVO.setUserId((String)session.getAttribute("userId"));*/
         List<PortfolioVO> portfolioVOList = portfolioService.getPortList((String)session.getAttribute("userId"));
        model.addAttribute("portfolio", portfolioVOList);
