@@ -7,22 +7,23 @@
 
 </head>
 <body>
-<form th:action="@{/port/getPort}" th:method="get">
+<!--<form th:action="@{/port/getPort}" th:method="get"> form은 담아서 보낼 떄 사용, 그래서 getPort는 조회만해서 서버로 보낼 게 없기 때문에 form을 사용하지 않아도 됨-->
     <input type="hidden" id="portNo" name="portNo" th:value="${portfolio.getPortNo()}"/>
-제목 : <div th:text="${portfolio.portTitle}"></div>
-인원 수 : <div th:text="${portfolio.portMemberCnt}"></div>
-시작일 : <div th:text="${portfolio.portProjectStartDate}"></div>
-종료일 : <div th:text="${portfolio.portProjectEndDate}"></div>
-해시태그 : <div th:text="${portfolio.portSkillTag}"></div>
-설명글 : <div th:text="${portfolio.portDescription}"></div>
+        <div th:text="${portfolio.portTitle}"></div>
+        <div th:text="${portfolio.portMemberCnt}"></div>
+        <div th:text="${#dates.format(portfolio.portProjectStartDate, 'yyyy-MM-dd')}"></div>
+        <div th:text="${#dates.format(portfolio.portProjectEndDate, 'yyyy-MM-dd')}"></div>
+        <div th:text="${portfolio.portSkillTag}"></div>
+        <div th:text="${portfolio.portDescription}"></div>
 
-<input type="submit" value="확인">
+    <a th:href="@{/port/portList(userId=${portfolio.userId})}">목록</a>
     <a th:href="@{/port/updatePort(portNo=${portfolio.portNo})}">수정</a>
+    <a th:href="@{/port/deletePort(portNo=${portfolio.portNo})}">삭제</a>
 
     <!--
     #은 수정 전 페이지를 의미하는 것   ????
     <a href="#" th:href="@{/port/updatePort/{portNo}(portNo=${portfolio.portNo})}">수정</a>
     -->
 
-</form>
+<!--</form>-->
 </body>

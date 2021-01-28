@@ -34,7 +34,9 @@
 
     <tbody>
     <tr class="" th:each="portfolioVO:${portfolio}">
-        <td class="" th:text="${portfolioVO.portTitle}"></td>
+        <td>
+        <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
+        th:text="${portfolioVO.portTitle}"></a></td>
         <!--<td class="" th:text="${#dates.format(portfolioVO.regDate,'yyyy-mm-dd')}"></td>-->
         <td th:text="${portfolioVO.regDate}" name="getDate확인"></td>
 

@@ -1,5 +1,7 @@
 package com.example.demo.portfolio.vo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -7,15 +9,18 @@ public class PortfolioVO {
     private int portNo;
     private String userId;
     private int projectNo;
-    private String portProjectStartDate;  //포트포리오에 등록할 프로젝트 시작 날짜
-    private String portProjectEndDate;    //포트포리오에 등록할 프로젝트 종료 날짜
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date portProjectStartDate;  //포트포리오에 등록할 프로젝트 시작 날짜
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date portProjectEndDate;    //포트포리오에 등록할 프로젝트 종료 날짜
     private String portDescription;     //설명글
     private String portTitle;           //포트폴리오 제목
     private int portMemberCnt;          //프로젝트 참가 총 인원 수
     private String portThumbnailImg;    //대표 이미지
     private String portFileName;        //첨부파일
     private List<String> portSkillTag;
-    private String regDate;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date regDate;
 
     public PortfolioVO() {
     }
@@ -44,19 +49,19 @@ public class PortfolioVO {
         this.projectNo = projectNo;
     }
 
-    public String getPortProjectStartDate() {
+    public Date getPortProjectStartDate() {
         return portProjectStartDate;
     }
 
-    public void setPortProjectStartDate(String portProjectStartDate) {
+    public void setPortProjectStartDate(Date portProjectStartDate) {
         this.portProjectStartDate = portProjectStartDate;
     }
 
-    public String getPortProjectEndDate() {
+    public Date getPortProjectEndDate() {
         return portProjectEndDate;
     }
 
-    public void setPortProjectEndDate(String portProjectEndDate) {
+    public void setPortProjectEndDate(Date portProjectEndDate) {
         this.portProjectEndDate = portProjectEndDate;
     }
 
@@ -108,11 +113,11 @@ public class PortfolioVO {
         this.portSkillTag = portSkillTag;
     }
 
-    public String getRegDate() {
+    public Date getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(String regDate) {
+    public void setRegDate(Date regDate) {
         this.regDate = regDate;
     }
 
