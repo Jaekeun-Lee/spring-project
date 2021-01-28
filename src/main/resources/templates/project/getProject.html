@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Title</title>
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
@@ -32,12 +31,46 @@
 
 
         $(function(){
-            $('#add_applicant_post').on("click", function(){
-                alert('hi');
-                $("#detailForm").submit();
+            let projectNo = $('#projectNo').val();
 
+            $('#add_applicant_post').on('click', function(){
+                console.log('hello');
+                $("#detailForm").submit();
             });
+
+
+            $("#bookmark-click").on("click", function () {
+
+                $.ajax({
+                    method:'GET',
+                    url:'/project/addBookmark',
+                    data:{
+                        projectNo:projectNo,
+                        bookmarkControl:$('#bookmark-click').children().val()
+                    },
+                    dataType:'json',
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    success : function (data) {
+                        let bookmarkCheck = $('#bookmark-click').children().val();
+
+                        if( bookmarkCheck === "1") {
+                            $("#bookmark-click").children().attr('class', 'btn btn-danger');
+                            $("#bookmark-click").children().attr('value', 2);
+                            $("#bookmark-click").children().text('북마크 제거');
+                        } else {
+                            $("#bookmark-click").children().attr('class', 'btn btn-secondary')
+                            $("#bookmark-click").children().attr('value', 1);
+                            $("#bookmark-click").children().text('북마크 추가');
+                        }
+                    }
+                });
+            })
         });
+
+
     </script>
 
 </head>
@@ -46,7 +79,7 @@
     <div class="row">
         <div class="col-lg-9" id="project-info-box">
             <div class="subject" style="width: 100%;">
-
+                <input type="hidden" id="projectNo" th:value="${project.projectNo}">
                 <!-- 프로젝트 상태 -->
                 <th:block th:switch="${project.projectStatus}">
                     <span class="badge badge-success" th:case="1">모집중</span>
@@ -161,7 +194,8 @@
             <div class="etc-box">
                 <!-- 해시태그 -->
                 <h5>기술</h5>
-                <span th:each="tag : ${project.skillHashTag}" th:text="${tag}" class="badge badge-pill badge-primary"></span>
+                <span th:each="tag : ${project.skillHashTag}"
+                      th:text="${tag}" class="badge badge-pill badge-primary"></span>
 
                 <!-- 업로드 파일 -->
                 <h5>관련자료</h5>
@@ -172,7 +206,7 @@
             <div class="reply-box">
                 <h5>댓글</h5>
                 <div th:each="replyVO : ${project.projectReply}" class="card bg-secondary mb-3" style="max-width: 20rem;">
-                    <div th:text="${replyVO.replyUseId}" class="card-header"></div>
+                    <div th:text="${replyVO.replyUserId}" class="card-header"></div>
                     <div class="card-body">
                         <h4 th:text="${replyVO.replyContent}" class="card-title"></h4>
                         <p th:text="${#dates.format(replyVO.reg_date, 'yyyy-MM-dd')}" class="card-text"></p>
@@ -195,20 +229,26 @@
         <div class="col-lg-3" id="team-info-box">
 
             <!-- Button that triggers the popup -->
-            <button id="add_applicant_get" class="btn btn-success btn-lg">신청서 등록</button>
+            <button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
+            <div class="member-info">
+                <h4>Team Member</h4>
+                <h6 th:each="member : ${project.teamMember}" th:text="${member.userId}"></h6>
+            </div>
+
+            <div id="bookmark-click" th:switch="${project.bookmarkNo}">
+                <button th:case="0" class="btn btn-secondary" th:value="1">북마크 추가</button>
+                <button th:case="*" class="btn btn-danger" th:value="2">북마크 제거</button>
+            </div>
 
         </div>
 
-
-
     </div>
-
 
 </div>
 
 <!-- Element to pop up -->
 <div id="add_applicant_get_pop_up" class="layerpop" style="width: 700px; height: 350px;">
-    <form id="detailForm" method="post" th:action="@{/applicant/json/addApplicant}" th:object="${applicantVO}">
+    <form id="detailForm" method="post" th:action="@{/applicant/addApplicant}">
         <h2>신   청   서</h2>
         <br>
 

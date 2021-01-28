@@ -1,5 +1,6 @@
 package com.example.demo.project.service;
 
+import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
@@ -55,7 +56,7 @@ public interface ProjectService {
     //리뷰작성
     int addReview(List<ReviewVO> reviewVOList);
 
-
+    BookmarkVO getBookmark(ProjectBookmarkDTO projectBookmarkDTO);
 
 
     //파일 다운로드 - 보류

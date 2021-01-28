@@ -30,10 +30,12 @@ public class Project {
 
     @GetMapping("/getProject")
     public String getProject(@RequestParam("projectNo") int projectNo, Model model) {
-        String sessionId = "user01";
+        String sessionId = "user03";
 
-        model.addAttribute("project", projectService.getProject(projectNo, sessionId));
+        ProjectVO projectVO = projectService.getProject(projectNo, sessionId);
+        model.addAttribute("project", projectVO);
 
+        System.out.println("@@@@@@@@@@@@@@@@@@@@"+projectVO);
         return "project/getProject";
     }
 
