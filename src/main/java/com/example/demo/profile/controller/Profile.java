@@ -7,22 +7,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping
+@RequestMapping("profile/*")
 @RequiredArgsConstructor
 public class Profile {
 
     private final ProfileService profileService;
 
-    //기본정보 조회
-    @GetMapping("/getMyProfile")
-    public String getMyProfile(@Valid ProfileDTO.GetMyProfileDTO param, Model model){
+    //기본정보 수정
+    @GetMapping("getMyProfile")
+    public String getMyProfile(@RequestParam("userId") String userId, Model model){
+        ProfileDTO.GetMyProfileDTO getMyProfile = profileService.getMyProfile(userId);
+        model.addAttribute("profile",getMyProfile);
+
+        return "profile/updateProfile";
 
 
-        return "getMyProfile";
     }
 }

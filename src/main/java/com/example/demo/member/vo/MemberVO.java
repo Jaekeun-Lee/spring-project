@@ -35,6 +35,7 @@ public class MemberVO {
     private List<NotiVO> noti;
     private List<ReviewVO> review;
     private List<String> link;
+    private List<String> portSkillTag;
 
 
     /**

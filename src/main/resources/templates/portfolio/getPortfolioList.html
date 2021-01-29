@@ -9,10 +9,29 @@
 
     <script>
         $(function(){
-            console.log($("td[name='getDate확인']").text());
+            console.log($("td[name='1']").text());/*이름으로 접근하는 건 요기요기~~*/
         })
 
         console.log()
+
+        $(function (){  /*제이쿼리를 쓰겠다 선언*/
+            /*id class name 으로 접근하는 3가지 방법이 있다 id가 유니크해서  id로 접근하는 게 쉬움(모든 태그에서 id가 겹치면 안됨)
+            * 개개인은 id로 하고 class는 여러가지할 때 선택*/
+            $("#test").on("click",function (){/*#을 붙이면 id를 불러온단 소리다 class는 .이다*/
+                $.ajax({
+                    url:"/restPortfolio/portList",
+                    type:"get",/*리스트를 받아와서 get임*/
+                    contentType:"application/json",/*제이슨을 쓰겠다 선언*/
+                    /*dataType:"json",*/
+                    /*data:"" 넘겨줄 값인데 여기서는 id니까 세션으로 해결 가능 그래서 안 써줘도 됨*/
+                    success:function(data){
+                        /*서버에서 리턴값을 불러오길 성공했을 때 실행되는 function*/
+                        alert(data)
+                        /*여기까지 쓰고 레스트컨트롤러 ㄱ*/
+                    }
+                })
+            })
+        })
     </script>
     <title>포트폴리오 목록</title>
 </head>
@@ -38,15 +57,23 @@
         <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
         th:text="${portfolioVO.portTitle}"></a></td>
         <!--<td class="" th:text="${#dates.format(portfolioVO.regDate,'yyyy-mm-dd')}"></td>-->
-        <td th:text="${portfolioVO.regDate}" name="getDate확인"></td>
+        <td th:text="${portfolioVO.regDate}" name="1"></td>
 
     </tr>
 
 <td class="">
       <a th:href="@{/port/addPort}"/>글쓰기
+
+
+
     </td>
     </tbody>
+
 </table>
+
+<button id="test" value="button">
+    버튼
+</button>
 
 </body>
 </html>
