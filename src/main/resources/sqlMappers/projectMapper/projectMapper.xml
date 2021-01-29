@@ -173,7 +173,7 @@
 			<when test="sort == 2">P.APPLICATION_DEADLINE DESC</when>
 			<otherwise>P.PROJECT_NO DESC</otherwise>
 		</choose>
-		) RN, P.*, B.BOOKMARK_NO
+		) RN, P.*, B.BOOKMARK_NO, #{userId:VARCHAR} AS bookmarkCheckId
 		FROM PROJECT P, ( SELECT BOOKMARK_NO
 						  FROM BOOKMARK
 						  WHERE USER_ID = #{userId:VARCHAR} ) B
