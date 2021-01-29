@@ -167,53 +167,6 @@
         WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
     </select>
 
-<!--    <select id="getPostList"    parameterType="searchVO"  resultMap="postSelectMap">-->
-<!--        SELECT *-->
-<!--        FROM (SELECT inner_table.*, ROWNUM as row_seq-->
-<!--            FROM(SELECT POST_NO,-->
-<!--                        POST_NAME,-->
-<!--                        POST_CONTENT,-->
-<!--                        USER_ID,-->
-<!--                        REG_DATE,-->
-<!--                        REPLY_CNT,-->
-<!--                        VIEW_CNT-->
-<!--                 FROM POST-->
-<!--                 <if test="searchConditionA != null">-->
-<!--                     <if test="searchConditionA == 1">-->
-<!--                         AND POST_NAME = #{searchKeyword}-->
-<!--                     </if>-->
-<!--                     <if test="searchConditionA == 2" >-->
-<!--                         AND POST_CONTENT = #{searchKeyword}-->
-<!--                     </if>-->
-<!--                     <if test="searchConditionA == 3">-->
-<!--                         AND USER_ID = #{searchKeyword}-->
-<!--                     </if>-->
-<!--                 </if>-->
-<!--                 ORDER BY -->
-<!--                 <choose>-->
-<!--                     <when test="sort == 1">POST_CONTENT DESC</when>-->
-<!--                     <when test="sort == 2">POST_CONTENT</when>-->
-<!--                     <otherwise>POST_NO</otherwise>-->
-<!--                 </choose> POST_NO)inner_table-->
-<!--            WHERE ROWNUM &lt;=#{endRowNum} )-->
-<!--        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}-->
-<!--    </select>-->
-
-<!--    <select id="getPostList"    parameterType="postVO"      resultMap="postSelectMap">-->
-<!--        SELECT-->
-<!--                POST_NO,-->
-<!--                POST_NAME,-->
-<!--                USER_ID,-->
-<!--                REG_DATE,-->
-<!--                REPLY_CNT,-->
-<!--                VIEW_CNT-->
-<!--        FROM POST-->
-<!--    </select>-->
-
-
-
-
-
     <select id="getPostReplyByPostNo"   resultType="replyVO">
         select REPLY_NO as replyno,
                USER_ID as replyuserid,
@@ -223,7 +176,7 @@
         WHERE POST_NO = #{postNo}
     </select>
 
-    <select id="getTotalCount"  parameterType="searchVO"    resultType="int">
+    <select id="getTotalCount"  parameterType="pageVO"    resultType="int">
         SELECT COUNT(*)
         FROM POST
     </select>

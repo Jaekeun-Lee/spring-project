@@ -1,5 +1,7 @@
 package com.example.demo.community.vo;
 
+import com.example.demo.common.vo.PageVO;
+import com.example.demo.common.vo.SearchVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public interface PostMapper {
 
 //    public int deletePost(int postNo);
 
-    public List<PostVO> selectPostList();
+    public List<PostVO> selectPostList(SearchVO searchVO);
 
-//    public int selectPostTotalCount();
+    public int selectPostTotalCount(PageVO pageVO);
 }
