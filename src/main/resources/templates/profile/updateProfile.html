@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<head>
+    <title>프로필 기본정보</title>
+</head>
+<body>
+    <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}"/>
+        아이디 : <div th:text="${profile.userId}"></div>
+        이름 : <div th:text="${profile.name}"></div>
+        이메일 : <div th:text="${profile.email}"></div>
+        등급 : <div th:text="${profile.grade}"></div>
+        신고 누적 수 : <div th:text="${profile.reportCnt}"></div>
+
+    <!--<form th:action="@{/port/addPort}" th:method="post">
+        프로필 사진 : <input type="text" name="pofileImg"></br>
+        자기소개 : <input type="text" name="selfIntro"></br>
+        링크 : <input type="text" name="link"></br>
+        보유기술태그 : <input type="text" name="portSkillTag"></br>
+
+        <input type="submit" value="등록완료">-->
+    </form>
+
+
+
+
+</body>
