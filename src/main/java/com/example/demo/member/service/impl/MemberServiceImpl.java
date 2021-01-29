@@ -6,6 +6,8 @@ import com.example.demo.member.service.MemberService;
 import com.example.demo.member.service.dao.MemberDAO;
 import com.example.demo.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,12 @@ import java.io.PrintWriter;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final PasswordEncoder passwordEncoder;
-    private final MemberDAO memberDAO;
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MemberDAO memberDAO;
 
     @Override
     public ResponseEntity<Object> loginReq(String id, String password) {
@@ -56,6 +62,7 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
+    //회원탈퇴
     @Override
     @Transactional
     public boolean withdrawal(MemberDTO.WithdrawalDTO withdrawalDTO) {
@@ -69,19 +76,43 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
-    //해당 email로 가입된 정보가 있는지 확인한다.
+    //이메일 중복체크
     public boolean userEmailCheck(String Email, String Name) {
 
         MemberVO user = memberDAO.findUserByUserId(Email);
-        if(user!=null && user.getName().equals(Name)) {
+        if (user != null && user.getName().equals(Name)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
+    //아이디 중복체크
+    @Override
+    public int userIdCheck(String userId) {
+        return memberDAO.checkOverId(userId);
+    }
 
+    // 비밀번호 중복체크
+    @Override
+    public int userEmailCheck(String email) {
+        return memberDAO.checkOverEmail(email);
+    }
+
+    @Override
+    public int loginFailCountIncrease(String userId) {
+        return 0;
+    }
+
+    @Override
+    public int getLoginFailCount(String userId) {
+        return 0;
+    }
+
+    @Override
+    public int loginFailCountInitialize(String userId) {
+        return 0;
+    }
 }
 
 

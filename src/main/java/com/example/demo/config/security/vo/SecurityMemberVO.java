@@ -2,6 +2,7 @@ package com.example.demo.config.security.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -11,6 +12,7 @@ import java.util.Collection;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class SecurityMemberVO implements UserDetails {
 
     private String username;

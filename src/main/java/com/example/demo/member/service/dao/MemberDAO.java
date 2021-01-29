@@ -51,15 +51,26 @@ public class MemberDAO {
         return sqlSession.delete("member.deleteMember", member);
     }
 
+    //아이디 중복체크
+    public int checkOverId(String userId) {
+        return sqlSession.selectOne("member.checkOverId", userId);
+    }
 
-    public MemberVO findUserByUserId(String email) {
+    public int checkOverEmail(String email) {
+        return sqlSession.selectOne("member.checkOverEmail", email);
+    }
+
+    //아이디 찾기
+    public MemberVO findUserByUserId(String userId) {
         return null;
     }
 
+    //비밀번호 찾기
     public MemberVO findUserByUserPassword(Map<String, Object> param) {
         return sqlSession.selectOne("member.selectFindUserByPassword", param);
     }
 
+    //비밀번호 재설정
     public void updateUserPassword(String id, String password) {
     }
 }
