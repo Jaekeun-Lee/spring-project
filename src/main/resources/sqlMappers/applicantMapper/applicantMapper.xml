@@ -150,8 +150,8 @@
 				<if test="searchConditionB != null">
 					<if test = "searchConditionB == 1" >AND a.applicant_status = 1</if>
 					<if test = "searchConditionB == 2" >AND a.applicant_status = 2</if>
-					<if test = "searchConditionB == 3" >AND a.applicant_status = 3
-														AND a.applicant_status = 4</if>
+					<if test = "searchConditionB == 3" >AND a.applicant_status = 3</if>
+					<if test = "searchConditionB == 4" >AND a.applicant_status = 4</if>
 				</if>
 				ORDER BY a.APPLICANT_NO
 				) inner_table

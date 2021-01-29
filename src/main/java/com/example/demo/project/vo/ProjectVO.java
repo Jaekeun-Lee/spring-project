@@ -37,8 +37,7 @@ public class ProjectVO {
     private Date endDate;
     private int bookmarkNo;
     private List<String> uploadFile;
-
-
+    private int endProjectCnt;
 
 	public ProjectVO() {
 	}
@@ -249,6 +248,14 @@ public class ProjectVO {
 
 	public void setUploadFile(List<String> uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+	
+	public int getEndProjectCnt() {
+		return endProjectCnt;
+	}
+
+	public void setEndProjectCnt(int endProjectCnt) {
+		this.endProjectCnt = endProjectCnt;
 	}
 
 	@Override

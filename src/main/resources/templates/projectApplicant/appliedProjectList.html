@@ -64,6 +64,15 @@
 			})
 		
 	}
+	$(function(){
+    	$('#test_1').on("click", function(){
+    		var ahref = window.location.href.substring(0,window.location.href.indexOf("&",0));
+    		alert(ahref);
+    		self.location = window.location.href + "&searchConditionB=1"
+    	});
+    });
+
+
 	</script>
 	
 <title>appliedProjectList</title>
@@ -73,7 +82,23 @@
 	<div class="wrapper1">
 	<h4 class="display-3">신청한 프로젝트(팀원)</h4>
 	<hr class="my-4">
-	
+	<span>
+		<button id="button_period_1" type="button" class="btn btn-outline-secondary">
+		<a href="/applicant/appliedProjectList?searchConditionA=1">
+		1개월</button></a>
+		<button id="button_period_2" type="button" class="btn btn-outline-secondary">
+		<a href="/applicant/appliedProjectList?searchConditionA=2">
+		2개월</button></a>
+		<button id="button_period_3" type="button" class="btn btn-outline-secondary">
+		<a href="/applicant/appliedProjectList?searchConditionA=3">
+		3개월</button></a>
+	</span>
+	<span style="float:right;">
+		<button id="test_1" type="button" class="btn btn-outline-secondary">
+		대기</button></a>
+		<button id="test_2" type="button" class="btn btn-outline-secondary">
+		승인</button></a>
+	</span>
 	<div id="card_2" th:each="applicantVO : ${appliedList}" style="height:150px;">
        <div class="card h-100 ">
          <div id="card_1" class="card-body">
@@ -111,7 +136,7 @@
 					<span>팀장명</span>
 					<span style="float: right;" th:text="${applicantVO.projectVO.leaderId}"></span><p>
 					<span>마감일</span>
-					<span style="float: right;" th:text="${#dates.format(applicantVO.aRegDate, 'MM/dd')}"></span><p>
+					<span style="float: right;" th:text="${#dates.format(applicantVO.projectVO.applicationDeadline, 'MM/dd')}"></span><p>
 				</div>
 			</div>
 			<div>
