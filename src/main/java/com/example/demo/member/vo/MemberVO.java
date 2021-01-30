@@ -22,6 +22,7 @@ public class MemberVO {
     private String name;
     private String grade; //등급
     private String status; // 회원의 상태
+    private int failCnt; // 비밀번호 실패횟수
     private int reportCnt; // 유저가 신고당한 횟수
     private LocalDateTime lastLoginDate; // 마지막 로그인 일시
     private LocalDateTime regDate; // 계정 생성일시

@@ -23,31 +23,37 @@
     <div class="login_wrapper">
         <div class="animate form v">
             <section class="login_content">
-                <form id="login_form" th:method="post" th:action="@{/login/req}" th:onerror="">
+                <form id="login_form" th:method="post" th:action="@{/login/req}">
                     <h1>Login Form</h1>
-                    <div>
-                        <input type="text" class="form-control" placeholder="Username" name="username" required="">
-                    </div>
-                    <div>
-                        <input type="password" class="form-control" placeholder="Password" name="password" required="">
-                    </div>
-                    <div>
-                        <a class="btn btn-default submit" href="javascript:loginReq()">Log in</a>
-
-                        <a class="reset_pass" href="#">Lost your password?</a>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="separator">
-                        <p class="change_link">New to site?
-                            <a th:href="@{/signUp}" class="to_register"> Create Account </a>
-                        </p>
-                        <div class="clearfix"></div>
-                        <br>
+                    <div class="panel-body">
                         <div>
-                            <h1><i class="fa fa-paw"></i> Spring Matching!</h1>
-                            <p>©2021 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and
-                                Terms</p>
+                            <input type="text" class="form-control" placeholder="Username" name="username" required="">
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password" name="password"
+                                   required="">
+                            <div th:if="${session['error']} != null">
+                                <span th:text="#{wrong.password}"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="btn btn-default submit" href="javascript:loginReq()">Log in</a>
+
+                            <a class="reset_pass" href="/findPassword1">Lost your password?</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <p class="change_link">New to site?
+                                <a th:href="@{/signUp}" class="to_register"> Create Account </a>
+                            </p>
+                            <div class="clearfix"></div>
+                            <br>
+                            <div>
+                                <h1><i class="fa fa-paw"></i> Spring Matching!</h1>
+                                <p>©2021 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and
+                                    Terms</p>
+                            </div>
                         </div>
                     </div>
                 </form>
