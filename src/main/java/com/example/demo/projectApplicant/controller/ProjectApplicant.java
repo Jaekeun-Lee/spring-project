@@ -86,6 +86,22 @@ public class ProjectApplicant {
 		return "projectApplicant/appliedProjectList";
 	}
 	
+	@RequestMapping(value = "/endProjectList", method = RequestMethod.GET)
+	public String endProjectList(@ModelAttribute("searchVO") SearchVO searchVO,
+									Model model)throws Exception{
+		System.out.println("/endProjectList GET");
+		searchVO.setPageSize(6);
+		searchVO.setUserId("user02");
+		searchVO.setSearchConditionB(6);
+		if(searchVO.getCurrentPage() == 0 ){
+			searchVO.setCurrentPage(1);
+		}
+		Map<String , Object> map=projectApplicantService.getAppliedProjectList(searchVO);
+		model.addAttribute("appliedList", map.get("list"));
+		System.out.println(map);
+		return "projectApplicant/endProjectList";
+	}
+	
 	@RequestMapping(value = "/getApplicant", method = RequestMethod.GET)
 	public String getApplicant(@RequestParam("applicantNo")String applicantNo,
 							   Model model)throws Exception {
@@ -104,6 +120,12 @@ public class ProjectApplicant {
 		System.out.println(updateApplicantStatusDTO);
 		//projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
 		return null;
+	}
+	
+	@RequestMapping(value = "/testt")
+	public String testtStatus() {
+		System.out.println("hi");
+		return "topToolBar";
 	}
 	
 }

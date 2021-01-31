@@ -126,6 +126,7 @@
 				a.applicant_status,
 				a.reg_date,
 				p.project_name,
+				p.project_no,
 				p.project_detail,
 				p.user_id,
 				p.application_deadline,
@@ -152,6 +153,7 @@
 					<if test = "searchConditionB == 2" >AND a.applicant_status = 2</if>
 					<if test = "searchConditionB == 3" >AND a.applicant_status = 3</if>
 					<if test = "searchConditionB == 4" >AND a.applicant_status = 4</if>
+					<if test = "searchConditionB == 6" >AND a.applicant_status = 6</if>
 				</if>
 				ORDER BY a.APPLICANT_NO
 				) inner_table
