@@ -1,7 +1,7 @@
 package com.example.demo.project.controller;
 
-import com.example.demo.common.vo.SearchVO;
 import com.example.demo.project.service.ProjectService;
+import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,20 +53,22 @@ public class Project {
     }
 
     @GetMapping("/getProjectList")
-    public String getProjectList(@ModelAttribute("searchVO") SearchVO searchVO, Model model) {
+    public String getProjectList(@ModelAttribute("projectSearchDTO")ProjectSearchDTO projectSearchDTO, Model model) {
 
-        System.out.println("search" + searchVO);
-        if (searchVO.getCurrentPage() == 0) {
-            searchVO.setCurrentPage(DEFAULT_PAGE);
+        System.out.println("projectSearchDTO" + projectSearchDTO);
+        if (projectSearchDTO.getCurrentPage() == 0) {
+            projectSearchDTO.setCurrentPage(DEFAULT_PAGE);
         }
-        searchVO.setPageSize(PAGE_SIZE);
-        searchVO.setUserId("user01");
+        projectSearchDTO.setPageSize(PAGE_SIZE);
+        projectSearchDTO.setUserId("user01");
 
-        List<ProjectVO> projectList = projectService.getProjectList(searchVO);
-        for (ProjectVO p : projectList) {
-            log.info(p.toString());
-        }
+        List<ProjectVO> projectList = projectService.getProjectList(projectSearchDTO);
+
+        log.info(projectSearchDTO.toString());
+
+        model.addAttribute("checkedStatus", projectSearchDTO);
         model.addAttribute("projectList", projectList);
+
 
         return "project/getProjectList";
 
