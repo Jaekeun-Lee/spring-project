@@ -1,12 +1,9 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.member.dto.MemberDTO;
 import com.example.demo.member.service.dao.MemberDAO;
 import com.example.demo.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

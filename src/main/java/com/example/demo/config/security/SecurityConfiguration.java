@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.Session;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 
 /**
  * spring security에 전반적인 설정을 셋팅하는 설정 클래스 정의
@@ -25,6 +27,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationFailureHandler authenticationFailureHandler;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
+    private final SpringSessionBackedSessionRegistry<Session> sessionRegistry;
+
+    private final String[] ALLOW_AUTH_URI_PATTERN = {
+            "/login/**",
+            "/welcome"
+    };
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().mvcMatchers("/resources/**");
@@ -33,8 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //이거때매 ajax 안먹어서 해놨어~~~~~~ 어떡해
+        // Spring Security Filter Chain
+
+        //이거때매 ajax post 안먹어서 해놨어~~~~~~ 어떡해
         http.csrf().disable();
+
+
         // 모든 리퀘스트에 대해 인증을 요구하는 설정
         http.authorizeRequests(authorize -> {
 
@@ -43,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             // start uri 에 따라 필요한 권한 설정
             authorize
-                    .antMatchers("/welcome").hasAnyRole("ADMIN", "USER")
+                    .antMatchers(ALLOW_AUTH_URI_PATTERN).hasAnyRole("ADMIN", "USER", "ANONYMOUS")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/user/**").hasRole("USER");
         });
@@ -56,6 +69,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username") // 로그인 페이지의 id에 해당하는 부분의 name attribute
                 .passwordParameter("password") // 로그인 페이지의 password에 해당하는 부분의 name attribute
                 .loginProcessingUrl("/login/req") // 로그인 요청시 사용하는 uri(로그인 페이지의 로그인 요청 버튼의 uri 임)
+//                .defaultSuccessUrl("/loginSuccess") // 로그인 성공 시 이동할 경로
+//                .failureUrl("/login?error=true") // 인증에 실패했을 때 보여주는 화면 url, 로그인 form으로 파라미터값 error=true로 보냄
         ;
 
         http.logout()
@@ -63,8 +78,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true);
 
-//        http.exceptionHandling()
-//                .accessDeniedPage("/main"); // 권한이 없는 사용자가 접근했을 경우 이동할 경로를 지정
+
+        http.sessionManagement((management) ->
+                        management
+                                .maximumSessions(2)
+                                .maxSessionsPreventsLogin(false)
+                                .expiredUrl("/login")
+                                .sessionRegistry(this.sessionRegistry) // 위에 세션 관리 정책들을 적용하는 타겟 세션 레포지토리 설정.
+//                    .expiredSessionStrategy() // default 전략은 LAST_ACCESS_TIME이 마지막인 세션이 expired됨.
+        );
     }
 
     @Bean
@@ -72,6 +94,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 인증 처리하는 클래스 필요한 설정 추가 빈 등록
+     */
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -80,4 +105,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
+
+    /**
+     * 에러메세지 설정
+     */
+
+//    @Bean
+//    public MessageSource messageSource() {
+//
+//        Locale.setDefault(Locale.KOREA);
+//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+//
+//        messageSource.setDefaultEncoding("UTF-8");
+//        messageSource.setBasenames("classpath:resource/message/security_message", "classpath:org/springframework/security/messages"); // 커스텀한 properties 파일, security properties 파일
+//        return messageSource;
+//    }
 }

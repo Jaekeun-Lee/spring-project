@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import javax.net.ssl.SSLSession;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +70,22 @@ public class MemberDAO {
     }
 
     //비밀번호 재설정
-    public void updateUserPassword(String id, String password) {
+    public void updateUserPassword(String userId, String password) {
+    }
+
+    //로그인 실패 이력 업데이트
+    public int loginFailCountIncrease(String userId) {
+        return sqlSession.update("member.updateFailureCount", userId);
+    }
+
+    //유저의 로그인 실패 이력 조회
+    public int getLoginFailCount(String userId) {
+        return sqlSession.selectOne("member.checkFailureCount", userId);
+    }
+
+    //로그인 성공일때 fail count 초기화
+    public int loginFailCountInitialize(String userId) {
+        return sqlSession.update("member.updateFailureCountReset", userId);
     }
 }
 

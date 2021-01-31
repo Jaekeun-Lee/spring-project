@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +45,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         memberService.loginFailCountInitialize(member.getUsername()); // 실패이력 초기화
 
         response.sendRedirect("/welcome");
-    }
 
+
+//        clearAuthenticationAttributes(request);
+    } //실패 에러 세션 지우기
+//    protected void clearAuthenticationAttributes(HttpServletRequest request) {
+//        HttpSession session = request.getSession(false);
+//        if(session==null) return;
+//        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 }
+
+

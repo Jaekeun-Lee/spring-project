@@ -5,6 +5,9 @@ import com.example.demo.config.security.vo.SecurityMemberVO;
 import com.example.demo.member.service.dao.MemberDAO;
 import com.example.demo.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +22,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final MemberDAO memberDAO;
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        log.info("## loadUserByUsername ##");
         MemberVO memberVO = memberDAO.selectMember(username);
         if (memberVO == null) {
+            log.debug("## 계정정보가 존재하지 않습니다. ##");
             throw new UsernameNotFoundException("등록된 유저가 없습니다.");
         }
 

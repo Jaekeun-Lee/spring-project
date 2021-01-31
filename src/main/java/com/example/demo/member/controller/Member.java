@@ -70,5 +70,6 @@ public class Member {
         return memberService.userIdCheck(userId);
     }
 
+
 }
 

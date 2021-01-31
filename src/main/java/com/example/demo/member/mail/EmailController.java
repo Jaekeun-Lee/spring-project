@@ -8,16 +8,15 @@ import javax.mail.internet.MimeMessage;
 
 import com.example.demo.member.service.dao.MemberDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class EmailController {
@@ -28,10 +27,13 @@ public class EmailController {
     @Autowired
     MemberDAO memberDAO;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "/findPassword1")
     public String emailPage() {
 
-        return "findPassword1";
+        return "member/manage/findPassword1";
     }
 
     @GetMapping(value = "/findPasswordReq")
@@ -57,7 +59,7 @@ public class EmailController {
                 System.out.println("MessagingException");
                 e.printStackTrace();
             }
-            mv.setViewName("emailSuccess");
+            mv.setViewName("member/manage/emailSuccess");
             return mv;
         } else {
             mv.setViewName("welcome");
@@ -84,7 +86,7 @@ public class EmailController {
     public void updatePassword(String str, String email) {
         String password = EncryptionUtils.encryptMD5(str);
         String id = memberDAO.findUserByUserId(email).getUserId();
-        memberDAO.updateUserPassword(id, password);
+        memberDAO.updateUserPassword(id, passwordEncoder.encode(password));
     }
 
 }
