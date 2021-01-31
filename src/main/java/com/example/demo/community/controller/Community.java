@@ -4,6 +4,7 @@ import com.example.demo.common.vo.PageVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,16 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/comm/*")
+//@Slf4j
 public class Community {
+
+//    public Community(PostService postService){
+//        this.postService = postService;
+//    }
 
     @Autowired
     @Qualifier("postServiceImpl")
-    private PostService postService;
+    PostService postService;
 
     @GetMapping("addPost")
     public String addPostView() {
