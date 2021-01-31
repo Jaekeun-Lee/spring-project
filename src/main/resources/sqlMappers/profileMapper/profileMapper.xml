@@ -24,6 +24,29 @@
         <collection property="portfolio" column="user_id" javaType="java.util.ArrayList" ofType="com.example.demo.portfolio.vo.PortfolioVO" select="getAllProfileList"/>
     </resultMap>
 
+    <resultMap id="getPostBookmarkListByUserId" type="bookmarkVO">
+        <id     property="bookmarkNo"   column="bookmark_no" jdbcType="NUMERIC"/>
+        <result property="userId"       column="user_id" jdbcType="VARCHAR"/>
+        <association property="post"    column="post_no"  select="getPostBookmark"/>
+    </resultMap>
+
+    <select id="getPostBookmark" resultType="postVO">
+        SELECT user_id userId,
+               post_no postNo,
+               post_name postName,
+               reg_date regDate
+        FROM post
+        WHERE post_no = #{postNo}
+    </select>
+
+    <select id="getBookmarkList" parameterType="string" resultMap="getPostBookmarkListByUserId">
+        SELECT bookmark_no,
+               user_id,
+               post_no
+        FROM bookmark
+        WHERE user_id = #{userId}
+    </select>
+
     <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
         UPDATE MEMBER
         SET self_intro = #{selfIntro:VARCHAR},
@@ -86,14 +109,7 @@
         WHERE project_no = #{projectNo}
     </select>
 
-    <select id="getBookmarkList" parameterType="com.example.demo.common.vo.BookmarkVO" resultMap="profileSelectMap">
-        SELECT bookmark_no as bookmarkNo,
-               user_id as userId,
-               post_no as postNo,
-               project_no as projectNo
-        FROM bookmark
-        WHERE user_id = #{userId}
-    </select>
+
 
     <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
         SELECT hashtag

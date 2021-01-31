@@ -37,7 +37,7 @@ public class MemberDTO {
          * @return
          */
         public MemberVO convertSignUpDTOToMemberVO() {
-            return new MemberVO(this.getUserId(), this.getPassword(), this.getName(), this.getEmail());
+            return new MemberVO(this.getUserId(), this.getPassword(), this.getEmail(), this.getName());
         }
     }
 

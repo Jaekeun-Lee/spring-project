@@ -23,7 +23,7 @@
     <div class="login_wrapper">
         <div class="animate form v">
             <section class="login_content">
-                <form id="login_form" th:method="post" th:action="@{/login/req}">
+                <form id="login_form" th:method="post" th:action="@{/login/req}" th:onerror="">
                     <h1>Login Form</h1>
                     <div>
                         <input type="text" class="form-control" placeholder="Username" name="username" required="">
@@ -65,12 +65,12 @@
     Kakao.isInitialized();
 </script>
 
-<a id="custom-login-btn" href="javascript:loginWithKakao()">
+<!--<a id="custom-login-btn" href="javascript:loginWithKakao()">
     <img
             src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
             width="222"
     />
-</a>
+</a>-->
 <p id="token-result"></p>
 <script type="text/javascript">
     function loginWithKakao() {
@@ -80,7 +80,7 @@
     }
 
     function loginReq() {
-        console.log("aaaa")
+        // console.log("aaaa")
         $("#login_form").submit();
     }
 

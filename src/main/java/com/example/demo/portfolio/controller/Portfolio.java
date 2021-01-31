@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/port/*")
+@RequestMapping("port/*")
 public class Portfolio {
 
     @Autowired
@@ -32,7 +32,8 @@ public class Portfolio {
         session.setAttribute("userId","user01"); //session이 있으면 통째로 지우면 됨. 왜냐면 session에 알아서 들어감.
         portfolioVO.setUserId((String)session.getAttribute("userId"));
         portfolioService.addPort(portfolioVO);
-        /*model.addAttribute("portfolio",portfolioVO);*/
+        /*model.addAttribute("portfolio",portfolioVO);
+        return "portfolio/getPortfolioList";*/
         return "redirect:/port/portList";
 
     }

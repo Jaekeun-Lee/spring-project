@@ -1,11 +1,14 @@
 package com.example.demo.config.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -30,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        //이거때매 ajax 안먹어서 해놨어~~~~~~ 어떡해
         http.csrf().disable();
         // 모든 리퀘스트에 대해 인증을 요구하는 설정
         http.authorizeRequests(authorize -> {
@@ -40,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             // start uri 에 따라 필요한 권한 설정
             authorize
+                    .antMatchers("/welcome").hasAnyRole("ADMIN", "USER")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/user/**").hasRole("USER");
         });
@@ -59,8 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true);
 
-        http.exceptionHandling()
-                .accessDeniedPage("/main"); // 권한이 없는 사용자가 접근했을 경우 이동할 경로를 지정
+//        http.exceptionHandling()
+//                .accessDeniedPage("/main"); // 권한이 없는 사용자가 접근했을 경우 이동할 경로를 지정
     }
 
     @Bean
@@ -68,4 +72,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return daoAuthenticationProvider;
+    }
 }

@@ -1,20 +1,23 @@
 package com.example.demo.member.mail;
 
-import com.example.demo.member.service.dao.MemberDAO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Map;
+
+import com.example.demo.member.service.dao.MemberDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class EmailController {
@@ -31,8 +34,8 @@ public class EmailController {
         return "findPassword1";
     }
 
-    @GetMapping(value="/findPasswordReq")
-    public ModelAndView sendEmailAction (@RequestParam Map<String, Object> paramMap, ModelMap model, ModelAndView mv) throws Exception {
+    @GetMapping(value = "/findPasswordReq")
+    public ModelAndView sendEmailAction(@RequestParam Map<String, Object> paramMap, ModelMap model, ModelAndView mv) throws Exception {
 
         String USERNAME = (String) paramMap.get("username");
         String EMAIL = (String) paramMap.get("email");
@@ -56,8 +59,7 @@ public class EmailController {
             }
             mv.setViewName("emailSuccess");
             return mv;
-        }
-        else {
+        } else {
             mv.setViewName("welcome");
             return mv;
 
@@ -77,6 +79,7 @@ public class EmailController {
         }
         return str;
     }
+
     //TODO 비번 업데이트
     public void updatePassword(String str, String email) {
         String password = EncryptionUtils.encryptMD5(str);

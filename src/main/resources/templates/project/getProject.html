@@ -3,7 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title th:text="${project.projectName}"></title>
-
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -48,18 +49,15 @@
                     }),
                     contentType : 'application/json',
                     success : function (data) {
-                        alert(data)
                         if(data === 1) {
                             let bookmarkCheck = $('#bookmark-click').children().val();
 
                             if( bookmarkCheck === "1") {
-                                $("#bookmark-click").children().attr('class', 'btn btn-danger');
                                 $("#bookmark-click").children().attr('value', 2);
-                                $("#bookmark-click").children().text('북마크 제거');
+                                $("#bookmark-click").children().children().attr('src','/resources/img/btn-icon-like-on.png')
                             } else {
-                                $("#bookmark-click").children().attr('class', 'btn btn-secondary')
                                 $("#bookmark-click").children().attr('value', 1);
-                                $("#bookmark-click").children().text('북마크 추가');
+                                $("#bookmark-click").children().children().attr('src','/resources/img/btn-icon-like-off.png')
                             }
                         }
                         else {
@@ -112,6 +110,7 @@
 </head>
 <body>
 <div class="wrapper">
+    <a href="/project/getProjectList?currentPage=1" class="btn btn-secondary">목록 보기</a>
     <div class="row">
         <div class="col-lg-9" id="project-info-box">
             <div class="subject" style="width: 100%;">
@@ -272,8 +271,12 @@
             </div>
 
             <div id="bookmark-click" th:switch="${project.bookmarkNo}">
-                <button th:case="0" class="btn btn-secondary" th:value="1">북마크 추가</button>
-                <button th:case="*" class="btn btn-danger" th:value="2">북마크 제거</button>
+                <button th:case="0" class="btn btn-secondary" th:value="1">
+                    <img src="/resources/img/btn-icon-like-off.png">
+                </button>
+                <button th:case="*" class="btn btn-secondary" th:value="2">
+                    <img src="/resources/img/btn-icon-like-on.png">
+                </button>
             </div>
 
         </div>

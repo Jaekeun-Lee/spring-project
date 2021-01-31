@@ -57,10 +57,18 @@ public class Member {
         return "logOut";
     }
 
-    // 비밀번호 찾기 폼
-    @RequestMapping(value = "/findPassword")
-    public String findPassword() throws Exception{
-        return "findPassword";
+    @GetMapping("/member/idCheck")
+    @ResponseBody
+    public int idCheck(@RequestParam("userId") String userId) {
+        System.out.println(userId);
+        return memberService.userIdCheck(userId);
+    }
+    @GetMapping("/member/emailCheck")
+    @ResponseBody
+    public int emailCheck(@RequestParam("email") String userId) {
+        System.out.println(userId);
+        return memberService.userIdCheck(userId);
     }
 
 }
+

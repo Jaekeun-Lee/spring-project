@@ -51,8 +51,8 @@ public class ProfileDAOImpl implements ProfileDAO {
     }
 
     @Override
-    public List<BookmarkVO> getBookmarkList(BookmarkVO bookmarkVO){
-        return sqlSession.selectList("profileMapper.getBookmarkList",bookmarkVO);
+    public List<BookmarkVO> getBookmarkList(String userId){
+        return sqlSession.selectList("profileMapper.getBookmarkList",userId);
     }
 
 }

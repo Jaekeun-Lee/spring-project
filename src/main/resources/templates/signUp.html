@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign Up</title>
 
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
     <link href="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/resources/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -27,11 +28,14 @@
                         <input type="text" name="name" class="form-control" placeholder="Name" required="">
                     </div>
                     <div>
-                        <input type="text" name="userId" class="form-control" placeholder="ID" required="">
+                        <input type="text" name="userId" class="form-control" id="userId" placeholder="ID" required="">
+                        <div class="check_font" id="id_check"></div>
                     </div>
                     <div>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required="">
-                        <button id = "emailCheck">이메일 인증</button>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                               required="">
+                        <div class="check_font" id="email_check"></div>
+                        <button id="emailCheck">이메일 인증</button>
                     </div>
 
                     <div>
@@ -59,6 +63,64 @@
     </div>
 </div>
 
-
 </body>
 </html>
+<script>
+    $(function () {
+        $("#userId").keyup(function () {
+            var user_id = "userId=" + $('#userId').val();
+            $.ajax({
+                url: '/member/idCheck',
+                type: 'get',
+                data: user_id,
+                contentType: "application/text",
+                success: function (data) {
+                    console.log("1 = 중복o / 0 = 중복x : " + data);
+
+                    if (data == 1) {
+                        $("#id_check").text("사용중인 아이디입니다");
+                        $("#id_check").css("color", "red");
+                        $("#reg_submit").attr("disabled", true);
+                    } else {
+
+                        $("#id_check").text("사용할 수 없는 아이디 입니다.");
+                        $("#id_check").css("color", "red");
+                        $("#reg_submit").attr("disabled", true);
+
+                    }
+                }, error: function () {
+                    console.log("실패");
+                }
+            });
+        });
+
+        $("#userEmail").keyup(function () {
+            var user_email = "email=" + $('#email').val();
+            $.ajax({
+                url: '/member/emailCheck',
+                type: 'get',
+                data: user_email,
+                contentType: "application/text",
+                success: function (data) {
+                    console.log("1 = 중복o / 0 = 중복x : " + data);
+
+                    if (data == 1) {
+                        $("#email_check").text("사용중인 이메일입니다");
+                        $("#email_check").css("color", "red");
+                        $("#reg_submit").attr("disabled", true);
+                    } else {
+
+                        $("#email_check").text("사용중인 이메일입니다");
+                        $("#email_check").css("color", "red");
+                        $("#reg_submit").attr("disabled", true);
+
+                    }
+                }, error: function () {
+                    console.log("실패");
+                }
+            });
+        });
+
+
+    })
+</script>

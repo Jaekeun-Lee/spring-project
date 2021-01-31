@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
@@ -25,63 +24,15 @@
     margin: 100px auto;
 	}
     </style>
-    
-    <!--  ////////////////////// JavaScript /////////////////////// -->
+	<!--  ////////////////////// JavaScript /////////////////////// -->
 	<script type="text/javascript">
-	$(function(){
-    	$('#updateApplicant_5_btn').on("click", function(){
-    		var applicantNo = $("div").find('#applicantNo').text().trim();
-    		test(5,applicantNo)
-    	});
-    });
-	
-	$(function(){
-    	$('#updateApplicant_3_btn').on("click", function(){
-    		var applicantNo = $("div").find('#applicantNo').text().trim();
-    		test(3,applicantNo)
-    	});
-    });
-	
-	function test(applicantStatus, applicantNo){
-		$.ajax({
-				url : "/applicant/json/updateApplicantStatus/"+applicantStatus+"/"+applicantNo,
-				method : "get" ,
-				dataType : "html" ,
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				success : function(JSONData , status) {
-					console.log("성공")
-					$('#deleteButton').empty();
-					if(applicantStatus == '3'){
-						$("#badge").attr('class', 'badge badge-pill badge-danger');
-						$("#badge").text('거절');
-					}else{
-						$("#badge").attr('class', 'badge badge-pill badge-primary');
-						$("#badge").text('참가중');
-					}
-				}
-			})
-		
-	}
-	$(function(){
-    	$('#test_1').on("click", function(){
-    		var ahref = window.location.href.substring(0,window.location.href.indexOf("&",0));
-    		alert(ahref);
-    		self.location = window.location.href + "&searchConditionB=1"
-    	});
-    });
-
-
 	</script>
 	
-<title>appliedProjectList</title>
+<title>endProjectList</title>
 </head>
 <body>
-	<div th:include="topToolBar.html" ></div>
 	<div class="wrapper1">
-	<h4 class="display-3">신청한 프로젝트(팀원)</h4>
+	<h4 class="display-3">완료한 프로젝트(팀원)</h4>
 	<hr class="my-4">
 	<span>
 		<button id="button_period_1" type="button" class="btn btn-outline-secondary">
@@ -93,40 +44,22 @@
 		<button id="button_period_3" type="button" class="btn btn-outline-secondary">
 		<a href="/applicant/appliedProjectList?searchConditionA=3">
 		3개월</button></a>
-	</span>
-	<span style="float:right;">
-		<button id="test_1" type="button" class="btn btn-outline-secondary">
-		대기</button></a>
-		<button id="test_2" type="button" class="btn btn-outline-secondary">
-		승인</button></a>
-	</span>
+	</span></p>
+
 	<div id="card_2" th:each="applicantVO : ${appliedList}" style="height:150px;">
        <div class="card h-100 ">
          <div id="card_1" class="card-body">
          	<div style="float: left; width: 80%;">
-				<div th:if="${applicantVO.applicantStatus}==1">
-					<span class="badge badge-info">대기</span>
-				</div>
-				<div id="badge" th:if="${applicantVO.applicantStatus}==2">
-					<span class="badge badge-success">승인</span>
-				</div>
-				<div th:if="${applicantVO.applicantStatus}==3">
-					<span class="badge badge-pill badge-danger">거절</span>
-				</div>
-				<div th:if="${applicantVO.applicantStatus}==4">
-					<span class="badge badge-pill badge-dark">취소</span>
-				</div>
-				<div th:if="${applicantVO.applicantStatus}==5">
-					<span class="badge badge-pill badge-primary">참가중</span>
+				<div th:if="${applicantVO.applicantStatus}==6">
+					<span class="badge badge-pill badge-primary">완료</span>
 				</div>
 				<h4 class="card-title">
 				<a th:href="@{/project/getProject(projectNo=${applicantVO.projectVO.projectNo})}" th:text="${applicantVO.projectVO.projectName}"/>
 				</h4>
 			</div>
-			<div th:if="${applicantVO.applicantStatus}==2">
+			<div th:if="${applicantVO.applicantStatus}==6">
 				<div id="deleteButton" style="float: right; width: 17%;">
-					<button id="updateApplicant_5_btn" type="button" class="btn btn-success" style="width:70px;">수락</button>
-					<button id="updateApplicant_3_btn" type="button" class="btn btn-danger" style="width:70px;">거절</button>
+					<button id="updateApplicant_5_btn" type="button" class="btn btn-success" style="width:70px;">리뷰작성</button>
 					<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
 				</div>
 			</div>
@@ -141,7 +74,7 @@
 				</div>
 			</div>
 			<div>
-			<div style="height:36px;"/>
+			<div style="height:32px;"/>
 			</div>
 			<div class="card-footer">
 				<small class="text-muted">
@@ -152,10 +85,5 @@
 		</div>
 	</div>	
 	</div>
-	
-	
-	
-	
-
 </body>
 </html>
