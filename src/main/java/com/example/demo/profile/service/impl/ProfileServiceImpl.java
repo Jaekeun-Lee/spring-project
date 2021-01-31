@@ -52,8 +52,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public List<BookmarkVO> getBookmarkList(BookmarkVO bookmarkVO){
-        return profileDAO.getBookmarkList(bookmarkVO);
+    public List<BookmarkVO> getBookmarkList(String userId){
+        return profileDAO.getBookmarkList(userId);
     }
 
 }

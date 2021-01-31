@@ -15,6 +15,7 @@ public class ProfileDTO {
         private String profileImg;
         private String selfIntro;
         private String link;
+        private List<String> skillHashTag;
     }
 
     //기본정보 조회
@@ -28,6 +29,7 @@ public class ProfileDTO {
         private String profileImg;
         private String selfIntro;
         private String link;
+        private List<String> skillHashTag;
     }
 
     //관리자 프로필 조회
@@ -46,6 +48,7 @@ public class ProfileDTO {
         private String link;
         private String selfIntro;
         private List<PortfolioVO> portfolio;
+        private List<String> skillHashTag;
     }
 
 }

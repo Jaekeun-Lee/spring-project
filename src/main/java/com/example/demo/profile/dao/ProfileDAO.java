@@ -31,6 +31,6 @@ public interface ProfileDAO {
     public List<ReviewVO> getReviewList(ReviewVO reviewVO);
 
     //북마크 목록 조회
-    public List<BookmarkVO> getBookmarkList(BookmarkVO bookmarkVO);
+    public List<BookmarkVO> getBookmarkList(String userId);
 
 }

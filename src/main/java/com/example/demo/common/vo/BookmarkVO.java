@@ -8,11 +8,8 @@ import java.util.List;
 public class BookmarkVO {
     private int bookmarkNo;
     private String userId;
-    private List<ProjectVO> projectVO;
-    private List<PostVO> postVO;
-
-    public BookmarkVO() {
-    }
+    private ProjectVO project;
+    private PostVO post;
 
     public int getBookmarkNo() {
         return bookmarkNo;
@@ -30,20 +27,20 @@ public class BookmarkVO {
         this.userId = userId;
     }
 
-    public List<ProjectVO> getProjectVO() {
-        return projectVO;
+    public ProjectVO getProject() {
+        return project;
     }
 
-    public void setProjectVO(List<ProjectVO> projectVO) {
-        this.projectVO = projectVO;
+    public void setProject(ProjectVO project) {
+        this.project = project;
     }
 
-    public List<PostVO> getPostVO() {
-        return postVO;
+    public PostVO getPost() {
+        return post;
     }
 
-    public void setPostVO(List<PostVO> postVO) {
-        this.postVO = postVO;
+    public void setPost(PostVO post) {
+        this.post = post;
     }
 
     @Override
@@ -51,8 +48,9 @@ public class BookmarkVO {
         return "BookmarkVO{" +
                 "bookmarkNo=" + bookmarkNo +
                 ", userId='" + userId + '\'' +
-                ", projectVO=" + projectVO +
-                ", postVO=" + postVO +
+                ", project=" + project +
+                ", post=" + post +
                 '}';
     }
+
 }
