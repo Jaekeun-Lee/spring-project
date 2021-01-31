@@ -1,6 +1,7 @@
 package com.example.demo.member.vo;
 
 import com.example.demo.common.cd.MemberGradeCd;
+import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.NotiVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.cd.AuthorityCd;
@@ -34,6 +35,8 @@ public class MemberVO {
     private List<NotiVO> noti;
     private List<ReviewVO> review;
     private List<String> link;
+    private List<String> skillHashTag;
+    private List<BookmarkVO> bookmark;
 
 
     /**

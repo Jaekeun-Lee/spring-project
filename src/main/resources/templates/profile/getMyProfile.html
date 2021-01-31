@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<head>
+    <title>기본정보 조회</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+        $(function(){
+            console.log($("td[name='userId']").text());/*이름으로 접근하는 건 요기요기~~*/
+        })
+
+        console.log()
+    </script>
+
+</head>
+<body>
+    <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}">
+        <div th:text="${profile.userId}"></div>
+        <div th:text="${profile.name}"></div>
+        <div th:text="${profile.email}"></div>
+        <div th:text="${profile.grade}"></div>
+        <div th:text="${profile.reportCnt}"></div>
+        <div th:text="${profile.profileImg}"></div>
+        <div th:text="${profile.selfIntro}"></div>
+        <div th:text="${profile.link}"></div>
+        <div th:text="${profile.skillHashTag}"></div>
+
+    <a th:href="@{/profile/addMyProfile(userId=${profile.userId})}">수정</a>
+
+</body>
+</html>

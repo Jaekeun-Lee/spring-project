@@ -9,7 +9,7 @@
 
     <script>
         $(function(){
-            console.log($("td[name='1']").text());/*이름으로 접근하는 건 요기요기~~*/
+            console.log($("td[name='등록일자']").text());/*이름으로 접근하는 건 요기요기~~*/
         })
 
         console.log()
@@ -57,15 +57,12 @@
         <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
         th:text="${portfolioVO.portTitle}"></a></td>
         <!--<td class="" th:text="${#dates.format(portfolioVO.regDate,'yyyy-mm-dd')}"></td>-->
-        <td th:text="${portfolioVO.regDate}" name="1"></td>
+        <td th:text="${portfolioVO.regDate}" name="등록일자"></td>
 
     </tr>
 
 <td class="">
       <a th:href="@{/port/addPort}"/>글쓰기
-
-
-
     </td>
     </tbody>
 

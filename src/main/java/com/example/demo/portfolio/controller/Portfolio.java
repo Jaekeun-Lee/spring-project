@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/port/*")
+@RequestMapping("port/*")
 public class Portfolio {
 
     @Autowired
