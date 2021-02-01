@@ -2,11 +2,11 @@ package com.example.demo.profile.service;
 
 import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
-import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dto.ProfileDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProfileService {
 
@@ -20,7 +20,8 @@ public interface ProfileService {
     public ProfileDTO.GetAdminProfileDTO getAdminProfile(String userId);
 
     // 전체보기 조회
-    public List<PortfolioVO> getAllProfile(PortfolioVO portfolioVO);
+//    public ProfileDTO.GetAllProfileDTO getAllMyProfile(String userId);
+    public Map<String,Object> getAllMyProfile(String userId);
 
     //링크 등록/수정
     public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink);

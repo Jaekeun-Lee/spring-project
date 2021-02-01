@@ -2,17 +2,17 @@ package com.example.demo.profile.service.impl;
 
 import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
-import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dao.ProfileDAO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("profileServiceImpl")
 public class ProfileServiceImpl implements ProfileService {
@@ -37,10 +37,15 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public List<PortfolioVO> getAllProfile(PortfolioVO portfolioVO){
-        return profileDAO.getAllProfile(portfolioVO);
+    /*public ProfileDTO.GetAllProfileDTO getAllMyProfile(String userId){
+        return profileDAO.getAllMyProfile(userId);
+    }*/
+    public Map<String,Object> getAllMyProfile(String userId){
+        ProfileDTO.GetAllProfileDTO getAllProfileDTO = profileDAO.getAllMyProfile(userId);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("getAllProfileDTO",getAllProfileDTO);
+        return map;
     }
-
     @Override
     public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink){
         return profileDAO.updateLink(updateLink);

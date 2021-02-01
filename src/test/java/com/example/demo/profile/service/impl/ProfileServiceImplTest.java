@@ -82,14 +82,14 @@ public class ProfileServiceImplTest {
         Assert.assertEquals(1,profileService.updateMyProfile(deleteMyProfileDTO));
     }
 
-    //@Test
+ /*   @Test
     public void getAllProfile(){
-        PortfolioVO portfolioVO = new PortfolioVO();
-        portfolioVO.setUserId("user02");
-        List<PortfolioVO> getAllProPort = profileService.getAllProfile(portfolioVO);
-        Assert.assertEquals(3,getAllProPort.size());
+//        PortfolioVO portfolioVO = new PortfolioVO();
+//        portfolioVO.setUserId("user02");
+        List<PortfolioVO> getAllProPort = profileService.getAllMyProfile("user01");
+        Assert.assertEquals(4,getAllProPort.size());
     }
-
+*/
     //@Test
     public void getReviewList(){
 

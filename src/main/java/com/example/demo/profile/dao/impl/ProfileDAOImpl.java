@@ -2,7 +2,6 @@ package com.example.demo.profile.dao.impl;
 
 import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
-import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dao.ProfileDAO;
 import com.example.demo.profile.dto.ProfileDTO;
@@ -36,8 +35,11 @@ public class ProfileDAOImpl implements ProfileDAO {
     }
 
     @Override
-    public List<PortfolioVO> getAllProfile(PortfolioVO portfolioVO){
-        return sqlSession.selectList("profileMapper.getAllProfileList",portfolioVO);
+//    public ProfileDTO.GetAllProfileDTO getAllMyProfile(String userId){
+//        return sqlSession.selectOne("profileMapper.getAllProfileList",userId);
+//    }
+    public ProfileDTO.GetAllProfileDTO getAllMyProfile(String userId){
+        return sqlSession.selectOne("profileMapper.getAllProfileList",userId);
     }
 
     @Override

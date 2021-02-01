@@ -6,8 +6,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
-    <script>
+    <style>
+        #add_portfolio_get_pop_up {
+            background-color:#fff;
+            border-radius:15px;
+            color:#000;
+            display:none;
+            padding:20px;
+            min-width:400px;
+            min-height: 200px;
+        }
+        .b-close{
+            cursor:pointer;
+            position:absolute;
+            right:10px;
+            top:5px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        <!-- 레이어 팝업 -->
+        ;(function ($){
+            // DOM Ready
+            $(function (){
+                $('#add_portfolio_get').bind('click', function (e){
+                    e.preventDefault();
+
+                    $('#add_portfolio_get_pop_up').bPopup();
+                });
+
+            });
+        })(jQuery);
+
+        $(function (){
+            $('#add_portfolio_post').on("click",function (){
+                $('#detailForm').submit();
+            });
+        });
+
+        <!-- RestController 공부용 -->
         $(function(){
             console.log($("td[name='등록일자']").text());/*이름으로 접근하는 건 요기요기~~*/
         })
@@ -61,9 +101,11 @@
 
     </tr>
 
-<td class="">
+<!--<td class="">
       <a th:href="@{/port/addPort}"/>글쓰기
-    </td>
+    </td>-->
+    <button id="add_portfolio_get" class="btn btn-default">포트폴리오 등록</button>
+    <div id="add_portfolio_get_pop_up" class="layerpop" background-color: white; style="width: 700px; height: 350px; overflow:auto;">
     </tbody>
 
 </table>

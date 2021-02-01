@@ -6,6 +6,7 @@ import com.example.demo.common.vo.NotiVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.cd.AuthorityCd;
 import com.example.demo.common.cd.MemberStatusCd;
+import com.example.demo.portfolio.vo.PortfolioVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
