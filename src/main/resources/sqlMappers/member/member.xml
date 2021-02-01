@@ -68,9 +68,9 @@
     <select id="selectDormantMemberList" parameterType="com.example.demo.member.vo.MemberVO"
             resultType="com.example.demo.member.vo.MemberVO">
         <include refid="from_select"/>
+        WHERE MEMBER_STATUS = 'DORMANT'
         <if test="userId != null and userId != ''">
-            WHERE USER_ID = #{userId}
-            AND STATUS = DORMANT
+            AND USER_ID = #{userId}
         </if>
         ORDER BY REG_DATE
     </select>
@@ -78,9 +78,9 @@
     <select id="selectBlackMemberList" parameterType="com.example.demo.member.vo.MemberVO"
             resultType="com.example.demo.member.vo.MemberVO">
         <include refid="from_select"/>
+        WHERE MEMBER_STATUS = 'BLACK'
         <if test="userId != null and userId != ''">
-            WHERE USER_ID = #{userId}
-            AND STATUS = BLACK
+            AND USER_ID = #{userId}
         </if>
         ORDER BY REG_DATE
     </select>
@@ -93,28 +93,8 @@
           AND PASSSWORD = #{password}
     </delete>
 
-    <!--password fail 횟수 증가-->
-    <update id="failCntUpdate" parameterType="String">
-        UPDATE MEMBER
-        SET FAIL_CNT = isnull(failCnt, 0) + 1
-        WHERE USER_ID = #{userId}
-    </update>
-
     <select id="selectUserById" parameterType="com.example.demo.member.vo.MemberVO">
         SELECT *
-        FROM MEMBER
-        WHERE USER_ID = #{userId}
-    </select>
-
-    <update id="updateFailureCount">
-        UPDATE
-            MEMBER
-        SET FAil_CNT = FAILURE_CNT + 1
-        WHERE USER_ID = #{userId}
-    </update>
-
-    <select id="checkFailureCount" resultType="Integer">
-        SELECT FAILURE_CNT
         FROM MEMBER
         WHERE USER_ID = #{userId}
     </select>
@@ -130,13 +110,39 @@
     <!--아이디 중복체크-->
     <select id="checkOverId" resultType="Integer" parameterType="String">
         SELECT count(*)
-        FROM MEMBER
-        WHERE USER_ID = #{userId}
+        FROM MEMBER c
     </select>
 
+    <!--이메일 중복체크-->
     <select id="checkOverEmail" resultType="Integer" parameterType="String">
         SELECT count(*)
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
+
+    <!--비밀번호 실패 횟수 증가-->
+    <update id="updateFailureCount">
+        UPDATE MEMBER
+        SET FAIL_CNT = FAIL_CNT + 1
+        WHERE USER_ID = #{userId}
+
+    </update>
+
+    <!--유저의 로그인 실패 이력 조회-->
+    <select id="checkFailureCount" resultType="Integer">
+        SELECT FAIL_CNT
+        FROM MEMBER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <!--로그인 성공일때 fail count 초기화 -->
+    <update id="updateFailureCountReset">
+        /* member.updateFailureCountReset */
+        UPDATE
+            MEMBER
+        SET FAIL_CNT = 0
+        WHERE USER_ID = #{userId}
+    </update>
+
+
 </mapper>

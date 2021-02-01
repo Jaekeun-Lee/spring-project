@@ -1,11 +1,11 @@
 package com.example.demo.project.service;
 
 import com.example.demo.common.vo.ReviewVO;
-import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.MyProjectVO;
+import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 
@@ -35,7 +35,7 @@ public interface ProjectService {
     int deleteBookmark(ProjectBookmarkDTO projectBookmarkDTO);
 
     //프로젝트 목록 조회
-    List<ProjectVO> getProjectList(SearchVO searchVO);
+    List<ProjectVO> getProjectList(ProjectSearchDTO projectSearchDTO);
 
     //프로젝트 삭제
     int deleteProject(int projectNo);

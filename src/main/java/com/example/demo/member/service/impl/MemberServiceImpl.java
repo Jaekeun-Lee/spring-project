@@ -20,6 +20,9 @@ import java.io.PrintWriter;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
+    public static final int MAX_FAILED_ATTEMPTS = 3;
+    private static final long LOCK_TIME_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
     @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -99,19 +102,35 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.checkOverEmail(email);
     }
 
+    /**
+     * 로그인 실패 - 비밀번호가 틀린경우, 로그인 실패 이력 업데이트
+     * @param userId
+     * @return
+     */
     @Override
     public int loginFailCountIncrease(String userId) {
-        return 0;
+        return memberDAO.loginFailCountIncrease(userId);
     }
 
+    /**
+     * 유저의 로그인 실패 이력 조회
+     * @param userId
+     * @return
+     */
     @Override
     public int getLoginFailCount(String userId) {
-        return 0;
+        return memberDAO.getLoginFailCount(userId);
     }
 
+
+    /**
+     * 로그인 성공일때 fail count 초기화
+     * @param userId
+     * @return
+     */
     @Override
     public int loginFailCountInitialize(String userId) {
-        return 0;
+        return memberDAO.loginFailCountInitialize(userId);
     }
 }
 

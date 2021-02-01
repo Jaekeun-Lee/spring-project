@@ -11,6 +11,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script>
+
+        $(function () {
+            $("input[name=projectCategory]").on("click",function () {
+                categoryList();
+            })
+        })
+
+
+
+        function categoryList() {
+            let categoryList = new Array();
+
+            $("input[name=projectCategory]:checked").each(function (i) {
+                categoryList.push("projectCategory="+$(this).val());
+            })
+            let param = "";
+            categoryList.forEach( element => param+=element+"&");
+
+
+            window.location.replace("/project/getProjectList?"+param);
+
+        }
+
+
+
+    </script>
 </head>
 <body>
 
@@ -26,21 +53,21 @@
                 <div class="sear">
                     <h4>Project Category</h4><hr/>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="category1" value="1">
-                        <label class="custom-control-label" for="category1"><a href="/">개발</a></label>
+                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(1)}" type="checkbox" class="custom-control-input" name="projectCategory" id="category1" value="1">
+                        <label class="custom-control-label" for="category1">개발</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="category2" value="2">
-                        <label class="custom-control-label" for="category2"><a href="/">기획</a></label>
+                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(2)}" type="checkbox" class="custom-control-input" name="projectCategory" id="category2" value="2">
+                        <label class="custom-control-label" for="category2">기획</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="category3" value="3">
-                        <label class="custom-control-label" for="category3"><a href="/">디자인</a> </label>
+                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(3)}" type="checkbox" class="custom-control-input" name="projectCategory" id="category3" value="3">
+                        <label class="custom-control-label" for="category3">디자인 </label>
                     </div>
                 </div>
 
                 <div id="meeting-method">
-                    <h4>MeetingMethod</h4><hr/>
+                    <h4>Meeting Method</h4><hr/>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="meeting1" value="1">
                         <label class="custom-control-label" for="meeting1"><a href="/">대면</a></label>
@@ -104,7 +131,6 @@
                                 <span>팀장명</span>
                                 <span style="float: right;" th:text="${project.leaderId}"></span>
                                 <br/>
-                                <i class="fas fa-map-marker-alt"></i>
                                 <span>마감일</span>
                                 <span style="float: right;"
                                       th:text="${#dates.format(project.applicationDeadline, 'YYYY-MM-dd')}"></span>

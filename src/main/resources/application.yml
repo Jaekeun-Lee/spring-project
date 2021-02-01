@@ -14,6 +14,12 @@ spring:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
+  # session repository type을 정의하고 사용할 테이블 명을 정의함.
+  session:
+    store-type: jdbc
+    jdbc:
+      table-name: SPRING_SESSION
+
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:oracle:thin:@localhost:1521/xe

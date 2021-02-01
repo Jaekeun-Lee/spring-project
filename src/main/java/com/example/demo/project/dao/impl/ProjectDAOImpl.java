@@ -1,13 +1,12 @@
 package com.example.demo.project.dao.impl;
 
-import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.ReviewVO;
-import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.MyProjectVO;
+import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 import org.apache.ibatis.session.SqlSession;
@@ -68,8 +67,8 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     @Override
-    public List<ProjectVO> getProjectList(SearchVO searchVO) {
-        return sqlSession.selectList(NAMESPACE + "getProjectList", searchVO);
+    public List<ProjectVO> getProjectList(ProjectSearchDTO projectSearchDTO) {
+        return sqlSession.selectList(NAMESPACE + "getProjectList", projectSearchDTO);
     }
 
     @Override

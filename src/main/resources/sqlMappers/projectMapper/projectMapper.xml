@@ -165,19 +165,20 @@
 	</delete>
 
 
-	<select id="getProjectList" parameterType="searchVO" resultMap="projectSelectMap">
+	<select id="getProjectList" parameterType="projectSearchDTO" resultMap="projectSelectMap">
 		SELECT *
 		FROM ( SELECT ROW_NUMBER() OVER(ORDER BY
 		<choose>
 			<when test="sort == 1">P.REG_DATE DESC</when>
 			<when test="sort == 2">P.APPLICATION_DEADLINE DESC</when>
+			<when test="sort == 3">P.PROJECT_VIEW_CNT DESC</when>
 			<otherwise>P.PROJECT_NO DESC</otherwise>
 		</choose>
 		) RN, P.*, B.BOOKMARK_NO, #{userId:VARCHAR} AS bookmarkCheckId
 		FROM PROJECT P, ( SELECT BOOKMARK_NO
 						  FROM BOOKMARK
 						  WHERE USER_ID = #{userId:VARCHAR} ) B
-		<if test="searchConditionC != null and searchConditionC == 2">
+		<if test="searchCondition != null and searchCondition == 2">
 			,(SELECT HASHTAG, SH.PROJECT_NO PROJECT_NO
 			  FROM HASHTAG HA, SKILL_HASHTAG SH
 			  WHERE HA.HASHTAG_NO = SH.HASHTAG_NO) H
@@ -185,17 +186,31 @@
 		<where>
 			P.PROJECT_NO = B.BOOKMARK_NO(+)
 
-			<if test="searchConditionA != null and searchConditionA != 0">AND P.PROJECT_CATEGORY = #{searchConditionA} </if>
-
-			<if test="searchConditionB != null and searchConditionB != 0">AND P.MEETING_METHOD = #{searchConditionB}</if>
-
-			<if test="searchConditionC != null">
-				<if test="searchConditionC == 1">AND P.PROJECT_NAME LIKE '%'||#{searchKeyword}||'%' </if>
-				<if test="searchConditionC == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG = #{searchKeyword} </if>
-				<if test="searchConditionC == 3">AND P.PROJECT_DETAIL LIKE '%'||#{searchKeyword}||'%' </if>
+			<if test="projectCategory != null">
+				AND
+				<foreach item="projectCategory" collection="projectCategory" separator="OR" open="(" close=")">
+						 P.PROJECT_CATEGORY = #{projectCategory}
+				</foreach>
+			</if>
+			<if test="meetingMethod != null">
+				AND
+				<foreach item="meetingMethod" collection="meetingMethod" separator="OR" open="(" close=")">
+					P.MEETING_METHOD = #{meetingMethod}
+				</foreach>
 			</if>
 
-			<if test="searchConditionD != null and searchConditionD != 0">AND P.PROJECT_STATUS = #{searchConditionD}</if>
+			<if test="searchCondition != null">
+				<if test="searchCondition == 1">AND P.PROJECT_NAME LIKE '%'||#{searchKeyword}||'%' </if>
+				<if test="searchCondition == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG = #{searchKeyword} </if>
+				<if test="searchCondition == 3">AND P.PROJECT_DETAIL LIKE '%'||#{searchKeyword}||'%' </if>
+			</if>
+
+			<if test="projectStatus != null">
+				AND
+				<foreach item="projectStatus" collection="projectStatus" separator="OR" open="(" close=")">
+					P.PROJECT_STATUS = #{projectStatus}
+				</foreach>
+			</if>
 
 			)
 		</where>
