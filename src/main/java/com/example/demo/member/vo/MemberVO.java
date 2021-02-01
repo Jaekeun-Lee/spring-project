@@ -9,13 +9,14 @@ import com.example.demo.common.cd.MemberStatusCd;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class MemberVO {
+public class MemberVO implements Serializable {
     private String userId;
     private String password;
     private String email;
