@@ -28,11 +28,6 @@ public class ProjectRest {
     @PostMapping("/addBookmark")
     public int addBookmark(@RequestBody ProjectBookmarkDTO projectBookmarkDTO) {
 
-
-        //세션구현시 세션으로
-        String sessionId = "user03";
-        projectBookmarkDTO.setUserId(sessionId);
-
         if (projectBookmarkDTO.getBookmarkControl() == 1) {
             return projectService.addBookmark(projectBookmarkDTO);
         } else if (projectBookmarkDTO.getBookmarkControl() == 2) {
@@ -44,10 +39,6 @@ public class ProjectRest {
 
     @PostMapping("/addReply")
     public ReplyVO addReply(@RequestBody ProjectReplyDTO projectReplyDTO){
-        //세션구현시 세션으로
-        String sessionId = "user03";
-        projectReplyDTO.setReplyUserId(sessionId);
-
         return projectService.addProjectReply(projectReplyDTO);
     }
 

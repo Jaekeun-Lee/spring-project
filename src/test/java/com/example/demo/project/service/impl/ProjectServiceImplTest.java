@@ -55,7 +55,7 @@ public class ProjectServiceImplTest {
         ProjectReplyDTO projectReplyDTO = new ProjectReplyDTO();
         projectReplyDTO.setProjectNo(1);
         projectReplyDTO.setReplyContent("addReplyTest");
-        projectReplyDTO.setReplyUserId("user02");
+        projectReplyDTO.setUserId("user02");
 
         Assert.assertEquals(1, projectService.addProjectReply(projectReplyDTO));
 

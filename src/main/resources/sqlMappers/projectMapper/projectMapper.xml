@@ -124,7 +124,7 @@
 		           REG_DATE)
 		VALUES (SEQ_REPLY_NO.NEXTVAL,
 		        #{projectNo},
-		        #{replyUserId},
+		        #{userId},
 		        #{replyContent},
 		        SYSDATE)
 	</insert>
@@ -314,7 +314,7 @@
 		       REPLY_CONTENT ,
 			   TO_DATE(TO_CHAR(REG_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') as regDate
 		FROM REPLY
-		WHERE USER_ID = #{replyUserId} AND REPLY_CONTENT = #{replyContent}
+		WHERE USER_ID = #{userId} AND REPLY_CONTENT = #{replyContent}
 	</select>
 
 

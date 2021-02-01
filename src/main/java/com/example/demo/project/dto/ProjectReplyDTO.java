@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class ProjectReplyDTO {
     private int projectNo;
-    private String replyUserId;
+    private String userId;
     private String replyContent;
 
 }

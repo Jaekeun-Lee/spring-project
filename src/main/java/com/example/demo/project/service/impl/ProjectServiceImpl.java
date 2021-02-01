@@ -2,6 +2,7 @@ package com.example.demo.project.service.impl;
 
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
@@ -69,6 +70,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectVO> getProjectList(ProjectSearchDTO projectSearchDTO) {
+        projectSearchDTO.setUserId(SecurityUtils.getLoginSessionMemberInfo().getUsername());
         return projectDAO.getProjectList(projectSearchDTO);
     }
 

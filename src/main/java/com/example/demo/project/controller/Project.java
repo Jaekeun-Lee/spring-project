@@ -1,7 +1,10 @@
 package com.example.demo.project.controller;
 
+import com.example.demo.member.util.SecurityUtils;
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.dto.ProjectSearchDTO;
+import com.example.demo.project.vo.MyProjectVO;
 import com.example.demo.project.vo.ProjectVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -43,10 +47,8 @@ public class Project {
 
     @GetMapping("/getProject")
     public String getProject(@RequestParam("projectNo") int projectNo, Model model) {
-        //세션 구현 후 변경
-        String sessionId = "user03";
 
-        ProjectVO projectVO = projectService.getProject(projectNo, sessionId);
+        ProjectVO projectVO = projectService.getProject(projectNo, SecurityUtils.getLoginSessionMemberInfo().getUsername());
         model.addAttribute("project", projectVO);
 
         return "project/getProject";
@@ -60,7 +62,7 @@ public class Project {
             projectSearchDTO.setCurrentPage(DEFAULT_PAGE);
         }
         projectSearchDTO.setPageSize(PAGE_SIZE);
-        projectSearchDTO.setUserId("user01");
+
 
         List<ProjectVO> projectList = projectService.getProjectList(projectSearchDTO);
 
@@ -71,6 +73,18 @@ public class Project {
 
 
         return "project/getProjectList";
+
+    }
+
+    @GetMapping("myProject")
+    public String getMyProject(@RequestParam("projectNo") int projectNo, Model model) {
+
+        if(projectNo == 0) {
+            return "project/notParticipating";
+        } else {
+            model.addAttribute("myProject", projectService.getMyProject(projectNo));
+            return "project/getMyProject";
+        }
 
     }
 
