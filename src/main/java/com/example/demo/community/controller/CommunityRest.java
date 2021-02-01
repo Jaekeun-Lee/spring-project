@@ -4,10 +4,13 @@ import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.member.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/comm")
@@ -24,10 +27,15 @@ public class CommunityRest {
     }
 
     @PostMapping("/addReply")
-    public String addReply(@RequestBody ReplyVO replyVO){
+    public String addReply(@RequestBody ReplyVO replyVO,
+                           HttpSession httpSession){
 
-        String sessionId = "user02";
-        replyVO.setReplyUserId(sessionId);
+        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+
+        postService.addReply(replyVO.getReplyNo());
+
+//        String sessionId = "user02";
+//        replyVO.setReplyUserId(sessionId);
 
         return "success";
     }
