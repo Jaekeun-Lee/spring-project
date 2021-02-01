@@ -43,6 +43,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info("role : {}", member.getAuthorities().stream().map(SimpleGrantedAuthority::getAuthority).collect(Collectors.joining(", ")));
 
         memberService.loginFailCountInitialize(member.getUsername()); // 실패이력 초기화
+        request.getSession().setAttribute("user",memberService.selectMember(member.getUsername()));
 
         response.sendRedirect("/welcome");
 

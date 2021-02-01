@@ -102,6 +102,11 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.checkOverEmail(email);
     }
 
+    @Override
+    public MemberVO selectMember(String userId) {
+        return memberDAO.selectMember(userId);
+    }
+
     /**
      * 로그인 실패 - 비밀번호가 틀린경우, 로그인 실패 이력 업데이트
      * @param userId

@@ -27,6 +27,8 @@ public interface MemberService {
 
     int userEmailCheck(String email);
 
+    MemberVO selectMember(String userId);
+
     /**
      * 로그인 실패 - 비밀번호가 틀린경우, 로그인 실패 이력 업데이트
      *

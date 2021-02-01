@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
@@ -35,6 +35,10 @@
 </head>
 <body>
 <h1>Hello~! We are developing...</h1>
+
+<span th:text="${session.user.userId}"></span>
+<span th:text="${session.user.email}"></span>
+<span th:text="${session.user.name}"></span>
 
 <div id="content">
     <div class="card category-box">
