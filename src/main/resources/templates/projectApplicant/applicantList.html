@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
+	<link rel="stylesheet" href="/resources/css/style.css">
 	<!--  ////////////////////// Bootstrap /////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
@@ -32,11 +33,6 @@
     right:10px;
     top:5px;
 	}
-	.wrapper1 {
-    float:none;
-    width: 60%;
-    margin: 100px auto;
-	}
 	#table {
 	font-size:small;
 	}
@@ -63,10 +59,30 @@
 	<title>appllicantList</title>
 </head>
 <body>
-		
-<div class="wrapper1">
+<div th:include="topToolBar.html" ></div>
+<div class="wrapper">
 	<h4 class="display-3">프로젝트 참여 요청(팀장)</h4>
-	<hr class="my-4">
+	
+	<div class="row">
+        <div class="category-box col-lg-3">
+            <div class="searchCondition-list" style="display: inline-block; width : 90%;">
+                <div class="sear">
+                    <div>
+						<a href="/applicant/appliedProjectList">신청 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/endProjectList">완료 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/applicantList">신청서 확인</a><hr/>
+					</div>			                
+                </div>
+            </div>
+            <div id="line"></div>
+        </div>
+
+
+
 	<table id="table" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 		<tr>
 			<th class="column-title" width="100"> </th>

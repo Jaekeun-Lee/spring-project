@@ -3,19 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
     <script type="text/javascript">
+        $(function () {
+            $('#add-reply-btn').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/comm/addReply',
+                    data: JSON.stringify({
+                        postNo: $('#postNo').val(),
+                        replyContent: $('#replyContent').val()
+                    }),
+                    dataType: 'text',
+                    contentYtpe: 'application/json',
+                    success: function (data) {
+                        const replyVO = JSON.parse(data);
+                        const regDate = replyVO.regDate.substring(0, 10);
 
+                        let html =
+                            "<div class=\"card bg-secondary mb-3\" style=\"max-width: 20rem;\">" +
+                            "   <div class=\"card-header\">" + replyVO.replyUserId + "</div>" +
+                            "       <div class=\"card-body\">" +
+                            "           <h4 class=\"card-title\">" + replyVO.replyContent + "</h4>" +
+                            "       <p class=\"card-text\">" + regDate + "</p>" +
+                            "   </div>" +
+                            "</div>"
+
+                        $('#reply-list').append(html);
+                        $('#replyContent').val("");
+                    },
+                    error: function (e) {
+                        alert("댓글 등록 실패" + e)
+                    }
+                })
+
+            })
+        })
 
     </script>
 <title>게시물 상세조회</title>
 </head>
 <body>
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
-    <input type="hidden"    name="postNo"      th:value="${postVO.postNo}">
+    <input type="hidden"    name="postNo"   id="postNo"   th:value="${postVO.postNo}">
 <!--    <div th:text="${postVO.postNo}">번호</div>-->
     <div th:text="${postVO.postName}">제목</div>
     <div th:text="${postVO.userId}">작성자</div>
@@ -27,5 +62,27 @@
     <a th:href="@{/comm/getPostList}">목록</a>
     <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
     <a th:href="@{/comm/deletePost}">삭제</a>
+
+<!--에이작스 포스트방식으로 댓글 리퀘스트-->
+    <div class="reply-box">
+        <h5 id="reply-list">댓글</h5>
+        <div th:each="replyVO:${postVO.postReply}" class="card-secondary mb-3"    style="...">
+            <div th:text="${replyVO.replyUserId}"   class="card-header"></div>
+            <div class="card-body">
+                <h4 th:text="${replyVO.replyContent}"   class="card-title"></h4>
+                <p th:text="${#dates.format(replyVO.regDate, 'yyyy-MM-dd')}"    class="card-text"></p>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="card-header">댓글다는사람의 로그이정보 띄워줘야함</div>
+            <input class="form-control"   id="replyContent"   rows="3"    style="..."></input>
+            <div class="card-header"    style="...">
+                <button type="button"   id="add-reply-btn"  class="btn btn-primary">작성완료</button>
+            </div>
+        </div>
+
+    </div>
 
 </body>

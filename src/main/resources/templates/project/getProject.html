@@ -29,6 +29,12 @@
                 });
             });
         })(jQuery);
+        
+        $(function(){
+        	$('#add_applicant_post').on("click", function(){
+        		$("#detailForm").submit();
+        	});
+        });
 
 
         $(function(){
@@ -109,11 +115,13 @@
 
 </head>
 <body>
+<div th:include="topToolBar.html" ></div>
 <div class="wrapper">
     <a href="/project/getProjectList?currentPage=1" class="btn btn-secondary">목록 보기</a>
     <div class="row">
         <div class="col-lg-9" id="project-info-box">
             <div class="subject" style="width: 100%;">
+            	<input type="hidden" id="userId" th:value="${session.user.userId}">
                 <input type="hidden" id="projectNo" th:value="${project.projectNo}">
                 <!-- 프로젝트 상태 -->
                 <th:block th:switch="${project.projectStatus}">
@@ -264,7 +272,12 @@
         <div class="col-lg-3" id="team-info-box">
 
             <!-- Button that triggers the popup -->
-            <button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
+            <th:block th:if="${session.user.projectNo == 0}">
+            	<button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
+            </th:block>
+            <th:block th:if="${session.user.projectNo != 0}">
+            	<span id="add_applicant_done" class="badge badge-pill badge-light">이미 프로젝트 진행중 입니다.</span>
+            </th:block>
             <div class="member-info">
                 <h4>Team Member</h4>
                 <h6 th:each="member : ${project.teamMember}" th:text="${member.userId}"></h6>
@@ -290,7 +303,9 @@
     <form id="detailForm" method="post" th:action="@{/applicant/addApplicant}">
         <h2>신   청   서</h2>
         <br>
-
+		<input type="hidden" name="userId" th:value="${session.user.userId}">
+		<input type="hidden" name="projectVO.projectNo" th:value="${project.projectNo}">
+		
         <th:block th:if="${project.applicantQuestionA != null}">
             <label for="applicantAnswerA" class="control-label" th:text="Q1.+${project.applicantQuestionA}"></label>
             <input type="text" class="form-control" id="applicantAnswerA" name="applicantAnswerA" placeholder="1번대답" >
@@ -305,11 +320,16 @@
             <label for="applicantAnswerC" class="control-label" th:text="Q1.+${project.applicantQuestionC}"></label>
             <input type="text" class="form-control" id="applicantAnswerC" name="applicantAnswerC" placeholder="1번대답" >
         </th:block>
+        
+        <div class="form-group">
+			<label for="projectDetail">자기소개</label>
+			<textarea class="form-control" id="introToMember" name="introToMember">
+간단하게 자기소개를 할 수 있습니다.</textarea>
+		</div>
 
         <div style="width:100px;float: right;">
             <button id="add_applicant_post" class="btn btn-default">신청서 제출</button>
         </div>
-
     </form>
 </div>
 

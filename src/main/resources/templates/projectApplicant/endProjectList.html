@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
+	<link rel="stylesheet" href="/resources/css/style.css">
 	<!--  ////////////////////// Bootstrap /////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
@@ -14,14 +15,8 @@
     
     <!--  ///////////////////////// CSS ////////////////////////// -->
     <style>
-    #card_1 { 
-	overflow: hidden;
-	text-overflow: clip;
-	}
-	.wrapper1 {
-    float:none;
-    width: 60%;
-    margin: 100px auto;
+	body { 
+	font-size: 130%;
 	}
     </style>
 	<!--  ////////////////////// JavaScript /////////////////////// -->
@@ -31,24 +26,49 @@
 <title>endProjectList</title>
 </head>
 <body>
-	<div class="wrapper1">
+	<div th:include="topToolBar.html" ></div>
+	<div class="wrapper">
 	<h4 class="display-3">완료한 프로젝트(팀원)</h4>
-	<hr class="my-4">
-	<span>
-		<button id="button_period_1" type="button" class="btn btn-outline-secondary">
-		<a href="/applicant/appliedProjectList?searchConditionA=1">
-		1개월</button></a>
-		<button id="button_period_2" type="button" class="btn btn-outline-secondary">
-		<a href="/applicant/appliedProjectList?searchConditionA=2">
-		2개월</button></a>
-		<button id="button_period_3" type="button" class="btn btn-outline-secondary">
-		<a href="/applicant/appliedProjectList?searchConditionA=3">
-		3개월</button></a>
-	</span></p>
+	
+	<div class="row">
+        <div class="category-box col-lg-3">
+            <div class="searchCondition-list" style="display: inline-block; width : 90%;">
+                <div class="sear">
+                    <div>
+						<a href="/applicant/appliedProjectList">신청 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/endProjectList">완료 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/applicantList">신청서 확인</a><hr/>
+					</div>			                
+                </div>
+            </div>
+            <div id="line"></div>
+        </div>
+	
+	<div class="card-list-box col-lg-8">	
+	<div class="searchCondition-list">
+		<span style="margin: 0 20px;">리스트 정렬 기준</span>
+		<span>
+
+			<label class="btn btn-outline-primary">
+				<input type="radio" name="options_1" id="option1" autocomplete="off" value="1"> 1개월
+			</label>
+			<label class="btn btn-outline-primary">
+				<input type="radio" name="options_1" id="option2" autocomplete="off" value="2">2개월
+        	</label>
+			<label class="btn btn-outline-primary">
+            	<input type="radio" name="options_1" id="option3" autocomplete="off" value="3">3개월
+			</label>
+
+	    </span>
+	</div>
 
 	<div id="card_2" th:each="applicantVO : ${appliedList}" style="height:150px;">
        <div class="card h-100 ">
-         <div id="card_1" class="card-body">
+         <div class="card-body" style="overflow: hidden;">
          	<div style="float: left; width: 80%;">
 				<div th:if="${applicantVO.applicantStatus}==6">
 					<span class="badge badge-pill badge-primary">완료</span>
@@ -76,14 +96,21 @@
 			<div>
 			<div style="height:32px;"/>
 			</div>
-			<div class="card-footer">
-				<small class="text-muted">
-					<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-					<span th:text="${applicantVO.projectVO.meetingLocation}"/>
-				</small>
+			<div class="card-footer" >
+                <small class="text-muted">
+                    <th:block th:if="${applicantVO.projectVO.meetingMethod == 1}">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span th:text="${applicantVO.projectVO.meetingLocation}"/>
+                    </th:block>
+                    <th:block th:if="${applicantVO.projectVO.meetingMethod == 2}">
+                        <i class="fas fa-laptop"></i>
+                        <span th:if="${applicantVO.projectVO.meetingMethod == 2}">비대면 (온라인)</span>
+                    </th:block>
+                </small>
 			</div>
 		</div>
 	</div>	
 	</div>
+</div>
 </body>
 </html>

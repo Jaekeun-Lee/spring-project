@@ -27,6 +27,7 @@
 				<result property="applicantQuestionC" 	column="applicant_question_c" 	jdbcType="VARCHAR"/>
 				<result property="projectStatus"    		column="project_status"      		jdbcType="NUMERIC"/>
 				<result property="meetingLocation"    		column="meeting_location"      		jdbcType="VARCHAR"/>
+				<result property="meetingMethod"    		column="meeting_method"      		jdbcType="NUMERIC"/>
 			</association>
 	</resultMap>
 
@@ -97,7 +98,7 @@
 			#{applicantAnswerA:VARCHAR},
 			#{applicantAnswerB:VARCHAR},
 			#{applicantAnswerC:VARCHAR},
-			#{introToMember},
+			#{introToMember:VARCHAR},
 			SYSDATE
 		)
 	 </insert>
@@ -132,7 +133,8 @@
 				p.application_deadline,
 				p.recruitment_member_cnt,
 				p.project_status,
-				p.meeting_location
+				p.meeting_location,
+				p.meeting_method
 				FROM
 				applicant a, project p
 				WHERE
@@ -148,54 +150,18 @@
 													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
 				</if>
 				<!--신청서 상태-->
-				<if test="searchConditionB != null">
+				<if test="searchConditionB != 6">
 					<if test = "searchConditionB == 1" >AND a.applicant_status = 1</if>
 					<if test = "searchConditionB == 2" >AND a.applicant_status = 2</if>
 					<if test = "searchConditionB == 3" >AND a.applicant_status = 3</if>
 					<if test = "searchConditionB == 4" >AND a.applicant_status = 4</if>
-					<if test = "searchConditionB == 6" >AND a.applicant_status = 6</if>
+					AND NOT (a.applicant_status = 6)
 				</if>
+				<if test = "searchConditionB == 6" >AND a.applicant_status = 6</if>
 				ORDER BY a.APPLICANT_NO
 				) inner_table
 			WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}	 	
-	 </select>
-	 
-	 <select  id="getTotalCount"  parameterType="com.example.demo.common.vo.SearchVO"	 resultType="int">
-	 	SELECT COUNT(*)
-	  	FROM(	
-  			SELECT m.profile_image, a.user_id
-			FROM member m, applicant a
-			WHERE m.user_id = a.user_id
-			ORDER BY a.applicant_no 
-			) countTable		
-	 </select>
-	 
-	 <select  id="getAppliedTotalCount"  parameterType="com.example.demo.common.vo.SearchVO"	 resultType="int">
-	 	SELECT COUNT(*)
-	  	FROM(	
-  			SELECT
-			a.applicant_no,
-			a.applicant_status,
-			a.reg_date
-			FROM
-			applicant a, project p
-			WHERE
-			a.project_no = p.project_no AND
-			a.user_id = #{userId}
-			<if test="searchConditionB != null">
-				<if test = "searchConditionB == 1" >
-					AND a.applicant_status = 1
-				</if>
-				<if test = "searchConditionB == 2" >
-					AND a.applicant_status = 2
-				</if>
-				<if test = "searchConditionB == 3" >
-					AND a.applicant_status = 3
-					AND a.applicant_status = 4
-				</if>
-			</if>
-			) countTable		
 	 </select>
 	 
 	 <update	id="updateApplicantStatus"	parameterType="updateApplicantStatusDTO" >

@@ -5,6 +5,7 @@ import com.example.demo.community.dao.PostDAO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.member.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void addReply(ReplyVO replyVO){
+    public ReplyVO addReply(int replyNo){
+        postDAO.addReply(replyNo);
+        String replyUserId = SecurityUtils.getLoginSessionMemberInfo().getUsername();
 
-        postDAO.addReply(replyVO);
+        return postDAO.getReply(replyUserId);
     }
 
     @Override
@@ -48,12 +51,12 @@ public class PostServiceImpl implements PostService {
         return postDAO.getPost(postNo);
     }
 
-    @Override
-    public ReplyVO getReply(String replyUserId) {
-
-
-        return postDAO.getReply(replyUserId);
-    }
+//    @Override
+//    public ReplyVO getReply(String replyUserId) {
+//
+//
+//        return postDAO.getReply(replyUserId);
+//    }
 
     @Override
     public void updatePost(PostVO postVO){
