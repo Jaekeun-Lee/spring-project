@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.common.vo.SearchVO;
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
@@ -53,10 +54,11 @@ public class ProjectApplicant {
 	
 	@RequestMapping(value = "/applicantList", method = RequestMethod.GET)
 	public String applicantList(@ModelAttribute("searchVO") SearchVO searchVO,
-								Model model) throws Exception{
+								Model model,
+								HttpSession session) throws Exception{
 		System.out.println("/applicantList GET");
 		searchVO.setPageSize(6);
-		searchVO.setUserId("user01");
+		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
 		}
@@ -73,10 +75,12 @@ public class ProjectApplicant {
 	
 	@RequestMapping(value = "/appliedProjectList", method = RequestMethod.GET)
 	public String appliedProjectList(@ModelAttribute("searchVO") SearchVO searchVO,
-									Model model)throws Exception{
+									Model model,
+									HttpSession session)throws Exception{
 		System.out.println("/appliedProjectList GET");
+		
 		searchVO.setPageSize(6);
-		searchVO.setUserId("user02");
+		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
 		}
@@ -88,10 +92,11 @@ public class ProjectApplicant {
 	
 	@RequestMapping(value = "/endProjectList", method = RequestMethod.GET)
 	public String endProjectList(@ModelAttribute("searchVO") SearchVO searchVO,
-									Model model)throws Exception{
+								 Model model,
+								 HttpSession session)throws Exception{
 		System.out.println("/endProjectList GET");
 		searchVO.setPageSize(6);
-		searchVO.setUserId("user02");
+		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		searchVO.setSearchConditionB(6);
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
