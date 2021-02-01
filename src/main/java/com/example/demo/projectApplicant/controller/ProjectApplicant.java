@@ -44,12 +44,12 @@ public class ProjectApplicant {
 	
 	@RequestMapping(value="/addApplicant", method=RequestMethod.POST)
 	public String addApplicant(@ModelAttribute("applicant") ApplicantVO applicantVO,
-							   HttpSession session) {
+							   Model model) {
 		System.out.println("/addApplicant");
 		System.out.println(applicantVO);
-		//projectApplicantService.addApplicant(applicantVO);
+		projectApplicantService.addApplicant(applicantVO);
 		
-		return "welcome";
+		return "redirect:../project/getProject?projectNo="+applicantVO.getProjectVO().getProjectNo();
 	}
 	
 	@RequestMapping(value = "/applicantList", method = RequestMethod.GET)
@@ -125,12 +125,6 @@ public class ProjectApplicant {
 		System.out.println(updateApplicantStatusDTO);
 		//projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
 		return null;
-	}
-	
-	@RequestMapping(value = "/testt")
-	public String testtStatus() {
-		System.out.println("hi");
-		return "topToolBar";
 	}
 	
 }

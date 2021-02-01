@@ -16,14 +16,8 @@
     
     <!--  ///////////////////////// CSS ////////////////////////// -->
     <style>
-    #card_1 { 
-	overflow: hidden;
-	text-overflow: clip;
-	}
-	.wrapper1 {
-    float:none;
-    width: 60%;
-    margin: 100px auto;
+	body { 
+	font-size: 130%;
 	}
     </style>
     
@@ -93,11 +87,28 @@
 </head>
 <body>
 	<div th:include="topToolBar.html" ></div>
-	<div class="wrapper1">
+	<div class="wrapper">
 	<h4 class="display-3">신청한 프로젝트(팀원)</h4>
-	<hr class="my-4">
 	
+	<div class="row">
+        <div class="category-box col-lg-3">
+            <div class="searchCondition-list" style="display: inline-block; width : 90%;">
+                <div class="sear">
+                    <div>
+						<a href="/applicant/appliedProjectList">신청 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/endProjectList">완료 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/applicantList">신청서 확인</a><hr/>
+					</div>			                
+                </div>
+            </div>
+            <div id="line"></div>
+        </div>
 	
+	<div class="card-list-box col-lg-8">	
 	<div class="searchCondition-list">
 		<span style="margin: 0 20px;">리스트 정렬 기준</span>
 		<span>
@@ -126,7 +137,7 @@
 
 	<div id="card_2" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
        <div class="card h-100 ">
-         <div id="card_1" class="card-body" style="overflow: hidden;">
+         <div class="card-body" style="overflow: hidden;">
          	<div style="float: left; width: 80%;">
 				<div th:if="${applicantVO.applicantStatus}==1">
 					<span class="badge badge-info">대기</span>
@@ -167,25 +178,22 @@
 				</div>
 			</div>
 
-			<div class="card-footer">
+			<div class="card-footer" >
                 <small class="text-muted">
-                    <th:block th:if="${project.meetingMethod == 1}">
+                    <th:block th:if="${applicantVO.projectVO.meetingMethod == 1}">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span th:text="${project.meetingLocation}"/>
+                        <span th:text="${applicantVO.projectVO.meetingLocation}"/>
                     </th:block>
-                    <th:block th:if="${project.meetingMethod == 2}">
+                    <th:block th:if="${applicantVO.projectVO.meetingMethod == 2}">
                         <i class="fas fa-laptop"></i>
-                        <span th:if="${project.meetingMethod == 2}">비대면 (온라인)</span>
+                        <span th:if="${applicantVO.projectVO.meetingMethod == 2}">비대면 (온라인)</span>
                     </th:block>
                 </small>
 			</div>
 		</div>
+		</div>
 	</div>	
-	</div>
-	
-	
-	
-	
+</div>
 
 </body>
 </html>
