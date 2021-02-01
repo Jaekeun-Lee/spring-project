@@ -15,11 +15,18 @@
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	
+	
+	<style>
+	#fontsize { 
+	font-size: 150%;
+	}
+	</style>
+	
 <title>Top ToolBar</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">배움</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="fontsize" >
+  <a class="navbar-brand" href="#">로고</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -34,8 +41,8 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">프로젝트</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">프로젝트 찾기</a>
-          <a class="dropdown-item" href="#">내 프로젝트</a>
+          <a class="dropdown-item" href="/project/getProjectList">프로젝트 찾기</a>
+          <a class="dropdown-item" href="/applicant/appliedProjectList">내 프로젝트</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Separated link</a>
         </div>
