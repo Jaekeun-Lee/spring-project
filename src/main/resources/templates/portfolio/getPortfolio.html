@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<!--<form th:action="@{/port/getPort}" th:method="get"> form은 담아서 보낼 떄 사용, 그래서 getPort는 조회만해서 서버로 보낼 게 없기 때문에 form을 사용하지 않아도 됨-->
+
     <input type="hidden" id="portNo" name="portNo" th:value="${portfolio.getPortNo()}"/>
         <div th:text="${portfolio.portTitle}"></div>
         <div th:text="${portfolio.portMemberCnt}"></div>

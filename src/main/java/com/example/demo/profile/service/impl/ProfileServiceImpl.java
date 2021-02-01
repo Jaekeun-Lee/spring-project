@@ -47,8 +47,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public List<ReviewVO> getReviewList(ReviewVO reviewVO){
-        return profileDAO.getReviewList(reviewVO);
+    public List<ReviewVO> getReviewList(int projectNO){
+        return profileDAO.getReviewList(projectNO);
     }
 
     @Override
@@ -56,4 +56,8 @@ public class ProfileServiceImpl implements ProfileService {
         return profileDAO.getBookmarkList(userId);
     }
 
+    @Override
+    public int deleteBookmark(BookmarkVO bookmarkVO){
+        return profileDAO.deleteBookmark(bookmarkVO);
+    }
 }

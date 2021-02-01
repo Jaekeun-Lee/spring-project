@@ -1,5 +1,6 @@
 package com.example.demo.portfolio.controller;
 
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.service.PortfolioService;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,7 @@ public class PortfolioRest {
     //
     @GetMapping("portList")
     public List<PortfolioVO> portList(HttpSession session){
-        session.setAttribute("userId","user01");
-        /*portfolioVO.setUserId((String)session.getAttribute("userId"));*/
-        List<PortfolioVO> portfolioVOList = portfolioService.getPortList((String)session.getAttribute("userId"));
+        List<PortfolioVO> portfolioVOList = portfolioService.getPortList(((MemberVO)session.getAttribute("user")).getUserId());
         return portfolioVOList; /*레스트는 데이터만 보내주니까*/
     }
 }

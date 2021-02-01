@@ -26,9 +26,11 @@ public interface ProfileService {
     public int updateLink(ProfileDTO.UpdateMyProfileDTO updateLink);
 
     //리뷰 목록 조회
-    public List<ReviewVO> getReviewList(ReviewVO reviewVO);
+    public List<ReviewVO> getReviewList(int projectNO);
 
     //북마크 목록 조회
     public List<BookmarkVO> getBookmarkList(String userId);
 
+    //북마크 목록 삭제
+    public int deleteBookmark(BookmarkVO bookmarkVO);
 }

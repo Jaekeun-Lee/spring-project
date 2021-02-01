@@ -30,6 +30,7 @@
         <association property="post"    column="post_no"  select="getPostBookmark"/>
     </resultMap>
 
+
     <select id="getPostBookmark" resultType="postVO">
         SELECT user_id userId,
                post_no postNo,
@@ -46,6 +47,11 @@
         FROM bookmark
         WHERE user_id = #{userId}
     </select>
+
+    <delete id="deletePostBookmarkList" parameterType="bookmarkVO">
+        DELETE FROM bookmark
+        WHERE bookmark_no = #{bookmarkNo}
+    </delete>
 
     <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
         UPDATE MEMBER
@@ -99,14 +105,17 @@
 
     </select>
 
-    <select id="getReviewList" parameterType="com.example.demo.common.vo.ReviewVO" resultMap="profileSelectMap">
-        SELECT review_no as reviewNo,
-               user_id as userId,
-               project_no as projectNo,
-               review_grade as reviewGrade,
-               review_comment as reviewComment
-        FROM review
-        WHERE project_no = #{projectNo}
+    <select id="getReviewList" parameterType="com.example.demo.common.vo.ReviewVO" resultType="reviewVO">
+        SELECT r.review_no reviewNo,
+               r.user_id userId,
+               r.project_no projectNo,
+               p.project_name projectName,
+               r.review_grade reviewGrade,
+               r.review_comment reviewComment
+        FROM review r, project p
+        WHERE r.project_no = #{projectNo} AND
+              r.project_no = p.project_no AND
+              r.user_id = p.user_id
     </select>
 
 
@@ -117,9 +126,5 @@
         WHERE sh.skill_hashTag_no = h.hashTag_no
           AND sh.user_id = #{user_id}
     </select>
-
-
-
-
 
 </mapper>

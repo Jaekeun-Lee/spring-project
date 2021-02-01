@@ -1,8 +1,11 @@
 package com.example.demo.profile.controller;
 
 import com.example.demo.common.vo.BookmarkVO;
+import com.example.demo.common.vo.ReviewVO;
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
+import com.sun.mail.imap.Rights;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,10 +32,8 @@ public class Profile {
     }
     @PostMapping("addMyProfile")
     public String addMyProfile(@ModelAttribute ProfileDTO.UpdateMyProfileDTO param, HttpSession session, Model model){
-        session.setAttribute("userId","user04");
-        param.setUserId((String)session.getAttribute("userId"));
+        param.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
         profileService.updateMyProfile(param);
-        /*profileService.updateMyProfile(param);*/
         model.addAttribute("profile",profileService.getMyProfile(param.getUserId()));
         return "profile/getMyProfile";
     }
@@ -48,13 +49,22 @@ public class Profile {
     //북마크 목록조회
     @GetMapping("getBookmarkList")
     public String getBookmarkList(HttpSession session, Model model){
-        session.setAttribute("userId","user01");
-        String sessionId = (String)session.getAttribute("userId");
+        String sessionId = ((MemberVO)session.getAttribute("user")).getUserId();
         List<BookmarkVO> bookmarkList = profileService.getBookmarkList(sessionId);
         model.addAttribute("bookmarkList", bookmarkList);
         for(BookmarkVO bookmarkVO : bookmarkList){
             System.out.println(bookmarkVO);
         }
         return "profile/getBookmarkList";
+    }
+
+    //리뷰 목록 조회
+    @GetMapping("getReviewList")
+    public String getReviewList(HttpSession session, Model model){
+        session.setAttribute("userId",2);
+        List<ReviewVO> reviewList = profileService.getReviewList((int)session.getAttribute("userId"));
+//        List<ReviewVO> reviewList = profileService.getReviewList(((MemberVO)session.getAttribute("user")).getUserId());
+        model.addAttribute("reviewList",reviewList);
+        return "profile/getReviewList";
     }
 }

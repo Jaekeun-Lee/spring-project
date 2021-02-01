@@ -4,9 +4,13 @@ public class ReviewVO {
 
     private int reviewNo;
     private int projectNo;
+    private String projectName;
     private int reviewGrade;
     private String reviewComment;
     private String userId;
+
+    public ReviewVO() {
+    }
 
     public int getReviewNo() {
         return reviewNo;
@@ -22,6 +26,14 @@ public class ReviewVO {
 
     public void setProjectNo(int projectNo) {
         this.projectNo = projectNo;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public int getReviewGrade() {
@@ -46,5 +58,17 @@ public class ReviewVO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "ReviewVO{" +
+                "reviewNo=" + reviewNo +
+                ", projectNo=" + projectNo +
+                ", projectName='" + projectName + '\'' +
+                ", reviewGrade=" + reviewGrade +
+                ", reviewComment='" + reviewComment + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
     }
 }

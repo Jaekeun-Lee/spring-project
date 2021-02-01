@@ -93,11 +93,11 @@ public class ProfileServiceImplTest {
     //@Test
     public void getReviewList(){
 
-        ReviewVO reviewVO = new ReviewVO();
+//        ReviewVO reviewVO = new ReviewVO();
+//
+//        reviewVO.setProjectNo(2);
 
-        reviewVO.setProjectNo(2);
-
-        List<ReviewVO> getReviewList = profileService.getReviewList(reviewVO);
+        List<ReviewVO> getReviewList = profileService.getReviewList(2);
 
         Assert.assertEquals(2, getReviewList.size());
     }

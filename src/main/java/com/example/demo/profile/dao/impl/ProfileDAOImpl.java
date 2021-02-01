@@ -46,8 +46,8 @@ public class ProfileDAOImpl implements ProfileDAO {
     }
 
     @Override
-    public List<ReviewVO> getReviewList(ReviewVO reviewVO){
-        return sqlSession.selectList("profileMapper.getReviewList",reviewVO);
+    public List<ReviewVO> getReviewList(int projectNO){
+        return sqlSession.selectList("profileMapper.getReviewList",projectNO);
     }
 
     @Override
@@ -55,4 +55,8 @@ public class ProfileDAOImpl implements ProfileDAO {
         return sqlSession.selectList("profileMapper.getBookmarkList",userId);
     }
 
+    @Override
+    public int deleteBookmark(BookmarkVO bookmarkVO){
+        return sqlSession.delete("profileMapper.deletePostBookmarkList",bookmarkVO);
+    }
 }
