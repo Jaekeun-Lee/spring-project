@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
+	<link rel="stylesheet" href="/resources/css/style.css">
 	<!--  ////////////////////// Bootstrap /////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
@@ -15,14 +16,8 @@
     
     <!--  ///////////////////////// CSS ////////////////////////// -->
     <style>
-    #card_1 { 
-	overflow: hidden;
-	text-overflow: clip;
-	}
-	.wrapper1 {
-    float:none;
-    width: 60%;
-    margin: 100px auto;
+	body { 
+	font-size: 130%;
 	}
     </style>
     
@@ -65,14 +60,26 @@
 			})
 		
 	}
-	$(function(){
-    	$('#test_1').on("click", function(){
-    		var ahref = window.location.href.substring(0,window.location.href.indexOf("&",0));
-    		alert(ahref);
-    		self.location = window.location.href + "&searchConditionB=1"
-    	});
-    });
+	
+	$(function () {
+        $("input[type=radio][name=options_1]").on("click",function () {
+            categoryList();
+        })
+    })
 
+	function categoryList() {
+        let categoryList = new Array();
+
+        $("input[name=options_1]:checked").each(function (i) {
+            categoryList.push("searchConditionA="+$(this).val());
+        })
+        let param = "";
+        categoryList.forEach( element => param+=element+"&");
+
+
+        window.location.replace("/applicant/appliedProjectList?"+param);
+
+    }
 
 	</script>
 	
@@ -80,29 +87,57 @@
 </head>
 <body>
 	<div th:include="topToolBar.html" ></div>
-	<div class="wrapper1">
+	<div class="wrapper">
 	<h4 class="display-3">신청한 프로젝트(팀원)</h4>
-	<hr class="my-4">
-	<span>
-		<button id="button_period_1" type="button" class="btn btn-outline-secondary">
-		<a href="/applicant/appliedProjectList?searchConditionA=1">
-		1개월</button></a>
-		<button id="button_period_2" type="button" class="btn btn-outline-secondary">
-		<a href="/applicant/appliedProjectList?searchConditionA=2">
-		2개월</button></a>
-		<button id="button_period_3" type="button" class="btn btn-outline-secondary">
-		<a href="/applicant/appliedProjectList?searchConditionA=3">
-		3개월</button></a>
-	</span>
-	<span style="float:right;">
-		<button id="test_1" type="button" class="btn btn-outline-secondary">
-		대기</button></a>
-		<button id="test_2" type="button" class="btn btn-outline-secondary">
-		승인</button></a>
-	</span>
-	<div id="card_2" th:each="applicantVO : ${appliedList}" style="height:150px;">
+	
+	<div class="row">
+        <div class="category-box col-lg-3">
+            <div class="searchCondition-list" style="display: inline-block; width : 90%;">
+                <div class="sear">
+                    <div>
+						<a href="/applicant/appliedProjectList">신청 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/endProjectList">완료 프로젝트</a><hr/>
+					</div>
+					<div>
+						<a href="/applicant/applicantList">신청서 확인</a><hr/>
+					</div>			                
+                </div>
+            </div>
+            <div id="line"></div>
+        </div>
+	
+	<div class="card-list-box col-lg-8">	
+	<div class="searchCondition-list">
+		<span style="margin: 0 20px;">리스트 정렬 기준</span>
+		<span>
+
+			<label class="btn btn-outline-primary">
+				<input type="radio" name="options_1" id="option1" autocomplete="off" value="1"> 1개월
+			</label>
+			<label class="btn btn-outline-primary">
+				<input type="radio" name="options_1" id="option2" autocomplete="off" value="2">2개월
+        	</label>
+			<label class="btn btn-outline-primary">
+            	<input type="radio" name="options_1" id="option3" autocomplete="off" value="3">3개월
+			</label>
+
+	    </span>
+	    
+	    <span style="float:right;">
+			<label class="btn btn-outline-primary">
+				<input type="radio" name="options_2" id="option2" autocomplete="off" value="2">대기
+			</label>
+			<label class="btn btn-outline-primary">
+				<input type="radio" name="options_2" id="option3" autocomplete="off" value="3">승인
+			</label>
+		</span>
+	</div>
+
+	<div id="card_2" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
        <div class="card h-100 ">
-         <div id="card_1" class="card-body">
+         <div class="card-body" style="overflow: hidden;">
          	<div style="float: left; width: 80%;">
 				<div th:if="${applicantVO.applicantStatus}==1">
 					<span class="badge badge-info">대기</span>
@@ -120,7 +155,7 @@
 					<span class="badge badge-pill badge-primary">참가중</span>
 				</div>
 				<h4 class="card-title">
-				<a th:href="@{/project/getProject(projectNo=${applicantVO.projectVO.projectNo})}" th:text="${applicantVO.projectVO.projectName}"/>
+					<a th:href="@{/project/getProject(projectNo=${applicantVO.projectVO.projectNo})}" th:text="${applicantVO.projectVO.projectName}"/>
 				</h4>
 			</div>
 			<div th:if="${applicantVO.applicantStatus}==2">
@@ -133,29 +168,32 @@
 				<div style="float: left; width: 80%; height:100px;">
 					<div class="card-text" th:text="${applicantVO.projectVO.projectDetail}"></div>
 				</div>
-				<div style="float: right; width: 17%;">
-					<span>팀장명</span>
-					<span style="float: right;" th:text="${applicantVO.projectVO.leaderId}"></span><p>
-					<span>마감일</span>
-					<span style="float: right;" th:text="${#dates.format(applicantVO.projectVO.applicationDeadline, 'MM/dd')}"></span><p>
+				<div style="float: right; width: 150px;">
+					<p>
+						<span>팀장명</span>
+						<span style="float: right;" th:text="${applicantVO.projectVO.leaderId}"></span><p>
+						<span>마감일</span>
+						<span style="float: right;" th:text="${#dates.format(applicantVO.projectVO.applicationDeadline, 'MM/dd')}"></span><p>
+					</p>
 				</div>
 			</div>
-			<div>
-			<div style="height:36px;"/>
-			</div>
-			<div class="card-footer">
-				<small class="text-muted">
-					<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-					<span th:text="${applicantVO.projectVO.meetingLocation}"/>
-				</small>
+
+			<div class="card-footer" >
+                <small class="text-muted">
+                    <th:block th:if="${applicantVO.projectVO.meetingMethod == 1}">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span th:text="${applicantVO.projectVO.meetingLocation}"/>
+                    </th:block>
+                    <th:block th:if="${applicantVO.projectVO.meetingMethod == 2}">
+                        <i class="fas fa-laptop"></i>
+                        <span th:if="${applicantVO.projectVO.meetingMethod == 2}">비대면 (온라인)</span>
+                    </th:block>
+                </small>
 			</div>
 		</div>
+		</div>
 	</div>	
-	</div>
-	
-	
-	
-	
+</div>
 
 </body>
 </html>

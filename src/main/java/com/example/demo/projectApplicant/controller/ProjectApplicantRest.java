@@ -38,7 +38,6 @@ public class ProjectApplicantRest {
 	@RequestMapping(value="json/updateApplicantStatus/{applicantStatus}/{applicantNo}", method=RequestMethod.GET)
 	public ApplicantVO updateApplicantStatus(@ModelAttribute("updateApplicantStatusDTO")UpdateApplicantStatusDTO updateApplicantStatusDTO,
 								HttpSession session) {
-		System.out.println("@@@@@@@"+updateApplicantStatusDTO.getApplicantStatus());
 		updateApplicantStatusDTO.setUserId("user02");
 		int applicantNo = updateApplicantStatusDTO.getApplicantNo();
 		

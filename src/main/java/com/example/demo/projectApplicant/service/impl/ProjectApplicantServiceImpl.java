@@ -62,20 +62,16 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	@Override
 	public Map<String, Object> getApplicantList(SearchVO searchVO) {
 		List<ApplicantVO> list = projectapplicantDAO.getApplicantList(searchVO);
-		int totalCount = projectapplicantDAO.getTotalCount(searchVO);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
 
 	@Override
 	public Map<String, Object> getAppliedProjectList(SearchVO searchVO) {
 		List<ApplicantVO> list = projectapplicantDAO.getAppliedApplicantList(searchVO);
-		int totalCount = projectapplicantDAO.getAppliedTotalCount(searchVO);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
 

@@ -27,9 +27,5 @@ public interface ProjectApplicantDAO {
 	void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 	
 	void updateProjectMember(UpdateApplicantStatusDTO updateApplicantStatusDTO);
-	
-	int getTotalCount(SearchVO searchVO);
-	
-	int getAppliedTotalCount(SearchVO searchVO);
 
 }
