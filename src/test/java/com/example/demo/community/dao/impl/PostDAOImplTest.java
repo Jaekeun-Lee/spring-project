@@ -53,23 +53,23 @@ public class PostDAOImplTest {
         //assert - 내가 기대하고 있는 값, 실제로 넣은 값.
     }
 
-    @Test
-    public void addReply(){
-        ReplyVO replyVO = new ReplyVO();
-
-        replyVO.setPostNo(2);
-        //둘중에 하나만 넣으려면 mapper에서 해당 No 주석처리...커플링?
-        replyVO.setProjectNo(2);
-        replyVO.setReplyUserId("user01");
-        replyVO.setReplyContent("reply테스트6번째");
-
-        postService.addReply(replyVO);
-
-        PostVO postVO = postService.getPost(4);
-
-        Assert.assertEquals(1,replyVO.getPostNo());
-
-    }
+//    @Test
+//    public void addReply(){
+//        ReplyVO replyVO = new ReplyVO();
+//
+//        replyVO.setPostNo(2);
+//        //둘중에 하나만 넣으려면 mapper에서 해당 No 주석처리...커플링?
+//        replyVO.setProjectNo(3);
+//        replyVO.setReplyUserId("user94");
+//        replyVO.setReplyContent("reply테스트9째");
+//
+//        postService.addReply(replyVO.getReplyNo());
+//
+//        PostVO postVO = postService.getPost(4);
+//
+//        Assert.assertEquals(1,replyVO.getPostNo());
+//
+//    }
 
     @Test
     public void getPost(){
@@ -86,16 +86,16 @@ public class PostDAOImplTest {
 
 
 
-    @Test
-    public void getReply(){
-
-        ReplyVO replyVO = new ReplyVO();
-        replyVO = postService.getReply("user02");
-        System.out.println("getReply() TEST::"+replyVO);
-
-//        Assert.assertEquals("");
-//        여유있을때 한번더 공부하고 적용해보기
-    }
+//    @Test
+//    public void getReply(){
+//
+//        ReplyVO replyVO = new ReplyVO();
+//        replyVO = postService.getReply("user02");
+//        System.out.println("getReply() TEST::"+replyVO);
+//
+////        Assert.assertEquals("");
+////        여유있을때 한번더 공부하고 적용해보기
+//    }
 
     @Test
     public void updatePost(){
@@ -146,14 +146,14 @@ public class PostDAOImplTest {
 
     }
 
-    @Test
-    public void deleteReply(){
-
-        ReplyVO replyVO = new ReplyVO();
-        replyVO = postService.getReply("user01");
-
-        postService.deleteReply(replyVO);
-    }
+//    @Test
+//    public void deleteReply(){
+//
+//        ReplyVO replyVO = new ReplyVO();
+//        replyVO = postService.getReply("user01");
+//
+//        postService.deleteReply(replyVO);
+//    }
 
     @Test
     public void getPostList(){
