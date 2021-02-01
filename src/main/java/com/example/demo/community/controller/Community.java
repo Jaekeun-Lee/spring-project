@@ -4,6 +4,7 @@ import com.example.demo.common.vo.PageVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
+import com.example.demo.member.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,8 +42,8 @@ public class Community {
         System.out.println("addPost 컨트롤러::" + postVO);
 
 //        데이터 임의세팅
-        httpSession.setAttribute("userId", "user01");
-        postVO.setUserId((String) httpSession.getAttribute("userId"));
+//        httpSession.setAttribute("userId", "user01");
+        postVO.setUserId(((MemberVO)httpSession.getAttribute("user")).getUserId());
         postService.addPost(postVO);
 
         model.addAttribute("post", postVO);
@@ -53,8 +54,10 @@ public class Community {
     /*URI에  postNo 적고 검색(K,V)*/
     @GetMapping("getPost")
     public String getPost(@RequestParam("postNo") int postNo,
+                          HttpSession httpSession,
                           Model model) throws Exception {
         PostVO postVO = postService.getPost(postNo);
+        postVO.setUserId(((MemberVO)httpSession.getAttribute("user")).getUserId());
 
         model.addAttribute("postVO", postVO);
         return "post/getPost";
@@ -111,11 +114,12 @@ public class Community {
 
     @GetMapping("getPostList")
     public String getPostList(@ModelAttribute("searchVO") SearchVO  searchVO,
+                              HttpSession httpSession,
                               Model model)throws Exception{
 
         System.out.println("getPostList : GET");
         searchVO.setPageSize(20);
-        searchVO.setUserId("user02");
+        searchVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
         if(searchVO.getCurrentPage() == 0 ){
             searchVO.setCurrentPage(1);
         }
@@ -163,9 +167,9 @@ public class Community {
                              Model model){
         System.out.println("/deletePost GET");
 
-        httpSession.setAttribute("userId", "user05");
-        postVO.setUserId((String)httpSession.getAttribute("userId"));
-
+//        httpSession.setAttribute("userId", "user05");
+//        postVO.setUserId((String)httpSession.getAttribute("userId"));
+        postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
         postService.deletePost(postVO);
 
         return "redirect:/comm/getPostList";

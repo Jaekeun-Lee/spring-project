@@ -56,7 +56,7 @@
                 #{viewCnt})
     </insert>
 
-    <select id="addReply"   parameterType="replyVO">
+    <select id="addReply"   parameterType="String"      resultMap="replySelectMap">
         insert
         into REPLY(
                    reply_no,

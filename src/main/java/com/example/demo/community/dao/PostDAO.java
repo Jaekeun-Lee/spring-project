@@ -13,7 +13,7 @@ public interface PostDAO {
     public void addPost(PostVO postVO);
 
     //reply등록
-    public void addReply(ReplyVO replyVO);
+    public int addReply(int replyNo);
 
     //포스트 상세조회
     public PostVO getPost(int postNo);
