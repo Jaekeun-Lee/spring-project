@@ -153,14 +153,16 @@ public class Community {
     }
 
     @PostMapping("updatePost")
-    public String updatePost(PostVO postVO) throws Exception{
+    public String updatePost(@ModelAttribute  PostVO postVO,
+                             HttpSession httpSession,
+                             Model model) throws Exception{
         System.out.println("/updatePost POST");
-//        int postNo = postVO.getPostNo();
-//        System.out.println(postNo);
+        int postNo = postVO.getPostNo();
+        System.out.println(postNo);
 
         postService.updatePost(postVO);
 
-//        model.addAttribute("postVO", postVO);
+        model.addAttribute("postVO", postVO);
 
         return "post/getPost";
     }

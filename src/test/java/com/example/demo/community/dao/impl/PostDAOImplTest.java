@@ -4,7 +4,6 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
 import com.example.demo.community.vo.ReplyVO;
-import oracle.jdbc.proxy.annotation.Post;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

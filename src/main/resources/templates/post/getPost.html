@@ -86,7 +86,7 @@
     </div>
 
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->
-    <div class="reply-box" style="float: left">
+    <div class="reply-box">
         <h5 id="reply-list">댓글</h5>
         <div th:each="replyVO:${postVO.postReply}" class="card-secondary mb-3"    style="...">
             <div th:text="${replyVO.replyUserId}"   class="card-header"></div>

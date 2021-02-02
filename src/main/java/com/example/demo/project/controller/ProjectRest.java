@@ -51,6 +51,4 @@ public class ProjectRest {
         return projectService.addProjectReply(projectReplyDTO);
     }
 
-
-
 }
