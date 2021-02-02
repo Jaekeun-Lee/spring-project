@@ -9,13 +9,13 @@
 <body>
 <form th:action="@{/comm/addPost}" th:method="post">
     제목 : <input type="text"  placeholder="제목을 입력하세요." name="postName"></br>
-    내용 : <input type="text"  placeholder="내용을 입력하세요." name="postContent"></br>
+    내용 : <textarea cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea></br>
 
 
-
+</form>
 <!--    <a th:href="@{/comm/getPost}">작성</a>-->
     <input type="submit"    value="작성">
-    <input type="submit"    value="취소">
-</form>
+    <a th:href="@{/comm/getPostList}">취소</a>
+
 </body>
 </html>

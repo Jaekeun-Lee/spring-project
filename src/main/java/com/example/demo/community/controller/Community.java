@@ -5,6 +5,7 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
 import com.example.demo.community.vo.PostVO;
 import com.example.demo.member.vo.MemberVO;
+import com.example.demo.project.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,8 +21,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/comm/*")
-//@Slf4j
+@Slf4j
 public class Community {
+
+    public Community(PostService postService) {
+        log.info(":: " + getClass().getName() + " Start::");
+        this.postService = postService;
+    }
 
 //    public Community(PostService postService){
 //        this.postService = postService;
@@ -147,32 +153,35 @@ public class Community {
     }
 
     @PostMapping("updatePost")
-    public String updatePost(@ModelAttribute("post") PostVO postVO,
-                             Model model,
-                             HttpSession httpSession) throws Exception{
+    public String updatePost(PostVO postVO) throws Exception{
         System.out.println("/updatePost POST");
-        int postNo = postVO.getPostNo();
-        System.out.println(postNo);
+//        int postNo = postVO.getPostNo();
+//        System.out.println(postNo);
 
         postService.updatePost(postVO);
 
-        model.addAttribute("postVO", postVO);
+//        model.addAttribute("postVO", postVO);
 
         return "post/getPost";
     }
 
     @GetMapping("deletePost")
-    public String deletePost(@ModelAttribute PostVO postVO,
+    public String deletePost(
+//                            @RequestParam("postNo") PostVO postVO,
+                             @ModelAttribute PostVO postVO,
                              HttpSession httpSession,
                              Model model){
         System.out.println("/deletePost GET");
+        postService.deletePost(postVO);
 
 //        httpSession.setAttribute("userId", "user05");
 //        postVO.setUserId((String)httpSession.getAttribute("userId"));
         postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
-        postService.deletePost(postVO);
+
 
         return "redirect:/comm/getPostList";
     }
+
+//    @GetMapping("detail")
 
 }

@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+
+    </script>
+
     <title>Title</title>
 </head>
 
 <body bgcolor="#808080" text="black">
+
 <!--<form th:action="@{/post/updatePost}" th:method="get">-->
 <form th:action="@{/post/updatePost}"   th:method="POST">
     <input type="hidden"    id="postNo"    name="postNo"   th:value="${postVO.postNo}"/>
 
-    <input type="text"  name="postName"     th:value="${postVO.postName}"><br>
-    <textarea cols="80" rows="40" name="postContent"     th:text="${postVO.postContent}"></textarea>
+    제목 : <input type="text"  name="postName"     th:value="${postVO.postName}"><br>
+    내용 : <input type="text" name="postContent"     th:value="${postVO.postContent}"></input>
 
 
 </form>
 <a th:href="@{/comm/getPost(postNo=${postVO.postNo})}">완료</a>
-<a th:href="@{/comm/getPost}">뒤로가기</a>
+<input th:type="submit"    th:value="완료">
+<a th:href="@{/comm/getPost(postNo=${postVO.postNo})}">취소</a>
+
 </body>
 </html>
