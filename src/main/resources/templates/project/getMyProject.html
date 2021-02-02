@@ -7,11 +7,137 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        #myProjectHeader {
+            margin: 100px 0;
+        }
+
+        #toast-message {
+            width: 250px;
+            height: 20px;
+            height: auto;
+            position: fixed;
+            left: 50%;
+            margin-left: -125px;
+            bottom: 60%;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+        $(function () {
+            let projectNo = $('#projectNo').val();
+            let userId = $('#userId').val();
+
+            $('#add-todo-btn').on("click", function () {
+                $.ajax({
+                    type : 'POST',
+                    url: '/project/addTodo',
+                    data : JSON.stringify({
+                        userId : userId,
+                        projectNo : projectNo,
+                        todoContent : $('#todoContent').val(),
+                    }),
+                    dataType : 'text',
+                    contentType : 'application/json',
+                    success : function (data) {
+                        const todoVO = JSON.parse(data);
+                        const regDate = todoVO.regDate.substring(0,10);
+
+                        let html =
+                            "<tr class=\"table-secondary\">\n" +
+                            "   <th>\n" +
+                            "       <div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\">\n" +
+                            "           <label class=\"btn btn-outline-success\">\n" +
+                            "               <input type=\"checkbox\" autocomplete=\"off\">\n" +
+                            "           </label>\n" +
+                            "       </div>\n" +
+                            "   </th>\n" +
+                            "   <td colspan=\"3\">"+todoVO.todoContent+"</td>\n" +
+                            "   <td>"+todoVO.userId+"</td>\n" +
+                            "   <td>"+regDate+"</td>\n" +
+                            "</tr>"
+
+                        $('#todolist-header').after(html)
+                        $('#todoContent').val("");
+                    },
+                    error: function (e) {
+                        $('#toast-message').fadeIn(400).delay(1000).fadeOut(400);
+                    }
+
+                })
+            })
+        })
+
+    </script>
+
 </head>
-<body>
-    
-        <div id="myProjectHeader">
+<body style="background-color: #f7f7f9">
+<div class="wrapper">
+    <input type="hidden" id="userId" th:value="${session.user.userId}">
+    <input type="hidden" id="projectNo" th:value="${myProject.projectNo}">
+    <div id="myProjectHeader" class="row">
+        <h1 class="display-6" th:text="${myProject.projectName}"></h1>
+        <hr class="my-4">
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class='alert alert-dismissible alert-danger' id="toast-message" style='display:none'>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>TODO 등록 실패</strong>
+            </div>
+            <table class="table table-hover">
+                <tr class="table-primary">
+                    <td colspan="5">
+                        <input type="text" class="form-control" placeholder="TODO 작성" id="todoContent"
+                               style="background-color: #bfbfbf; border-bottom: 2px solid #888;">
+                    </td>
+                    <td>
+                        <button type="button" id="add-todo-btn" class="btn btn-outline-primary">ADD</button>
+                    </td>
+                </tr>
+                <tr id="todolist-header">
+                    <th>완료 여부</th>
+                    <td colspan="3">Todo List</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <th:block th:each="todo:${myProject.todoList}">
+                    <tr class="table-secondary">
+                        <th>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-success"
+                                       th:classappend="${todo.todoStatus==2} ? '' : active">
+                                    <input type="checkbox" autocomplete="off" th:checked="${todo.todoStatus==1}">
+                                </label>
+                            </div>
+                        </th>
+                        <td colspan="3" th:text="${todo.todoContent}"></td>
+                        <td th:text="${todo.userId}"></td>
+                        <td th:text="${#dates.format(todo.regDate, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+
+        <div class="col-lg-3">
+            <table class="table table-hover">
+                <th:block th:each="member:${myProject.teamMember}">
+                    <tr>
+                        <th th:text="${member.profileImg}"></th>
+                        <td th:text="${member.userId}"></td>
+                    </tr>
+                </th:block>
+            </table>
 
         </div>
+    </div>
+</div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.demo.project.dao.impl;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dao.ProjectDAO;
+import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.MyProjectVO;
@@ -36,14 +37,14 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     @Override
     public ProjectVO getProject(Map<String, Object> getProjectMap) {
-        sqlSession.update(NAMESPACE + "updateViewCnt", getProjectMap);
-        return sqlSession.selectOne(NAMESPACE + "getProject", getProjectMap);
+        return sqlSession.update(NAMESPACE + "updateViewCnt", getProjectMap) == 1 ?
+                sqlSession.selectOne(NAMESPACE + "getProject", getProjectMap) : null;
     }
 
     @Override
     public ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO) {
-        sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO);
-        return sqlSession.selectOne(NAMESPACE + "getProjectReply", projectReplyDTO);
+        return sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO) == 1?
+                sqlSession.selectOne(NAMESPACE + "getProjectReply", projectReplyDTO) : null;
     }
 
     @Override
@@ -52,8 +53,10 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     @Override
-    public int addTodo(TodoVO todoVO) {
-        return sqlSession.insert(NAMESPACE + "addTodo", todoVO);
+    @Transactional
+    public TodoVO addTodo(AddTodoDTO addTodoDTO) {
+        sqlSession.insert(NAMESPACE + "addTodo", addTodoDTO);
+        return sqlSession.selectOne(NAMESPACE + "getTodo", addTodoDTO);
     }
 
     @Override

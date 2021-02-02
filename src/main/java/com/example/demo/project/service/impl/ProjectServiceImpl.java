@@ -4,6 +4,7 @@ import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
+import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
@@ -33,13 +34,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Map<String,Object> getProject(int projectNo, String userId) {
-    	
-    	Map<String,Object> map = new HashMap<String,Object>();
-        Map<String, Object> getProjectMap = new HashMap<>();
 
+        Map<String, Object> getProjectMap = new HashMap<>();
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
-        
+
+        Map<String,Object> map = new HashMap<String,Object>();
         map.put("projectVO", projectDAO.getProject(getProjectMap));
         map.put("existApplicant", projectDAO.existApplicant(getProjectMap));
 
@@ -57,8 +57,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int addTodo(TodoVO todoVO) {
-        return projectDAO.addTodo(todoVO);
+    public TodoVO addTodo(AddTodoDTO addTodoDTO) {
+        return projectDAO.addTodo(addTodoDTO);
     }
 
     @Override

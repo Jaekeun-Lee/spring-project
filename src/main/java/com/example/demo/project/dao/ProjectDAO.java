@@ -2,6 +2,7 @@ package com.example.demo.project.dao;
 
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.vo.MyProjectVO;
@@ -30,7 +31,7 @@ public interface ProjectDAO {
     MyProjectVO getMyProject(int projectNo);
 
     //TodoList 추가
-    int addTodo(TodoVO todoVO);
+    TodoVO addTodo(AddTodoDTO addTodoDTO);
 
     //Bookmark 추가
     int addBookmark(ProjectBookmarkDTO projectBookmarkDTO);

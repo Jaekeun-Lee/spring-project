@@ -27,7 +27,6 @@
 		<result property="endDate"    				column="end_date"      				jdbcType="DATE"/>
 		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"     jdbcType="NUMERIC"/>
 
-
 		<!-- association -->
 		<association property="applicantsCnt"		column="project_no"			select="getApplicantsCntByProjectNo"/>
 		<association property="bookmarkNo"			column="{projectNo=PROJECT_NO,bookmarkCheckId=bookmarkCheckId}" 	 select="getBookmarkCheckByProjectNo"/>
@@ -138,16 +137,28 @@
 	</select>
 
 
-	<insert id="addTodo" parameterType="todoVO">
+	<insert id="addTodo" parameterType="addTodoDTO">
 		INSERT INTO TODO (TODO_NO,
 		                  PROJECT_NO,
 		                  USER_ID,
-		                  TODO_CONTENT )
+		                  TODO_CONTENT,
+		                  REG_DATE)
 		VALUES (SEQ_TODO_NO.NEXTVAL,
-		        #{projectNO},
+		        #{projectNo},
 		        #{userId},
-		        #{todoContent})
+		        #{todoContent},
+		        SYSDATE)
 	</insert>
+
+	<select id="getTodo" parameterType="addTodoDTO" resultType="todoVO">
+		SELECT TODO_NO,
+			   PROJECT_NO,
+			   USER_ID,
+			   TODO_CONTENT,
+			   REG_DATE
+		FROM TODO
+		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{userId} AND TODO_CONTENT = #{todoContent}
+	</select>
 
 
 	<insert id="addBookmark" parameterType="projectBookmarkDTO">
@@ -354,9 +365,11 @@
 		       PROJECT_NO,
 		       USER_ID,
 		       TODO_CONTENT,
-		       TODO_STATUS
+		       TODO_STATUS,
+		       REG_DATE
 		FROM   TODO
 		WHERE  PROJECT_NO = #{projectNo}
+		ORDER BY TODO_STATUS DESC, TODO_NO DESC
 	</select>
 
 	<select id = "getVotedMemberByProjectNo"	resultType="string">

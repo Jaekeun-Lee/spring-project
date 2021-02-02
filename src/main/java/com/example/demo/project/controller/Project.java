@@ -1,10 +1,8 @@
 package com.example.demo.project.controller;
 
 import com.example.demo.member.util.SecurityUtils;
-import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.dto.ProjectSearchDTO;
-import com.example.demo.project.vo.MyProjectVO;
 import com.example.demo.project.vo.ProjectVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +45,10 @@ public class Project {
 
     @GetMapping("/getProject")
     public String getProject(@RequestParam("projectNo") int projectNo, Model model) {
-        //세션 구현 후 변경
-        String sessionId = "user10";
 
-        Map map = projectService.getProject(projectNo, sessionId);
+        Map<String, Object> map = projectService.getProject(projectNo, SecurityUtils.getLoginSessionMemberInfo().getUsername());
         model.addAttribute("project", map.get("projectVO"));
         model.addAttribute("existApplicant",map.get("existApplicant"));
-
-        System.out.println("@@@@@@@@"+map.get("existApplicant"));
 
         return "project/getProject";
     }

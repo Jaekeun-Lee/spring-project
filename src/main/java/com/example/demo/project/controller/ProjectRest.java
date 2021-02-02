@@ -1,9 +1,11 @@
 package com.example.demo.project.controller;
 
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
+import com.example.demo.project.vo.TodoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +20,6 @@ public class ProjectRest {
     @Autowired
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
-
 
     public ProjectRest(ProjectService projectService) {
         log.info(":: "+getClass().getName()+" Start::");
@@ -42,6 +43,10 @@ public class ProjectRest {
         return projectService.addProjectReply(projectReplyDTO);
     }
 
+    @PostMapping("/addTodo")
+    public TodoVO addTodo(@RequestBody AddTodoDTO addTodoDTO) {
+        return projectService.addTodo(addTodoDTO);
+    }
 
 
 }
