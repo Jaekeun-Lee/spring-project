@@ -34,4 +34,7 @@ public interface PostService {
 //    게시물목록조회
     public Map<String, Object> getPostList(SearchVO searchVO);
 //    public List<PostVO> getPostList(PostVO postVO);
+
+    //조회수 +1
+//    public int plusViewCnt(int seq);
 }

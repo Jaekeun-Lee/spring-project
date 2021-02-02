@@ -40,6 +40,8 @@ public interface PostDAO {
     //검색
     public int getTotalCount(SearchVO searchVO);
 
+//    public int plusViewCnt(int seq);
+
 
 
 

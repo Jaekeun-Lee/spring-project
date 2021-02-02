@@ -19,6 +19,9 @@ public interface ProjectDAO {
 
     //프로젝트 상세정보 조회
     ProjectVO getProject(Map<String, Object> getProjectMap);
+    
+    //신청서 썼는지 안썼는지
+    int existApplicant(Map<String, Object> getProjectMap);
 
     //프로젝트 댓글 작성
     ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO);

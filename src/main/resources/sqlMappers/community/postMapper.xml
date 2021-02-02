@@ -181,5 +181,12 @@
         FROM POST
     </select>
 
+<!--    조회수 +1-->
+<!--    <update id="plusViewCnt"    parameterType="int">-->
+<!--        UPDATE  POST-->
+<!--        SET ViewCnt = ViewCnt +1-->
+<!--        WHERE SEQ = #{SEQ}-->
+<!--    </update>-->
+
 
 </mapper>

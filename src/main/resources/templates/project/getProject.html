@@ -272,11 +272,14 @@
         <div class="col-lg-3" id="team-info-box">
 
             <!-- Button that triggers the popup -->
-            <th:block th:if="${session.user.projectNo == 0}">
+            <th:block th:if="${session.user.projectNo == 0 && existApplicant ==0}">
             	<button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
             </th:block>
             <th:block th:if="${session.user.projectNo != 0}">
             	<span id="add_applicant_done" class="badge badge-pill badge-light">이미 프로젝트 진행중 입니다.</span>
+            </th:block>
+            <th:block th:if="${existApplicant != 0}">
+            	<span id="add_applicant_done" class="badge badge-pill badge-light">신청한 프로젝트</span>
             </th:block>
             <div class="member-info">
                 <h4>Team Member</h4>

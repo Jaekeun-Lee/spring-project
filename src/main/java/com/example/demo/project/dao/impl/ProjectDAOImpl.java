@@ -103,6 +103,11 @@ public class ProjectDAOImpl implements ProjectDAO {
         return sqlSession.insert(NAMESPACE + "addReview", reviewVOList);
     }
 
+	@Override
+	public int existApplicant(Map<String, Object> getProjectMap) {
+		return sqlSession.selectOne("applicantMapper.existApplicant", getProjectMap);
+	}
+
 
 
 }

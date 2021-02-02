@@ -95,4 +95,9 @@ public class PostServiceImpl implements PostService {
 //    public List<PostVO> getPostList(PostVO postVO){
 //        return postDAO.getPostList(postVO);
 //    }
+
+//    @Override
+//    public int plusViewCnt(int seq){
+//        return postDAO.plusViewCnt(seq);
+//    }
 }
