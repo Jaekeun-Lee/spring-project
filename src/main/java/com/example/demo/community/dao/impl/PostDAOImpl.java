@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -91,6 +90,14 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     public int getTotalCount(SearchVO searchVO){
+
+
         return sqlSession.selectOne("postMapper.getTotalCount", searchVO);
     }
+
+//    @Override
+//    public int plusViewCnt(int seq){
+//
+//        return  sqlSession.update("postMapper.plusViewCnt", seq);
+//    }
 }
