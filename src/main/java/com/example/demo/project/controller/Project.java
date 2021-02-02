@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/project")
@@ -44,10 +45,13 @@ public class Project {
     @GetMapping("/getProject")
     public String getProject(@RequestParam("projectNo") int projectNo, Model model) {
         //세션 구현 후 변경
-        String sessionId = "user03";
+        String sessionId = "user10";
 
-        ProjectVO projectVO = projectService.getProject(projectNo, sessionId);
-        model.addAttribute("project", projectVO);
+        Map map = projectService.getProject(projectNo, sessionId);
+        model.addAttribute("project", map.get("projectVO"));
+        model.addAttribute("existApplicant",map.get("existApplicant"));
+        
+        System.out.println("@@@@@@@@"+map.get("existApplicant"));
 
         return "project/getProject";
     }

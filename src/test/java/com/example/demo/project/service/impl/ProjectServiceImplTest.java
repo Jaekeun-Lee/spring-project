@@ -62,9 +62,9 @@ public class ProjectServiceImplTest {
     }
 
     //@Test
-    public void getProject() {
-
-        ProjectVO projectVO = projectService.getProject(1, "user01");
+//    public void getProject() {
+//
+//        ProjectVO projectVO = projectService.getProject(1, "user01");
 
 //        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+projectVO);
 //        //테스트 데이터 프로젝트 명
@@ -81,7 +81,7 @@ public class ProjectServiceImplTest {
 //        //테스트 데이터 북마크여부
 //        Assert.assertEquals(1, projectVO.getBookmarkCheck());
 
-    }
+//   }
 
     //@Test
     public void getMyProject() {

@@ -31,15 +31,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectVO getProject(int projectNo, String userId) {
-
+    public Map<String,Object> getProject(int projectNo, String userId) {
+    	
+    	Map<String,Object> map = new HashMap<String,Object>();
         Map<String, Object> getProjectMap = new HashMap<>();
 
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
+        
+        map.put("projectVO", projectDAO.getProject(getProjectMap));
+        map.put("existApplicant", projectDAO.existApplicant(getProjectMap));
 
-        return projectDAO.getProject(getProjectMap);
-
+        return map;
     }
 
     @Override

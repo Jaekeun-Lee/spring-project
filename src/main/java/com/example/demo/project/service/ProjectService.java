@@ -10,6 +10,7 @@ import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProjectService {
 
@@ -17,7 +18,7 @@ public interface ProjectService {
     int addProject(ProjectVO projectVO);
 
     //프로젝트 상세정보 조회
-    ProjectVO getProject(int projectNo, String userId);
+    Map<String, Object> getProject(int projectNo, String userId);
 
     //프로젝트 댓글 작성
     ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO);

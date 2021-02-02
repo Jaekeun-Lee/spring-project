@@ -183,4 +183,11 @@
 	</update>
 	 
 	 
+	 <select  id="existApplicant"  parameterType="hashMap"	resultType="int">
+	 	SELECT count(*)
+		FROM applicant
+		WHERE
+		user_id = #{userId}
+		AND project_no = #{projectNo}
+	 </select>
 </mapper>
