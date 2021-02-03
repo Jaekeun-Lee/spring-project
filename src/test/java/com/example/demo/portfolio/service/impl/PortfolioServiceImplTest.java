@@ -46,7 +46,7 @@ public class PortfolioServiceImplTest {
 
     }
 
-    //@Test
+    /*//@Test
     public void getPort() {
         PortfolioVO getPort = new PortfolioVO();
 
@@ -58,9 +58,9 @@ public class PortfolioServiceImplTest {
         System.out.println(getPort.getPortProjectStartDate());
         System.out.println(getPort.getPortProjectEndDate());
         Assert.assertEquals(2,getPort.getPortMemberCnt());
-    }
+    }*/
 
-    //@Test
+    /*//@Test
     public void deletePort() {
         PortfolioVO deletePort = new PortfolioVO();
         deletePort.setPortNo(16);
@@ -79,9 +79,9 @@ public class PortfolioServiceImplTest {
         updatePort.setPortTitle("3조 먹성");
 
         Assert.assertEquals(1,portfolioService.updatePort(updatePort));
-    }
+    }*/
 
-    @Test
+   /* @Test
     public void getPortList(){
 
         PortfolioVO getPortList = new PortfolioVO();
@@ -92,5 +92,5 @@ public class PortfolioServiceImplTest {
         Assert.assertEquals(4,getPortList01.size());
 
 
-    }
+    }*/
 }

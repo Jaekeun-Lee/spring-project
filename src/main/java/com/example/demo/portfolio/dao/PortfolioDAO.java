@@ -1,5 +1,6 @@
 package com.example.demo.portfolio.dao;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.portfolio.vo.PortfolioVO;
 
 import java.util.List;
@@ -16,11 +17,16 @@ public interface PortfolioDAO {
     public int updatePort(PortfolioVO updatePort);
 
     //포트폴리오 삭제
-    public int deletePort(PortfolioVO deletePort);
+    public int deletePort(Long portNo);
 
     //포트폴리오 상세 조회
-    public PortfolioVO getPort(int portNo);
+    public PortfolioVO getPort(Long portNo);
 
     //포트폴리오 목록 조회
-    public List<PortfolioVO> getPortList(String userId);
+    public List<PortfolioVO> getPortList(SearchVO searchVO);
+//    public List<PortfolioVO> getPortList(PortfolioVO portfolioVO);
+
+    //검색
+    public int getTotalCount(SearchVO searchVO);
+
 }

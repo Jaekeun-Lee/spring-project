@@ -92,7 +92,7 @@
     </thead>
 
     <tbody>
-    <tr class="" th:each="portfolioVO:${portfolio}">
+    <tr class="" th:each="portfolioVO:${portList}">
         <td>
         <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
         th:text="${portfolioVO.portTitle}"></a></td>

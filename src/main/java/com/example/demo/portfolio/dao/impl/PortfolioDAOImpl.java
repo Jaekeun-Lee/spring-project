@@ -1,5 +1,6 @@
 package com.example.demo.portfolio.dao.impl;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.portfolio.dao.PortfolioDAO;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import org.apache.ibatis.session.SqlSession;
@@ -32,17 +33,25 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     }
 
     @Override
-    public int deletePort(PortfolioVO deletePort){
-        return sqlSession.delete("portfolioMapper.deletePort", deletePort);
+    public int deletePort(Long portNo){
+        return sqlSession.delete("portfolioMapper.deletePort", portNo);
     }
 
     @Override
-    public PortfolioVO getPort(int portNo){
+    public PortfolioVO getPort(Long portNo){
         return sqlSession.selectOne("portfolioMapper.getPort", portNo);
     }
 
     @Override
-    public List<PortfolioVO> getPortList(String userId) {
-        return sqlSession.selectList("portfolioMapper.getPortList",userId);
+    public List<PortfolioVO> getPortList(SearchVO searchVO){
+        return sqlSession.selectList("portfolioMapper.getPortList",searchVO);
+    }
+//    public List<PortfolioVO> getPortList(PortfolioVO portfolioVO) {
+//        return sqlSession.selectList("portfolioMapper.getPortList",portfolioVO);
+//    }
+
+    @Override
+    public int getTotalCount(SearchVO searchVO){
+        return sqlSession.selectOne("portfolioMapper.getTotalCount",searchVO);
     }
 }
