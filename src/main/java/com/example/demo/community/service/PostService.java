@@ -13,7 +13,8 @@ public interface PostService {
     public void addPost(PostVO postVO);
 
     //reply등록/조회
-    public ReplyVO addReply(int replyNo);
+    public ReplyVO addReply(ReplyVO replyVO);
+//    public ReplyVO addReply(int replyNo);
 //    public ReplyVO getReply(String replyUserId);
 
     //    게시물 상세조회(postNo로 데이터 조인값 불러오기)

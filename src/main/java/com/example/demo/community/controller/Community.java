@@ -157,8 +157,10 @@ public class Community {
                              HttpSession httpSession,
                              Model model) throws Exception{
         System.out.println("/updatePost POST");
-        int postNo = postVO.getPostNo();
-        System.out.println(postNo);
+        httpSession.setAttribute("userId","user01");
+        postVO.setUserId((String)httpSession.getAttribute("userId"));
+//        int postNo = postVO.getPostNo();
+//        System.out.println(postNo);
 
         postService.updatePost(postVO);
 
@@ -176,9 +178,9 @@ public class Community {
         System.out.println("/deletePost GET");
         postService.deletePost(postVO);
 
-//        httpSession.setAttribute("userId", "user05");
-//        postVO.setUserId((String)httpSession.getAttribute("userId"));
-        postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+        httpSession.setAttribute("userId", "user05");
+        postVO.setUserId((String)httpSession.getAttribute("userId"));
+//        postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
 
 
         return "redirect:/comm/getPostList";

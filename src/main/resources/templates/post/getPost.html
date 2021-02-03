@@ -11,10 +11,10 @@
 
     <script type="text/javascript">
 
-        function del(postNo){
-            var chk = confirm("정말 삭제하시겠습니까?");
+        function del(){
+            let chk = confirm("정말 삭제하시겠습니까?");
             if (chk){
-                location.href='delete?postNo='+postNo;
+                location.href='getPostList?postNo='+encodeURI(postNo);
             }
         }
 
@@ -37,7 +37,7 @@
                         replyContent: $('#replyContent').val()
                     }),
                     dataType: 'text',
-                    contentYtpe: 'application/json',
+                    contentType: 'application/json',
                     success: function (data) {
                         const replyVO = JSON.parse(data);
                         const regDate = replyVO.regDate.substring(0, 10);
@@ -68,7 +68,7 @@
 <title>게시물 상세조회</title>
 </head>
 <body>
-
+<form>
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
     <input type="hidden"    name="postNo"   id="postNo"   th:value="${postVO.postNo}">
 <!--    <div th:text="${postVO.postNo}">번호</div>-->
@@ -82,9 +82,9 @@
         <a th:href="@{/comm/getPostList}">목록</a>
         <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
 <!--        <a th:href="@{/comm/deletePost}">삭제</a>-->
-        <input type="button"  value="삭제"  onclick="del(${postVO.postNo})">
+        <input type="button"  value="삭제"  onclick="del()">
     </div>
-
+</form>
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->
     <div class="reply-box">
         <h5 id="reply-list">댓글</h5>

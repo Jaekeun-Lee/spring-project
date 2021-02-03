@@ -27,17 +27,16 @@ public class CommunityRest {
     }
 
     @PostMapping("/addReply")
-    public String addReply(@RequestBody ReplyVO replyVO,
+    public ReplyVO addReply(@RequestBody ReplyVO replyVO,
                            HttpSession httpSession){
+        String sessionId = "user94";
+        replyVO.setReplyUserId(sessionId);
 
-        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+//        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
 
-        postService.addReply(replyVO.getReplyNo());
+//        postService.addReply(replyVO);
 
-//        String sessionId = "user02";
-//        replyVO.setReplyUserId(sessionId);
-
-        return "success";
+        return postService.addReply(replyVO);
     }
 
 
