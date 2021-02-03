@@ -73,34 +73,29 @@
                 })
             })
 
-            $("#todoStatus-click").on("click", function (cdata) {
-                let todoNo = $('#todoNo').val();
-                let todoStatus = $('#todoStatus').val();
 
-                alert("todoNo" + todoNo)
-                alert("todoStatus" + todoStatus)
-                /*$.ajax({
+            $('input[name=todoStatus]').on("click" , function () {
+                let todoNo = $(this).data("todono")
+                let todoStatus = $(this).val()
+
+                $.ajax({
                     type: 'POST',
                     url: '/project/updateTodoStatus',
                     data: JSON.stringify({
-                        todoNo: $('#todoNo').val(),
-                        todoStatus: $('#todoStatus').val()
+                        todoNo: todoNo,
+                        todoStatus: todoStatus
                     }),
                     contentType: 'application/json',
                     success: function (data) {
-                        alert("success")
-                        let todoStatusCheck = $('#todoStatus').val();
-
-                        if (todoStatusCheck === "1") {
-                            $('#todoStatus').val(2)
-                            $('#todoStatus').prop('checked',true)
+                        if(todoStatus === "1") {
+                            $('input[name=todoStatus]').attr('value',2)
                         } else {
-                            $('#todoStatus').val(1)
-                            $('#todoStatus').prop('checked',false)
+                            $('input[name=todoStatus]').attr('value',1)
                         }
-                    }
 
-                })*/
+                    }
+                })
+
             })
 
         })
@@ -142,13 +137,12 @@
                 <th:block th:each="todo:${myProject.todoList}">
                     <tr class="table-secondary">
                         <th>
-                            <input type="hidden" th:value="${todo.todoNo}"/>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-success"
                                        th:classappend="${todo.todoStatus==2} ? '' : active">
-                                    <input type="checkbox" autocomplete="off"
+                                    <input type="checkbox" autocomplete="off" name="todoStatus"
                                            th:checked="${todo.todoStatus==1}"
-                                           th:value="${todo.todoStatus==2} ? 1 : 2">
+                                           th:value="${todo.todoStatus==2} ? 1 : 2" th:data-todono="${todo.todoNo}">
                                 </label>
                             </div>
                         </th>
