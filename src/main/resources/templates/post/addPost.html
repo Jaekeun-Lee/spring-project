@@ -7,14 +7,21 @@
 
 </head>
 <body>
-<form th:action="@{/comm/addPost}" th:method="post">
+<form th:action="@{/comm/addPost}" th:method="post" enctype="multipart/form-data">
     제목 : <input type="text"  placeholder="제목을 입력하세요." name="postName"></br>
     내용 : <textarea cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea></br>
+    파일 : <input multiple type="file" name="files">
 
+<!--</form>-->
+<!--<form th:action="@{/comm/addPost}" method="post" enctype="multipart/form-data">-->
+<!--    <input multiple type="file" name="files">-->
+<!--    <button>등록</button>-->
+<!--</form>-->
 
+<!--    <button>submit</button>-->
+    <input type="submit"    value="작성">
 </form>
 <!--    <a th:href="@{/comm/getPost}">작성</a>-->
-    <input type="submit"    value="작성">
     <a th:href="@{/comm/getPostList}">취소</a>
 
 </body>

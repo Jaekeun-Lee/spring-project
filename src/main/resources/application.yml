@@ -33,6 +33,14 @@ spring:
       enabled: true
 
 
+  #최대 허용파일크기 설정 (Default - 1MB)
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+
+
 mybatis:
   type-aliases-package: com.example.demo.*
   mapper-locations: classpath:sqlMappers/**/*.xml
