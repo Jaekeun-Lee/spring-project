@@ -75,4 +75,14 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 		return map;
 	}
 
+	@Override
+	public void fileUpload(int projectNo, String originFileName, long fileSize) {
+		HashMap<String, Object> hm = new HashMap();
+		hm.put("projectNo", projectNo);
+		hm.put("originalfileName", originFileName);
+		hm.put("fileSize", fileSize);
+		
+		projectapplicantDAO.uploadFile(hm);
+	}
+
 }

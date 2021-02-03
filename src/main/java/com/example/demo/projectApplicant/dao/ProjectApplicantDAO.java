@@ -28,4 +28,6 @@ public interface ProjectApplicantDAO {
 	
 	void updateProjectMember(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 
+	void uploadFile(HashMap<String, Object> hm);
+
 }
