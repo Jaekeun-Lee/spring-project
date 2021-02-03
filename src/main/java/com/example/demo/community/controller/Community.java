@@ -153,14 +153,18 @@ public class Community {
     }
 
     @PostMapping("updatePost")
-    public String updatePost(PostVO postVO) throws Exception{
+    public String updatePost(@ModelAttribute  PostVO postVO,
+                             HttpSession httpSession,
+                             Model model) throws Exception{
         System.out.println("/updatePost POST");
+        httpSession.setAttribute("userId","user01");
+        postVO.setUserId((String)httpSession.getAttribute("userId"));
 //        int postNo = postVO.getPostNo();
 //        System.out.println(postNo);
 
         postService.updatePost(postVO);
 
-//        model.addAttribute("postVO", postVO);
+        model.addAttribute("postVO", postVO);
 
         return "post/getPost";
     }
@@ -174,9 +178,9 @@ public class Community {
         System.out.println("/deletePost GET");
         postService.deletePost(postVO);
 
-//        httpSession.setAttribute("userId", "user05");
-//        postVO.setUserId((String)httpSession.getAttribute("userId"));
-        postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+        httpSession.setAttribute("userId", "user05");
+        postVO.setUserId((String)httpSession.getAttribute("userId"));
+//        postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
 
 
         return "redirect:/comm/getPostList";

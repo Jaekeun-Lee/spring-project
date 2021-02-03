@@ -34,9 +34,10 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
-    public int addReply(int replyNo){
+    public ReplyVO addReply(ReplyVO replyVO){
 
-        return sqlSession.insert("postMapper.addReply", replyNo);
+         sqlSession.insert("postMapper.addReply", replyVO);
+         return sqlSession.selectOne("postMapper.getReply", replyVO);
     }
 
     @Override
@@ -45,11 +46,11 @@ public class PostDAOImpl implements PostDAO {
         return sqlSession.selectOne("postMapper.getPost", postNo);
     }
 
-    @Override
-    public ReplyVO getReply(String replyUserId){
-
-        return sqlSession.selectOne("postMapper.getReply", replyUserId);
-    }
+//    @Override
+//    public ReplyVO getReply(String replyUserId){
+//
+//        return sqlSession.selectOne("postMapper.getReply", replyUserId);
+//    }
 
     @Override
     public void updatePost(PostVO postVO){
