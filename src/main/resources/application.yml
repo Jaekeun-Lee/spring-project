@@ -31,7 +31,11 @@ spring:
   devtools:
     livereload:
       enabled: true
-
+  
+  servlet:    multipart:      file-size-threshold: 1MB
+      location: C:/Temp
+      max-file-size: 40MB
+      max-request-size: 40MB
 
 mybatis:
   type-aliases-package: com.example.demo.*
@@ -39,4 +43,5 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true  #언더바 -> 카멜케이스
     call-setters-on-nulls: true
+
 
