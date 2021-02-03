@@ -40,6 +40,7 @@
 	<resultMap id="getMyProjectByProjectNo" type="myProjectVO">
 		<id			property="projectNo"	column="project_no"		jdbcType="NUMERIC"/>
 		<result		property="projectName"	column="project_name"	jdbcType="VARCHAR"/>
+		<result		property="leaderId"		column="user_id"	jdbcType="VARCHAR"/>
 		<collection property="todoList" 	column="project_no" 	select="getTodoListByProjectNo"/>
 		<collection property="teamMember" 	column="project_no" 	select="getProjectMemberByProjectNo"/>
 		<collection property="votedMember"	column="project_no" 	select="getVotedMemberByProjectNo"/>
@@ -131,7 +132,8 @@
 
 	<select id="getMyProject" parameterType="int" resultMap="getMyProjectByProjectNo">
 		SELECT PROJECT_NO,
-		       PROJECT_NAME
+		       PROJECT_NAME,
+			   USER_ID
 		FROM   PROJECT
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
