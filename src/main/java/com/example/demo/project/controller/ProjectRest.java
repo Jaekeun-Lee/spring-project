@@ -24,7 +24,7 @@ public class ProjectRest {
     ProjectService projectService;
 
     public ProjectRest(ProjectService projectService) {
-        log.info(":: "+getClass().getName()+" Start::");
+        log.info(":: " + getClass().getName() + " Start::");
         this.projectService = projectService;
     }
 
@@ -41,7 +41,7 @@ public class ProjectRest {
     }
 
     @PostMapping("/addReply")
-    public ReplyVO addReply(@RequestBody ProjectReplyDTO projectReplyDTO){
+    public ReplyVO addReply(@RequestBody ProjectReplyDTO projectReplyDTO) {
         return projectService.addProjectReply(projectReplyDTO);
     }
 
@@ -54,5 +54,26 @@ public class ProjectRest {
     public int updateTodoStatus(@RequestBody Map updateTodoStatusMap) {
         return projectService.updateTodoStatus(updateTodoStatusMap);
     }
+
+    @GetMapping("/withdraw")
+    public int withdrawProject(@RequestParam("userId") String userId) {
+        return projectService.withdrawProject(userId);
+    }
+
+    @PostMapping("/endProject")
+    public int addEndProjectCount(@RequestBody Map<String, Object> endProjectCountMap) {
+        return projectService.addEndProjectCount(endProjectCountMap);
+    }
+
+    @GetMapping("/deleteProject")
+    public int deleteProject(@RequestParam("projectNo") int projectNo) {
+        return projectService.deleteProject(projectNo);
+    }
+
+    @PostMapping("/updateProjectLeader")
+    public int updateProjectLeader(@RequestBody Map<String ,Object> updateProjectLeaderMap) {
+        return projectService.updateProjectLeader(updateProjectLeaderMap);
+    }
+
 
 }

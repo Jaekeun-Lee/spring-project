@@ -94,31 +94,20 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int updateProjectLeader(int projectNo, String beforeLeaderId, String afterLeaderId) {
-
-        Map<String, Object> updateProjectLeaderMap = new HashMap<>();
-
-        updateProjectLeaderMap.put("projectNo", projectNo);
-        updateProjectLeaderMap.put("beforeLeaderId", beforeLeaderId);
-        updateProjectLeaderMap.put("afterLeaderId", afterLeaderId);
-
-
+    public int updateProjectLeader(Map<String ,Object> updateProjectLeaderMap) {
         return projectDAO.updateProjectLeader(updateProjectLeaderMap);
     }
 
     @Override
-    public int addEndProjectCount(int projectNo, String userId, int teamMemberCnt, int votedMemberCnt) {
+    public int addEndProjectCount(Map<String , Object> endProjectCountMap) {
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put("projectNo", projectNo);
-        map.put("userId", userId);
-
-        if (teamMemberCnt - 1 == votedMemberCnt) {
-            projectDAO.updateProjectStatus(map);
+        int teamMemberCnt =  Integer.parseInt((String)endProjectCountMap.get("teamMemberCnt"));
+        int votedMemberCnt = Integer.parseInt((String)endProjectCountMap.get("votedMemberCnt"));
+        if ( teamMemberCnt - 1 == votedMemberCnt) {
+            projectDAO.updateProjectStatus(endProjectCountMap);
         }
 
-        return projectDAO.addEndProjectCount(map);
+        return projectDAO.addEndProjectCount(endProjectCountMap);
 
     }
 

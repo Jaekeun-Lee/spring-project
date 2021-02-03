@@ -46,10 +46,10 @@ public interface ProjectService {
     int withdrawProject(String userId);
 
     //팀장 프로젝트 탈퇴 ( 권한 위임 )
-    int updateProjectLeader(int projectNo, String beforeLeaderId, String afterLeaderId);
+    int updateProjectLeader(Map<String ,Object> updateProjectLeaderMap);
 
     //프로젝트 종료 투표
-    int addEndProjectCount(int projectNo, String userId, int teamMemberCnt, int votedMemberCnt);
+    int addEndProjectCount(Map<String , Object> endProjectCountMap);
 
     //신청서 모집마감 체크 후 상태변경 - 스케쥴러
     //void applicationDeadlineCheck();
@@ -59,6 +59,8 @@ public interface ProjectService {
 
     //todolist 상태변경
     int updateTodoStatus(Map updateTodoStatusMap);
+
+
 
 
     //파일 다운로드 - 보류

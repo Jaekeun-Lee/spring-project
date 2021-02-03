@@ -188,7 +188,7 @@ public class ProjectServiceImplTest {
     //@Test
     public void updateProjectLeader() {
 
-        Assert.assertEquals(1, projectService.updateProjectLeader(1, "user07", "user01"));
+//        Assert.assertEquals(1, projectService.updateProjectLeader(1, "user07", "user01"));
 
     }
 
