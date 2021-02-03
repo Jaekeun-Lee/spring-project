@@ -28,7 +28,7 @@ public interface PostDAO {
     public void updateReply(ReplyVO replyVO);
 
     //deletePost
-    public void deletePost(PostVO postVO);
+    public void deletePost(int postNo);
 
     //reply삭제
     public void deleteReply(ReplyVO replyVO);

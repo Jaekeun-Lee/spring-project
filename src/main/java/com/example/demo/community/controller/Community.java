@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +59,23 @@ public class Community {
 
         return "welcome";
     }
+
+    @PostMapping("/multi")
+    public String upload(@RequestParam("files") List<MultipartFile> files)throws Exception {
+        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        String basePath = rootPath + "/" + "multi";
+
+        for (MultipartFile file : files){
+            String originalName = file.getOriginalFilename();
+            String filePath = basePath + "/" + originalName;
+
+            File destination = new File(filePath);
+            file.transferTo(destination);
+        }
+        return "uploaded";
+
+    }
+
 
     /*URI에  postNo 적고 검색(K,V)*/
     @GetMapping("getPost")
@@ -170,16 +190,17 @@ public class Community {
     }
 
     @GetMapping("deletePost")
-    public String deletePost(
-//                            @RequestParam("postNo") PostVO postVO,
-                             @ModelAttribute PostVO postVO,
-                             HttpSession httpSession,
-                             Model model){
+    public String deletePost(@RequestParam("postNo") int postNo
+//                            @RequestParam("postNo") PostVO postVO
+//                             @ModelAttribute PostVO postVO,
+//                             HttpSession httpSession
+//                             Model model
+    ){
         System.out.println("/deletePost GET");
-        postService.deletePost(postVO);
+        postService.deletePost(postNo);
 
-        httpSession.setAttribute("userId", "user05");
-        postVO.setUserId((String)httpSession.getAttribute("userId"));
+//        httpSession.setAttribute("userId", "user05");
+//        postVO.setUserId((String)httpSession.getAttribute("userId"));
 //        postVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
 
 

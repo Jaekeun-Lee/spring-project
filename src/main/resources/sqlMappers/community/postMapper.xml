@@ -112,7 +112,7 @@
         reply_NO=#{replyNo}
     </update>
 
-    <delete id="deletePost"     parameterType="postVO">
+    <delete id="deletePost"     parameterType="int">
         DELETE
 
         FROM POST
