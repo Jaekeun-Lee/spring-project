@@ -57,7 +57,8 @@ public interface ProjectService {
     //리뷰작성
     int addReview(List<ReviewVO> reviewVOList);
 
-
+    //todolist 상태변경
+    int updateTodoStatus(Map updateTodoStatusMap);
 
 
     //파일 다운로드 - 보류

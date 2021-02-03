@@ -43,7 +43,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     @Override
     public ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO) {
-        return sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO) == 1?
+        return sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO) == 1 ?
                 sqlSession.selectOne(NAMESPACE + "getProjectReply", projectReplyDTO) : null;
     }
 
@@ -106,11 +106,15 @@ public class ProjectDAOImpl implements ProjectDAO {
         return sqlSession.insert(NAMESPACE + "addReview", reviewVOList);
     }
 
-	@Override
-	public int existApplicant(Map<String, Object> getProjectMap) {
-		return sqlSession.selectOne("applicantMapper.existApplicant", getProjectMap);
-	}
+    @Override
+    public int updateTodoStatus(Map updateTodoStatusMap) {
+        return sqlSession.update(NAMESPACE + "updateTodoStatus", updateTodoStatusMap);
+    }
 
+    @Override
+    public int existApplicant(Map<String, Object> getProjectMap) {
+        return sqlSession.selectOne("applicantMapper.existApplicant", getProjectMap);
+    }
 
 
 }

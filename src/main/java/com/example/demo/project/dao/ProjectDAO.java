@@ -61,4 +61,5 @@ public interface ProjectDAO {
     int addReview(List<ReviewVO> reviewVOList);
 
 
+    int updateTodoStatus(Map updateTodoStatusMap);
 }

@@ -127,4 +127,9 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.addReview(reviewVOList);
     }
 
+    @Override
+    public int updateTodoStatus(Map updateTodoStatusMap) {
+        return projectDAO.updateTodoStatus(updateTodoStatusMap);
+    }
+
 }

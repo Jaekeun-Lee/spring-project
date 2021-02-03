@@ -289,6 +289,12 @@
 			) T
 	</insert>
 
+	<update id="updateTodoStatus" parameterType="map">
+		UPDATE TODO
+		SET TODO_STATUS = #{todoStatus}
+		WHERE TODO_NO = #{todoNo}
+	</update>
+
 
 	<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
 		SELECT *

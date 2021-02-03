@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/project")
@@ -48,5 +50,9 @@ public class ProjectRest {
         return projectService.addTodo(addTodoDTO);
     }
 
+    @PostMapping("/updateTodoStatus")
+    public int updateTodoStatus(@RequestBody Map updateTodoStatusMap) {
+        return projectService.updateTodoStatus(updateTodoStatusMap);
+    }
 
 }

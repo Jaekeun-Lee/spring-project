@@ -36,18 +36,18 @@
 
             $('#add-todo-btn').on("click", function () {
                 $.ajax({
-                    type : 'POST',
+                    type: 'POST',
                     url: '/project/addTodo',
-                    data : JSON.stringify({
-                        userId : userId,
-                        projectNo : projectNo,
-                        todoContent : $('#todoContent').val(),
+                    data: JSON.stringify({
+                        userId: userId,
+                        projectNo: projectNo,
+                        todoContent: $('#todoContent').val(),
                     }),
-                    dataType : 'text',
-                    contentType : 'application/json',
-                    success : function (data) {
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    success: function (data) {
                         const todoVO = JSON.parse(data);
-                        const regDate = todoVO.regDate.substring(0,10);
+                        const regDate = todoVO.regDate.substring(0, 10);
 
                         let html =
                             "<tr class=\"table-secondary\">\n" +
@@ -58,9 +58,9 @@
                             "           </label>\n" +
                             "       </div>\n" +
                             "   </th>\n" +
-                            "   <td colspan=\"3\">"+todoVO.todoContent+"</td>\n" +
-                            "   <td>"+todoVO.userId+"</td>\n" +
-                            "   <td>"+regDate+"</td>\n" +
+                            "   <td colspan=\"3\">" + todoVO.todoContent + "</td>\n" +
+                            "   <td>" + todoVO.userId + "</td>\n" +
+                            "   <td>" + regDate + "</td>\n" +
                             "</tr>"
 
                         $('#todolist-header').after(html)
@@ -72,6 +72,37 @@
 
                 })
             })
+
+            $("#todoStatus-click").on("click", function (cdata) {
+                let todoNo = $('#todoNo').val();
+                let todoStatus = $('#todoStatus').val();
+
+                alert("todoNo" + todoNo)
+                alert("todoStatus" + todoStatus)
+                /*$.ajax({
+                    type: 'POST',
+                    url: '/project/updateTodoStatus',
+                    data: JSON.stringify({
+                        todoNo: $('#todoNo').val(),
+                        todoStatus: $('#todoStatus').val()
+                    }),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        alert("success")
+                        let todoStatusCheck = $('#todoStatus').val();
+
+                        if (todoStatusCheck === "1") {
+                            $('#todoStatus').val(2)
+                            $('#todoStatus').prop('checked',true)
+                        } else {
+                            $('#todoStatus').val(1)
+                            $('#todoStatus').prop('checked',false)
+                        }
+                    }
+
+                })*/
+            })
+
         })
 
     </script>
@@ -111,10 +142,13 @@
                 <th:block th:each="todo:${myProject.todoList}">
                     <tr class="table-secondary">
                         <th>
+                            <input type="hidden" th:value="${todo.todoNo}"/>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-success"
                                        th:classappend="${todo.todoStatus==2} ? '' : active">
-                                    <input type="checkbox" autocomplete="off" th:checked="${todo.todoStatus==1}">
+                                    <input type="checkbox" autocomplete="off"
+                                           th:checked="${todo.todoStatus==1}"
+                                           th:value="${todo.todoStatus==2} ? 1 : 2">
                                 </label>
                             </div>
                         </th>
