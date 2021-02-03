@@ -2,12 +2,10 @@ package com.example.demo.project.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class ProjectReplyDTO {
+public class AddTodoDTO {
     private int projectNo;
     private String userId;
-    private String replyContent;
+    private String todoContent;
 
 }

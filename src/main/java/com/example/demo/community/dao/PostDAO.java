@@ -13,13 +13,13 @@ public interface PostDAO {
     public void addPost(PostVO postVO);
 
     //reply등록
-    public int addReply(int replyNo);
+    public ReplyVO addReply(ReplyVO replyVO);
 
     //포스트 상세조회
     public PostVO getPost(int postNo);
 
     //reply상세조회
-    public ReplyVO getReply(String replyUserId);
+//    public ReplyVO getReply(String replyUserId);
 
     //udpatePost
     public void updatePost(PostVO postVO);
@@ -39,6 +39,8 @@ public interface PostDAO {
 
     //검색
     public int getTotalCount(SearchVO searchVO);
+
+//    public int plusViewCnt(int seq);
 
 
 

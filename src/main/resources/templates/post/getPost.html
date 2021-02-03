@@ -10,6 +10,23 @@
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
     <script type="text/javascript">
+
+        function del(){
+            let chk = confirm("정말 삭제하시겠습니까?");
+            if (chk){
+                location.href='getPostList?postNo='+encodeURI(postNo);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         $(function () {
             $('#add-reply-btn').on('click', function () {
                 $.ajax({
@@ -20,7 +37,7 @@
                         replyContent: $('#replyContent').val()
                     }),
                     dataType: 'text',
-                    contentYtpe: 'application/json',
+                    contentType: 'application/json',
                     success: function (data) {
                         const replyVO = JSON.parse(data);
                         const regDate = replyVO.regDate.substring(0, 10);
@@ -46,9 +63,12 @@
         })
 
     </script>
+
+
 <title>게시물 상세조회</title>
 </head>
 <body>
+<form>
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
     <input type="hidden"    name="postNo"   id="postNo"   th:value="${postVO.postNo}">
 <!--    <div th:text="${postVO.postNo}">번호</div>-->
@@ -56,13 +76,15 @@
     <div th:text="${postVO.userId}">작성자</div>
     <div th:text="${#dates.format(postVO.regDate, 'yyyy-MM-dd')}">작성날짜</div>
 <!--    <div th:text="${postVO.postContent}">내용</div>-->
-    <textarea cols="80" rows="40" name="postContent"     th:text="${postVO.postContent}">내용</textarea><br>
+    <textarea cols="120" rows="30" name="postContent"  th:text="${postVO.postContent}" readonly>내용</textarea><br>
 
-
-    <a th:href="@{/comm/getPostList}">목록</a>
-    <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
-    <a th:href="@{/comm/deletePost}">삭제</a>
-
+    <div style="float: left;">
+        <a th:href="@{/comm/getPostList}">목록</a>
+        <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
+<!--        <a th:href="@{/comm/deletePost}">삭제</a>-->
+        <input type="button"  value="삭제"  onclick="del()">
+    </div>
+</form>
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->
     <div class="reply-box">
         <h5 id="reply-list">댓글</h5>
@@ -79,10 +101,11 @@
             <div class="card-header">댓글다는사람의 로그이정보 띄워줘야함</div>
             <input class="form-control"   id="replyContent"   rows="3"    style="..."></input>
             <div class="card-header"    style="...">
-                <button type="button"   id="add-reply-btn"  class="btn btn-primary">작성완료</button>
+                <button type="button"   id="add-reply-btn"  class="btn btn-primary">작성</button>
             </div>
         </div>
 
     </div>
-
 </body>
+
+</html>

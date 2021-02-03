@@ -2,7 +2,9 @@ package com.example.demo.project.service.impl;
 
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
+import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
 import com.example.demo.project.service.ProjectService;
@@ -31,15 +33,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectVO getProject(int projectNo, String userId) {
+    public Map<String,Object> getProject(int projectNo, String userId) {
 
         Map<String, Object> getProjectMap = new HashMap<>();
-
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
 
-        return projectDAO.getProject(getProjectMap);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("projectVO", projectDAO.getProject(getProjectMap));
+        map.put("existApplicant", projectDAO.existApplicant(getProjectMap));
 
+        return map;
     }
 
     @Override
@@ -53,8 +57,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int addTodo(TodoVO todoVO) {
-        return projectDAO.addTodo(todoVO);
+    public TodoVO addTodo(AddTodoDTO addTodoDTO) {
+        return projectDAO.addTodo(addTodoDTO);
     }
 
     @Override
@@ -69,6 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectVO> getProjectList(ProjectSearchDTO projectSearchDTO) {
+        projectSearchDTO.setUserId(SecurityUtils.getLoginSessionMemberInfo().getUsername());
         return projectDAO.getProjectList(projectSearchDTO);
     }
 
@@ -89,37 +94,31 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int updateProjectLeader(int projectNo, String beforeLeaderId, String afterLeaderId) {
-
-        Map<String, Object> updateProjectLeaderMap = new HashMap<>();
-
-        updateProjectLeaderMap.put("projectNo", projectNo);
-        updateProjectLeaderMap.put("beforeLeaderId", beforeLeaderId);
-        updateProjectLeaderMap.put("afterLeaderId", afterLeaderId);
-
-
+    public int updateProjectLeader(Map<String ,Object> updateProjectLeaderMap) {
         return projectDAO.updateProjectLeader(updateProjectLeaderMap);
     }
 
     @Override
-    public int addEndProjectCount(int projectNo, String userId, int teamMemberCnt, int votedMemberCnt) {
+    public int addEndProjectCount(Map<String , Object> endProjectCountMap) {
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put("projectNo", projectNo);
-        map.put("userId", userId);
-
-        if (teamMemberCnt - 1 == votedMemberCnt) {
-            projectDAO.updateProjectStatus(map);
+        int teamMemberCnt =  Integer.parseInt((String)endProjectCountMap.get("teamMemberCnt"));
+        int votedMemberCnt = Integer.parseInt((String)endProjectCountMap.get("votedMemberCnt"));
+        if ( teamMemberCnt - 1 == votedMemberCnt) {
+            projectDAO.updateProjectStatus(endProjectCountMap);
         }
 
-        return projectDAO.addEndProjectCount(map);
+        return projectDAO.addEndProjectCount(endProjectCountMap);
 
     }
 
     @Override
     public int addReview(List<ReviewVO> reviewVOList) {
         return projectDAO.addReview(reviewVOList);
+    }
+
+    @Override
+    public int updateTodoStatus(Map updateTodoStatusMap) {
+        return projectDAO.updateTodoStatus(updateTodoStatusMap);
     }
 
 }

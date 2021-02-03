@@ -37,11 +37,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ReplyVO addReply(int replyNo){
-        postDAO.addReply(replyNo);
+    public ReplyVO addReply(ReplyVO replyVO){
+//        return postDAO.addReply(replyVO);
         String replyUserId = SecurityUtils.getLoginSessionMemberInfo().getUsername();
 
-        return postDAO.getReply(replyUserId);
+        return postDAO.addReply(replyVO);
     }
 
     @Override
@@ -94,5 +94,10 @@ public class PostServiceImpl implements PostService {
 //    @Override
 //    public List<PostVO> getPostList(PostVO postVO){
 //        return postDAO.getPostList(postVO);
+//    }
+
+//    @Override
+//    public int plusViewCnt(int seq){
+//        return postDAO.plusViewCnt(seq);
 //    }
 }

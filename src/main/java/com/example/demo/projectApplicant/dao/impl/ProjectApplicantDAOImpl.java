@@ -71,4 +71,9 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 		return sqlSession.selectList("applicantMapper.getAppliedApplicantList",searchVO);
 	}
 
+	@Override
+	public void uploadFile(HashMap<String, Object> hm) {
+		sqlSession.insert("applicantMapper.uploadFile",hm);
+	}
+
 }

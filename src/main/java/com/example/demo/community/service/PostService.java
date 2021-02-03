@@ -13,7 +13,8 @@ public interface PostService {
     public void addPost(PostVO postVO);
 
     //reply등록/조회
-    public ReplyVO addReply(int replyNo);
+    public ReplyVO addReply(ReplyVO replyVO);
+//    public ReplyVO addReply(int replyNo);
 //    public ReplyVO getReply(String replyUserId);
 
     //    게시물 상세조회(postNo로 데이터 조인값 불러오기)
@@ -34,4 +35,7 @@ public interface PostService {
 //    게시물목록조회
     public Map<String, Object> getPostList(SearchVO searchVO);
 //    public List<PostVO> getPostList(PostVO postVO);
+
+    //조회수 +1
+//    public int plusViewCnt(int seq);
 }

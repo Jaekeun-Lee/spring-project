@@ -135,6 +135,8 @@ public class PostDAOImplTest {
 //        Assert.assertEquals(1,postVO.getPostNo());
     }
 
+
+
     @Test
     public void deletePost(){
 

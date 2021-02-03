@@ -69,7 +69,6 @@ public class ProjectApplicant {
 		
 		System.out.println(map.get("list"));
 		
-		//return "projectApplicant/applicantList";
 		return "projectApplicant/applicantList";
 	}
 	
