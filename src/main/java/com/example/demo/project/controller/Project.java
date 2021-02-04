@@ -1,6 +1,9 @@
 package com.example.demo.project.controller;
 
+import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.util.SecurityUtils;
+import com.example.demo.member.vo.MemberVO;
+import com.example.demo.project.dto.AddReviewDTO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,13 +53,13 @@ public class Project {
 
         Map<String, Object> map = projectService.getProject(projectNo, SecurityUtils.getLoginSessionMemberInfo().getUsername());
         model.addAttribute("project", map.get("projectVO"));
-        model.addAttribute("existApplicant",map.get("existApplicant"));
+        model.addAttribute("existApplicant", map.get("existApplicant"));
 
         return "project/getProject";
     }
 
     @GetMapping("/getProjectList")
-    public String getProjectList(@ModelAttribute("projectSearchDTO")ProjectSearchDTO projectSearchDTO, Model model) {
+    public String getProjectList(@ModelAttribute("projectSearchDTO") ProjectSearchDTO projectSearchDTO, Model model) {
 
         System.out.println("projectSearchDTO" + projectSearchDTO);
         if (projectSearchDTO.getCurrentPage() == 0) {
@@ -75,15 +80,38 @@ public class Project {
 
     }
 
-    @GetMapping("myProject")
-    public String getMyProject(@RequestParam("projectNo") int projectNo, Model model) {
+    @GetMapping("/myProject")
+    public String getMyProject(HttpSession session, Model model) {
 
-        if(projectNo == 0) {
+        int projectNo = ((MemberVO) session.getAttribute("user")).getProjectNo();
+
+        if (projectNo == 0) {
             return "project/notParticipating";
         } else {
             model.addAttribute("myProject", projectService.getMyProject(projectNo));
             return "project/getMyProject";
         }
+
+    }
+
+    @GetMapping("/addReview")
+    public String addReview(HttpSession session, Model model) {
+
+        int projectNo = ((MemberVO) session.getAttribute("user")).getProjectNo();
+
+        if (projectNo == 0) {
+            return "project/notParticipating";
+        } else {
+            model.addAttribute("myProject", projectService.getMyProject(projectNo));
+            return "project/addReview";
+        }
+    }
+
+    @PostMapping("/addReviewer")
+    public String addReview(@ModelAttribute("addReviewDTO") AddReviewDTO addReviewDTO) {
+
+        projectService.addReview(addReviewDTO);
+        return "redirect:getProjectList";
 
     }
 

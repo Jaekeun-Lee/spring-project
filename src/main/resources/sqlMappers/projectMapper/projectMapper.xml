@@ -282,11 +282,13 @@
 			SELECT SEQ_REVIEW_NO.NEXTVAL, T.*
 			FROM (
 				<foreach collection="list" item="item" index="index" separator="UNION ALL">
-					SELECT #{item.userId} ,
-						   #{item.projectNo} ,
-						   #{item.reviewGrade:NUMERIC} ,
-						   #{item.reviewComment:VARCHAR}
-					FROM SYS.DUAL
+					<if test = "item.projectNo != 0" >
+						SELECT #{item.userId} ,
+							   #{item.projectNo} ,
+							   #{item.reviewGrade} ,
+							   #{item.reviewComment:VARCHAR}
+						FROM SYS.DUAL
+					</if>
 				</foreach>
 			) T
 	</insert>

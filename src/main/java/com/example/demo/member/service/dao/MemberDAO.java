@@ -87,6 +87,10 @@ public class MemberDAO {
     public int loginFailCountInitialize(String userId) {
         return sqlSession.update("member.updateFailureCountReset", userId);
     }
+
+    public void updatePassword(Map <String,Object> map){
+        sqlSession.update("member.updatePassword",map);
+    }
 }
 
 

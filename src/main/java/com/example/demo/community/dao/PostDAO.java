@@ -31,7 +31,7 @@ public interface PostDAO {
     public void deletePost(int postNo);
 
     //reply삭제
-    public void deleteReply(ReplyVO replyVO);
+    public int deleteReply(int replyNo);
 
     //getPostList
     public List<PostVO> getPostList(SearchVO searchVO);

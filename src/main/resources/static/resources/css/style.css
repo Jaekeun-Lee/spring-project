@@ -150,6 +150,18 @@ label > a:hover {
     text-overflow: ellipsis;
 }
 
+#myProjectHeader {
+    margin: 100px 0;
+}
 
+#toast-message {
+    width: 250px;
+    height: 20px;
+    height: auto;
+    position: fixed;
+    left: 50%;
+    margin-left: -125px;
+    bottom: 60%;
+}
 
 

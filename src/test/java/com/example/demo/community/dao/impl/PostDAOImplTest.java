@@ -152,7 +152,7 @@ public class PostDAOImplTest {
 //    public void deleteReply(){
 //
 //        ReplyVO replyVO = new ReplyVO();
-//        replyVO = postService.getReply("user01");
+//        replyVO = postService.get("user01");
 //
 //        postService.deleteReply(replyVO);
 //    }

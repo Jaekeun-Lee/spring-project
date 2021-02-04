@@ -77,10 +77,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deleteReply(ReplyVO replyVO){
+    public int deleteReply(int replyNo) {
 
-        postDAO.deleteReply(replyVO);
+        return  postDAO.deleteReply(replyNo);
     }
+
 
     @Override
     public Map<String,Object> getPostList(SearchVO searchVO){
