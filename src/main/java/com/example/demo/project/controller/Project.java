@@ -1,6 +1,7 @@
 package com.example.demo.project.controller;
 
-import com.example.demo.common.vo.ReviewVO;
+import com.example.demo.common.service.FileUploadService;
+import com.example.demo.common.vo.FileVO;
 import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.dto.AddReviewDTO;
@@ -11,18 +12,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Transactional
 @Controller
 @RequestMapping("/project")
 @Slf4j
 public class Project {
+
+    private final String PATH = "C:\\Temp\\";
 
     public Project(ProjectService projectService) {
         log.info(":: " + getClass().getName() + " Start::");
@@ -33,19 +40,45 @@ public class Project {
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
 
+    @Autowired
+    @Qualifier("fileUploadServiceImpl")
+    private FileUploadService fileUploadServiceImpl;
+
+
     private final int DEFAULT_PAGE = 1;
     private final int PAGE_SIZE = 10;
 
-    @GetMapping("/template")
+    @GetMapping("/addProject")
     public String addProject() {
 
-        return "project/addProject";
+        return "/project/addProject";
     }
 
+
     @PostMapping("/addProject")
-    public String addProject(@ModelAttribute("project") ProjectVO projectVO) {
+    public String addProject(@ModelAttribute("project") ProjectVO projectVO,
+                             @ModelAttribute("fileVO") FileVO fileVO,
+                             MultipartHttpServletRequest request) {
+
+
+        ProjectVO addProjectResultVO = projectService.addProject(projectVO);
+        fileVO.setProjectNo(addProjectResultVO.getProjectNo());
+
+        List<MultipartFile> fileList = request.getFiles("file");
+
+        System.out.println("===============================================================");
+        System.out.println("===============================================================");
         System.out.println(projectVO);
+        System.out.println("===============================================================");
+        System.out.println("===============================================================");
+        System.out.println(fileVO);
+        System.out.println("===============================================================");
+        System.out.println("===============================================================");
+
+
+        fileUploadServiceImpl.fileUpload(fileVO, PATH, fileList);
         return "welcome";
+
     }
 
     @GetMapping("/getProject")

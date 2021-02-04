@@ -15,6 +15,9 @@ public interface ProjectDAO {
     //프로젝트 등록
     int addProject(ProjectVO projectVO);
 
+    //팀원 테이블 참여중 프로젝트 업데이트
+    int updateMemberStatus(Map<String, Object> map);
+
     //프로젝트 상세정보 조회
     ProjectVO getProject(Map<String, Object> getProjectMap);
     

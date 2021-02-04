@@ -1,5 +1,6 @@
 package com.example.demo.project.vo;
 
+import com.example.demo.common.vo.FileVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.vo.MemberVO;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,7 +37,7 @@ public class ProjectVO {
     private String projectDetail;
     private Date endDate;
     private int bookmarkNo;
-    private List<String> uploadFile;
+    private List<FileVO> uploadFiles;
     private int endProjectCnt;
 
 	public ProjectVO() {
@@ -242,14 +243,14 @@ public class ProjectVO {
 		this.bookmarkNo = bookmarkNo;
 	}
 
-	public List<String> getUploadFile() {
-		return uploadFile;
+	public List<FileVO> getUploadFiles() {
+		return uploadFiles;
 	}
 
-	public void setUploadFile(List<String> uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setUploadFiles(List<FileVO> uploadFiles) {
+		this.uploadFiles = uploadFiles;
 	}
-	
+
 	public int getEndProjectCnt() {
 		return endProjectCnt;
 	}
@@ -286,7 +287,8 @@ public class ProjectVO {
 		sb.append(", projectDetail='").append(projectDetail).append('\'');
 		sb.append(", endDate=").append(endDate);
 		sb.append(", bookmarkNo=").append(bookmarkNo);
-		sb.append(", uploadFile=").append(uploadFile);
+		sb.append(", uploadFiles=").append(uploadFiles);
+		sb.append(", endProjectCnt=").append(endProjectCnt);
 		sb.append('}');
 		return sb.toString();
 	}

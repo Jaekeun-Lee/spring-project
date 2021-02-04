@@ -10,20 +10,31 @@
 	 	INTO files(
 	 		FILE_NO,
 	 		UPLOAD_FILE_A,
-	 		FILE_SIZE,
-	 		POST_NO,
-	 		PROJECT_NO,
-	 		PORTFOLIO_NO
-	 		
+	 		FILE_SIZE
+	 	    <if test="postNo != 0">
+	 			,POST_NO
+			</if>
+			<if test="projectNo != 0">
+	 			,PROJECT_NO
+			</if>
+			<if test="portfolioNo != 0">
+	 			,PORTFOLIO_NO
+			</if>
 	 	)
 	 	VALUES(
 	 		seq_file_no.NEXTVAL,
 	 		#{originFileName},
-	 		#{fileSize},
-	 		#{postNo:VARCHAR},
-	 		#{projectNo:VARCHAR},
-	 		#{portfolioNo:VARCHAR}
-	 	) 		
+	 		#{fileSize}
+			<if test="postNo != 0">
+				,#{postNo}
+			</if>
+			<if test="projectNo != 0">
+				,#{projectNo}
+			</if>
+			<if test="portfolioNo != 0">
+				,#{portfolioNo}
+			</if>
+	 	)
 	 </insert>
 
 </mapper>

@@ -29,14 +29,14 @@ public class FileUploadServiceImpl implements FileUploadService{
 	public void fileUpload(FileVO fileVO,String path, List<MultipartFile> fileList) {
 
 		for (MultipartFile mf : fileList) {
+
 			fileVO.setOriginFileName(mf.getOriginalFilename());
 			fileVO.setFileSize(mf.getSize());
 
-            System.out.println("originFileName : " + fileVO.getOriginFileName());
-            System.out.println("fileSize : " + fileVO.getFileSize());
-
             String safeFile = path + System.currentTimeMillis() + fileVO.getOriginFileName();
-            
+
+            fileVO.setUploadFileName(safeFile);
+
             try {
                 mf.transferTo(new File(safeFile));
             } catch (IllegalStateException e) {
