@@ -54,8 +54,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public List<ReviewVO> getReviewList(int projectNO){
-        return profileDAO.getReviewList(projectNO);
+    public List<ReviewVO> getReviewList(String userId){
+        return profileDAO.getReviewList(userId);
     }
 
     @Override

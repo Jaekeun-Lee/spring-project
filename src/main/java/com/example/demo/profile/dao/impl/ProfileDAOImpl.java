@@ -48,8 +48,8 @@ public class ProfileDAOImpl implements ProfileDAO {
     }
 
     @Override
-    public List<ReviewVO> getReviewList(int projectNO){
-        return sqlSession.selectList("profileMapper.getReviewList",projectNO);
+    public List<ReviewVO> getReviewList(String userId){
+        return sqlSession.selectList("profileMapper.getReviewList",userId);
     }
 
     @Override

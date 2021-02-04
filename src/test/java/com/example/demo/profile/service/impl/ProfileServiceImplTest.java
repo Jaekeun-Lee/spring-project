@@ -90,7 +90,7 @@ public class ProfileServiceImplTest {
         Assert.assertEquals(4,getAllProPort.size());
     }
 */
-    //@Test
+    /*//@Test
     public void getReviewList(){
 
 //        ReviewVO reviewVO = new ReviewVO();
@@ -100,7 +100,7 @@ public class ProfileServiceImplTest {
         List<ReviewVO> getReviewList = profileService.getReviewList(2);
 
         Assert.assertEquals(2, getReviewList.size());
-    }
+    }*/
 
     /*@Test
     public void getBookmarkList(){

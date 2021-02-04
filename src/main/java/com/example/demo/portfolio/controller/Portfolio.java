@@ -29,9 +29,9 @@ public class Portfolio {
     //포트폴리오 등록
     @PostMapping("addPort")
     public String addPort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session){
-        session.setAttribute("userId","user01");
-        portfolioVO.setUserId((String)session.getAttribute("userId"));
-//        portfolioVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
+       /* session.setAttribute("userId","user01");
+        portfolioVO.setUserId((String)session.getAttribute("userId"));*/
+        portfolioVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
         portfolioService.addPort(portfolioVO);
         return "redirect:/port/portList";
 
@@ -63,8 +63,8 @@ public class Portfolio {
     }
 
     //포트폴리오 삭제
-   /* @GetMapping("deletePort")
-    public String deletePort(@RequestParam("portNo") Long portNo, HttpSession session){
+  /* @GetMapping("deletePort")
+    public String deletePort(@RequestParam("portNo") int portNo, HttpSession session){
         PortfolioVO portfolioVO = portfolioService.deletePort(portNo);
         portfolioVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
         portfolioService.deletePort(portNo);

@@ -29,9 +29,9 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 //        return sqlSession.insert("portfolioMapper.addInPort", addInPort);
 //    }
 
-    @Override
+
     public List<ProjectVO> getEndProjectList(String userId){
-        return sqlSession.selectList("portfolioMapper.getEndProjectList", userId);
+        return sqlSession.selectList("portfolioMapper.getEndProjectList",userId);
     }
 
     @Override
@@ -50,19 +50,18 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     }
 
     @Override
-    public List<PortfolioVO> getPortList(SearchVO searchVO){
+    public List<PortfolioVO> getPortList(SearchVO searchVO) {
         return sqlSession.selectList("portfolioMapper.getPortList",searchVO);
     }
-//    public List<PortfolioVO> getPortList(PortfolioVO portfolioVO) {
-//        return sqlSession.selectList("portfolioMapper.getPortList",portfolioVO);
-//    }
-
+    //    public List<PortfolioVO> getPortList(PortfolioVO portfolioVO) {
+    //        return sqlSession.selectList("portfolioMapper.getPortList",portfolioVO);
+    //    }
     @Override
     public int getTotalCount(SearchVO searchVO){
         return sqlSession.selectOne("portfolioMapper.getTotalCount",searchVO);
     }
 
-   /* @Override
+     /* @Override
     public void portUploadFile(HashMap<String, Object> files) {
         sqlSession.insert("portfolioMapper.portUploadFile",files);
     }*/

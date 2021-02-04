@@ -62,16 +62,18 @@ public class Profile {
     //리뷰 목록 조회
     @GetMapping("getReviewList")
     public String getReviewList(HttpSession session, Model model){
-        session.setAttribute("userId",2);
-        List<ReviewVO> reviewList = profileService.getReviewList((int)session.getAttribute("userId"));
+        /*session.setAttribute("userId",2);
+        List<ReviewVO> reviewList = profileService.getReviewList((int)session.getAttribute("userId"));*/
 //        List<ReviewVO> reviewList = profileService.getReviewList(((MemberVO)session.getAttribute("user")).getUserId());
+        String sessionId = ((MemberVO)session.getAttribute("user")).getUserId();
+        List<ReviewVO> reviewList = profileService.getReviewList(sessionId);
         model.addAttribute("reviewList",reviewList);
         return "profile/getReviewList";
     }
 
     //전체보기 조회
     @GetMapping("getAllMyProfile")
-    public String getAllMyProfile(@RequestParam("userId") String userId, HttpSession session, Model model){
+    public String getAllMyProfile(@RequestParam("userId") String userId, Model model){
 
         Map<String,Object> map = profileService.getAllMyProfile(userId);
 
