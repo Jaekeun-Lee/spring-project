@@ -70,7 +70,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 //    }
 
 
-    @Override
+  /*  @Override
     public void portFileUpload(int portNo, String originalName, long filesSize) {
         HashMap<String,Object> files = new HashMap<>();
         files.put("portNo", portNo);
@@ -78,6 +78,6 @@ public class PortfolioServiceImpl implements PortfolioService {
         files.put("fileSize",filesSize);
 
         portfolioDAO.portUploadFile(files);
-    }
+    }*/
 }
 

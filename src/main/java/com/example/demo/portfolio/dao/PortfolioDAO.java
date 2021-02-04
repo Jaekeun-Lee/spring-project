@@ -32,6 +32,6 @@ public interface PortfolioDAO {
     public int getTotalCount(SearchVO searchVO);
 
     //첨부파일
-    public void portUploadFile(HashMap<String,Object> files);
+//    public void portUploadFile(HashMap<String,Object> files);
 
 }

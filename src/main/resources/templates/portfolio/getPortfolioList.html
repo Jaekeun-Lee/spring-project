@@ -107,11 +107,15 @@
     <button id="add_portfolio_get" class="btn btn-default">포트폴리오 등록</button>
 
     <div id="add_portfolio_get_pop_up" class="layerpop" background-color: white; style="width: 700px; height: 350px; overflow:auto;"/>
-    <form id="detailForm" method="post" th:action="@{/port/addport?portfolioVO.portNo=1}" th:object="${portfolioVO}">
+
+    <form id="detailForm" method="post" class="control-label" th:action="@{/port/addport}">
         <h2><label for="Title" class="control-label">완료된 프로젝트 목록</label> </h2>
         <br>
 
-        <div class="row form-group col-xs-12">
+        <div class="form-group">
+            <!--<div th:text="${getEndProjectList.projectName}"></div>-->
+        </div>
+
     </form>
 
     </tbody>
@@ -126,5 +130,19 @@
 
 </body>
 </html>
+
+
+
+
+
+
+<!--<div class="row form-group col-xs-12">
+            <label for="endProjectName" class="control-label">Q1.팀장이 등록한 질문 </label>
+            <input type="radio" class="form-control" id="endProjectName" name="endProjectName"></p>
+-->
+        <!--<div class="row form-group col-xs-12" th:each="projectVO:${getEndProjectList}">
+            <input type="radio" name="endProjectName" id="endProjectName" th:value="${projectVO.projectName}" >
+            <label for="endProjectName"  class="form-control">안녕안녕</label>
+        </div>-->
 
 

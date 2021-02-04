@@ -37,6 +37,15 @@ public class Portfolio {
 
     }
 
+    //완료된 프로젝트 목록
+    @GetMapping ("getEndProjectList")
+    public String getEndProjectList (@RequestParam ("userId") String userId, HttpSession session, Model model){
+        Map<String,Object> map = portfolioService.getEndProjectList(userId);
+        model.addAttribute("getEndProjectList",map.get ("projectVO"));
+        return "portfolio/getPortfolioList";
+    }
+
+
     //포트폴리오 수정
     @GetMapping("updatePort")
     public String updatePortView(@RequestParam("portNo") int param, Model model){

@@ -31,7 +31,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     @Override
     public List<ProjectVO> getEndProjectList(String userId){
-        return sqlSession.selectList("portfolioMapper.getPortList", userId);
+        return sqlSession.selectList("portfolioMapper.getEndProjectList", userId);
     }
 
     @Override
@@ -62,8 +62,8 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         return sqlSession.selectOne("portfolioMapper.getTotalCount",searchVO);
     }
 
-    @Override
+   /* @Override
     public void portUploadFile(HashMap<String, Object> files) {
         sqlSession.insert("portfolioMapper.portUploadFile",files);
-    }
+    }*/
 }

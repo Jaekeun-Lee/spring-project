@@ -31,5 +31,5 @@ public interface PortfolioService {
     public Map<String,Object> getPortList(SearchVO searchVO);
 
     //첨부파일
-    public void portFileUpload(int portNo, String originalName,long filesSize);
+//    public void portFileUpload(int portNo, String originalName,long filesSize);
 }
