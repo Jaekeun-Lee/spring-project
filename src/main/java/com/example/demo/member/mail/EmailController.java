@@ -39,24 +39,27 @@ public class EmailController {
     @GetMapping(value = "/findPasswordReq")
     public ModelAndView sendEmailAction(@RequestParam Map<String, Object> paramMap, ModelMap model, ModelAndView mv) throws Exception {
 
-        String USERNAME = (String) paramMap.get("username");
-        String EMAIL = (String) paramMap.get("email");
-        String PASSWORD = getTempPassword();
+        String userId = (String) paramMap.get("userId");
+        String email = (String) paramMap.get("email");
+        String password = getTempPassword();
         memberDAO.findUserByUserPassword(paramMap);
+
+        paramMap.put("password",passwordEncoder.encode(password));
+        memberDAO.updatePassword(paramMap);
+
 
         if (memberDAO.findUserByUserPassword(paramMap) != null) {
             try {
                 MimeMessage msg = mailSender.createMimeMessage();
                 MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
 
-                messageHelper.setSubject(USERNAME + "님 비밀번호 찾기 메일입니다.");
-                messageHelper.setText("비밀번호는 " + PASSWORD + " 입니다.");
-                messageHelper.setTo(EMAIL);
-                msg.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(EMAIL));
+                messageHelper.setSubject(userId + "님 비밀번호 찾기 메일입니다.");
+                messageHelper.setText("비밀번호는 " + password + " 입니다.");
+                messageHelper.setTo(email);
+                msg.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(email));
                 mailSender.send(msg);
 
             } catch (MessagingException e) {
-                System.out.println("MessagingException");
                 e.printStackTrace();
             }
             mv.setViewName("member/manage/emailSuccess");
@@ -80,13 +83,6 @@ public class EmailController {
             str += charSet[idx];
         }
         return str;
-    }
-
-    //TODO 비번 업데이트
-    public void updatePassword(String str, String email) {
-        String password = EncryptionUtils.encryptMD5(str);
-        String id = memberDAO.findUserByUserId(email).getUserId();
-        memberDAO.updateUserPassword(id, passwordEncoder.encode(password));
     }
 
 }

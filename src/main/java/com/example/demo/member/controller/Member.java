@@ -70,6 +70,8 @@ public class Member {
         return memberService.userIdCheck(userId);
     }
 
+    @GetMapping("/login/password/settings")
+    public String changePassword(){return "member/manage/findPassword1";}
 
 }
 

@@ -110,9 +110,7 @@ public class Project {
     @PostMapping("/addReviewer")
     public String addReview(@ModelAttribute("addReviewDTO") AddReviewDTO addReviewDTO) {
 
-        if( projectService.addReview(addReviewDTO) == 1 ) {
-
-        }
+        projectService.addReview(addReviewDTO);
         return "redirect:getProjectList";
 
     }

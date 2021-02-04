@@ -44,7 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // Spring Security Filter Chain
 
-        //이거때매 ajax post 안먹어서 해놨어~~~~~~ 어떡해
         http.csrf().disable();
 
 
@@ -106,18 +105,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-    /**
-     * 에러메세지 설정
-     */
-
-//    @Bean
-//    public MessageSource messageSource() {
-//
-//        Locale.setDefault(Locale.KOREA);
-//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-//
-//        messageSource.setDefaultEncoding("UTF-8");
-//        messageSource.setBasenames("classpath:resource/message/security_message", "classpath:org/springframework/security/messages"); // 커스텀한 properties 파일, security properties 파일
-//        return messageSource;
-//    }
 }
