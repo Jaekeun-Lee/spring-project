@@ -1,6 +1,9 @@
 package com.example.demo.project.controller;
 
 import com.example.demo.community.vo.ReplyVO;
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.util.SecurityUtils;
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 
@@ -22,6 +26,10 @@ public class ProjectRest {
     @Autowired
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
+
+    @Autowired
+    @Qualifier("memberServiceImpl")
+    MemberService memberService;
 
     public ProjectRest(ProjectService projectService) {
         log.info(":: " + getClass().getName() + " Start::");
@@ -56,8 +64,8 @@ public class ProjectRest {
     }
 
     @GetMapping("/withdraw")
-    public int withdrawProject(@RequestParam("userId") String userId) {
-        return projectService.withdrawProject(userId);
+    public int withdrawProject(@RequestParam("userId") String userId, HttpSession session) {
+        return projectService.withdrawProject(userId) == 1 ? sessionUpdateUtil(session) : 0;
     }
 
     @PostMapping("/endProject")
@@ -66,14 +74,23 @@ public class ProjectRest {
     }
 
     @GetMapping("/deleteProject")
-    public int deleteProject(@RequestParam("projectNo") int projectNo) {
-        return projectService.deleteProject(projectNo);
+    public int deleteProject(@RequestParam("projectNo") int projectNo, HttpSession session) {
+        return projectService.deleteProject(projectNo) == 1 ? sessionUpdateUtil(session) : 0;
     }
 
     @PostMapping("/updateProjectLeader")
-    public int updateProjectLeader(@RequestBody Map<String ,Object> updateProjectLeaderMap) {
-        return projectService.updateProjectLeader(updateProjectLeaderMap);
+    public int updateProjectLeader(@RequestBody Map<String, Object> updateProjectLeaderMap, HttpSession session) {
+        return projectService.updateProjectLeader(updateProjectLeaderMap) == 1 ? sessionUpdateUtil(session) : 0;
     }
 
+    private int sessionUpdateUtil(HttpSession session) {
+        session.removeAttribute("user");
+        MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if (memberVO != null) {
+            session.setAttribute("user", memberVO);
+            return 1;
+        }
+        return 0;
+    }
 
 }

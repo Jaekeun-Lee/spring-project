@@ -49,7 +49,7 @@
 
 
 
-	<insert id="addProject" parameterType="projectVO">
+	<insert id="addProject" parameterType="projectVO" useGeneratedKeys="true" keyColumn="PROJECT_NO" keyProperty="projectNo">
 		INSERT
 		INTO PROJECT (
 			PROJECT_NO,
@@ -76,8 +76,8 @@
 		       #{projectCategory},
 		       #{preStartDate},
 		       #{prePeriod},
-		       #{meetingMethod:VARCHAR},
-		       #{meetingLocation},
+		       #{meetingMethod},
+		       #{meetingLocation:VARCHAR},
 		       #{applicationDeadline},
 		       #{projectDetail},
 		       SYSDATE,
@@ -85,25 +85,23 @@
 		       #{applicantQuestionB:VARCHAR},
 		       #{applicantQuestionC:VARCHAR},
 		       #{recruitmentMemberCnt})
+
 	</insert>
 
 
-	<update id="updateMemberProjectNo" parameterType="string">
+	<update id="updateMemberProjectNo" parameterType="map">
 		UPDATE MEMBER
 		<set>
-		    PROJECT_NO = (SELECT PROJECT_NO
-						  FROM PROJECT
-						  WHERE USER_ID = #{value} AND PROJECT_STATUS = 1)
+		    PROJECT_NO = #{projectNo}
 		</set>
-		WHERE USER_ID = #{value}
+		WHERE USER_ID = #{userId}
 	</update>
-
 
 	<select id="getProject"  parameterType="hashMap" resultMap="projectSelectMap">
 
 		SELECT P.*, #{userId} AS bookmarkCheckId
 		FROM PROJECT P
-		WHERE P.PROJECT_NO = #{projectNo}
+		WHERE PROJECT_NO = #{projectNo}
 
 	</select>
 
@@ -115,7 +113,7 @@
 	</update>
 
 
-	<insert id="addProjectReply" parameterType="projectReplyDTO">
+	<insert id="addProjectReply" parameterType="projectReplyDTO" useGeneratedKeys="true" keyColumn="REPLY_NO" keyProperty="replyNo">
 		INSERT
 		INTO REPLY(REPLY_NO,
 		           PROJECT_NO,
@@ -139,7 +137,7 @@
 	</select>
 
 
-	<insert id="addTodo" parameterType="addTodoDTO">
+	<insert id="addTodo" parameterType="addTodoDTO" useGeneratedKeys="true" keyColumn="TODO_NO" keyProperty="todoNo" >
 		INSERT INTO TODO (TODO_NO,
 		                  PROJECT_NO,
 		                  USER_ID,
@@ -152,14 +150,14 @@
 		        SYSDATE)
 	</insert>
 
-	<select id="getTodo" parameterType="addTodoDTO" resultType="todoVO">
+	<select id="getTodo" parameterType="int" resultType="todoVO">
 		SELECT TODO_NO,
 			   PROJECT_NO,
 			   USER_ID,
 			   TODO_CONTENT,
 			   REG_DATE
 		FROM TODO
-		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{userId} AND TODO_CONTENT = #{todoContent}
+		WHERE TODO_NO = #{value}
 	</select>
 
 
@@ -328,14 +326,14 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 
-	<select id="getProjectReply" parameterType="projectReplyDTO" resultType="replyVO">
+	<select id="getProjectReply" parameterType="int" resultType="replyVO">
 		SELECT REPLY_NO ,
 		       PROJECT_NO ,
 		       USER_ID as replyUserId,
 		       REPLY_CONTENT ,
 			   TO_DATE(TO_CHAR(REG_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') as regDate
 		FROM REPLY
-		WHERE USER_ID = #{userId} AND REPLY_CONTENT = #{replyContent}
+		WHERE REPLY_NO = #{value}
 	</select>
 
 

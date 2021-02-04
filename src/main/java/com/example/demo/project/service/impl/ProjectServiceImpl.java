@@ -12,11 +12,13 @@ import com.example.demo.project.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Transactional(rollbackFor = Exception.class, timeout = 10)
 @Service("projectServiceImpl")
 public class ProjectServiceImpl implements ProjectService {
 
@@ -25,18 +27,22 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectDAO projectDAO;
 
     @Override
-    public int addProject(ProjectVO projectVO) {
-        return projectDAO.addProject(projectVO);
+    public ProjectVO addProject(ProjectVO projectVO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("projectNo", projectDAO.addProject(projectVO));
+        map.put("userId", projectVO.getLeaderId());
+
+        return projectDAO.updateMemberStatus(map) == 1 ? projectDAO.getProject(map) : null;
     }
 
     @Override
-    public Map<String,Object> getProject(int projectNo, String userId) {
+    public Map<String, Object> getProject(int projectNo, String userId) {
 
         Map<String, Object> getProjectMap = new HashMap<>();
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
 
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("projectVO", projectDAO.getProject(getProjectMap));
         map.put("existApplicant", projectDAO.existApplicant(getProjectMap));
 
@@ -91,16 +97,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int updateProjectLeader(Map<String ,Object> updateProjectLeaderMap) {
+    public int updateProjectLeader(Map<String, Object> updateProjectLeaderMap) {
         return projectDAO.updateProjectLeader(updateProjectLeaderMap);
     }
 
     @Override
-    public int addEndProjectCount(Map<String , Object> endProjectCountMap) {
+    public int addEndProjectCount(Map<String, Object> endProjectCountMap) {
 
-        int teamMemberCnt =  Integer.parseInt((String)endProjectCountMap.get("teamMemberCnt"));
-        int votedMemberCnt = Integer.parseInt((String)endProjectCountMap.get("votedMemberCnt"));
-        if ( teamMemberCnt - 1 == votedMemberCnt) {
+        int teamMemberCnt = Integer.parseInt((String) endProjectCountMap.get("teamMemberCnt"));
+        int votedMemberCnt = Integer.parseInt((String) endProjectCountMap.get("votedMemberCnt"));
+        if (teamMemberCnt - 1 == votedMemberCnt) {
             projectDAO.updateProjectStatus(endProjectCountMap);
         }
 

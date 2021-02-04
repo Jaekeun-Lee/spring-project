@@ -40,7 +40,8 @@
         <div class="container col-lg-4 col-xs-12">aa</div>
         <div class="container col-lg-8 col-xs-12">
             <div class="page-name col-xs-12"><h1>ADD PROJECT</h1></div>
-            <form id="addProjectForm" method="POST" th:action="@{/project/addProject}">
+            <form id="addProjectForm" method="POST" th:action="@{/project/addProject}" enctype="multipart/form-data">
+                <input type="hidden" name="leaderId" th:value="${session.user.userId}"/>
                 <div class="form-group col-xs-12">
                     <label for="projectName">프로젝트 제목</label>
                     <input type="text" id="projectName" name="projectName" class="form-control"
@@ -124,8 +125,8 @@
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile02">
-                            <label class="custom-file-label" for="inputGroupFile02">프로젝트 관련자료 추가@@@@@@@@@ </label>
+                            <input type="file" class="custom-file-input" name="file" id="file-upload" multiple="multiple">
+                            <label class="custom-file-label" for="file-upload"></label>
                         </div>
                         <div class="input-group-append">
                             <span class="input-group-text">Upload</span>

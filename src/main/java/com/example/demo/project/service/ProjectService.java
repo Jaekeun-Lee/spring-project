@@ -13,7 +13,7 @@ import java.util.Map;
 public interface ProjectService {
 
     //프로젝트 등록
-    int addProject(ProjectVO projectVO);
+    ProjectVO addProject(ProjectVO projectVO);
 
     //프로젝트 상세정보 조회
     Map<String, Object> getProject(int projectNo, String userId);

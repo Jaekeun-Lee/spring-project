@@ -13,11 +13,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Transactional(rollbackFor = Exception.class, timeout = 10)
 @Repository("projectDAOImpl")
-@Transactional
 public class ProjectDAOImpl implements ProjectDAO {
 
     @Autowired
@@ -26,10 +27,17 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     private final String NAMESPACE = "projectMapper.";
 
+    @Transactional
     @Override
     public int addProject(ProjectVO projectVO) {
         sqlSession.insert(NAMESPACE + "addProject", projectVO);
-        return sqlSession.update(NAMESPACE + "updateMemberProjectNo", projectVO.getLeaderId());
+        return projectVO.getProjectNo();
+    }
+
+    @Override
+    public int updateMemberStatus(Map<String, Object> map) {
+        return sqlSession.update(NAMESPACE + "updateMemberProjectNo", map);
+
     }
 
     @Override
@@ -41,7 +49,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Override
     public ReplyVO addProjectReply(ProjectReplyDTO projectReplyDTO) {
         return sqlSession.insert(NAMESPACE + "addProjectReply", projectReplyDTO) == 1 ?
-                sqlSession.selectOne(NAMESPACE + "getProjectReply", projectReplyDTO) : null;
+                sqlSession.selectOne(NAMESPACE + "getProjectReply", projectReplyDTO.getReplyNo()) : null;
     }
 
     @Override
@@ -53,7 +61,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Transactional
     public TodoVO addTodo(AddTodoDTO addTodoDTO) {
         sqlSession.insert(NAMESPACE + "addTodo", addTodoDTO);
-        return sqlSession.selectOne(NAMESPACE + "getTodo", addTodoDTO);
+        return sqlSession.selectOne(NAMESPACE + "getTodo", addTodoDTO.getTodoNo());
     }
 
     @Override
@@ -85,7 +93,6 @@ public class ProjectDAOImpl implements ProjectDAO {
     public int updateProjectLeader(Map<String, Object> updateProjectLeaderMap) {
         sqlSession.update(NAMESPACE + "updateProjectLeader", updateProjectLeaderMap);
         return sqlSession.update(NAMESPACE + "updateMemberProjectToNull", updateProjectLeaderMap.get("beforeLeaderId"));
-
     }
 
     @Override
