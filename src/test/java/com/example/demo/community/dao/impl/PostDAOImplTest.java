@@ -141,9 +141,9 @@ public class PostDAOImplTest {
     public void deletePost(){
 
         PostVO postVO = new PostVO();
-        postVO = postService.getPost(4);
+        postVO = postService.getPost(70);
 
-        postService.deletePost(postVO);
+        postService.deletePost(postVO.getPostNo());
 //        postVO = postService.getPost(4);
 
     }

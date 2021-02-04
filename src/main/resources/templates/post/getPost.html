@@ -11,16 +11,23 @@
 
     <script type="text/javascript">
 
-        function del(){
-            let chk = confirm("정말 삭제하시겠습니까?");
-            if (chk){
-                location.href='getPostList?postNo='+encodeURI(postNo);
-            }
-        }
-
-
-
-
+        // function del(postNo){
+        //     let chk = confirm("정말 삭제하시겠습니까?");
+        //     if (chk){
+        //         // location.href='/comm/delete?postNo='+(postVO.postNo);
+        //         location.href="deletePost?postNo=(postNo)";
+        //     }
+        // }
+        /*---------------------------------------------------*/
+        // let formObj = $("form[role='form']");
+        //
+        // $("#delete_btn").click(function (){
+        //
+        //     formObj.attr("action", "/comm/deletePost");
+        //     formObj.attr("method", "get");
+        //     formObj.submit();
+        // })
+        /*---------------------------------------------------*/
 
 
 
@@ -81,8 +88,11 @@
     <div style="float: left;">
         <a th:href="@{/comm/getPostList}">목록</a>
         <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
-<!--        <a th:href="@{/comm/deletePost}">삭제</a>-->
-        <input type="button"  value="삭제"  onclick="del()">
+        <a th:href="@{/comm/deletePost(postNo=${postVO.postNo})}">삭제</a>
+<!--        <input type="button"  value="삭제"  onclick="del(postNo)">-->
+<!--        <p>-->
+<!--            <button id="delete_btn" onclick="location.href='deletePost?postNo=${postNo}'">삭제</button>-->
+<!--        </p>-->
     </div>
 </form>
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->

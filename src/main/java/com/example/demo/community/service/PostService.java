@@ -27,7 +27,8 @@ public interface PostService {
     public void updateReply(ReplyVO replyVO);
 
 //    게시물 삭제
-    public void deletePost(PostVO postVO);
+//    public void deletePost(PostVO postVO);
+    public void deletePost(int postNo);
 
 //    reply삭제
     public void deleteReply(ReplyVO replyVO);
