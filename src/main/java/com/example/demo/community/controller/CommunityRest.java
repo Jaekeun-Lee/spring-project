@@ -69,8 +69,9 @@ public class CommunityRest {
 //        return postService.updateReply(replyVO);
     }
 
-    @GetMapping("/deleteReply")
+    @RequestMapping(value = "/deleteReply", method = {RequestMethod.GET, RequestMethod.POST})
     public int deleteReply(@RequestParam("replyNo") int replyNo){
+
         return postService.deleteReply(replyNo);
     }
 
