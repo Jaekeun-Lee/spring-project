@@ -190,20 +190,5 @@
 		user_id = #{userId}
 		AND project_no = #{projectNo}
 	 </select>
-	 
-	 <insert id="uploadFile" parameterType="HashMap">
-	 	INSERT 
-	 	INTO files(
-	 		FILE_NO,
-	 		UPLOAD_FILE_A,
-	 		FILE_SIZE,
-	 		PROJECT_NO
-	 	)
-	 	VALUES(
-	 		seq_file_no.NEXTVAL,
-	 		#{originalfileName},
-	 		#{fileSize},
-	 		#{projectNo}
-	 	) 		
-	 </insert>
+
 </mapper>
