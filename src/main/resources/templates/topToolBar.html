@@ -56,7 +56,8 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">프로젝트</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="/project/getProjectList">프로젝트 찾기</a>
-          <a class="dropdown-item" href="/applicant/appliedProjectList">내 프로젝트</a>
+          <a class="dropdown-item" href="/project/myProject">내 프로젝트</a>
+          <a class="dropdown-item" href="/applicant/appliedProjectList">신청한 프로젝트</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Separated link</a>
         </div>
@@ -76,8 +77,15 @@
         <a class="nav-link" href="/port/portList">포트폴리오</a>
       </li>
     </ul>
-		<a class="nav-link my-2 my-lg-0" href="#">로그인</a>
-		<a class="nav-link my-2 my-lg-0" href="#">회원가입</a>
+      <th:block th:if="${session.user == null}">
+          <a class="nav-link my-2 my-lg-0" href="/login">로그인</a>
+          <a class="nav-link my-2 my-lg-0" href="/signUp">회원가입</a>
+      </th:block>
+      <th:block th:if="${session.user != null}">
+          <a class="nav-link my-2 my-lg-0" th:href="@{/profile/getAllMyProfile(userId=${session.user.userId})}" th:text="${session.user.userId}"></a>
+          <a class="nav-link my-2 my-lg-0" href="/logout">로그아웃</a>
+      </th:block>
+
   </div>
 </nav>
 </body>
