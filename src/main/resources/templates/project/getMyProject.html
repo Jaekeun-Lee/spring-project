@@ -352,16 +352,17 @@
                     <span> )</span>
                 </div>
                 <div class="modal-footer">
-                    <th:block th:each="votedMember:${myProject.votedMember}">
-                        <th:block th:if="${votedMember} == ${session.user.userId}">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" data-close="close">이미 종료 투표에 참여하셨습니다.</button>
-                        </th:block>
-                        <th:block th:if="${votedMember} != ${session.user.userId}">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소</button>
-                            <button type="button" class="btn btn-primary" id="confirm-end" >프로젝트 종료 동의</button>
+                    <th:block th:if="${myProject.votedMember.size() != 0}">
+                        <th:block th:each="votedMember:${myProject.votedMember}">
+                            <th:block th:if="${votedMember == session.user.userId}">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" data-close="close">이미 종료 투표에 참여하셨습니다.</button>
+                            </th:block>
                         </th:block>
                     </th:block>
-
+                    <th:block th:if="${myProject.votedMember.size == 0}">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소</button>
+                        <button type="button" class="btn btn-primary" id="confirm-end" >프로젝트 종료 동의</button>
+                    </th:block>
                 </div>
             </div>
         </div>
