@@ -4,12 +4,9 @@ import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
-import com.example.demo.project.dto.AddTodoDTO;
-import com.example.demo.project.dto.ProjectBookmarkDTO;
-import com.example.demo.project.dto.ProjectReplyDTO;
+import com.example.demo.project.dto.*;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.MyProjectVO;
-import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,8 +109,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public int addReview(List<ReviewVO> reviewVOList) {
-        return projectDAO.addReview(reviewVOList);
+    public int addReview(AddReviewDTO addReviewDTO) {
+        List<AddReviewDTO> addReviewDTOList = addReviewDTO.getReviewList();
+        return projectDAO.addReview(addReviewDTOList);
     }
 
     @Override

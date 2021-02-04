@@ -1,13 +1,13 @@
-package com.example.demo.common.vo;
+package com.example.demo.project.dto;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ReviewVO {
+public class AddReviewDTO {
 
-    private int reviewNo;
+    private List<AddReviewDTO> reviewList;
     private int projectNo;
     private int reviewGrade;
     private String reviewComment;
