@@ -41,16 +41,13 @@ public class SystemCheckServiceImpl implements SystemCheckService {
         }
 
         List<DatabaseInfoVO> databaseInfoVOS = systemCheckDAO.selectDatabaseInfo();
-        if(databaseInfoVOS == null || databaseInfoVOS.size() == 0) {
+        if (databaseInfoVOS == null || databaseInfoVOS.size() == 0) {
             return false;
         }
 
         // TODO redis요 사용시 시스템 체크 기능을 추가해주세요
 
         // TODO l....
-
-
-
 
 
         return true;

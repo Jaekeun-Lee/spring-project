@@ -35,7 +35,7 @@
                         <input type="email" name="email" class="form-control" id="email" placeholder="Email"
                                required="">
                         <div class="check_font" id="email_check"></div>
-                        <button id="emailCheck">이메일 인증</button>
+                        <!--                        <button id="emailCheck" href="/findPassword1">이메일 인증</button>-->
                     </div>
 
                     <div>
@@ -83,7 +83,7 @@
                         $("#reg_submit").attr("disabled", true);
                     } else {
 
-                        $("#id_check").text("사용할 수 없는 아이디 입니다.");
+                        $("#id_check").text("사용 가능한 아이디 입니다.");
                         $("#id_check").css("color", "red");
                         $("#reg_submit").attr("disabled", true);
 

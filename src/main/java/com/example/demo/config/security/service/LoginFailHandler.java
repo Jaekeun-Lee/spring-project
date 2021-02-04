@@ -24,17 +24,6 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
     private final MemberService memberService;
     private final Environment environment;
 
-    /**
-     * 1. AuthenticationException에 담긴 에러 정보를 받아서 request의 Attribute속성에 추가하여 화면에 출력
-     * 2. 에러 정보에 대한 메시지는 MessageSource를 사용하여 properties를 사용한 에러 메시지를 출력
-     * 3. 로그인 실패한 계정의 실패 횟수를 증가시켜 줄 것 ( update )
-     *
-     * @param request
-     * @param response
-     * @param exception
-     * @throws IOException
-     * @throws ServletException
-     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         if (exception instanceof UsernameNotFoundException) {
@@ -46,14 +35,14 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
             int loginFailCount = memberService.getLoginFailCount(username);
             if (loginFailCount >= 5) {
-                //changePassword.html 리다이렉트
+
                 response.sendRedirect("/login/password/settings"); // TODO 해당 리퀘스트를 받는 컨트롤러를 만들기
                 return;
             }
-            // 패스워드 실패 카운드를 1개 증가
+
             memberService.loginFailCountIncrease(username);
 
-            request.getSession().setAttribute("error", new ErrorDTO(ErrorCd.WRONG_PASSWORD));
+            request.getSession().setAttribute("Error", new ErrorDTO(ErrorCd.WRONG_PASSWORD));
             response.sendRedirect("/login");
 //        else if(exception instanceof BlockUserException) {
 //

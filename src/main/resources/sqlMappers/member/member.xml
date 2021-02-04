@@ -86,25 +86,11 @@
         ORDER BY REG_DATE
     </select>
 
-    <!--회원탈퇴-->
-    <delete id="deleteMember" parameterType="com.example.demo.member.vo.MemberVO">
-        DELETE
-        FROM MEMBER
-        WHERE USER_ID = #{userId}
-          AND PASSSWORD = #{password}
-    </delete>
-
-    <select id="selectUserById" parameterType="com.example.demo.member.vo.MemberVO">
-        SELECT *
-        FROM MEMBER
-        WHERE USER_ID = #{userId}
-    </select>
-
     <!--비밀번호 찾기-->
     <select id="selectFindUserByPassword" resultType="memberVO" parameterType="map">
         SELECT *
         FROM MEMBER
-        WHERE NAME = #{username}
+        WHERE USER_ID = #{userId}
           AND EMAIL = #{email}
     </select>
 
@@ -143,6 +129,30 @@
             MEMBER
         SET FAIL_CNT = 0
         WHERE USER_ID = #{userId}
+    </update>
+
+    <!-- 회원 탈퇴 -->
+    <delete id="withdrawal">
+        DELETE
+        FROM MEMBER
+        WHERE USER_ID = #{userId}
+          AND PASSSWORD = #{password}
+    </delete>
+
+    <!--회원탈퇴-->
+    <delete id="deleteMember" parameterType="com.example.demo.member.vo.MemberVO">
+        DELETE
+        FROM MEMBER
+        WHERE USER_ID = #{userId}
+          AND PASSSWORD = #{password}
+    </delete>
+
+    <!--메일인증된 비밀번호 update-->
+    <update id="updatePassword" parameterType="map">
+        update
+            MEMBER
+        SET PASSWORD = #{password}
+        WHERE EMAIL = #{email}
     </update>
 
 

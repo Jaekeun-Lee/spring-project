@@ -1,4 +1,4 @@
-package com.example.demo.config.security.service;
+package com.example.demo.config.security.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
