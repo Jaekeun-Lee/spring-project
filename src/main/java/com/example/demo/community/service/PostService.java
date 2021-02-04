@@ -4,7 +4,6 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.PostVO;
 import com.example.demo.community.vo.ReplyVO;
 
-import java.util.List;
 import java.util.Map;
 
 public interface PostService {
@@ -31,7 +30,7 @@ public interface PostService {
     public void deletePost(int postNo);
 
 //    reply삭제
-    public void deleteReply(ReplyVO replyVO);
+    public int deleteReply(int replyNo);
 
 //    게시물목록조회
     public Map<String, Object> getPostList(SearchVO searchVO);

@@ -121,7 +121,7 @@
 
     </delete>
 
-    <delete id="deleteReply"    parameterType="com.example.demo.community.vo.ReplyVO">
+    <delete id="deleteReply"    parameterType="int">
         DELETE
 
         FROM REPLY

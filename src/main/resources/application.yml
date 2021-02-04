@@ -31,13 +31,15 @@ spring:
   devtools:
     livereload:
       enabled: true
-  
+
+  #최대 허용파일크기 설정 (Default - 1MB)
   servlet:
     multipart:
       file-size-threshold: 1MB
       location: C:/Temp
       max-file-size: 40MB
       max-request-size: 40MB
+
 
 mybatis:
   type-aliases-package: com.example.demo.*
