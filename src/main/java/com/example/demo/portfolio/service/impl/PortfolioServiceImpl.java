@@ -4,6 +4,7 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.portfolio.dao.PortfolioDAO;
 import com.example.demo.portfolio.service.PortfolioService;
 import com.example.demo.portfolio.vo.PortfolioVO;
+import com.example.demo.project.vo.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -30,17 +31,27 @@ public class PortfolioServiceImpl implements PortfolioService {
 //    }
 
     @Override
+    public Map<String,Object> getEndProjectList(String userId){
+        PortfolioVO getEndProjectList = (PortfolioVO) portfolioDAO.getEndProjectList(userId);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("getEndProjectList",getEndProjectList);
+        return map;
+
+    }
+
+
+    @Override
     public int updatePort(PortfolioVO updatePort){
         return portfolioDAO.updatePort(updatePort);
     }
 
     @Override
-    public int deletePort(Long portNo){
+    public int deletePort(int portNo){
         return portfolioDAO.deletePort(portNo);
     }
 
     @Override
-    public PortfolioVO getPort(Long portNo){
+    public PortfolioVO getPort(int portNo){
         return portfolioDAO.getPort(portNo);
     }
 
@@ -57,5 +68,16 @@ public class PortfolioServiceImpl implements PortfolioService {
 //    public List<PortfolioVO> getPortList(PortfolioVO portfolioVO) {
 //        return portfolioDAO.getPortList(portfolioVO);
 //    }
+
+
+    @Override
+    public void portFileUpload(int portNo, String originalName, long filesSize) {
+        HashMap<String,Object> files = new HashMap<>();
+        files.put("portNo", portNo);
+        files.put("originalName", originalName);
+        files.put("fileSize",filesSize);
+
+        portfolioDAO.portUploadFile(files);
+    }
 }
 

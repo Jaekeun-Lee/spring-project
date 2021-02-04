@@ -39,7 +39,7 @@ public class Portfolio {
 
     //포트폴리오 수정
     @GetMapping("updatePort")
-    public String updatePortView(@RequestParam("portNo") Long param, Model model){
+    public String updatePortView(@RequestParam("portNo") int param, Model model){
         PortfolioVO portfolioVO = portfolioService.getPort(param);
         model.addAttribute("portfolio",portfolioVO);
         return "portfolio/updatePortfolio";
@@ -64,7 +64,7 @@ public class Portfolio {
 
     //포트폴리오 상세조회
     @GetMapping("getPort")
-    public String getPort(@RequestParam("portNo") Long portNo, Model model){
+    public String getPort(@RequestParam("portNo") int portNo, Model model){
         PortfolioVO portfolioVO = portfolioService.getPort(portNo);
         model.addAttribute("portfolio",portfolioVO);
         return "portfolio/getPortfolio";
@@ -99,4 +99,8 @@ public class Portfolio {
        return "portfolio/getPortfolioList";
 
     }*/
+
+   /* @GetMapping("getEndProjectList")
+    public String getEndProjectList*/
+
 }

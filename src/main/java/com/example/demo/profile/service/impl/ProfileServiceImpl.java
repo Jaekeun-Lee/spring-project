@@ -26,6 +26,8 @@ public class ProfileServiceImpl implements ProfileService {
         return profileDAO.updateMyProfile(updateMyProfileDTO);
     }
 
+
+
     @Override
     public ProfileDTO.GetMyProfileDTO getMyProfile(String userId) {
         return profileDAO.getMyProfile(userId);

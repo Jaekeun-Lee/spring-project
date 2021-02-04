@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:background-color="http://www.w3.org/1999/xhtml">
 <meta charset="UTF-8">
 <head>
 
@@ -28,7 +28,7 @@
 
     <script type="text/javascript">
 
-        <!-- 레이어 팝업 -->
+        <!-- 레이어팝업 -->
         ;(function ($){
             // DOM Ready
             $(function (){
@@ -105,8 +105,18 @@
       <a th:href="@{/port/addPort}"/>글쓰기
     </td>-->
     <button id="add_portfolio_get" class="btn btn-default">포트폴리오 등록</button>
-    <div id="add_portfolio_get_pop_up" class="layerpop" background-color: white; style="width: 700px; height: 350px; overflow:auto;">
+
+    <div id="add_portfolio_get_pop_up" class="layerpop" background-color: white; style="width: 700px; height: 350px; overflow:auto;"/>
+    <form id="detailForm" method="post" th:action="@{/port/addport?portfolioVO.portNo=1}" th:object="${portfolioVO}">
+        <h2><label for="Title" class="control-label">완료된 프로젝트 목록</label> </h2>
+        <br>
+
+        <div class="row form-group col-xs-12">
+    </form>
+
     </tbody>
+
+
 
 </table>
 

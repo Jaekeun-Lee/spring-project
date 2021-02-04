@@ -15,12 +15,60 @@
         <result property="portMemberCnt" column="port_member_cnt" jdbcType="INTEGER"/>
         <result property="regDate" column="reg_date" jdbcType="DATE"/>
         <!--<result property="portThumbnailImg" column="port_thumbnail_image" jdbcType="VARCHAR"/>-->
-
-
         <!-- collection -->
        <!-- <collection property="portSkillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getPortHashTagByUserId"/>
         <collection property="portFileName" column="portfolio_no" select="getFilesByPortfolioNo"/>-->
     </resultMap>
+
+    <resultMap id="getEndProjectSelectMap" type="com.example.demo.project.vo.projectVO">
+        <id property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <collection property="portfolio" column="userId" select="getPortList"/>
+        <collection property="project" column="user_id" select="getEndProjectList"/>
+    </resultMap>
+
+    <select id="getEndProjectList" resultType="projectVO">
+        SELECT project_no projectNo,
+               user_id userId,
+               project_name projectName,
+               reg_date regDate
+        FROM project
+        WHERE user_id=#{userId} AND
+              application_status = 6
+    </select>
+
+    <select id="getPortList" parameterType="searchVO" resultType="getEndProjectSelectMap">
+        SELECT *
+        FROM (SELECT inner_table.*, ROWNUM as row_seq
+        FROM(
+        SELECT portfolio_no,
+        user_id,
+        project_no,
+        port_project_start_date,
+        port_project_end_date,
+        port_description,
+        port_thumbnail_image,
+        port_title,
+        port_member_cnt,
+        reg_date
+        FROM portfolio
+        <where>
+            <if test="searchConditionA != null">
+                <if test="searchConditionA == 1">
+                    port_title LIKE '%'||#{searchKeyword}||'%'
+                </if>
+                <if test="searchConditionA == 2">
+                    port_description LIKE '%'||#{searchKeyword}||'%'
+                </if>
+                <if test="searchConditionA == 3">
+                    user_id LIKE '%'||#{searchKeyword}||'%'
+                </if>
+            </if>
+        </where>
+        ORDER BY portfolio_no ) inner_table
+        WHERE ROWNUM &lt;=#{endRowNum} )
+        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+    </select>
+
 
     <insert id="addPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
         INSERT
@@ -118,13 +166,21 @@
         FROM portfolio
     </select>
 
-   <!-- <select id="getPortList" parameterType="com.example.demo.portfolio.vo.PortfolioVO" resultMap="portfolioSelectMap">
-        SELECT portfolio_no,
-               user_id,
-               port_title,
-               to_char(reg_date,'YYYY-MM-DD') reg_date
-        FROM portfolio
-        WHERE user_id = #{userId}
-    </select>-->
+    <insert id="portUploadFile" parameterType="HashMap">
+        INSERT
+        INTO files(file_no,
+                   upload_file_a,
+                   file_size,
+                   portfolio_no
+                   )
+        VALUES(
+               seq_file_no.NEXTVAL,
+               #{originalName},
+               #{fileSize},
+               #{portfolioNo}
+            )
+    </insert>
+
+
 
 </mapper>

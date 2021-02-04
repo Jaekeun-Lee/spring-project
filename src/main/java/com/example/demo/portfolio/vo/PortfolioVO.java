@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class PortfolioVO {
-    private Long portNo;
+    private int portNo;
     private String userId;
     private int projectNo;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
@@ -22,14 +22,15 @@ public class PortfolioVO {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date regDate;
 
+
     public PortfolioVO() {
     }
 
-    public Long getPortNo() {
+    public int getPortNo() {
         return portNo;
     }
 
-    public void setPortNo(Long portNo) {
+    public void setPortNo(int portNo) {
         this.portNo = portNo;
     }
 
