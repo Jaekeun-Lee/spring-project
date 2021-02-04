@@ -2,11 +2,8 @@ package com.example.demo.project.service;
 
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
-import com.example.demo.project.dto.AddTodoDTO;
-import com.example.demo.project.dto.ProjectBookmarkDTO;
-import com.example.demo.project.dto.ProjectReplyDTO;
+import com.example.demo.project.dto.*;
 import com.example.demo.project.vo.MyProjectVO;
-import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 
@@ -55,7 +52,7 @@ public interface ProjectService {
     //void applicationDeadlineCheck();
 
     //리뷰작성
-    int addReview(List<ReviewVO> reviewVOList);
+    int addReview(AddReviewDTO addReviewDTO);
 
     //todolist 상태변경
     int updateTodoStatus(Map updateTodoStatusMap);

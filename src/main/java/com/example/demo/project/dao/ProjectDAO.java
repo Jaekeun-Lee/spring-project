@@ -2,11 +2,8 @@ package com.example.demo.project.dao;
 
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
-import com.example.demo.project.dto.AddTodoDTO;
-import com.example.demo.project.dto.ProjectBookmarkDTO;
-import com.example.demo.project.dto.ProjectReplyDTO;
+import com.example.demo.project.dto.*;
 import com.example.demo.project.vo.MyProjectVO;
-import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 
@@ -58,7 +55,7 @@ public interface ProjectDAO {
     int updateProjectStatus(Map<String, Object> updateProjectStatusMap);
 
     //리뷰 작성
-    int addReview(List<ReviewVO> reviewVOList);
+    int addReview(List<AddReviewDTO> addReviewDTOList);
 
 
     int updateTodoStatus(Map updateTodoStatusMap);

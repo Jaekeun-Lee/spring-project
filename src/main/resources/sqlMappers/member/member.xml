@@ -17,7 +17,8 @@
                MEMBER_STATUS   as status,
                REPORT_CNT      as reportCnt,
                LAST_LOGIN_DATE as lastLoginDate,
-               REG_DATE        as regDate
+               REG_DATE        as regDate,
+               PROJECT_NO      as projectNo
         FROM MEMBER
     </sql>
 
