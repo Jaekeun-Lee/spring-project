@@ -19,7 +19,7 @@ public interface PortfolioDAO {
     public int updatePort(PortfolioVO updatePort);
 
     //포트폴리오 삭제
-    public int deletePort(int portNo);
+    public int deletePort(PortfolioVO portfolioVO);
 
     //포트폴리오 상세 조회
     public PortfolioVO getPort(int portNo);
@@ -32,6 +32,6 @@ public interface PortfolioDAO {
     public int getTotalCount(SearchVO searchVO);
 
     //첨부파일
-//    public void portUploadFile(HashMap<String,Object> files);
+    public void portUploadFile(HashMap<String,Object> files);
 
 }

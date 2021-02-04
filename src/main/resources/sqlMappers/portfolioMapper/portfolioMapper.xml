@@ -111,7 +111,8 @@
                 </where>
                 ORDER BY portfolio_no ) inner_table
             WHERE ROWNUM &lt;=#{endRowNum} )
-        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} AND
+              user_id=#{userId}
     </select>
 
     <select id="getEndProjectList" parameterType="string" resultType="projectVO">
@@ -127,22 +128,5 @@
         SELECT COUNT(*)
         FROM portfolio
     </select>
-
-    <!--<insert id="portUploadFile" parameterType="HashMap">
-        INSERT
-        INTO files(file_no,
-                   upload_file_a,
-                   file_size,
-                   portfolio_no
-                   )
-        VALUES(
-               seq_file_no.NEXTVAL,
-               #{originalName},
-               #{fileSize},
-               #{portfolioNo}
-            )
-    </insert>
--->
-
 
 </mapper>

@@ -43,6 +43,7 @@ public class Profile {
     @GetMapping("getMyProfile")
     public String getMyProfile(@RequestParam("userId") String userId, Model model){
         ProfileDTO.GetMyProfileDTO getMyProfile = profileService.getMyProfile(userId);
+        System.out.println("@@@@@@@@@@@@@기본정보조회 아이디"+getMyProfile);
         model.addAttribute("profile",getMyProfile);
         return "profile/getMyProfile";
     }

@@ -123,9 +123,8 @@
                r.review_grade reviewGrade,
                r.review_comment reviewComment
         FROM review r, project p
-        WHERE r.project_no = #{projectNo} AND
-              r.project_no = p.project_no AND
-              r.user_id = p.user_id
+        WHERE r.user_id = #{userId} AND
+              r.project_no = p.project_no
     </select>
 
     <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">

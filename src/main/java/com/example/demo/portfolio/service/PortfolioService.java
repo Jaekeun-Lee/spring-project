@@ -21,7 +21,7 @@ public interface PortfolioService {
     public int updatePort(PortfolioVO updatePortDTO);
 
     //포트폴리오 삭제
-    public int deletePort(int portNo);
+    public int deletePort(PortfolioVO portfolioVO);
 
     //포트폴리오 상세 조회
     public PortfolioVO getPort(int portNo);
@@ -31,5 +31,5 @@ public interface PortfolioService {
     public Map<String,Object> getPortList(SearchVO searchVO);
 
     //첨부파일
-//    public void portFileUpload(int portNo, String originalName,long filesSize);
+    public void portFileUpload(int portNo, String originalName,long filesSize);
 }

@@ -71,6 +71,17 @@ public class Portfolio {
         return "redirect:/port/portList";
     }*/
 
+
+    @GetMapping("deletePort")
+    public String deletePort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
+        /*System.out.println("포트폴리오삭제합니다."+portfolioVO);
+        session.setAttribute("userId","user01");*/
+        portfolioVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
+        portfolioService.deletePort(portfolioVO);
+        /*model.addAttribute("portfolio",portfolioVO);*/
+        return "redirect:/port/portList";
+    }
+
     //포트폴리오 상세조회
     @GetMapping("getPort")
     public String getPort(@RequestParam("portNo") int portNo, Model model){
@@ -83,9 +94,10 @@ public class Portfolio {
     @GetMapping("portList")
     public String portList(@ModelAttribute SearchVO searchVO, HttpSession session, Model model){
         searchVO.setPageSize(20);
-        session.setAttribute("userId","user01");
-        searchVO.setUserId((String)session.getAttribute("userId"));
+//        session.setAttribute("userId","user01");
+//        searchVO.setUserId((String)session.getAttribute("userId"));
 
+        searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 
         if (searchVO.getCurrentPage() == 0){
             searchVO.setCurrentPage(1);

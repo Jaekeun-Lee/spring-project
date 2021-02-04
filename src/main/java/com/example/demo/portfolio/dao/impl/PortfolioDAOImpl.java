@@ -40,8 +40,8 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     }
 
     @Override
-    public int deletePort(int portNo){
-        return sqlSession.delete("portfolioMapper.deletePort", portNo);
+    public int deletePort(PortfolioVO portfolioVO){
+        return sqlSession.delete("portfolioMapper.deletePort", portfolioVO);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         return sqlSession.selectOne("portfolioMapper.getTotalCount",searchVO);
     }
 
-     /* @Override
+     @Override
     public void portUploadFile(HashMap<String, Object> files) {
         sqlSession.insert("portfolioMapper.portUploadFile",files);
-    }*/
+    }
 }
