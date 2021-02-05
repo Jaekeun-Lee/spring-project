@@ -1,5 +1,6 @@
 package com.example.demo.member.controller;
 
+import com.example.demo.common.dto.ErrorDTO;
 import com.example.demo.member.dto.MemberDTO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.service.impl.MemberServiceImpl;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,13 @@ public class Member {
      */
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model,HttpSession session) {
+
+        if(session.getAttribute("Error") != null) {
+            ErrorDTO errorDTO = (ErrorDTO) session.getAttribute("Error");
+            model.addAttribute("error", errorDTO);
+            session.removeAttribute("Error");
+        }
 
         return "login";
     }

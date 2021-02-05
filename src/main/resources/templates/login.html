@@ -35,7 +35,7 @@
                         <div>
                             <input type="password" class="form-control" placeholder="Password" name="password"
                                    required="">
-                            <div th:if="${session['error']} != null">
+                            <div th:if="${error}!=null">
                                 <span th:text="#{wrong.password}"></span>
                             </div>
                         </div>
