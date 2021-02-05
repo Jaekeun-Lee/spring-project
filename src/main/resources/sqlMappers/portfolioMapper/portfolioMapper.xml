@@ -17,11 +17,52 @@
 
     </resultMap>
 
-    <resultMap id="getEndProjectSelectMap" type="com.example.demo.project.vo.ProjectVO">
-        <id property="userId" column="user_id" jdbcType="VARCHAR"/>
-        <collection property="project" column="user_id" select="getEndProjectList"/>
-        <collection property="portfolio" column="user_id" select="getPortList"/>
-    </resultMap>
+    <select id="getPortList" parameterType="searchVO" resultType="portfolioVO">
+        SELECT *
+        FROM (SELECT inner_table.*, ROWNUM as row_seq
+        FROM(
+        SELECT portfolio_no portNo,
+        user_id,
+        project_no,
+        port_project_start_date,
+        port_project_end_date,
+        port_description,
+        port_thumbnail_image,
+        port_title,
+        port_member_cnt,
+        reg_date
+        FROM portfolio
+        <where>
+            <if test="searchConditionA != null">
+                <if test="searchConditionA == 1">
+                    port_title LIKE '%'||#{searchKeyword}||'%'
+                </if>
+                <if test="searchConditionA == 2">
+                    port_description LIKE '%'||#{searchKeyword}||'%'
+                </if>
+                <if test="searchConditionA == 3">
+                    user_id LIKE '%'||#{searchKeyword}||'%'
+                </if>
+            </if>
+        </where>
+        ORDER BY portfolio_no ) inner_table
+        WHERE ROWNUM &lt;=#{endRowNum} )
+        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} AND
+        user_id=#{userId}
+    </select>
+
+    <select id="getEndProjectList" parameterType="string" resultType="projectVO">
+        SELECT
+            p.project_name,
+            p.project_no,
+            p.application_deadline,
+            p.end_date,
+            p.recruitment_member_cnt
+        FROM applicant a, project p
+        WHERE a.USER_ID = #{userId} AND
+            a.PROJECT_NO = p.PROJECT_NO AND
+            a.APPLICANT_STATUS = 6
+    </select>
 
     <insert id="addPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
         INSERT
@@ -81,47 +122,7 @@
         WHERE portfolio_no = #{portNo}
     </delete>
 
-    <select id="getPortList" parameterType="searchVO" resultMap="portfolioSelectMap">
-        SELECT *
-        FROM (SELECT inner_table.*, ROWNUM as row_seq
-            FROM(
-                SELECT portfolio_no,
-                       user_id,
-                       project_no,
-                       port_project_start_date,
-                       port_project_end_date,
-                       port_description,
-                       port_thumbnail_image,
-                       port_title,
-                       port_member_cnt,
-                       reg_date
-                FROM portfolio
-                <where>
-                    <if test="searchConditionA != null">
-                        <if test="searchConditionA == 1">
-                            port_title LIKE '%'||#{searchKeyword}||'%'
-                        </if>
-                        <if test="searchConditionA == 2">
-                        port_description LIKE '%'||#{searchKeyword}||'%'
-                        </if>
-                        <if test="searchConditionA == 3">
-                        user_id LIKE '%'||#{searchKeyword}||'%'
-                        </if>
-                    </if>
-                </where>
-                ORDER BY portfolio_no ) inner_table
-            WHERE ROWNUM &lt;=#{endRowNum} )
-        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} AND
-              user_id=#{userId}
-    </select>
 
-    <select id="getEndProjectList" parameterType="string" resultType="projectVO">
-        SELECT project_no,
-               project_name projectName
-        FROM    project
-        WHERE   user_id = #{userId} AND
-                project_status = 3;
-    </select>
 
 
     <select id="getTotalCount" parameterType="pageVO" resultType="int">

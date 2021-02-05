@@ -31,11 +31,9 @@ public class PortfolioServiceImpl implements PortfolioService {
 //    }
 
     @Override
-    public Map<String,Object> getEndProjectList(String userId){
-        PortfolioVO getEndProjectList = (PortfolioVO) portfolioDAO.getEndProjectList(userId);
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("getEndProjectList",getEndProjectList);
-        return map;
+    public List<ProjectVO> getEndProjectList(String userId){
+        List<ProjectVO> getEndProjectList = portfolioDAO.getEndProjectList(userId);
+        return getEndProjectList;
 
     }
 

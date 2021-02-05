@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
 <head>
-    <div th:include="topToolBar.html" ></div>
+
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -52,7 +52,7 @@
     </script>
 </head>
 <body>
-
+<div th:include="topToolBar.html" ></div>
 <form th:action="@{/port/updatePort}" method="post">
     <input type="hidden" id="portNo" name="portNo" th:value="${portfolio.getPortNo()}"/>
     제목 : <input type="text" name="portTitle" th:value="${portfolio.portTitle}"></br>

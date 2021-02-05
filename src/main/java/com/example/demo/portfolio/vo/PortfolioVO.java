@@ -23,6 +23,7 @@ public class PortfolioVO {
     private Date regDate;
 
 
+
     public PortfolioVO() {
     }
 
