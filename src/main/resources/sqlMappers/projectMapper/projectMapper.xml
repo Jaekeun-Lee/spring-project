@@ -161,7 +161,7 @@
 	</select>
 
 
-	<insert id="addBookmark" parameterType="projectBookmarkDTO">
+	<insert id="addBookmark" parameterType="projectBookmarkDTO" useGeneratedKeys="true" keyColumn="BOOKMARK_NO" keyProperty="bookmarkNo">
 		INSERT INTO BOOKMARK(BOOKMARK_NO,
 		                     USER_ID,
 		                     PROJECT_NO)
@@ -172,7 +172,7 @@
 	<delete id="deleteBookmark" parameterType="projectBookmarkDTO">
 		DELETE
 		FROM BOOKMARK
-		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{userId}
+		WHERE BOOKMARK_NO = #{bookmarkNo}
 	</delete>
 
 
@@ -272,6 +272,11 @@
 		UPDATE PROJECT
 		SET PROJECT_STATUS = 3
 		WHERE PROJECT_NO = #{projectNo}
+	</update>
+
+	<update id="updateProjectNoOfTeamMembers" parameterType="hashMap">
+		UPDATE MEMBER
+		SET PROJECT_NO = REPLACE(PROJECT_NO,#{projectNo},NULL);
 	</update>
 
 

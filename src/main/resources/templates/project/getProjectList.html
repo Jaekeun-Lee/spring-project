@@ -5,42 +5,69 @@
     <title>프로젝트 찾기</title>
 
     <link rel="stylesheet" href="/resources/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
 
         $(function () {
-            $("input[name=projectCategory]").on("click",function () {
+            $("input[name=projectCategory]").on("click", function () {
                 categoryList();
             })
-        })
 
+            $('button[name=bookmarkControl]').on("click", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/project/addBookmark',
+                    data: JSON.stringify({
+                        userId: $('#userId').val(),
+                        projectNo: $(this).attr("data-projectno"),
+                        bookmarkNo: $(this).attr("data-bookmarkno"),
+                        bookmarkControl: $(this).val()
+                    }),
+                    context: this,
+                    contentType: 'application/json',
+                    success: function (data) {
+
+                        if ($(this).val() == "1") {
+                            $(this).attr('value', 2);
+                            $(this).attr('data-bookmarkno', data);
+                            $(this).children().attr('src', '/resources/img/btn-icon-like-on.png')
+                        } else {
+                            $(this).attr('value', 1);
+                            $(this).attr('data-bookmarkno', 0);
+                            $(this).children().attr('src', '/resources/img/btn-icon-like-off.png')
+                        }
+
+                    },
+                    error: function (e) {
+                        alert("북마크 추가 실패 = " + e)
+                    }
+                });
+            })
+        })
 
 
         function categoryList() {
             let categoryList = new Array();
 
             $("input[name=projectCategory]:checked").each(function (i) {
-                categoryList.push("projectCategory="+$(this).val());
+                categoryList.push("projectCategory=" + $(this).val());
             })
             let param = "";
-            categoryList.forEach( element => param+=element+"&");
+            categoryList.forEach(element => param += element + "&");
 
 
-            window.location.replace("/project/getProjectList?"+param);
+            window.location.replace("/project/getProjectList?" + param);
 
         }
-
 
 
     </script>
 </head>
 <body>
-<div th:include="topToolBar.html" ></div>
+<div th:include="topToolBar.html"></div>
 <div class="wrapper">
     <h4 class="display-3">프로젝트 목록</h4>
     <div class="row">
@@ -49,25 +76,34 @@
 
     <div class="row">
         <div class="category-box col-lg-3">
+            <input type="hidden" id="userId" th:value="${session.user.userId}">
             <div class="searchCondition-list" style="display: inline-block; width : 90%;">
                 <div class="sear">
-                    <h4>Project Category</h4><hr/>
+                    <h4>Project Category</h4>
+                    <hr/>
                     <div class="custom-control custom-checkbox">
-                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(1)}" type="checkbox" class="custom-control-input" name="projectCategory" id="category1" value="1">
+                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(1)}"
+                               type="checkbox" class="custom-control-input" name="projectCategory" id="category1"
+                               value="1">
                         <label class="custom-control-label" for="category1">개발</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(2)}" type="checkbox" class="custom-control-input" name="projectCategory" id="category2" value="2">
+                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(2)}"
+                               type="checkbox" class="custom-control-input" name="projectCategory" id="category2"
+                               value="2">
                         <label class="custom-control-label" for="category2">기획</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(3)}" type="checkbox" class="custom-control-input" name="projectCategory" id="category3" value="3">
+                        <input th:checked="${checkedStatus.projectCategory!=null and checkedStatus.projectCategory.contains(3)}"
+                               type="checkbox" class="custom-control-input" name="projectCategory" id="category3"
+                               value="3">
                         <label class="custom-control-label" for="category3">디자인 </label>
                     </div>
                 </div>
 
                 <div id="meeting-method">
-                    <h4>Meeting Method</h4><hr/>
+                    <h4>Meeting Method</h4>
+                    <hr/>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="meeting1" value="1">
                         <label class="custom-control-label" for="meeting1"><a href="/">대면</a></label>
@@ -98,6 +134,7 @@
                 </div>
             </div>
             <div class="project-box" th:each="project : ${projectList}" style="width:100%; height:200px;">
+
                 <div class="card h-100">
                     <div class="card-body" style="overflow: hidden;">
                         <div style="float: left; width: 80%;">
@@ -109,7 +146,7 @@
                                     <span class="badge badge-primary">모집완료</span>
                                 </div>
                                 <div th:case="3">
-                                    <span class="badge badge-warning">모집종료</span>
+                                    <span class="badge badge-danger">종료</span>
                                 </div>
                             </th:block>
                             <h4 class="card-title">
@@ -117,12 +154,15 @@
                                    th:text="${project.projectName}"></a>
                             </h4>
                         </div>
-                        <div id="bookmark-click" th:switch="${project.bookmarkNo}" style="float: right;">
-                            <button th:case="0" class="btn btn-link" th:value="1">
-                                <img style="width: 24px; height: 24px;" src="/resources/img/btn-icon-like-off.png">
+                        <div th:switch="${project.bookmarkNo}">
+                            <button name="bookmarkControl" th:case="0" class="btn btn-secondary"
+                                    th:value="1" th:data-bookmarkno="${project.bookmarkNo}"
+                                    th:data-projectno="${project.projectNo}">
+                                <img src="/resources/img/btn-icon-like-off.png">
                             </button>
-                            <button th:case="*" class="btn btn-link" th:value="2">
-                                <img style="width: 24px; height: 24px;" src="/resources/img/btn-icon-like-on.png">
+                            <button name="bookmarkControl" th:case="*" class="btn btn-secondary"
+                                    th:value="2" th:data-bookmarkno="${project.bookmarkNo}">
+                                <img src="/resources/img/btn-icon-like-on.png">
                             </button>
                         </div>
                         <div class="card-text" th:text="${project.projectDetail}"></div>

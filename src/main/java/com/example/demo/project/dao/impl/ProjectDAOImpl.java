@@ -1,6 +1,5 @@
 package com.example.demo.project.dao.impl;
 
-import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.*;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,7 +64,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     @Override
     public int addBookmark(ProjectBookmarkDTO projectBookmarkDTO) {
-        return sqlSession.insert(NAMESPACE + "addBookmark", projectBookmarkDTO);
+        return sqlSession.insert(NAMESPACE + "addBookmark", projectBookmarkDTO) == 1 ?
+                projectBookmarkDTO.getBookmarkNo() : 0;
     }
 
     @Override
@@ -102,7 +101,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     @Override
     public int updateProjectStatus(Map<String, Object> updateProjectStatusMap) {
-        return sqlSession.update(NAMESPACE + "updateProjectStatus", updateProjectStatusMap);
+        sqlSession.update(NAMESPACE + "updateProjectStatus", updateProjectStatusMap);
+        return sqlSession.update(NAMESPACE + "updateProjectNoOfTeamMembers", updateProjectStatusMap);
     }
 
     @Override

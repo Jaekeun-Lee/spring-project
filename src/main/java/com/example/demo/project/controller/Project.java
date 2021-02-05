@@ -20,6 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -53,9 +57,11 @@ public class Project {
 
     @GetMapping("/addProject")
     public String addProject(HttpSession session) {
-        return "/project/addProject";
-    }
+        MemberVO memberVO = (MemberVO)session.getAttribute("user");
+        return (memberVO.getProjectNo() != 0||isWithinRange(memberVO.getProjectWithdrawalDate())) ?
+                "/project/addProject" : "project/accessRestriction";
 
+    }
 
     @PostMapping("/addProject")
     public String addProject(@ModelAttribute("project") ProjectVO projectVO,
@@ -143,6 +149,27 @@ public class Project {
 
         projectService.addReview(addReviewDTO);
         return "redirect:getProjectList";
+
+    }
+
+    private boolean isWithinRange(Date userWithdrawalDate) {
+
+        Calendar aWeekAgo = Calendar.getInstance();
+        aWeekAgo.add(Calendar.DATE , -7);
+        String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd").format(aWeekAgo.getTime());
+
+        String withdrawalDate = new java.text.SimpleDateFormat("yyyy-MM-dd").format(userWithdrawalDate.getTime());
+
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        String endDate = date.format(today);
+
+        LocalDate localdate = LocalDate.parse(withdrawalDate);
+        LocalDate startLocalDate = LocalDate.parse(startDate);
+        LocalDate endLocalDate = LocalDate.parse(endDate);
+        endLocalDate = endLocalDate.plusDays(1); // endDate 는 포함하지 않으므로 +1일을 해줘야함.
+
+        return ( localdate.isBefore( startLocalDate ) ) && ( localdate.isBefore( endLocalDate ) );
 
     }
 

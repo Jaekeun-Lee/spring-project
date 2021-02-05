@@ -18,7 +18,8 @@
                REPORT_CNT      as reportCnt,
                LAST_LOGIN_DATE as lastLoginDate,
                REG_DATE        as regDate,
-               PROJECT_NO      as projectNo
+               PROJECT_NO      as projectNo,
+               PROJECT_WITHDRAWAL_DATE as projectWithdrawalDate
         FROM MEMBER
     </sql>
 

@@ -70,12 +70,13 @@
                         todoNo: todoNo,
                         todoStatus: todoStatus
                     }),
+                    context: this,
                     contentType: 'application/json',
                     success: function (data) {
                         if(todoStatus === "1") {
-                            $('input[name=todoStatus]').attr('value',2)
+                            $(this).attr('value',2)
                         } else {
-                            $('input[name=todoStatus]').attr('value',1)
+                            $(this).attr('value',1)
                         }
 
                     }
@@ -267,20 +268,23 @@
     <div class="row">
         <div class="col-lg-12">
             <hr>
-            <th:block th:if="${myProject.leaderId}==${session.user.userId}">
+            <th:block th:if="${(myProject.leaderId == session.user.userId) && myProject.teamMember.size()!=1}">
                 <button type="button" id="updateLeader-btn" class="btn btn-outline-danger">권한 위임 후 탈퇴</button>
             </th:block>
-            <th:block th:if="${myProject.leaderId}!=${session.user.userId}">
+            <th:block th:if="${(myProject.leaderId == session.user.userId) && myProject.teamMember.size()==1}">
+                <button type="button" id="delete-btn" class="btn btn-outline-warning">프로젝트 삭제</button>
+            </th:block>
+
+            <th:block th:if="${myProject.leaderId != session.user.userId}">
                 <button type="button" id="withdraw-btn" class="btn btn-outline-danger">프로젝트 탈퇴</button>
             </th:block>
 
 
+            <th:block th:if="${myProject.teamMember.size()!=1}">
             <div style="float: right;">
                 <button type="button" id="end-btn" class="btn btn-outline-success">프로젝트 종료</button>
-                <th:block th:if="${(myProject.leaderId == session.user.userId) && myProject.teamMember.size()==1}">
-                    <button type="button" id="delete-btn" class="btn btn-outline-warning">프로젝트 삭제</button>
-                </th:block>
             </div>
+            </th:block>
         </div>
     </div>
 

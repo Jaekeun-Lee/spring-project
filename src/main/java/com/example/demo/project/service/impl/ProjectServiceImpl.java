@@ -1,6 +1,5 @@
 package com.example.demo.project.service.impl;
 
-import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
@@ -88,7 +87,6 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             return 0;
         }
-
     }
 
     @Override
