@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.util.SecurityUtils;
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
 import com.example.demo.projectApplicant.service.ProjectApplicantService;
 import com.example.demo.projectApplicant.vo.ApplicantVO;
@@ -31,6 +34,10 @@ public class ProjectApplicantRest {
 	@Qualifier("projectApplicantServiceImpl")
 	private ProjectApplicantService projectApplicantService;
 	
+	@Autowired
+    @Qualifier("memberServiceImpl")
+    MemberService memberService;
+	
 	public ProjectApplicantRest() {
 		System.out.println(this.getClass());
 	}
@@ -38,12 +45,20 @@ public class ProjectApplicantRest {
 	@RequestMapping(value="json/updateApplicantStatus/{applicantStatus}/{applicantNo}", method=RequestMethod.GET)
 	public ApplicantVO updateApplicantStatus(@ModelAttribute("updateApplicantStatusDTO")UpdateApplicantStatusDTO updateApplicantStatusDTO,
 								HttpSession session) {
-		updateApplicantStatusDTO.setUserId("user02");
+		updateApplicantStatusDTO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		int applicantNo = updateApplicantStatusDTO.getApplicantNo();
 		
 		projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
 		ApplicantVO applicantVO = projectApplicantService.getApplicant(applicantNo);
 		
+		session.removeAttribute("user");
+        MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if (memberVO != null) {
+            session.setAttribute("user", memberVO);
+        }
+		
+        System.out.println("@@@"+session.getAttribute("user"));
+        
 		return applicantVO;
 	}
 	
