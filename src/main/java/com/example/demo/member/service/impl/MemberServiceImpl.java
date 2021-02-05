@@ -1,6 +1,7 @@
 package com.example.demo.member.service.impl;
 
 
+import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.member.dto.MemberDTO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.service.dao.MemberDAO;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -137,6 +140,29 @@ public class MemberServiceImpl implements MemberService {
     public int loginFailCountInitialize(String userId) {
         return memberDAO.loginFailCountInitialize(userId);
     }
+
+    @Override
+    public int deleteMember(String userId) {
+        return memberDAO.deleteMember(userId);
+    }
+
+    @Override
+    public int changeDormant(String userId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("memberStatus", MemberStatusCd.DORMANT);
+        return memberDAO.changeDormant(map);
+    }
+
+    @Override
+    public int changeNormal(String userId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("memberStatus", MemberStatusCd.NORMAL);
+        return memberDAO.changeNormal(map);
+    }
+
 }
+
 
 

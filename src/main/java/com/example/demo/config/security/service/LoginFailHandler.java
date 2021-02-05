@@ -36,7 +36,7 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
             int loginFailCount = memberService.getLoginFailCount(username);
             if (loginFailCount >= 5) {
 
-                response.sendRedirect("/login/password/settings"); // TODO 해당 리퀘스트를 받는 컨트롤러를 만들기
+                response.sendRedirect("/login/password/settings");
                 return;
             }
 

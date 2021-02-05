@@ -2,6 +2,7 @@ package com.example.demo.common.dto;
 
 import com.example.demo.common.cd.ErrorCd;
 import lombok.*;
+import org.springframework.core.env.Environment;
 
 import java.io.Serializable;
 

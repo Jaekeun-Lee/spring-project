@@ -48,12 +48,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.sendRedirect("/welcome");
 
 
-//        clearAuthenticationAttributes(request);
-    } //실패 에러 세션 지우기
-//    protected void clearAuthenticationAttributes(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if(session==null) return;
-//        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+
+
+    }
+
 }
 
 

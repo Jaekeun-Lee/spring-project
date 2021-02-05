@@ -53,6 +53,4 @@ public class MVCConfiguration implements WebMvcConfigurer {
 //    public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(localeChangeInterceptor());
 //    }
-
-
 }

@@ -1,16 +1,17 @@
 package com.example.demo.member.controller;
 
 import com.example.demo.member.dto.MemberDTO;
+import com.example.demo.member.service.MemberService;
 import com.example.demo.member.service.dao.MemberDAO;
 import com.example.demo.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,6 +19,7 @@ import java.util.List;
 public class MemberManage {
 
     private final MemberDAO memberDAO;
+    private final MemberService memberService;
 
     /**
      * 회원 목록
@@ -66,10 +68,30 @@ public class MemberManage {
         return "admin/manage/black";
     }
 
+    @GetMapping("/withdrawal")
+    public String withdrawal(@RequestParam("userId") String userId) {
+        memberService.deleteMember(userId);
+        return "admin/manage/withdrawal";
+    }
 
-    //TODO 회원 탈퇴 
 
-    //TODO 회원 등급 (리뷰 총점 합산 후 등급 부여)
+    @GetMapping("/changeDormant")
+    public String changeDormant(@Valid MemberDTO.GetListBlackReqDTO param,@RequestParam("userId") String userId, Model model) {
+        memberService.changeDormant(userId);
+        List<MemberVO> memberBackList = memberDAO.selectMemberBackList(param.convertSignUpDTOToMemberVO());
+
+        model.addAttribute("memberBlackList", memberBackList);
+        return "admin/manage/changeDormant";
+    }
+
+    @GetMapping("/changeNormal")
+    public String changeNormal(@Valid MemberDTO.GetListDormantReqDTO param,@RequestParam("userId") String userId, Model model) {
+        memberService.changeNormal(userId);
+        List<MemberVO> memberDormantList = memberDAO.selectMemberDormantList(param.convertSignUpDTOToMemberVO());
+        model.addAttribute("memberDormantList", memberDormantList);
+        return "admin/manage/changeNormal";
+    }
+
 
 }
 

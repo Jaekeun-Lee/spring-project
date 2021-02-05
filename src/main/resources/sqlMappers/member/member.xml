@@ -131,28 +131,42 @@
         WHERE USER_ID = #{userId}
     </update>
 
-    <!-- 회원 탈퇴 -->
-    <delete id="withdrawal">
-        DELETE
-        FROM MEMBER
-        WHERE USER_ID = #{userId}
-          AND PASSSWORD = #{password}
-    </delete>
-
-    <!--회원탈퇴-->
-    <delete id="deleteMember" parameterType="com.example.demo.member.vo.MemberVO">
-        DELETE
-        FROM MEMBER
-        WHERE USER_ID = #{userId}
-          AND PASSSWORD = #{password}
-    </delete>
+    <!--    &lt;!&ndash; 회원 탈퇴 &ndash;&gt;-->
+    <!--    <delete id="withdrawal">-->
+    <!--        DELETE-->
+    <!--        FROM MEMBER-->
+    <!--        WHERE USER_ID = #{userId}-->
+    <!--          AND PASSSWORD = #{password}-->
+    <!--    </delete>-->
 
     <!--메일인증된 비밀번호 update-->
     <update id="updatePassword" parameterType="map">
-        update
+        UPDATE
             MEMBER
         SET PASSWORD = #{password}
         WHERE EMAIL = #{email}
+    </update>
+
+    <!--회원탈퇴-->
+    <update id="withdrawal" parameterType="string">
+        UPDATE
+            MEMBER
+        SET MEMBER_WITHDRAWAL = 1
+        WHERE USER_ID = #{userId}
+    </update>
+    <!--비활성화-->
+    <update id="changeDormant" parameterType="map">
+        UPDATE
+            MEMBER
+        SET MEMBER_STATUS = #{memberStatus}
+        WHERE USER_ID= #{userId}
+    </update>
+
+    <update id="changeNormal" parameterType="map">
+        UPDATE
+            MEMBER
+        SET MEMBER_STATUS = #{memberStatus}
+        WHERE USER_ID= #{userId}
     </update>
 
 

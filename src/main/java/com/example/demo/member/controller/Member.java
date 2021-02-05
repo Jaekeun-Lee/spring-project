@@ -3,6 +3,7 @@ package com.example.demo.member.controller;
 import com.example.demo.member.dto.MemberDTO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.service.impl.MemberServiceImpl;
+import com.example.demo.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,18 +61,17 @@ public class Member {
     @GetMapping("/member/idCheck")
     @ResponseBody
     public int idCheck(@RequestParam("userId") String userId) {
-        System.out.println(userId);
         return memberService.userIdCheck(userId);
     }
     @GetMapping("/member/emailCheck")
     @ResponseBody
     public int emailCheck(@RequestParam("email") String userId) {
-        System.out.println(userId);
         return memberService.userIdCheck(userId);
     }
 
     @GetMapping("/login/password/settings")
     public String changePassword(){return "member/manage/findPassword1";}
+
 
 }
 

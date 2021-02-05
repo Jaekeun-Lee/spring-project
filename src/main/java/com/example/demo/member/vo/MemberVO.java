@@ -1,12 +1,10 @@
 package com.example.demo.member.vo;
 
 import com.example.demo.common.cd.MemberGradeCd;
-import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.NotiVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.cd.AuthorityCd;
 import com.example.demo.common.cd.MemberStatusCd;
-import com.example.demo.portfolio.vo.PortfolioVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +27,7 @@ public class MemberVO implements Serializable {
     private int reportCnt; // 유저가 신고당한 횟수
     private LocalDateTime lastLoginDate; // 마지막 로그인 일시
     private LocalDateTime regDate; // 계정 생성일시
+    private int memberWithdrawal; // 회원탈퇴
 
     private Date projectWithdrawalDate; //프로젝트 탈퇴날짜
     private int projectNo; //프로젝트No
@@ -38,8 +37,6 @@ public class MemberVO implements Serializable {
     private List<NotiVO> noti;
     private List<ReviewVO> review;
     private List<String> link;
-    private List<String> skillHashTag;
-    private List<BookmarkVO> bookmark;
 
 
     /**

@@ -55,5 +55,12 @@ public interface MemberService {
      * @return
      */
     int loginFailCountInitialize(String userId);
+
+
+    int deleteMember(String userId);
+
+    int changeDormant(String userId);
+
+    int changeNormal(String userId);
 }
 
