@@ -43,9 +43,15 @@ public class Profile {
     @GetMapping("getMyProfile")
     public String getMyProfile(@RequestParam("userId") String userId, Model model){
         ProfileDTO.GetMyProfileDTO getMyProfile = profileService.getMyProfile(userId);
-        System.out.println("@@@@@@@@@@@@@기본정보조회 아이디"+getMyProfile);
         model.addAttribute("profile",getMyProfile);
         return "profile/getMyProfile";
+    }
+
+    @GetMapping("getAdminProfile")
+    public String getAdminProfile(@RequestParam("userId") String userId, Model model){
+        ProfileDTO.GetAdminProfileDTO getAdminProfile = profileService.getAdminProfile(userId);
+        model.addAttribute("profile",getAdminProfile);
+        return "profile/getAdminProfile";
     }
 
     //북마크 목록조회
@@ -82,4 +88,6 @@ public class Profile {
 
         return "profile/getAllMyProfile";
     }
+
+
 }

@@ -113,7 +113,6 @@
 
         <div class="" th:each="projectVO:${endProjectList}">
             <div class="form-group">
-                <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@-->
 
                 <table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
                     <thead>
@@ -138,18 +137,15 @@
                         <td th:text="${projectVO.endDate}"></td>
                         <td th:text="${projectVO.recruitmentMemberCnt}"></td>
                     </tr>
-
-                    <td class="">
-                        <a th:href="@{/port/addPort}"/>글쓰기
-                    </td>
-
                     </tbody>
 
                 </table>
 
             </div>
-            <a button id="" th:href="@{/port/addPort}">포트폴리오 등록</a>
         </div>
+        <td class="">
+            <a th:href="@{/port/addPort}"/>글쓰기
+        </td>
     </form>
 </div>
 

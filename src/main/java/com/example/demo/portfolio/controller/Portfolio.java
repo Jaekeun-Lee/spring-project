@@ -102,9 +102,10 @@ public class Portfolio {
         List<ProjectVO> endProjectList = portfolioService.getEndProjectList(((MemberVO) session.getAttribute("user")).getUserId());
         List<PortfolioVO> portList = (List<PortfolioVO>) map.get("list");
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+portList.get(0).getPortNo());
+//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+portList.get(0).getPortNo());
         model.addAttribute("endProjectList",endProjectList);
-        model.addAttribute("portList", map.get("list"));
+        model.addAttribute("portList",portList);
+//        model.addAttribute("portList", map.get("list"));
 
 
         return "portfolio/getPortfolioList";
