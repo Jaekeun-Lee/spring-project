@@ -58,8 +58,16 @@ public class Project {
     @GetMapping("/addProject")
     public String addProject(HttpSession session) {
         MemberVO memberVO = (MemberVO)session.getAttribute("user");
-        return (memberVO.getProjectNo() != 0||isWithinRange(memberVO.getProjectWithdrawalDate())) ?
-                "/project/addProject" : "project/accessRestriction";
+
+        if (memberVO.getProjectNo() == 0 ) {
+            if (memberVO.getProjectWithdrawalDate() != null) {
+                return isWithinRange(memberVO.getProjectWithdrawalDate()) ? "project/addProject" : "project/accessRestriction";
+            } else {
+                return "project/addProject";
+            }
+        }
+
+        return "project/accessRestriction";
 
     }
 
