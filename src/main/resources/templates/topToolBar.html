@@ -1,24 +1,16 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="fontsize">
-    <a class="navbar-brand" href="#">로고</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
-            aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+<head th:replace="fragments/header :: main-head">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/welcome">SPRING</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor03">
+    <div class="navbar-collapse collapse" id="navbarColor01" style="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">홈
+                <a class="nav-link" href="/welcome">홈
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
@@ -41,6 +33,7 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                    aria-expanded="false">프로젝트</a>
                 <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/project/addProject">프로젝트 등록</a>
                     <a class="dropdown-item" href="/project/getProjectList">프로젝트 찾기</a>
                     <a class="dropdown-item" href="/project/myProject">내 프로젝트</a>
                     <a class="dropdown-item" href="/applicant/appliedProjectList">신청한 프로젝트</a>
@@ -78,15 +71,15 @@
             </th:block>
         </ul>
         <th:block th:if="${session.user == null}">
-            <a class="nav-link my-2 my-lg-0" href="/login">로그인</a>
-            <a class="nav-link my-2 my-lg-0" href="/signUp">회원가입</a>
+            <a class="nav-link my-2 my-lg-0" href="/login" style="color : #fff">로그인</a>
+            <a class="nav-link my-2 my-lg-0" href="/signUp" style="color : #fff">회원가입</a>
         </th:block>
         <th:block th:if="${session.user != null}">
             <a class="nav-link my-2 my-lg-0" th:href="@{/profile/getAllMyProfile(userId=${session.user.userId})}"
-               th:text="${session.user.userId}"></a>
-            <a class="nav-link my-2 my-lg-0" href="/logout">로그아웃</a>
+               th:text="${session.user.userId}" style="color : #fff"></a>
+            <a class="nav-link my-2 my-lg-0" href="/logout" style="color : #fff">로그아웃</a>
         </th:block>
-
     </div>
 </nav>
+
 </html>
