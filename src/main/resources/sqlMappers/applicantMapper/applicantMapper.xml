@@ -111,7 +111,7 @@
 						WHERE m.user_id = a.user_id
 						AND a.project_no = ( SELECT
 						project_no
-						FROM member
+						FROM project
 						WHERE user_id=#{userId})
 				ORDER BY a.applicant_no) inner_table
 			WHERE ROWNUM &lt;= #{endRowNum} )
