@@ -47,30 +47,32 @@
             });
 
             $("#bookmark-click").on("click", function () {
+
+                let bookmarkNo = $('button[name=bookmarkControl]').attr("data-bookmarkno");
                 $.ajax({
                     type : 'POST',
                     url  : '/project/addBookmark',
                     data : JSON.stringify({
                         userId : userId,
                         projectNo : projectNo,
+                        bookmarkNo : bookmarkNo,
                         bookmarkControl : $('#bookmark-click').children().val()
                     }),
                     contentType : 'application/json',
                     success : function (data) {
-                        if(data === 1) {
-                            let bookmarkCheck = $('#bookmark-click').children().val();
 
-                            if( bookmarkCheck === "1") {
-                                $("#bookmark-click").children().attr('value', 2);
-                                $("#bookmark-click").children().children().attr('src','/resources/img/btn-icon-like-on.png')
-                            } else {
-                                $("#bookmark-click").children().attr('value', 1);
-                                $("#bookmark-click").children().children().attr('src','/resources/img/btn-icon-like-off.png')
-                            }
+                        let bookmarkCheck = $('button[name=bookmarkControl]').val()
+                        $('button[name=bookmarkControl]').removeData('data-bookmarkno');
+                        if( bookmarkCheck === "1") {
+                            $('button[name=bookmarkControl]').attr('value', 2);
+                            $('button[name=bookmarkControl]').attr('data-bookmarkno', data);
+                            $('button[name=bookmarkControl]').children().attr('src','/resources/img/btn-icon-like-on.png')
+                        } else {
+                            $('button[name=bookmarkControl]').attr('value', 1);
+                            $('button[name=bookmarkControl]').attr('data-bookmarkno', 0);
+                            $('button[name=bookmarkControl]').children().attr('src','/resources/img/btn-icon-like-off.png')
                         }
-                        else {
-                            alert("북마크 추가 실패");
-                        }
+
                     },
                     error: function (e){
                         alert("북마크 추가 실패 = "+e)
@@ -274,15 +276,17 @@
 
         <div class="col-lg-3" id="team-info-box">
 
-            <!-- Button that triggers the popup -->
-            <th:block th:if="${session.user.projectNo == 0 && existApplicant ==0}">
-                <button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
-            </th:block>
-            <th:block th:if="${session.user.projectNo != 0}">
-                <span class="badge badge-pill badge-light">이미 프로젝트 진행중 입니다.</span>
-            </th:block>
-            <th:block th:if="${existApplicant != 0}">
-                <span class="badge badge-pill badge-light">신청한 프로젝트</span>
+            <th:block th:if="${project.projectStatus != 3}">
+                <!-- Button that triggers the popup -->
+                <th:block th:if="${session.user.projectNo == 0 && existApplicant ==0}">
+                    <button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
+                </th:block>
+                <th:block th:if="${session.user.projectNo != 0}">
+                    <button class="badge badge-pill badge-dark" style="width: 100%; height: 60px;">이미 참여중인 프로젝트가 있습니다.</button>
+                </th:block>
+                <th:block th:if="${existApplicant != 0}">
+                    <button class="badge badge-pill badge-info" style="width: 100%; height: 60px;">이미 신청서를 제출했습니다.</button>
+                </th:block>
             </th:block>
             <div class="member-info">
                 <h4>Team Member</h4>
@@ -290,10 +294,12 @@
             </div>
 
             <div id="bookmark-click" th:switch="${project.bookmarkNo}">
-                <button th:case="0" class="btn btn-secondary" th:value="1">
+                <button name="bookmarkControl" th:case="0" class="btn btn-secondary"
+                        th:value="1" th:data-bookmarkno="${project.bookmarkNo}">
                     <img src="/resources/img/btn-icon-like-off.png">
                 </button>
-                <button th:case="*" class="btn btn-secondary" th:value="2">
+                <button name="bookmarkControl" th:case="*" class="btn btn-secondary"
+                        th:value="2" th:data-bookmarkno="${project.bookmarkNo}">
                     <img src="/resources/img/btn-icon-like-on.png">
                 </button>
             </div>
