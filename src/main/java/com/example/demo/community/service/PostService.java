@@ -23,7 +23,7 @@ public interface PostService {
     public void updatePost(PostVO postVO);
 
 //    reply수정
-    public void updateReply(ReplyVO replyVO);
+    public int updateReply(ReplyVO replyVO);
 
 //    게시물 삭제
 //    public void deletePost(PostVO postVO);

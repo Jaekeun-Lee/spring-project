@@ -65,9 +65,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void updateReply(ReplyVO replyVO){
+    public int updateReply(ReplyVO replyVO){
 
-        postDAO.updateReply(replyVO);
+        return postDAO.updateReply(replyVO);
     }
 
     @Override
