@@ -59,9 +59,9 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
-    public void updateReply(ReplyVO replyVO){
+    public int updateReply(ReplyVO replyVO){
 
-        sqlSession.update("postMapper.updateReply",replyVO);
+       return sqlSession.update("postMapper.updateReply", replyVO);
     }
 
     @Override

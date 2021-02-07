@@ -69,28 +69,63 @@
 
             })
 
+            $('#update-reply-btn').on('click', function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/comm/updateReply',
+                        data: JSON.stringify({
+                            replyNo: $('#replyNo').val(),
+                            replyContent: $('#replyContent').val()
+                        }),//서버로 보낼 데이터를지정해주는
+                        dataType: 'text',//받아올때 서버에서
+                        contentType: 'application/json',//서버에 데이터를 보낼때
+                        success: function (data) {
+                            alert("댓글 수정 완료");
+                            const replyVO = JSON.parse(data);
+                            const regDate = replyVO.regDate.substring(0, 10);
+
+                            let html =
+                                "<div class=\"card bg-secondary mb-3\" style=\"max-width: 20rem;\">" +
+                                "   <div class=\"card-header\">" + replyVO.replyUserId + "</div>" +
+                                "       <div class=\"card-body\">" +
+                                "           <h4 class=\"card-title\">" + replyVO.replyContent + "</h4>" +
+                                "       <p class=\"card-text\">" + regDate + "</p>" +
+                                "   </div>" +
+                                "</div>"
+
+                            $('#reply-list').update(html);
+                            $('#replyContent').val("");
+                        },
+                        error: function (e) {
+                            alert("댓글 수정 실패" + e)
+                        }
+                    })
+                })
+
 
             $('#delete-reply-btn').on('click', function () {
                 if (confirm("댓글을 삭제 하시겠습니까?")) {
 
                     $.ajax({
-                        type: 'POST',
+                        type: 'GET',
                         url: '/comm/deleteReply',
                         async : "true",
-                        data: JSON.stringify({
-                            postNo: $('#postNo').val(),
-                            replyNo: $('#replyNo').val()
-                        }),
+                        data: {replyNo: $('#replyNo').val()},
                         dataType: 'text',
                         contentType: 'application/json',
                         success: function (data) {
-                            console.log(1);
+
+                            let html =
+                                //번호를 가진 html을 찾아서r 그 번호부분ㅇ르 지워야함
+                                "<div class=\"card bg-secondary mb-3\" style=\"max-width: 20rem;\">" +
+                                "   <div class=\"card-header\">" + replyVO.replyUserId + "</div>" +
+                                "       <div class=\"card-body\">" +
+                                "           <h4 class=\"card-title\">" + replyVO.replyContent + "</h4>" +
+                                "       <p class=\"card-text\">" + regDate + "</p>" +
+                                "   </div>" +
+                                "</div>"
                             alert("댓글 삭제 완료");
-                            // console.log(6);
-                            // const replyVO = JSON.parse(data);
-                            // console.log(7);
-                            // const regDate = replyVO.regDate.substring(0, 10);
-                            // console.log(8);
+
 
                         },
                         error: function (e) {
@@ -99,6 +134,8 @@
                     })
                 }
             })
+
+
         })
 
 
@@ -131,10 +168,10 @@
 </form>
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->
 <form>
-<!--    <input type="hidden"    name="replyNo"  id="replyNo"    th:value="${replyVO.replyNo}">-->
     <div class="reply-box">
         <h5 id="reply-list">댓글</h5>
         <div th:each="replyVO:${postVO.postReply}" class="card-secondary mb-3"    style="...">
+            <input type="hidden"    name="replyNo"  id="replyNo"    th:value="${replyVO.replyNo}">
             <div th:text="${replyVO.replyUserId}"   class="card-header"></div>
             <div class="card-body">
                 <h4 th:text="${replyVO.replyContent}"   class="card-title"></h4>
