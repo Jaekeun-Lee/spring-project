@@ -67,8 +67,6 @@ public class ProjectApplicant {
 		
 		model.addAttribute("applicantList", map.get("list"));
 		
-		System.out.println(map.get("list"));
-		
 		return "projectApplicant/applicantList";
 	}
 	
@@ -85,7 +83,7 @@ public class ProjectApplicant {
 		}
 		Map<String , Object> map=projectApplicantService.getAppliedProjectList(searchVO);
 		model.addAttribute("appliedList", map.get("list"));
-		System.out.println(map);
+		System.out.println("@@@@"+map.get("list"));
 		return "projectApplicant/appliedProjectList";
 	}
 	

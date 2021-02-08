@@ -6,10 +6,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
 	<link rel="stylesheet" href="/resources/css/style.css">
-	<!--  ////////////////////// Bootstrap /////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
@@ -61,7 +57,7 @@
 <body>
 <div th:include="topToolBar.html" ></div>
 <div class="wrapper">
-	<h4 class="display-3">프로젝트 참여 요청(팀장)</h4>
+	<h4 class="display-3">프로젝트 참여 요청</h4>
 	
 	<div class="row">
         <div class="category-box col-lg-3">
@@ -103,7 +99,7 @@
 			<td class="" th:text="이미지"></td>
 			<td class="" th:text="${applicantVO.userId}"></td>
 			<td class="" th:text="${#dates.format(applicantVO.aRegDate, 'yyyy-MM-dd')}"></td>
-			<td class=""><button id="getApplicant" type="button" class="btn btn-outline-secondary btn-sm">신청서보기</button>
+			<td class=""><button id="getApplicant" type="button" class="btn btn-primary btn-sm">신청서보기</button>
 						 <div  style="display:none" th:text="${applicantVO.applicantNo}"/>
 			</td>
 			<div th:if="${applicantVO.applicantStatus}==1">

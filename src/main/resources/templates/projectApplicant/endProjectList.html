@@ -5,30 +5,62 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
 	<link rel="stylesheet" href="/resources/css/style.css">
-	<!--  ////////////////////// Bootstrap /////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
     
-    <!--  ///////////////////////// CSS ////////////////////////// -->
-    <style>
-	body { 
-	font-size: 130%;
-	}
-    </style>
 	<!--  ////////////////////// JavaScript /////////////////////// -->
 	<script type="text/javascript">
+	$(function () {
+        $("input[type=radio][name=options_1]").on("click",function () {
+            categoryList();
+        })
+    })
+
+	function categoryList() {
+        let categoryList = new Array();
+
+        $("input[name=options_1]:checked").each(function (i) {
+            categoryList.push("searchConditionA="+$(this).val());
+        })
+        let param = "";
+        categoryList.forEach( element => param+=element+"&");
+
+
+        window.location.replace("/applicant/endProjectList?"+param);
+
+    }
 	</script>
+	<style>
+	.box-radio-input input[type="radio"]{
+		display:none;
+	}
+	
+	.box-radio-input input[type="radio"] + span{
+		display:inline-block;
+		background:none;
+		border:1px solid #dfdfdf;  
+		padding:0px 10px;
+		text-align:center;
+		height:35px;
+		line-height:33px;
+		font-weight:500;
+		cursor:pointer;
+	}
+
+	.box-radio-input input[type="radio"]:checked + span{
+		border:1px solid #23a3a7;
+		background:#23a3a7;
+		color:#fff;
+	}
+	</style>	
 	
 <title>endProjectList</title>
 </head>
 <body>
 	<div th:include="topToolBar.html" ></div>
 	<div class="wrapper">
-	<h4 class="display-3">완료한 프로젝트(팀원)</h4>
+	<h4 class="display-3">완료한 프로젝트</h4>
 	
 	<div class="row">
         <div class="category-box col-lg-3">
@@ -50,18 +82,12 @@
 	
 	<div class="card-list-box col-lg-8">	
 	<div class="searchCondition-list">
-		<span style="margin: 0 20px;">리스트 정렬 기준</span>
+		<span style="margin: 0 20px;">기간 별 정렬</span>
 		<span>
 
-			<label class="btn btn-outline-primary">
-				<input type="radio" name="options_1" id="option1" autocomplete="off" value="1"> 1개월
-			</label>
-			<label class="btn btn-outline-primary">
-				<input type="radio" name="options_1" id="option2" autocomplete="off" value="2">2개월
-        	</label>
-			<label class="btn btn-outline-primary">
-            	<input type="radio" name="options_1" id="option3" autocomplete="off" value="3">3개월
-			</label>
+			<label class="box-radio-input"><input type="radio" name="options_1" value="1"><span>1개월</span></label>
+			<label class="box-radio-input"><input type="radio" name="options_1" value="2"><span>2개월</span></label>
+			<label class="box-radio-input"><input type="radio" name="options_1" value="3"><span>3개월</span></label>
 
 	    </span>
 	</div>
@@ -83,9 +109,7 @@
 					<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
 				</div>
 			</div>
-				<div style="float: left; width: 80%; height:100px;">
-					<div class="card-text" th:text="${applicantVO.projectVO.projectDetail}"></div>
-				</div>
+				<div class="card-text" th:text="${applicantVO.projectVO.projectDetail}"></div>
 				<div style="float: right; width: 17%;">
 					<span>팀장명</span>
 					<span style="float: right;" th:text="${applicantVO.projectVO.leaderId}"></span><p>

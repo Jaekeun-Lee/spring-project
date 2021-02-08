@@ -129,10 +129,15 @@
                 <input type="hidden" id="userId" th:value="${session.user.userId}">
                 <input type="hidden" id="projectNo" th:value="${project.projectNo}">
                 <!-- 프로젝트 상태 -->
-                <th:block th:switch="${project.projectStatus}">
-                    <span class="badge badge-success" th:case="1">모집중</span>
-                    <span class="badge badge-primary" th:case="2">모집완료</span>
-                    <span class="badge badge-danger" th:case="3">종료</span>
+                <th:block th:if="${project.teamMember.size()}<${project.recruitmentMemberCnt}">
+	                <th:block th:switch="${project.projectStatus}">
+	                    <span class="badge badge-success" th:case="1">모집중</span>
+	                    <span class="badge badge-primary" th:case="2">모집완료</span>
+	                    <span class="badge badge-danger" th:case="3">종료</span>
+	                </th:block>
+                </th:block>
+                <th:block th:if="${project.teamMember.size()}>=${project.recruitmentMemberCnt}">
+                	<span class="badge badge-primary" th:case="2">모집완료</span>
                 </th:block>
 
                 <!-- 프로젝트 등록일 -->
@@ -275,7 +280,7 @@
         </div>
 
         <div class="col-lg-3" id="team-info-box">
-
+		<th:block th:if="${project.teamMember.size()}<${project.recruitmentMemberCnt}">
             <th:block th:if="${project.projectStatus != 3}">
 	            <th:block th:if="${session.user.projectNo != 0}">
 					<button class="badge badge-pill badge-dark" style="width: 100%; height: 60px;">이미 참여중인 프로젝트가 있습니다.</button>
@@ -288,7 +293,11 @@
 	                    <button class="badge badge-pill badge-info" style="width: 100%; height: 60px;">이미 신청서를 제출했습니다.</button>
 	                </th:block>
                 </th:block>
-            </th:block>  
+            </th:block>
+		</th:block>
+		<th:block th:if="${project.teamMember.size()}>=${project.recruitmentMemberCnt}">
+			<button class="badge badge-pill badge-dark" style="width: 100%; height: 60px;">프로젝트가 모집 마감 되었습니다.</button>
+		</th:block>
             <div class="member-info">
                 <h4>Team Member</h4>
                 <h6 th:each="member : ${project.teamMember}" th:text="${member.userId}"></h6>
@@ -312,36 +321,34 @@
 </div>
 
 <!-- Element to pop up -->
-<div id="add_applicant_get_pop_up" class="layerpop" style="width: 700px; height: 350px;">
+<div id="add_applicant_get_pop_up" class="layerpop">
     <form id="detailForm" method="post" th:action="@{/applicant/addApplicant}">
         <h2>신   청   서</h2>
         <br>
         <input type="hidden" name="userId" th:value="${session.user.userId}">
         <input type="hidden" name="projectVO.projectNo" th:value="${project.projectNo}">
-
+		
         <th:block th:if="${project.applicantQuestionA != null}">
             <label for="applicantAnswerA" class="control-label" th:text="Q1.+${project.applicantQuestionA}"></label>
             <input type="text" class="form-control" id="applicantAnswerA" name="applicantAnswerA" placeholder="1번대답" >
         </th:block>
 
         <th:block th:if="${project.applicantQuestionB != null}">
-            <label for="applicantAnswerB" class="control-label" th:text="Q1.+${project.applicantQuestionB}"></label>
-            <input type="text" class="form-control" id="applicantAnswerB" name="applicantAnswerB" placeholder="1번대답" >
+            <label for="applicantAnswerB" class="control-label" th:text="Q2.+${project.applicantQuestionB}"></label>
+            <input type="text" class="form-control" id="applicantAnswerB" name="applicantAnswerB" placeholder="2번대답" >
         </th:block>
 
         <th:block th:if="${project.applicantQuestionC != null}">
-            <label for="applicantAnswerC" class="control-label" th:text="Q1.+${project.applicantQuestionC}"></label>
-            <input type="text" class="form-control" id="applicantAnswerC" name="applicantAnswerC" placeholder="1번대답" >
-        </th:block>
+            <label for="applicantAnswerC" class="control-label" th:text="Q3.+${project.applicantQuestionC}"></label>
+            <input type="text" class="form-control" id="applicantAnswerC" name="applicantAnswerC" placeholder="3번대답" >
+        </th:block></br>
 
-        <div class="form-group">
-            <label>자기소개</label>
-            <textarea class="form-control" id="introToMember" name="introToMember">
-간단하게 자기소개를 할 수 있습니다.</textarea>
-        </div>
+		<label>자기소개</label>
+		<textarea class="form-control" id="introToMember" name="introToMember" placeholder="간단하게 자기소개를 할 수 있습니다."></textarea>
+
 
         <div style="width:100px;float: right;">
-            <button id="add_applicant_post" class="btn btn-default">신청서 제출</button>
+            <button id="add_applicant_post" class="btn btn-success btn-sm">신청서 제출</button>
         </div>
     </form>
 </div>

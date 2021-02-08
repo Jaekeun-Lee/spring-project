@@ -28,6 +28,8 @@
 				<result property="projectStatus"    		column="project_status"      		jdbcType="NUMERIC"/>
 				<result property="meetingLocation"    		column="meeting_location"      		jdbcType="VARCHAR"/>
 				<result property="meetingMethod"    		column="meeting_method"      		jdbcType="NUMERIC"/>
+				
+				<collection property="teamMember" 			column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
 			</association>
 	</resultMap>
 
@@ -53,6 +55,12 @@
 			<result property="userId"    column="user_id"      jdbcType="NUMERIC"/>
 	</resultMap>
 	
+	<select id = "getProjectMemberByProjectNo" 	resultType="memberVO">
+		SELECT USER_ID,
+		       PROFILE_IMAGE as profileImg
+		FROM   MEMBER
+		WHERE  PROJECT_NO = #{projectNo}
+	</select>
 	
 	
 	<select id="getApplicant" parameterType="int" resultMap="applicantSelectMap">

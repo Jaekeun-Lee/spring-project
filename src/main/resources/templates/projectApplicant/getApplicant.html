@@ -4,16 +4,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-	<!--  ////////////////////// Bootstrap /////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
-	
-	<!--  ////////////////////// JavaScript /////////////////////// -->
+	<!--  ////////////////////// Bootstrap /////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css"><!--  ////////////////////// JavaScript /////////////////////// -->
 	<script type="text/javascript">
 		$(function(){
 	    	$('#updateApplicant_2_btn').on("click", function(){
@@ -57,33 +54,33 @@
 	    <h1><label for="Title" class="control-label">신   청   서</label></h1>
 	    <br>
 
-		<div class="form-group">
+
 			<div th:if="${applicantVO.projectVO.applicantQuestionA}!=null">
-				<strong><div th:text="${applicantVO.projectVO.applicantQuestionA}"></div></strong>
+				<strong><div style="font-weight:bold;" th:text="${applicantVO.projectVO.applicantQuestionA}"></div></strong>
 				<div th:text="${applicantVO.applicantAnswerA}"></div><br/>
 				
 				<div th:if="${applicantVO.projectVO.applicantQuestionB}!=null">
-					<strong><div th:text="${applicantVO.projectVO.applicantQuestionB}"></div></strong>
+					<strong><div style="font-weight:bold;" th:text="${applicantVO.projectVO.applicantQuestionB}"></div></strong>
 					<div th:text="${applicantVO.applicantAnswerB}"></div><br/>
 				
 					<div th:if="${applicantVO.projectVO.applicantQuestionC}!=null">
-						<strong><div th:text="${applicantVO.projectVO.applicantQuestionC}"></div></strong>
+						<strong><div style="font-weight:bold;" th:text="${applicantVO.projectVO.applicantQuestionC}"></div></strong>
 						<div th:text="${applicantVO.applicantAnswerC}"></div><br/>
 					</div>
 				</div>
 			</div>
-		</div>
+
 		
-		<div class="form-group">
-			<label for="projectDetail">자기소개</label>
+
+			<label for="projectDetail" style="font-weight:bold;">자기소개</label>
 			<div th:text="${applicantVO.introToMember}"></div>
-		</div>
+			</br>
+
 		
-		<div th:if="${applicantVO.applicantStatus}==1">
-			<div id = "append"></div>
+		<div th:if="${applicantVO.applicantStatus}==1" style="float:right;">
 			<div id = "delete">
-				<button type="button" id="updateApplicant_2_btn" class="btn btn-success">수락</button>
-				<button type="button" id="updateApplicant_3_btn" class="btn btn-primary">거절</button>
+				<button type="button" id="updateApplicant_2_btn" class="btn btn-success btn-sm">수락</button>
+				<button type="button" id="updateApplicant_3_btn" class="btn btn-primary btn-sm">거절</button>
 				<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
 			</div>
 		</div>	

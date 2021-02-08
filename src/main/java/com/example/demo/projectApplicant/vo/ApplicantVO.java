@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.vo.ProjectVO;
 
 public class ApplicantVO {
@@ -20,7 +21,16 @@ public class ApplicantVO {
 	private ProjectVO projectVO;
 	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date aRegDate;
+	private List<MemberVO> teamMember;
 	
+	
+	public List<MemberVO> getTeamMember() {
+		return teamMember;
+	}
+
+	public void setTeamMember(List<MemberVO> teamMember) {
+		this.teamMember = teamMember;
+	}
 
 	public Date getaRegDate() {
 		return aRegDate;
