@@ -1,38 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
 <head>
-	<meta charset="utf-8">
+	<div th:include="topToolBar.html" ></div>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
 	<link rel="stylesheet" href="/resources/css/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
 	<!--  ////////////////////// Bootstrap /////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
-    
-    <!--  ///////////////////////// CSS ////////////////////////// -->
-    <style>
-	body { 
-	font-size: 130%;
-	}
-    </style>
+    <script src="/js/bpopup/jquery.bpopup.min.js"></script>  
     
     <!--  ////////////////////// JavaScript /////////////////////// -->
 	<script type="text/javascript">
 	$(function(){
     	$('#updateApplicant_5_btn').on("click", function(){
-    		var applicantNo = $("div").find('#applicantNo').text().trim();
+    		var applicantNo = $(this).attr('data-applicantno')
     		test(5,applicantNo)
     	});
     });
 	
 	$(function(){
     	$('#updateApplicant_3_btn').on("click", function(){
-    		var applicantNo = $("div").find('#applicantNo').text().trim();
+    		var applicantNo =  $(this).attr('data-applicantno')
     		test(3,applicantNo)
     	});
     });
@@ -56,6 +51,7 @@
 						$("#badge").attr('class', 'badge badge-pill badge-primary');
 						$("#badge").text('참가중');
 					}
+					location.reload();
 				}
 			})
 		
@@ -84,9 +80,10 @@
 	</script>
 	
 <title>appliedProjectList</title>
+
 </head>
 <body>
-	<div th:include="topToolBar.html" ></div>
+
 	<div class="wrapper">
 	<h4 class="display-3">신청한 프로젝트(팀원)</h4>
 	
@@ -125,14 +122,14 @@
 
 	    </span>
 	    
-	    <span style="float:right;">
+	    <!--<span style="float:right;">
 			<label class="btn btn-outline-primary">
 				<input type="radio" name="options_2" id="option2" autocomplete="off" value="2">대기
 			</label>
 			<label class="btn btn-outline-primary">
 				<input type="radio" name="options_2" id="option3" autocomplete="off" value="3">승인
 			</label>
-		</span>
+		</span>-->
 	</div>
 
 	<div id="card_2" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
@@ -158,13 +155,19 @@
 					<a th:href="@{/project/getProject(projectNo=${applicantVO.projectVO.projectNo})}" th:text="${applicantVO.projectVO.projectName}"/>
 				</h4>
 			</div>
+			<th:block th:if="${session.user.projectNo}==0">
 			<div th:if="${applicantVO.applicantStatus}==2">
 				<div id="deleteButton" style="float: right; width: 17%;">
-					<button id="updateApplicant_5_btn" type="button" class="btn btn-success" style="width:70px;">수락</button>
-					<button id="updateApplicant_3_btn" type="button" class="btn btn-danger" style="width:70px;">거절</button>
-					<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
+					<button id="updateApplicant_5_btn" type="button" class="btn btn-success"
+					th:data-applicantno="${applicantVO.applicantNo}" style="width:70px;">수락</button>
+					<button id="updateApplicant_3_btn" type="button" class="btn btn-danger" 
+					th:data-applicantno="${applicantVO.applicantNo}" style="width:70px;">거절</button>
 				</div>
 			</div>
+			</th:block>
+			<th:block th:if="${session.user.projectNo}!=0">
+				프로젝트 참가중
+			</th:block>
 				<div style="float: left; width: 80%; height:100px;">
 					<div class="card-text" th:text="${applicantVO.projectVO.projectDetail}"></div>
 				</div>

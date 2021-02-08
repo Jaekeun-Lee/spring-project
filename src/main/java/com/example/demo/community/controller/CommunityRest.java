@@ -47,29 +47,27 @@ public class CommunityRest {
 
     @PostMapping("/updateReply")
 //    ResponseEntity : 데이터롸 서버의 처리상태( 200 - 정상처리/ 500 - 오류/ 405 - 요청관련 오류)를 함께 넘겨준다.
-    public ResponseEntity<String> updateReply(/*@RequestBody ReplyVO replyVO,*/
-                               @PathVariable("replyNo") Integer replyNo,
-                               @RequestBody ReplyVO replyVO
-                               ){
+    public int updateReply(@RequestBody ReplyVO replyVO){
         log.info("::"+getClass().getName()+"start::");
-        try{
-            replyVO.getReplyNo();
-            postService.updateReply(replyVO);
-            return new ResponseEntity<>("수정완료",HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+//        try{
+//            replyVO.getReplyNo();
+//            postService.updateReply(replyVO);
+//            return new ResponseEntity<>("수정완료",HttpStatus.OK);
+//        }catch (Exception e){
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
 //        String sessionId = "user94";
 //        replyVO.setReplyUserId(sessionId);
-//
-////        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
-//
+
+//        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+
 //        postService.updateReply(replyVO);
-//
-//        return postService.updateReply(replyVO);
+
+        return postService.updateReply(replyVO);
+
     }
 
-    @RequestMapping(value = "/deleteReply", method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping(value = "/deleteReply")
     public int deleteReply(@RequestParam("replyNo") int replyNo){
 
         return postService.deleteReply(replyNo);

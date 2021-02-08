@@ -277,17 +277,18 @@
         <div class="col-lg-3" id="team-info-box">
 
             <th:block th:if="${project.projectStatus != 3}">
-                <!-- Button that triggers the popup -->
-                <th:block th:if="${session.user.projectNo == 0 && existApplicant ==0}">
-                    <button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
+	            <th:block th:if="${session.user.projectNo != 0}">
+					<button class="badge badge-pill badge-dark" style="width: 100%; height: 60px;">이미 참여중인 프로젝트가 있습니다.</button>
+				</th:block>
+				<th:block th:if="${session.user.projectNo == 0}">
+	                <th:block th:if="${session.user.projectNo == 0 && existApplicant ==0}">
+	                    <button id="add_applicant_get" class="badge badge-pill badge-success">신청서 등록</button>
+	                </th:block>  
+	                <th:block th:if="${existApplicant != 0}">
+	                    <button class="badge badge-pill badge-info" style="width: 100%; height: 60px;">이미 신청서를 제출했습니다.</button>
+	                </th:block>
                 </th:block>
-                <th:block th:if="${session.user.projectNo != 0}">
-                    <button class="badge badge-pill badge-dark" style="width: 100%; height: 60px;">이미 참여중인 프로젝트가 있습니다.</button>
-                </th:block>
-                <th:block th:if="${existApplicant != 0}">
-                    <button class="badge badge-pill badge-info" style="width: 100%; height: 60px;">이미 신청서를 제출했습니다.</button>
-                </th:block>
-            </th:block>
+            </th:block>  
             <div class="member-info">
                 <h4>Team Member</h4>
                 <h6 th:each="member : ${project.teamMember}" th:text="${member.userId}"></h6>

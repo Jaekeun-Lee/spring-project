@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-
+    <link rel="stylesheet" href="/resources/css/style.css">
     <title>프로젝트 등록하기</title>
 
-    <link rel="stylesheet" href="/resources/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-
-        $(function () {
-            $("#preStartDate").datepicker({
-                dateFormat: 'yy-mm-dd',
-                onClose: function( selectedDate ) {
-                    $("#applicationDeadline").datepicker("option", "minDate", selectedDate);
-                }
-
-            });
-            $("#applicationDeadline").datepicker({
-                dateFormat: 'yy-mm-dd',
-                onClose: function( selectedDate ) {
-                    $("#preStartDate").datepicker("option", "maxDate", selectedDate);
-                }
-            });
-
-        });
-
-    </script>
 </head>
-<body>
-<div th:include="topToolBar.html" ></div>
+<nav th:include="topToolBar.html" ></nav>
+<body style="background-color: #fff;">
 <div class="wrapper">
     <div class="row">
-        <div class="container col-lg-4 col-xs-12">aa</div>
-        <div class="container col-lg-8 col-xs-12">
-            <div class="page-name col-xs-12"><h1>ADD PROJECT</h1></div>
+        <div class="container col-lg-2 col-md-12">
+            <div class="page-name col-xs-12"><h3>ADD PROJECT</h3></div>
+        </div>
+        <div class="container col-lg-7 col-md-12">
             <form id="addProjectForm" method="POST" th:action="@{/project/addProject}" enctype="multipart/form-data">
                 <input type="hidden" name="leaderId" th:value="${session.user.userId}"/>
-                <div class="form-group col-xs-12">
-                    <label for="projectName">프로젝트 제목</label>
-                    <input type="text" id="projectName" name="projectName" class="form-control"
-                           placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" required="required"/>
+
+                <div class="field item form-group row">
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left" >프로젝트 제목<span class="required">*</span></label>
+                    <div class="col-lg-8 col-md-8">
+                        <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="projectName" placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" autocomplete="off" required="required">
+                    </div>
                 </div>
 
-                <div class="form-group container col-xs-12">
-                    <p>프로젝트 카테고리</p>
+
+                <!--                <div class="form-group">-->
+                <!--                    <label for="preStartDate">예상 시작일</label>-->
+                <!--                    <input type="text" id="preStartDate" name="preStartDate" class="form-control" autocomplete="off" required>-->
+                <!--                </div>-->
+
+
+
+
+
+                <div class="field item form-group row">
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left" >예상 시작일 <span class="required">*</span></label>
+                    <div class="col-lg-8 col-md-8">
+                        <input id="preStartDate" class="date-picker form-control" placeholder="yyyy-mm-dd" type="date" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'">
+                    </div>
+                </div>
+
+                <div class="form-group" style="display: block">
+                    <label class="control-label">프로젝트 진행분류</label>
                     <div class="custom-control custom-radio">
                         <input type="radio" id="customRadio1" name="progressClassification" class="custom-control-input"
                                value="1" checked>
@@ -62,37 +54,37 @@
                     </div>
                 </div>
 
-                <div class="form-group col-xs-12">
-                    <label for="recruitmentMemberCnt">모집인원수</label>
-                    <select class="form-control" id="recruitmentMemberCnt" name="recruitmentMemberCnt">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <p>명</p>
+                <div class="item form-group row">
+                    <label class="control-label col-md-3 col-sm-3 " for="recruitmentMemberCnt">모집인원수</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <select class="form-control" id="recruitmentMemberCnt" name="recruitmentMemberCnt">
+                            <option value="1" selected>1 명</option>
+                            <option value="2">2 명</option>
+                            <option value="3">3 명</option>
+                            <option value="4">4 명</option>
+                            <option value="5">5 명</option>
+                        </select>
+                    </div>
                 </div>
 
 
-
-                <div class="form-group col-xs-12">
-                    <p>프로젝트 카테고리</p>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
+                <div class="item form-group row" style="display: block">
+                    <label class="col-md-3">프로젝트 카테고리</label>
+                    <div class="btn-group btn-group-toggle col-md-9" data-toggle="buttons">
+                        <label class="btn btn-outline-primary active" style="margin-right: 5px">
                             <input type="radio" name="projectCategory" id="projectCategory1" value="1" checked=""> 개발
                         </label>
-                        <label class="btn btn-secondary">
+                        <label class="btn btn-outline-primary" style="margin-right: 5px">
                             <input type="radio" name="projectCategory" id="projectCategory2" value="2" > 기획
                         </label>
-                        <label class="btn btn-secondary">
+                        <label class="btn btn-outline-primary">
                             <input type="radio" name="projectCategory" id="projectCategory3" value="3"> 디자인
                         </label>
                     </div>
                 </div>
 
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="projectDetail">프로젝트 상세내용</label>
                     <textarea class="form-control" id="projectDetail" name="projectDetail" rows="3">
 <프로젝트의 현재 상황>
@@ -104,12 +96,95 @@
 <참고자료 / 유의사항>
 예시) 참고사이트, 기타 유의사항 등
                     </textarea>
-                </div>
+                </div>-->
 
-                <div class="form-group">
-                    <label for="preStartDate">예상 시작일</label>
-                    <input type="text" id="preStartDate" name="preStartDate" class="form-control" autocomplete="off" required>
-                </div>
+
+
+                    <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
+                        <div class="x_title">
+                            <label>프로젝트 상세정보 입력</label>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+                                <div class="btn-group">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a data-edit="fontSize 5">
+                                                <p style="font-size:17px">Huge</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-edit="fontSize 3">
+                                                <p style="font-size:14px">Normal</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-edit="fontSize 1">
+                                                <p style="font-size:11px">Small</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                    <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                    <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                    <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                    <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                    <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                    <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                    <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                    <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                    <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                    <div class="dropdown-menu input-append">
+                                        <input class="span2" placeholder="URL" type="text" data-edit="createLink">
+                                        <button class="btn" type="button">Add</button>
+                                    </div>
+                                    <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+                                    <input type="file" name="file" id="file-upload" multiple="multiple" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                    <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                                </div>
+                            </div>
+                            <div id="editor-one" name="projectDetail" class="editor-wrapper placeholderText" contenteditable="true"></div>
+                            <div id="alerts"></div>
+                            <br>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
 
                 <div class="form-group">
                     <label class="control-label" for="prePeriod">예상진행기간</label>
@@ -125,7 +200,7 @@
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file" id="file-upload" multiple="multiple">
+                            <input type="file" class="custom-file-input" name="file" multiple="multiple">
                             <label class="custom-file-label" for="file-upload"></label>
                         </div>
                         <div class="input-group-append">
@@ -204,5 +279,20 @@
 
     </div>
 </div>
+<script>
+
+    let today = new Date().toISOString().substring(0, 10);
+    $("#preStartDate").attr('min',today);
+
+    let validator = new FormValidator({ "events": ['blur', 'input', 'change'] }, document.forms[0]);
+    // on form "submit" event
+    document.forms[0].onsubmit = function (e) {
+        let submit = true,
+            validatorResult = validator.checkAll(this);
+        console.log(validatorResult);
+        return !!validatorResult.valid;
+    };
+
+</script>
 </body>
 </html>
