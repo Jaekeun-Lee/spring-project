@@ -2,8 +2,47 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 
+
 <head>
+
     <meta charset="UTF-8">
+    <div th:include="topToolBar.html" ></div>
+<!--    <link rel="stylesheet" href="/css/admin.css" type="text/css">-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+
+        function fncAddPost() {
+            let postName = $("input[name='postName']").val();
+            var postContent = $("input[name='postContent']").val();
+
+            if (postName == null || postName.length < 1) {
+                alert("제목을 입력해주세요.");
+                return false;
+            }
+
+            // if(postContent == null || postContent.length<1){
+            //     alert("내용은 한글자이상 입력해야합니다.")
+            //     return;
+            // }
+
+
+            // $("form").attr("method" , "POST").attr("action" , "/comm/addPost").attr("encType","multipart/form-data").submit();
+            $("form").attr("method" , "POST").attr("action" , "/comm/addPost").submit();
+        }
+        $(function(){
+            $("td.add_post_btn:contains('작성')").on('click', function(){
+                fncAddPost();
+            })
+        })
+
+        // $(function (){
+        //     $("td.add_post_btn:contains('취소')").on('click', function(){
+        //         // $('form')[0].reset();
+        //         history.go(-1);
+        //     })
+        // })
+
+    </script>
 
 </head>
 <body>
@@ -19,7 +58,19 @@
 <!--</form>-->
 
 <!--    <button>submit</button>-->
-    <input type="submit"    value="작성">
+    <table width="100%" border="0"  cellspacing="0" cellpadding="0" style="margin-top: 10px;">
+        <tr>
+            <td class="add_post_btn"  style="padding-top: 3px;">
+                작성
+            </td>
+<!--    <input type="submit"    value="작성">-->
+        </tr>
+<!--        <tr>-->
+<!--            <td class="add_Post_btn"  style="padding-top: 3px;">-->
+<!--                취소-->
+<!--            </td>-->
+<!--        </tr>-->
+    </table>
 </form>
 <!--    <a th:href="@{/comm/getPost}">작성</a>-->
     <a th:href="@{/comm/getPostList}">취소</a>

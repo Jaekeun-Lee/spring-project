@@ -1,5 +1,7 @@
 package com.example.demo.community.controller;
 
+import com.example.demo.common.service.FileUploadService;
+import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.PageVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,6 +43,10 @@ public class Community {
     @Qualifier("postServiceImpl")
     PostService postService;
 
+    @Autowired
+    @Qualifier("fileUploadServiceImpl")
+    private FileUploadService fileUploadServiceImpl;
+
     @GetMapping("addPost")
     public String addPostView() {
 
@@ -57,24 +64,50 @@ public class Community {
 
         model.addAttribute("post", postVO);
 
-        return "welcome";
+        return "post/getPost";
     }
 
-    @PostMapping("/multi")
-    public String upload(@RequestParam("files") List<MultipartFile> files)throws Exception {
-        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-        String basePath = rootPath + "/" + "multi";
+//    @PostMapping("/multi")
+//    public String upload(@RequestParam("files") List<MultipartFile> files)throws Exception {
+//        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+//        String basePath = rootPath + "/" + "multi";
+//
+//        for (MultipartFile file : files){
+//            String originalName = file.getOriginalFilename();
+//            String filePath = basePath + "/" + originalName;
+//
+//            File destination = new File(filePath);
+//            file.transferTo(destination);
+//        }
+//        return "uploaded";
+//
+//    }
 
-        for (MultipartFile file : files){
-            String originalName = file.getOriginalFilename();
-            String filePath = basePath + "/" + originalName;
-
-            File destination = new File(filePath);
-            file.transferTo(destination);
-        }
-        return "uploaded";
-
-    }
+//    @GetMapping("addPost")
+//    public String addApplicant() throws Exception{
+//        //test용 html이야 127.0.0.1:8282/tt 들어가서 다중 파일 올리고 테스트 해보기 :)
+//        return "testFile";
+//    }
+//
+//    //만약에 오류날경우에 DB에서 fileTABLE의 외래키 사용 풀고 해봐... 이게 왜 NULL이 안들어오고 0이들어올까?
+//    @RequestMapping(value = "/fileUpload")
+//    //fileVO 보면 알겠지만 안쪽에 projectNo, postNo, PortNo 전부 있으니까 활용 바람!
+//    //testFile.html보면 일단 임의로 projectNo설정해 뒀음
+//    public String requestupload2(@ModelAttribute("fileVO") FileVO fileVO,
+//                                 MultipartHttpServletRequest request) {
+//
+//        List<MultipartFile> fileList = request.getFiles("file");
+//
+//        //각자의 파일 경로 수정해주면 될거야
+//        String path = "C:\\Users\\onehajjang\\IdeaProjects\\spring-project\\build\\resources\\main\\static\\resources\\img";
+//        System.out.println(fileVO.getPostNo());
+//
+//        //여기서 파일 업로드 및 DB insert 해줌
+//        //코드 분석 외에는 이 컨트롤러 참고해서 사용하면 될거야
+//        fileUploadServiceImpl.fileUpload(fileVO, path, fileList);
+//
+//        return "post/addPost";
+//    }
 
 
     /*URI에  postNo 적고 검색(K,V)*/
