@@ -3,7 +3,6 @@ package com.example.demo.common.vo;
 public class FileVO {
 
     private int fileNo;
-    private String originFileName;
     private String uploadFileName;
     private long fileSize;
     private int postNo;
@@ -20,14 +19,6 @@ public class FileVO {
 
 	public void setFileNo(int fileNo) {
 		this.fileNo = fileNo;
-	}
-
-	public String getOriginFileName() {
-		return originFileName;
-	}
-
-	public void setOriginFileName(String originFileName) {
-		this.originFileName = originFileName;
 	}
 
 	public String getUploadFileName() {
@@ -82,7 +73,6 @@ public class FileVO {
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("FileVO{");
 		sb.append("fileNo=").append(fileNo);
-		sb.append(", originFileName='").append(originFileName).append('\'');
 		sb.append(", uploadFileName='").append(uploadFileName).append('\'');
 		sb.append(", fileSize=").append(fileSize);
 		sb.append(", postNo=").append(postNo);

@@ -18,7 +18,7 @@ import com.example.demo.common.vo.FileVO;
 public class FileUploadServiceImpl implements FileUploadService{
 	
 	@Autowired
-	@Qualifier("FileUploadDAO")
+	@Qualifier("fileUploadDAO")
 	FileUploadDAO fileUploadDAO;
 	public void setProjectapplicantDAO(FileUploadDAO fileUploadDAO) {
 		System.out.println("::"+getClass()+".projectApplicantDAOImpl Call....");
@@ -30,11 +30,8 @@ public class FileUploadServiceImpl implements FileUploadService{
 
 		for (MultipartFile mf : fileList) {
 
-			fileVO.setOriginFileName(mf.getOriginalFilename());
+			String safeFile = path + mf.getOriginalFilename();
 			fileVO.setFileSize(mf.getSize());
-
-            String safeFile = path + System.currentTimeMillis() + fileVO.getOriginFileName();
-
             fileVO.setUploadFileName(safeFile);
 
             try {

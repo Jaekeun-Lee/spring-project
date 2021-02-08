@@ -17,26 +17,18 @@
                 <input type="hidden" name="leaderId" th:value="${session.user.userId}"/>
 
                 <div class="field item form-group row">
-                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left" >프로젝트 제목<span class="required">*</span></label>
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">프로젝트 제목<span class="required">*</span></label>
                     <div class="col-lg-8 col-md-8">
-                        <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="projectName" placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" autocomplete="off" required="required">
+                        <input class="form-control" data-validate-length-range="6" data-validate-words="2"
+                               data-parsley-minlength="15" data-parsley-maxlength="30" data-parsley-trigger="keyup" data-parsley-validation-threshold="1"
+                               name="projectName" placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" autocomplete="off" required="required">
                     </div>
                 </div>
-
-
-                <!--                <div class="form-group">-->
-                <!--                    <label for="preStartDate">예상 시작일</label>-->
-                <!--                    <input type="text" id="preStartDate" name="preStartDate" class="form-control" autocomplete="off" required>-->
-                <!--                </div>-->
-
-
-
-
 
                 <div class="field item form-group row">
                     <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left" >예상 시작일 <span class="required">*</span></label>
                     <div class="col-lg-8 col-md-8">
-                        <input id="preStartDate" class="date-picker form-control" placeholder="yyyy-mm-dd" type="date" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'">
+                        <input id="preStartDate" name="preStartDate" class="date-picker form-control" placeholder="yyyy-mm-dd" type="date" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'">
                     </div>
                 </div>
 
@@ -54,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="item form-group row">
+                <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 " for="recruitmentMemberCnt">모집인원수</label>
                     <div class="col-md-9 col-sm-9 ">
                         <select class="form-control" id="recruitmentMemberCnt" name="recruitmentMemberCnt">
@@ -68,7 +60,7 @@
                 </div>
 
 
-                <div class="item form-group row" style="display: block">
+                <div class="form-group row" style="display: block">
                     <label class="col-md-3">프로젝트 카테고리</label>
                     <div class="btn-group btn-group-toggle col-md-9" data-toggle="buttons">
                         <label class="btn btn-outline-primary active" style="margin-right: 5px">
@@ -83,143 +75,106 @@
                     </div>
                 </div>
 
-
-                <!--<div class="form-group">
-                    <label for="projectDetail">프로젝트 상세내용</label>
-                    <textarea class="form-control" id="projectDetail" name="projectDetail" rows="3">
-<프로젝트의 현재 상황>
-예시) 디자인 준비 상황, 진행 계획 등
-
-<상세한 업무 내용>
-예시) 페이지 수, 레이아웃(비슷한 페이지) 수, 반응형 여부 등
-
-<참고자료 / 유의사항>
-예시) 참고사이트, 기타 유의사항 등
-                    </textarea>
-                </div>-->
-
-
-
-                    <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
-                        <div class="x_title">
-                            <label>프로젝트 상세정보 입력</label>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li>
-                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                                <div class="btn-group">
-                                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                    </ul>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a data-edit="fontSize 5">
-                                                <p style="font-size:17px">Huge</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a data-edit="fontSize 3">
-                                                <p style="font-size:14px">Normal</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a data-edit="fontSize 1">
-                                                <p style="font-size:11px">Small</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                                    <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-                                    <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-                                    <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-                                    <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-                                    <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-                                    <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-                                    <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-                                    <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-                                    <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-                                    <div class="dropdown-menu input-append">
-                                        <input class="span2" placeholder="URL" type="text" data-edit="createLink">
-                                        <button class="btn" type="button">Add</button>
-                                    </div>
-                                    <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-                                    <input type="file" name="file" id="file-upload" multiple="multiple" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
-                                </div>
-                                <div class="btn-group">
-                                    <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                                    <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-                                </div>
+                <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
+                    <div class="x_title">
+                        <label>프로젝트 상세정보 입력</label>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                </ul>
                             </div>
-                            <div id="editor-one" name="projectDetail" class="editor-wrapper placeholderText" contenteditable="true"></div>
-                            <div id="alerts"></div>
-                            <br>
-
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a data-edit="fontSize 5">
+                                            <p style="font-size:17px">Huge</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-edit="fontSize 3">
+                                            <p style="font-size:14px">Normal</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-edit="fontSize 1">
+                                            <p style="font-size:11px">Small</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                    <input class="span2" placeholder="URL" type="text" data-edit="createLink">
+                                    <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+                                <input type="file" name="files" id="file-upload" multiple="multiple" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                            </div>
                         </div>
+
+
+                        <div id="editor-one" name="projectDetail" class="editor-wrapper"></div>
+
+                        <textarea name="projectDetail" id="projectDetail" style="display:none;"></textarea>
+                        <br />
+                        <div class="ln_solid"></div>
                     </div>
+                </div>
 
-
-
-
-
-
-
-
-                <div class="form-group">
-                    <label class="control-label" for="prePeriod">예상진행기간</label>
-                    <div class="input-group mb-3">
-                        <input type="text" id="prePeriod" name="prePeriod" class="form-control" placeholder="ex) 100" required>
-                        <div class="input-group-append">
-                            <span class="input-group-text">일</span>
+                <div class="field item form-group row">
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">예상진행기간<span class="required">*</span></label>
+                    <div class="col-lg-8 col-md-8">
+                        <div class="input-group mb-3">
+                            <input type="text" id="prePeriod" name="prePeriod" class="form-control" placeholder="ex) 100" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">일</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file" multiple="multiple">
-                            <label class="custom-file-label" for="file-upload"></label>
-                        </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text">Upload</span>
-                        </div>
+                <div class="form-group control-group row">
+                    <label class="control-label col-md-3 col-sm-3 ">Skill Tags</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <input id="tags_1" type="text" class="tags form-control" value="example1, example2, example3" />
+                        <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    해시태그@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
-                    @@@@@@@@@@@@@@@@@@@<br/>
                 </div>
 
 
@@ -239,39 +194,49 @@
 
                 <div class="form-group">
                     <label for="meetingLocation1">미팅 위치</label>
-                    <select class="form-control" id="meetingLocation1" name="meetingLocation1">
-                        <option selected>시/도</option>
+                    <select class="form-control" id="meetingLocation1" name="meetingLocation">
+                        <option value="선택안함" selected> 시 / 도 </option>
+                        <option value="부산광역시">서울특별시</option>
+                        <option value="부산광역시">부산광역시</option>
+                        <option value="대구광역시">대구광역시</option>
+                        <option value="인천광역시">인천광역시</option>
+                        <option value="광주광역시">광주광역시</option>
+                        <option value="대전광역시">대전광역시</option>
+                        <option value="울산광역시">울산광역시</option>
+                        <option value="세종특별자치시">세종특별자치시</option>
                         <option value="경기도">경기도</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-
-                    <label for="meetingLocation2">Example select</label>
-                    <select class="form-control" id="meetingLocation2" name="meetingLocation2">
-                        <option selected>시/군/구</option>
-                        <option value="이천시">이천시</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option value="강원도">강원도</option>
+                        <option value="충청북도">충청북도</option>
+                        <option value="충청남도">충청남도</option>
+                        <option value="전라북도">전라북도</option>
+                        <option value="전라남도">전라남도</option>
+                        <option value="경상북도">경상북도</option>
+                        <option value="경상남도">경상남도</option>
+                        <option value="제주특별자치도">제주특별자치도</option>
+                        <option value="해외">해외</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="applicationDeadline">신청서 제출 마감일</label>
-                    <p>Date: <input type="text" id="applicationDeadline" name="applicationDeadline" autocomplete="off" required></p>
+                <div class="field item form-group row">
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left" >신청서 제출 마감일 <span class="required">*</span></label>
+                    <div class="col-lg-8 col-md-8">
+                        <input id="applicationDeadline" name="applicationDeadline" class="date-picker form-control" placeholder="yyyy-mm-dd" type="date" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'">
+                    </div>
                 </div>
 
-
-                <div class="form-group">
-                    <label for="applicantQuestionA">신청자 지원 전 질문사항 등록</label>
-                    <input type="text" id="applicantQuestionA" name="applicantQuestionA" class="form-control"
-                           placeholder="예) 스프링부트 관련 프로젝트를 진행해본적이 있나요?"/>
+                <div class="form-group" id="question-group" >
+                    <label class="control-label">신청자 지원 전 질문사항 등록<br/><small>(최대 3개 까지 등록가능)</small></label>
+                    <div class="applicantQuestion">
+                        <input type="text" name="applicantQuestionA" class="form-control col-lg-10 col-md-10" placeholder="예) 스프링부트 관련 프로젝트를 진행해본적이 있나요?"/>
+                        <div class="col-lg-2 col-md-2 add-question-btn" onclick="javascript:addQuestion(this)">
+                            <span class="glyphicon glyphicon-plus" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
+                        </div>
+                    </div>
                 </div>
 
-                <input type="submit" id="addProject-btn" class="btn btn-outline-primary" value="등록완료"/>
+                <div class="form-group">
+                    <input type="submit" id="addProject-btn" class="btn btn-outline-primary col-12" value="등록완료"/>
+                </div>
             </form>
 
 
@@ -281,9 +246,85 @@
 </div>
 <script>
 
+    $('#addProject-btn').on('click', function() {
+        let projectDetail = $('#editor-one').text();
+        $('#projectDetail').val(projectDetail);
+
+        $('#addProjectForm').submit();
+    })
+
+    // 날짜 선택 ( 최소날짜 오늘로 설정 )
     let today = new Date().toISOString().substring(0, 10);
     $("#preStartDate").attr('min',today);
+    $("#applicationDeadline").attr('min',today);
 
+    // 신청자 질문사항 추가
+    function addQuestion (elem) {
+        let questionCount = $('div[class=applicantQuestion]').length+1;
+        alert("addQuestion" + questionCount)
+        let html = `<div class="applicantQuestion">
+                        <input type="text" class="form-control col-lg-10 col-md-10"/>
+                        <div class="col-lg-1 col-md-1 delete-question-btn" onclick="javascript:deleteQuestion(this)">
+                            <span class="glyphicon glyphicon-remove-circle" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
+                        </div>`
+            if(questionCount < 3) {
+                html += `<div class="col-lg-1 col-md-1 add-question-btn" onclick="javascript:addQuestion(this)">
+                            <span class="glyphicon glyphicon-plus" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
+                        </div>
+                    </div>`
+            } else {
+                html += `
+                    </div>`
+            }
+
+
+        $(elem).children().attr('class','glyphicon glyphicon-remove-circle');
+        $(elem).attr('onclick','javascript:deleteQuestion(this)');
+        if(questionCount == 1) {
+            $(elem).attr('class', 'col-lg-1 col-md-1 delete-question-btn');
+        }
+        $("#question-group div[class=applicantQuestion]").each(function(i,element){
+            $(element).children('div[class*=add-question-btn]').css('display','none')
+        });
+
+
+        $('#question-group').append(html);
+
+        indexReset()
+
+    }
+
+    function deleteQuestion (elem) {
+        let questionCount = $('div[class=applicantQuestion]').length;
+        alert("deleteQuestion" + questionCount)
+        const target = $(elem).parent();
+
+
+        if(questionCount==3 ) {
+            target.remove();
+            $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').css('display', 'block');
+            $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').attr('onclick', 'javascript:addQuestion(this)');
+            $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').children().attr('class','glyphicon glyphicon-plus');
+        } else if (questionCount == 2) {
+            target.remove();
+            $('div[class=applicantQuestion]').children('div[class*=question-btn]').attr('onclick', 'javascript:addQuestion(this)');
+            $('div[class=applicantQuestion]').children('div[class*=question-btn]').children().attr('class','glyphicon glyphicon-plus');
+        }
+
+        indexReset()
+    }
+
+    function indexReset(){
+        let toIndex = ['A','B','C'];
+        $("#question-group div[class=applicantQuestion]").each(function(i,element){
+            let toName = 'applicantQuestion'+toIndex[i]
+            $(element).children('input[type=text]').attr('name',toName)
+            $(element).children('input[type=text]').attr('placeholder',toName)
+        });
+
+    }
+
+    // 등록 전 유효성 검사 필수항목
     let validator = new FormValidator({ "events": ['blur', 'input', 'change'] }, document.forms[0]);
     // on form "submit" event
     document.forms[0].onsubmit = function (e) {
@@ -293,6 +334,34 @@
         return !!validatorResult.valid;
     };
 
+    let sel_files = [];
+
+
+    $("#editor-one").on("change", handleImgsFilesSelect);
+
+
+    function handleImgsFilesSelect(e) {
+        let files = e.target.files;
+        let filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+
+            sel_files.push(f);
+
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                alert(e.target.result);
+            }
+            reader.readAsDataURL(f);
+        });
+    }
+
+
 </script>
+
 </body>
 </html>
