@@ -1,6 +1,7 @@
 package com.example.demo.project.controller;
 
 import com.example.demo.common.service.FileUploadService;
+import com.example.demo.common.service.dao.FileUploadDAO;
 import com.example.demo.common.vo.FileVO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.util.SecurityUtils;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -27,13 +29,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Transactional
+@Transactional(rollbackFor = Exception.class, timeout = 10)
 @Controller
 @RequestMapping("/project")
 @Slf4j
 public class Project {
 
-    private final String PATH = "C:\\Temp\\";
+    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
 
     public Project(ProjectService projectService) {
         log.info(":: " + getClass().getName() + " Start::");
@@ -45,8 +47,8 @@ public class Project {
     ProjectService projectService;
 
     @Autowired
-    @Qualifier("fileUploadServiceImpl")
-    private FileUploadService fileUploadServiceImpl;
+    @Qualifier("fileUploadDAO")
+    FileUploadDAO fileUploadDAO;
 
     @Autowired
     @Qualifier("memberServiceImpl")
@@ -71,24 +73,53 @@ public class Project {
 
     }
 
+
     @PostMapping("/addProject")
     public String addProject(@ModelAttribute("project") ProjectVO projectVO,
-                             @ModelAttribute("fileVO") FileVO fileVO,
                              MultipartHttpServletRequest request,
-                             HttpSession session) {
-
+                             HttpSession session) throws Exception{
 
         ProjectVO addProjectResultVO = projectService.addProject(projectVO);
-        fileVO.setProjectNo(addProjectResultVO.getProjectNo());
 
-        List<MultipartFile> fileList = request.getFiles("file");
+        List<MultipartFile> fileList = request.getFiles("files");
+
+        for (MultipartFile mf : fileList) {
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================\n\n\n\n\n\n\n");
+            System.out.println(mf.getOriginalFilename());
+            System.out.println("\n\n\n\n\n\n\n\n\n=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+            System.out.println("=============================================================");
+
+            FileVO fileVO = new FileVO();
+
+            fileVO.setUploadFileName(mf.getOriginalFilename());
+            fileVO.setFileSize(mf.getSize());
+            fileVO.setProjectNo(addProjectResultVO.getProjectNo());
+
+            String safeFile = PATH + mf.getOriginalFilename();
+            mf.transferTo(new File(safeFile));
+
+            fileUploadDAO.uploadFile(fileVO);
+        }
+
 
         session.removeAttribute("user");
         MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
         if (memberVO != null) {
             session.setAttribute("user", memberVO);
         }
-        fileUploadServiceImpl.fileUpload(fileVO, PATH, fileList);
+
         return "welcome";
 
     }

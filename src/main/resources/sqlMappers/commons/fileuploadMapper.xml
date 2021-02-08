@@ -23,7 +23,7 @@
 	 	)
 	 	VALUES(
 	 		seq_file_no.NEXTVAL,
-	 		#{originFileName},
+	 		#{uploadFileName},
 	 		#{fileSize}
 			<if test="postNo != 0">
 				,#{postNo}

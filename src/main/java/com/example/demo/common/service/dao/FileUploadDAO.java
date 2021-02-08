@@ -9,7 +9,7 @@ import com.example.demo.common.vo.FileVO;
 
 import lombok.RequiredArgsConstructor;
 
-@Repository("FileUploadDAO")
+@Repository("fileUploadDAO")
 public class FileUploadDAO {
 	
 	@Autowired
