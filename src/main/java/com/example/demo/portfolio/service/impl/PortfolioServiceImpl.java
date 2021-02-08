@@ -25,10 +25,11 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioDAO.addPort(addPort);
     }
 
-//    @Override
-//    public int addInPort(PortfolioVO addInPort){
-//        return portfolioDAO.addInPort(addInPort);
-//    }
+
+    @Override
+    public ProjectVO getProjectInfo(int projectNo) {
+        return portfolioDAO.getProjectInfo(projectNo);
+    }
 
     @Override
     public List<ProjectVO> getEndProjectList(String userId){

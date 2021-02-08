@@ -64,12 +64,13 @@
             a.APPLICANT_STATUS = 6
     </select>
 
-    <insert id="addPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
+
+    <insert id="addPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO" useGeneratedKeys="true" keyColumn="portfolio_no" keyProperty="portNo">
         INSERT
         INTO portfolio (
                         portfolio_no,
                         user_id,
-                        <if test="projectNo != 0">
+                       <if test="projectNo != 0">
                         project_no,
                         </if>
                         port_project_start_date,
@@ -93,6 +94,22 @@
                SYSDATE
               )
     </insert>
+
+    <update id="updateApplicantStatus" parameterType="int">
+        UPDATE applicant
+            SET applicant_status = 7
+        WHERE
+    </update>
+
+    <select id="getProjectInfo" parameterType="int" resultType="projectVO">
+        SELECT
+            project_name projectName,
+            project_no projectNo,
+            application_deadline applicationDeadline,
+            end_date endDate
+        FROM project
+        WHERE project_no = #{projectNo}
+    </select>
 
     <update id="updatePort" parameterType="com.example.demo.portfolio.vo.PortfolioVO">
         UPDATE portfolio

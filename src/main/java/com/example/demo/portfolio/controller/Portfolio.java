@@ -1,17 +1,21 @@
 package com.example.demo.portfolio.controller;
 
+import com.example.demo.common.service.FileUploadService;
+import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.service.PortfolioService;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.project.vo.ProjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,20 +25,33 @@ public class Portfolio {
 
     @Autowired
     private PortfolioService portfolioService;
+    private  final String PATH = "C:\\Temp\\";
+
+    @Autowired
+    @Qualifier("fileUploadServiceImpl")
+    private FileUploadService fileUploadService;
 
     //포트폴리오 등록
     @GetMapping("addPort")
-    public String addPortView() {
+    public String addPortView(@RequestParam("projectNo") int projectNo,Model model) {
+        if(projectNo!=0){
+            model.addAttribute("getProjectInfo",portfolioService.getProjectInfo(projectNo));
+        }
         return "portfolio/addPortfolio";
     }
 
     //포트폴리오 등록
     @PostMapping("addPort")
-    public String addPort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session) {
+    public String addPort(@ModelAttribute("portfolioVO") PortfolioVO portfolioVO,
+                          @ModelAttribute("fileVO") FileVO fileVO, MultipartHttpServletRequest request,
+                          HttpSession session) {
        /* session.setAttribute("userId","user01");
         portfolioVO.setUserId((String)session.getAttribute("userId"));*/
         portfolioVO.setUserId(((MemberVO) session.getAttribute("user")).getUserId());
         portfolioService.addPort(portfolioVO);
+
+        List<MultipartFile> fileList = request.getFiles("file");
+        fileUploadService.fileUpload(fileVO,PATH,fileList);
         return "redirect:/port/portList";
 
     }
@@ -110,6 +127,8 @@ public class Portfolio {
 
         return "portfolio/getPortfolioList";
     }
+
+
 
 }
   /*  @GetMapping("portList")

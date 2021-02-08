@@ -5,6 +5,9 @@
 
     <div th:include="topToolBar.html"></div>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -77,44 +80,61 @@
     <title>포트폴리오 목록</title>
 </head>
 <body>
-<table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
+
+<table class="table table-hover" width="100%" border="0" cellpadding="0" style="margin-top:10px;">
     <thead>
     <tr>
+        <th scope="col">제목</th>
+        <th scope="col">작성날짜</th>
+    </tr>
+
+   <!-- <tr>
         <th class="column-title" width="100">제목</th>
         <th class="column-title" width="100">작성날짜</th>
     </tr>
-
-    <tr>
+-->
+   <!-- <tr>
         <td colspan="11" bgcolor="808285" height="1"></td>
-    </tr>
+    </tr>-->
     </thead>
 
     <tbody>
-    <tr class="" th:each="portfolioVO:${portList}">
+
+    <tr class="table-light" th:each="portfolioVO:${portList}">
+        <td> <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
+                th:text="${portfolioVO.portTitle}"></a></td>
+        <td th:text="${#dates.format(portfolioVO.regDate,'yyyy-MM-dd')}" name="등록일자"></td>
+    </tr>
+    <!--<tr class="" th:each="portfolioVO:${portList}">
         <td>
             <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
                th:text="${portfolioVO.portTitle}">
             </a>
         </td>
-        <td th:text="${portfolioVO.regDate}" name="등록일자"></td>
-    </tr>
+        <td th:text="${#dates.format(portfolioVO.regDate,'yyyy-MM-dd')}" name="등록일자"></td>
+    </tr>-->
 
     </tbody>
 </table>
 
+<button type="button" id="add_portfolio_get" class="btn btn-secondary">프로젝트 불러오기</button>
 
-<button id="add_portfolio_get" class="btn btn-default">포트폴리오 등록</button>
+<button type="button" class="btn btn-secondary">
+    <a href="/port/addPort?projectNo=0">글쓰기</a>
+</button>
 
 <div id="add_portfolio_get_pop_up" class="layerpop" background-color: white;
      style="width: 700px; height: 350px; overflow:auto;">
     <form id="detailForm" method="post" class="control-label" th:action="@{/port/addport}">
-        <h2><label for="Title" class="control-label">완료된 프로젝트 목록</label></h2>
+        <h2><label class="control-label">완료된 프로젝트 목록</label></h2>
         <br>
 
         <div class="" th:each="projectVO:${endProjectList}">
             <div class="form-group">
 
                 <table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
+
+
                     <thead>
                     <tr>
                         <td class="column-title" width="100">프로젝트명</td>
@@ -130,22 +150,22 @@
 
                     <tbody>
                     <tr>
-                        <td>
-                            <a th:href="@{/profile/addPort(projectNo=${projectVO.projectNo})}"
-                               th:text="${projectVO.projectName}"></td>
-                        <td th:text="${projectVO.applicationDeadline}"></td>
-                        <td th:text="${projectVO.endDate}"></td>
+                        <td class="label"><a th:href="@{/port/addPort(projectNo=${projectVO.projectNo})}"
+                                             th:text="${projectVO.projectName}"></a></td>
+                        <td th:text="${#dates.format(projectVO.applicationDeadline,'yyyy-MM-dd')}"></td>
+                        <td th:text="${#dates.format(projectVO.endDate,'yyyy-MM-dd')}"></td>
                         <td th:text="${projectVO.recruitmentMemberCnt}"></td>
                     </tr>
                     </tbody>
 
+
                 </table>
 
             </div>
+            <!-- <td class="">
+                 <a th:href="@{/port/addInPort(projectNo=${projectVO.projectNo})}"/>내부 포트폴리오 등록
+             </td>-->
         </div>
-        <td class="">
-            <a th:href="@{/port/addPort}"/>글쓰기
-        </td>
     </form>
 </div>
 

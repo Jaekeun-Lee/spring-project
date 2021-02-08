@@ -22,14 +22,21 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     @Override
     public int addPort(PortfolioVO addPort){
-        return sqlSession.insert("portfolioMapper.addPort", addPort);
+        sqlSession.insert("portfolioMapper.addPort", addPort);
+        return sqlSession.update("portfolioMapper.updateApplicantStatus",addPort.getPortNo());
     }
 
 //    public int addInPort(PortfolioVO addInPort){
 //        return sqlSession.insert("portfolioMapper.addInPort", addInPort);
 //    }
 
+    //내부 포트폴리오 등록
+    @Override
+    public ProjectVO getProjectInfo(int projectNo) {
+        return sqlSession.selectOne("portfolioMapper.getProjectInfo",projectNo);
+    }
 
+    @Override
     public List<ProjectVO> getEndProjectList(String userId){
         return sqlSession.selectList("portfolioMapper.getEndProjectList",userId);
     }
