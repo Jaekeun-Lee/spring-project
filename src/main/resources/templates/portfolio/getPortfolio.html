@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
 <head>
-    <div th:include="topToolBar.html" ></div>
+
     <script>
         $(function (){  /*제이쿼리를 쓰겠다 선언*/
             /*id class name 으로 접근하는 3가지 방법이 있다 id가 유니크해서  id로 접근하는 게 쉬움(모든 태그에서 id가 겹치면 안됨)
@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<div th:include="topToolBar.html" ></div>
 
     <input type="hidden" id="portNo" name="portNo" th:value="${portfolio.getPortNo()}"/>
         제목 : <div th:text="${portfolio.portTitle}"></div>

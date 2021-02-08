@@ -25,17 +25,16 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioDAO.addPort(addPort);
     }
 
-//    @Override
-//    public int addInPort(PortfolioVO addInPort){
-//        return portfolioDAO.addInPort(addInPort);
-//    }
 
     @Override
-    public Map<String,Object> getEndProjectList(String userId){
-        PortfolioVO getEndProjectList = (PortfolioVO) portfolioDAO.getEndProjectList(userId);
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("getEndProjectList",getEndProjectList);
-        return map;
+    public ProjectVO getProjectInfo(int projectNo) {
+        return portfolioDAO.getProjectInfo(projectNo);
+    }
+
+    @Override
+    public List<ProjectVO> getEndProjectList(String userId){
+        List<ProjectVO> getEndProjectList = portfolioDAO.getEndProjectList(userId);
+        return getEndProjectList;
 
     }
 

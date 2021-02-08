@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
 <head>
-    <div th:include="topToolBar.html" ></div>
+    <meta charset="UTF-8">
+
     <title>기본정보 조회</title>
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <script>
@@ -16,6 +17,7 @@
 
 </head>
 <body>
+<div th:include="topToolBar.html" ></div>
     <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}">
         <div th:text="${profile.userId}"></div>
         <div th:text="${profile.name}"></div>

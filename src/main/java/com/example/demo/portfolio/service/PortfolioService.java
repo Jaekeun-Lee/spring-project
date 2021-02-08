@@ -2,6 +2,7 @@ package com.example.demo.portfolio.service;
 
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.portfolio.vo.PortfolioVO;
+import com.example.demo.project.controller.Project;
 import com.example.demo.project.vo.ProjectVO;
 import org.springframework.security.core.parameters.P;
 
@@ -14,8 +15,11 @@ public interface PortfolioService {
     //포트폴리오 등록
     public int addPort(PortfolioVO addPort);
 
+    //내부 포트폴리오 등록
+    public ProjectVO getProjectInfo(int projectNo);
+
     //완료된 프로젝트 목록 조회
-    public Map<String,Object> getEndProjectList(String userId);
+    public List<ProjectVO> getEndProjectList(String userId);
 
     //포트폴리오 수정
     public int updatePort(PortfolioVO updatePortDTO);
