@@ -34,9 +34,8 @@ public class MemberVO implements Serializable {
     private int projectTotalCnt; //프로젝트 총 참여 수
     private String profileImg; //회원 프로필 이미지
     private String selfIntro; //프로필_자기소개
-    private List<NotiVO> noti;
     private List<ReviewVO> review;
-    private List<String> link;
+    private String link;
 
 
     /**

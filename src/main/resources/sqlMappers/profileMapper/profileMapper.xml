@@ -16,6 +16,7 @@
         <result property="projectWithdrawalDate" column="project_withdrawal_date" javaType="DATE"/>
         <result property="reportCnt" column="report_cnt" jdbcType="NUMERIC"/>
         <result property="selfIntro" column="self_intro" jdbcType="VARCHAR"/>
+        <result property="link" column="link" jdbcType="VARCHAR"/>
         <result property="status" column="member_status" jdbcType="VARCHAR"/>
 
 
@@ -23,7 +24,6 @@
     <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.NotiVO" select="getNotiList"/>
         <collection property="review" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
         <collection property="skillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByUserId"/>
-        <!--<collection property="portfolio" column="user_id" javaType="java.util.ArrayList" ofType="com.example.demo.portfolio.vo.PortfolioVO" select="getAllProfileList"/>-->
     </resultMap>
 
     <resultMap id="getPostBookmarkListByUserId" type="bookmarkVO">
@@ -38,6 +38,15 @@
         <result property="selfIntro" column="self_intro" jdbcType="VARCHAR"/>
         <collection property="portfolio" column="user_id" select="getPortList"/>
     </resultMap>
+
+
+    <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
+        UPDATE MEMBER
+        SET self_intro = #{selfIntro:VARCHAR},
+            profile_image = #{profileImg:VARCHAR},
+            link=#{link:VARCHAR}
+        WHERE user_id = #{userId}
+    </update>
 
     <select id="getPortList" resultType="portfolioVO">
         SELECT portfolio_no as portNo,
@@ -77,21 +86,6 @@
         DELETE FROM bookmark
         WHERE bookmark_no = #{bookmarkNo}
     </delete>
-
-    <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
-        UPDATE MEMBER
-        SET self_intro = #{selfIntro:VARCHAR},
-            profile_image = #{profileImg:VARCHAR},
-            link = #{link:VARCHAR}
-        WHERE user_id = #{userId}
-    </update>
-
-    <update id="updateLink" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
-        UPDATE member
-        SET link = #{link}
-        WHERE user_id = #{userId}
-    </update>
-
 
     <select id="getMyProfile" parameterType="string" resultType="com.example.demo.profile.dto.ProfileDTO$GetMyProfileDTO">
         SELECT user_id as userId,

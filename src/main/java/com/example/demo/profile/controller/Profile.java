@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.event.ListDataEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +43,7 @@ public class Profile {
 
     //기본정보 조회
     @GetMapping("getMyProfile")
-    public String getMyProfile(@RequestParam("userId") String userId, Model model){
+    public String getMyProfile(@RequestParam("userId") String userId,Model model){
         ProfileDTO.GetMyProfileDTO getMyProfile = profileService.getMyProfile(userId);
         model.addAttribute("profile",getMyProfile);
         return "profile/getMyProfile";
