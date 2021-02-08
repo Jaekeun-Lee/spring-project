@@ -2,6 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 
+    <title>포트폴리오 등록</title>
+
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
@@ -9,7 +11,6 @@
     <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
     <meta charset="UTF-8">
-    <title>포트폴리오 등록</title>
 
     <script type="text/javascript">
 
@@ -56,12 +57,7 @@
 </head>
 <body>
 <div th:include="topToolBar.html"></div>
-<!--<div class = "container" layout:fragment="content">
-    <div class="page-header">
-    <h2>포트폴리오 등록</h2>
-</div>
 
-</div>-->
 <form id="addPortfolioForm" th:method="post" th:action="@{/port/addPort}" enctype="multipart/form-data">
 
     제목 : <input type="text" name="portTitle" autocomplete="off"

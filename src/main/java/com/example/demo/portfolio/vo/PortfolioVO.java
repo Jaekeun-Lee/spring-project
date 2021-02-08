@@ -21,8 +21,7 @@ public class PortfolioVO {
     private List<String> portSkillTag;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date regDate;
-
-
+    private int applicantNo;
 
     public PortfolioVO() {
     }
@@ -123,6 +122,14 @@ public class PortfolioVO {
         this.regDate = regDate;
     }
 
+    public int getApplicantNo() {
+        return applicantNo;
+    }
+
+    public void setApplicantNo(int applicantNo) {
+        this.applicantNo = applicantNo;
+    }
+
     @Override
     public String toString() {
         return "PortfolioVO{" +
@@ -138,9 +145,11 @@ public class PortfolioVO {
                 ", portFileName='" + portFileName + '\'' +
                 ", portSkillTag=" + portSkillTag +
                 ", regDate=" + regDate +
+                ", applicantNo=" + applicantNo +
                 '}';
     }
 }
+
 
 
 

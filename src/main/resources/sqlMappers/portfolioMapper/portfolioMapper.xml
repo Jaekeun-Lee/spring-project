@@ -61,7 +61,8 @@
         FROM applicant a, project p
         WHERE a.USER_ID = #{userId} AND
             a.PROJECT_NO = p.PROJECT_NO AND
-            a.APPLICANT_STATUS = 6
+            a.APPLICANT_STATUS = 6 AND
+            a.portfolio_no IS NOT NULL
     </select>
 
 
