@@ -86,7 +86,7 @@
             $("form").attr("method" , "POST").attr("action" , "/comm/addPost").submit();
         }
         $(function(){
-            $("td.add_post_btn:contains('작성')").on('click', function(){
+            $(".add_post_btn:contains('작성')").on('click', function(){
                 fncAddPost();
             })
         })
@@ -112,8 +112,13 @@
         <textarea type="resize: both;" cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea>
         <input multiple type="file" name="files">
 
+        <div class="add_post_btn" id="addPost" align="right" style="padding-top: 3px;">
+            작성
+            <a th:href="@{/comm/getPostList}">취소</a>
+        </div>
 
-        <a th:href="@{/comm/getPostList}">취소</a>
+
+
 </div>
 </form>
 </body>
