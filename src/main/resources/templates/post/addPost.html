@@ -11,6 +11,12 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <style>
+        .container{
+            display: grid;
+
+            grid-template-columns: 100px    2fr  1fr;
+            grid-template-rows: 100px    2fr  1fr;
+        }
 
         a{
             color: red;
@@ -66,6 +72,7 @@
 
 </head>
 <body>
+<div class="container">
 <form th:action="@{/comm/addPost}" th:method="post" enctype="multipart/form-data">
     제목 : <input type="text"  placeholder="제목을 입력하세요." name="postName"></br>
     내용 : <textarea style="resize: both;" cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea></br>
@@ -95,5 +102,6 @@
 <!--    <a th:href="@{/comm/getPost}">작성</a>-->
     <a th:href="@{/comm/getPostList}">취소</a>
 </table>
+</div>
 </body>
 </html>
