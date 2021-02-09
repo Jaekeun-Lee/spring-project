@@ -4,6 +4,8 @@ import com.example.demo.common.service.FileUploadService;
 import com.example.demo.common.vo.BookmarkVO;
 import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.ReviewVO;
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dto.ProfileDTO;
@@ -36,6 +38,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Profile {
 
+    private final MemberService memberService;
     private final ProfileService profileService;
 
 
@@ -52,7 +55,9 @@ public class Profile {
                                MultipartHttpServletRequest request,
                                HttpSession session, Model model) throws IOException {
 
-        String path = "C:\\Temp\\";
+
+
+        String path = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
 
         List<MultipartFile> fileList = request.getFiles("imageFile");
 
@@ -67,6 +72,12 @@ public class Profile {
         param.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
         profileService.updateMyProfile(param);
         model.addAttribute("profile",profileService.getMyProfile(param.getUserId()));
+
+        session.removeAttribute("user");
+        MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if (memberVO != null) {
+            session.setAttribute("user", memberVO);
+        }
 
         return "profile/getMyProfile";
     }
