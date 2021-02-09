@@ -80,7 +80,40 @@ CREATE TABLE END_VOTE
 );
 alter table PROJECT drop column END_PROJECT_CNT;
 
+--------------------------------------------------
 
+
+drop table SKILL_HASHTAG;
+
+drop sequence SEQ_SKILLHASHTAG_NO;
+
+drop table HASHTAG;
+
+create table HASHTAG
+(
+    HASHTAG_NO   NUMBER       not null
+        primary key,
+    HASHTAG      VARCHAR2(3000) not null,
+    PROJECT_NO   NUMBER
+        constraint HASHTAG_PROJECT_FK
+            references PROJECT
+                on delete cascade,
+    PORTFOLIO_NO NUMBER
+        constraint HASHTAG_PORTFOLIO_FK
+            references PORTFOLIO
+                on delete cascade
+);
+
+alter table APPLICANT add PORTFOLIO_NO NUMBER;
+
+
+alter table APPLICANT
+    add constraint APPLICANT_PORTFOLIO_PORTFOLIO_NO_FK
+        foreign key (PORTFOLIO_NO) references PORTFOLIO
+            on delete cascade;
+
+
+--------------------------------------------------
 
 /* 예제 데이터 */
 INSERT INTO MEMBER (USER_ID, PASSWORD, EMAIL, NAME, ROLE, PROFILE_IMAGE, LAST_LOGIN_DATE, REG_DATE, PROJECT_WITHDRAWAL_DATE, REPORT_CNT, SELF_INTRO, MEMBER_STATUS, REVIEW_TOTAL_SCORE, LINK, PROJECT_HISTORY, PROJECT_NO, GRADE) VALUES ('user01', '1111', 'user01@test.com', '이재근', 'USER', 'DEFAULTImage.jpg', null, TO_DATE('2021-01-15 15:43:36', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2021-01-15 15:43:38', 'YYYY-MM-DD HH24:MI:SS'), 4, null, 'REPORT', 4, null, null, 1, 'BRONZE');

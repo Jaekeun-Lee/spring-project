@@ -99,12 +99,6 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.checkOverId(userId);
     }
 
-    // 비밀번호 중복체크
-    @Override
-    public int userEmailCheck(String email) {
-        return memberDAO.checkOverEmail(email);
-    }
-
     @Override
     public MemberVO selectMember(String userId) {
         return memberDAO.selectMember(userId);
