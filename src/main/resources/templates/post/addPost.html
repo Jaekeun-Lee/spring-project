@@ -11,16 +11,46 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <style>
-        .container{
+        .container {
             display: grid;
 
-            grid-template-columns: 100px    2fr  1fr;
-            grid-template-rows: 100px    2fr  1fr;
+            /*grid-template-columns: 200px;*/
+            /*grid-template-columns: 1fr 1fr 1fr;*/
+            /*grid-template-columns: 100px  2fr  1fr;*/
+
+
+            grid-template-rows:10px 30px 500px;
+            /*grid-template-rows: 200px  1fr 1fr;*/
+
+            row-gap: 10px;
+
+            grid-template-areas:
+                "header"
+                "main"
+                "button";
+
+
+
+
+        /*    position: center;*/
+        /*    top: 0;*/
+        /*    left: 0;*/
+        /*    right: 0;*/
+        /*    bottom: 0;*/
+        /*    margin: 2.5% 30% 10%;*/
+        /*    width: 600px;*/
         }
 
         a{
             color: red;
         }
+
+        textarea{
+            width: 1150px;
+            height: 500px;
+            resize: none;
+        }
+
     </style>
 
 
@@ -72,36 +102,19 @@
 
 </head>
 <body>
-<div class="container">
 <form th:action="@{/comm/addPost}" th:method="post" enctype="multipart/form-data">
-    제목 : <input type="text"  placeholder="제목을 입력하세요." name="postName"></br>
-    내용 : <textarea style="resize: both;" cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea></br>
-    파일 : <input multiple type="file" name="files">
+<div class="container">
+<!--    <div class="item">A</div>-->
+<!--    <div class="item">B</div>-->
+<!--    <div class="item">C</div>-->
+        <br>
+        <input type="text"  placeholder="제목을 입력하세요." name="postName">
+        <textarea type="resize: both;" cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea>
+        <input multiple type="file" name="files">
 
-<!--</form>-->
-<!--<form th:action="@{/comm/addPost}" method="post" enctype="multipart/form-data">-->
-<!--    <input multiple type="file" name="files">-->
-<!--    <button>등록</button>-->
-<!--</form>-->
 
-<!--    <button>submit</button>-->
-    <table width="100%" border="0"  cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-        <tr>
-            <td class="add_post_btn" id="addPost" style="padding-top: 3px;">
-                작성
-            </td>
-<!--    <input type="submit"    value="작성">-->
-        </tr>
-<!--        <tr>-->
-<!--            <td class="add_Post_btn"  style="padding-top: 3px;">-->
-<!--                취소-->
-<!--            </td>-->
-<!--        </tr>-->
-    </table>
-</form>
-<!--    <a th:href="@{/comm/getPost}">작성</a>-->
-    <a th:href="@{/comm/getPostList}">취소</a>
-</table>
+        <a th:href="@{/comm/getPostList}">취소</a>
 </div>
+</form>
 </body>
 </html>
