@@ -3,14 +3,21 @@
 <meta charset="UTF-8">
 <head>
     <title>프로필 기본정보</title>
+
+
+
 </head>
 
 <body>
+
 <div th:include="topToolBar.html"></div>
+
 <form th:action="@{/profile/addMyProfile}" th:method="post" enctype="multipart/form-data">
 <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}"/>
 
-<input type="file" name="imageFile"><br/>
+<input type="file" id="uploadFile" name="imageFile"><br/>
+    <div id="preview"></div>
+
 
 아이디 :
 <div th:text="${profile.userId}"></div>
@@ -29,5 +36,37 @@
     <input type="submit" value="등록완료">
 </form>
 
+<script type="text/javascript">
+    let sel_files = [];
 
+
+    $(function (){
+        $("#uploadFile").on("change", handleImgsFilesSelect);
+    });
+
+
+    function handleImgsFilesSelect(e) {
+        let files = e.target.files;
+        let filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+
+            sel_files.push(f);
+
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                alert(e.target.result);
+                let img_html = "<img src=\"" + e.target.result + "\" />";
+                $("#preview").append(img_html);
+            }
+            reader.readAsDataURL(f);
+        });
+    }
+
+
+</script>
 </body>

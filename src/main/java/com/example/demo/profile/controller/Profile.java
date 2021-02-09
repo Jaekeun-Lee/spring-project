@@ -74,9 +74,8 @@ public class Profile {
     //기본정보 조회
     @GetMapping("getMyProfile")
     public String getMyProfile(@RequestParam("userId") String userId, Model model){
-
-
         ProfileDTO.GetMyProfileDTO getMyProfile = profileService.getMyProfile(userId);
+
         model.addAttribute("profile",getMyProfile);
         return "profile/getMyProfile";
     }
