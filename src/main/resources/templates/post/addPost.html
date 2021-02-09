@@ -9,7 +9,27 @@
     <div th:include="topToolBar.html" ></div>
 <!--    <link rel="stylesheet" href="/css/admin.css" type="text/css">-->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <style>
+
+        a{
+            color: red;
+        }
+    </style>
+
+
+
+
+
+
+
     <script type="text/javascript">
+<!--로그인 사룔자가 아니라면 로그인창으로 돌려주는 과정-에러남-->
+        // if(session.getAttribute("userId") == null){
+        //     session.setAttribute("loginMessage", "게시물 작성은 <br>로그인이 필요합니다.");
+        //     response.sendRediect("/login");
+        //     return;
+        // }
 
         function fncAddPost() {
             let postName = $("input[name='postName']").val();
@@ -48,7 +68,7 @@
 <body>
 <form th:action="@{/comm/addPost}" th:method="post" enctype="multipart/form-data">
     제목 : <input type="text"  placeholder="제목을 입력하세요." name="postName"></br>
-    내용 : <textarea cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea></br>
+    내용 : <textarea style="resize: both;" cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea></br>
     파일 : <input multiple type="file" name="files">
 
 <!--</form>-->
@@ -60,7 +80,7 @@
 <!--    <button>submit</button>-->
     <table width="100%" border="0"  cellspacing="0" cellpadding="0" style="margin-top: 10px;">
         <tr>
-            <td class="add_post_btn"  style="padding-top: 3px;">
+            <td class="add_post_btn" id="addPost" style="padding-top: 3px;">
                 작성
             </td>
 <!--    <input type="submit"    value="작성">-->
@@ -74,6 +94,6 @@
 </form>
 <!--    <a th:href="@{/comm/getPost}">작성</a>-->
     <a th:href="@{/comm/getPostList}">취소</a>
-
+</table>
 </body>
 </html>

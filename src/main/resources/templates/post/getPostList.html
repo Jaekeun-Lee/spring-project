@@ -5,15 +5,63 @@
 <head>
 
     <div th:include="topToolBar.html" ></div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 <!--    <link rel="stylesheet" href="/css/admin.css" type="text/css">-->
+
+
+    <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
+    <style>
+
+        #container{
+            width: 70%;
+            margin: 0 auto;
+            padding-top: 10%;
+        }
+
+        #post-list{
+            text-align: center;
+        }
+
+        #add_post_btn{
+            text-align: right;
+        }
+
+        .table > thead{
+            background-color: black;
+            color: white;
+        }
+        .table-hover > thead > tr:hover {
+            background-color: gray;
+        }
+
+
+
+        .pageTitle {position: fixed; left: 0; top: 0; width: 100%; height: 52px; line-height: 52px; color: #fff; text-align: center; background: #111;}
+        article {padding: 52px 3% 0;}
+        article .block {padding: 20px; min-height: 500px;}
+        article .block p {line-height: 22px; color: #fff; font-size: 16px; font-weight: 600;}
+        article .block:nth-child(2n+1) {background: #999;}
+        article .block:nth-child(2n) {background: #222;}
+
+
+
+    </style>
+
 
     <script type="text/javascript">
-
-
+        let count = 0;//스크롤 바닥 감지
+        window.onscroll = function (e){//추가 임시콘텐츠
+            //window height + window scroll 값이 document height 보다 클 경우.
+            if((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+                //실행할 로직(컨텐츠 추가)
+                count++;
+                let addCount = '<div class="block"><p>'+count+'</p></div>';
+                //article에 추가되는 콘텐츠를 더함
+                $('article').append(addCount);
+            }
+        };
 
 
     </script>
@@ -23,7 +71,7 @@
 <div> 게시물 목록</div>
 
 </br></br>
-<table>
+<table class="table table-hover"    id="container">
     <thead>
     <tr>
         <th>번호</th>
@@ -36,22 +84,36 @@
     </thead>
 
     <tbody>
-    <tr th:each="postVO : ${postList}">
-        <td th:text="${postVO.postNo}"></td>
-<!--        <td th:text="${postVO.postName}"></td>-->
-        <td>
-            <a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
-           th:text="${postVO.postName}"></a>
-        </td>
-        <td th:text="${postVO.userId}"></td>
-        <td class=""    th:text="${#dates.format(postVO.regDate, 'yyyy-MM-dd')}"></td>
-        <td th:text="${postVO.viewCnt}"></td>
-        <td th:text="${postVO.replyCnt}"></td>
-    </tr>
+    <article>
+        <div class="block">
+            <p>
+                <tr th:each="postVO : ${postList}">
+                    <td th:text="${postVO.postNo}"></td>
+                    <!--        <td th:text="${postVO.postName}"></td>-->
+                    <td>
+                        <a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
+                           th:text="${postVO.postName}"></a>
+                    </td>
+                    <td th:text="${postVO.userId}"></td>
+                    <td class=""    th:text="${#dates.format(postVO.regDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${postVO.viewCnt}"></td>
+                    <td th:text="${postVO.replyCnt}"></td>
+                </tr>
+            </p>
+        </div>
+    </article>
 
-     <td class="">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+
+     <td id="add_post_btn">
         <a th:href="@{/comm/addPost}"/>작성
     </td>
+
+
 
     </tbody>
 </table>
