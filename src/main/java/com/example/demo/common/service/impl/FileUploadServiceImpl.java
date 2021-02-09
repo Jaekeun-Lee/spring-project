@@ -20,10 +20,6 @@ public class FileUploadServiceImpl implements FileUploadService{
 	@Autowired
 	@Qualifier("fileUploadDAO")
 	FileUploadDAO fileUploadDAO;
-	public void setProjectapplicantDAO(FileUploadDAO fileUploadDAO) {
-		System.out.println("::"+getClass()+".projectApplicantDAOImpl Call....");
-		this.fileUploadDAO = fileUploadDAO;
-	}
 
 	@Override
 	public void fileUpload(FileVO fileVO,String path, List<MultipartFile> fileList) {
