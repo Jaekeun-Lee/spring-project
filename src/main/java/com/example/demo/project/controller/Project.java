@@ -1,6 +1,5 @@
 package com.example.demo.project.controller;
 
-import com.example.demo.common.service.FileUploadService;
 import com.example.demo.common.service.dao.FileUploadDAO;
 import com.example.demo.common.vo.FileVO;
 import com.example.demo.member.service.MemberService;
