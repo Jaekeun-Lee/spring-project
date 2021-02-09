@@ -35,10 +35,10 @@ public class CommunityRest {
     @PostMapping("/addReply")
     public ReplyVO addReply(@RequestBody ReplyVO replyVO,
                            HttpSession httpSession){
-        String sessionId = "user94";
-        replyVO.setReplyUserId(sessionId);
+//        String sessionId = "user94";
+//        replyVO.setReplyUserId(sessionId);
 
-//        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+        replyVO.setReplyUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
 
 //        postService.addReply(replyVO);
 

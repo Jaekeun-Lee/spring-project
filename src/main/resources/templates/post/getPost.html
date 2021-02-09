@@ -148,6 +148,7 @@
 </head>
 <body>
 <form>
+    <h5 id="post-list">게시물 상세조회</h5>
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
     <input type="hidden"    name="postNo"   id="postNo"   th:value="${postVO.postNo}">
 <!--    <div th:text="${postVO.postNo}">번호</div>-->
@@ -167,6 +168,7 @@
 <!--        </p>-->
     </div>
 </form>
+
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->
 <form>
     <div class="reply-box">
@@ -192,6 +194,7 @@
 
     </div>
 </form>
+
 </body>
 
 </html>
