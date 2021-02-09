@@ -17,6 +17,7 @@
                MEMBER_STATUS   as status,
                REPORT_CNT      as reportCnt,
                LAST_LOGIN_DATE as lastLoginDate,
+               PROFILE_IMAGE   as profileImg,
                REG_DATE        as regDate,
                PROJECT_NO      as projectNo,
                PROJECT_WITHDRAWAL_DATE as projectWithdrawalDate
