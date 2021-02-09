@@ -14,46 +14,50 @@
         <result property="portTitle" column="port_title" jdbcType="VARCHAR"/>
         <result property="portMemberCnt" column="port_member_cnt" jdbcType="INTEGER"/>
         <result property="regDate" column="reg_date" jdbcType="DATE"/>
+        <result property="portThumbnailImg" column="PORT_THUMBNAIL_IMAGE" jdbcType="VARCHAR"/>
 
+        <!--association-->
+        <association property="portSkillTag" column="portfolio_no" select="getHashTag"/>
+
+        <!--//TODO collection 구현해야합니다~-->
+        <collection property="portFileName" column="portfolio_no" select=""/>
     </resultMap>
 
     <select id="getPortList" parameterType="searchVO" resultType="portfolioVO">
         SELECT *
         FROM (SELECT inner_table.*, ROWNUM as row_seq
-        FROM(
-        SELECT portfolio_no portNo,
-        user_id,
-        project_no,
-        port_project_start_date,
-        port_project_end_date,
-        port_description,
-        port_thumbnail_image,
-        port_title,
-        port_member_cnt,
-        reg_date
-        FROM portfolio
-        <where>
-            <if test="searchConditionA != null">
-                <if test="searchConditionA == 1">
-                    port_title LIKE '%'||#{searchKeyword}||'%'
-                </if>
-                <if test="searchConditionA == 2">
-                    port_description LIKE '%'||#{searchKeyword}||'%'
-                </if>
-                <if test="searchConditionA == 3">
-                    user_id LIKE '%'||#{searchKeyword}||'%'
-                </if>
-            </if>
-        </where>
-        ORDER BY portfolio_no ) inner_table
-        WHERE ROWNUM &lt;=#{endRowNum} )
-        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} AND
-        user_id=#{userId}
+              FROM( SELECT portfolio_no portNo,
+                             user_id,
+                             project_no,
+                             port_project_start_date,
+                             port_project_end_date,
+                             port_description,
+                             port_thumbnail_image,
+                             port_title,
+                             port_member_cnt,
+                             reg_date
+                    FROM portfolio
+                    <where>
+                        <if test="searchConditionA != null">
+                            <if test="searchConditionA == 1">
+                                port_title LIKE '%'||#{searchKeyword}||'%'
+                            </if>
+                            <if test="searchConditionA == 2">
+                                port_description LIKE '%'||#{searchKeyword}||'%'
+                            </if>
+                            <if test="searchConditionA == 3">
+                                user_id LIKE '%'||#{searchKeyword}||'%'
+                            </if>
+                        </if>
+                    </where>
+                    ORDER BY portfolio_no ) inner_table
+              WHERE ROWNUM &lt;=#{endRowNum} )
+        WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} AND user_id=#{userId}
     </select>
 
     <select id="getEndProjectList" parameterType="string" resultType="projectVO">
         SELECT
-            p.project_name,
+            p.project_name as projectName,
             p.project_no,
             p.application_deadline,
             p.end_date,
@@ -62,7 +66,7 @@
         WHERE a.USER_ID = #{userId} AND
             a.PROJECT_NO = p.PROJECT_NO AND
             a.APPLICANT_STATUS = 6 AND
-            a.portfolio_no IS NOT NULL
+            a.portfolio_no IS NULL
     </select>
 
 
@@ -71,7 +75,7 @@
         INTO portfolio (
                         portfolio_no,
                         user_id,
-                       <if test="projectNo != 0">
+                        <if test="projectNo != 0">
                         project_no,
                         </if>
                         port_project_start_date,
@@ -95,12 +99,6 @@
                SYSDATE
               )
     </insert>
-
-    <update id="updateApplicantStatus" parameterType="int">
-        UPDATE applicant
-            SET applicant_status = 7
-        WHERE
-    </update>
 
     <select id="getProjectInfo" parameterType="int" resultType="projectVO">
         SELECT
@@ -140,12 +138,27 @@
         WHERE portfolio_no = #{portNo}
     </delete>
 
-
-
-
     <select id="getTotalCount" parameterType="pageVO" resultType="int">
         SELECT COUNT(*)
         FROM portfolio
     </select>
+
+    <select id="getHashTag" parameterType="int" resultType="string">
+        SELECT HASHTAG
+        FROM HASHTAG
+        WHERE PORTFOLIO_NO = #{portfolio_no}
+    </select>
+
+    <insert id="addHashTag" parameterType="string">
+        INSERT INTO HASHTAG ( HASHTAG_NO, HASHTAG, PORTFOLIO_NO )
+        VALUES ( seq_hashtag_no, #{portSkillTag} , #{portNo} );
+
+    </insert>
+
+    <update id="updateApplicantStatus" parameterType="portfolioVO">
+        UPDATE APPLICANT
+        SET PORTFOLIO_NO = #{portNo}
+        WHERE USER_ID=#{userId} AND PROJECT_NO=#{projectNo} AND APPLICANT_STATUS = 6;
+    </update>
 
 </mapper>

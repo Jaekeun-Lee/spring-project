@@ -19,17 +19,8 @@
         <result property="link" column="link" jdbcType="VARCHAR"/>
         <result property="status" column="member_status" jdbcType="VARCHAR"/>
 
-
-    <!-- collection -->
-    <collection property="noti" column="noti_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.NotiVO" select="getNotiList"/>
+        <!-- collection -->
         <collection property="review" column="project_no" javaType="java.util.ArrayList" ofType="com.example.demo.common.vo.ReviewVO" select="getReviewList"/>
-        <collection property="skillHashTag" column="user_id" javaType="java.util.ArrayList" ofType="java.lang.String" select="getProfileHashTagByUserId"/>
-    </resultMap>
-
-    <resultMap id="getPostBookmarkListByUserId" type="bookmarkVO">
-        <id     property="bookmarkNo"   column="bookmark_no" jdbcType="NUMERIC"/>
-        <result property="userId"       column="user_id" jdbcType="VARCHAR"/>
-        <association property="post"    column="post_no"  select="getPostBookmark"/>
     </resultMap>
 
     <resultMap id="getAllProfileSelectMap" type="com.example.demo.profile.dto.ProfileDTO$GetAllProfileDTO">
@@ -65,28 +56,6 @@
         WHERE user_id = #{userId}
     </select>
 
-    <select id="getPostBookmark" resultType="postVO">
-        SELECT user_id userId,
-               post_no postNo,
-               post_name postName,
-               reg_date regDate
-        FROM post
-        WHERE post_no = #{postNo}
-    </select>
-
-    <select id="getBookmarkList" parameterType="string" resultMap="getPostBookmarkListByUserId">
-        SELECT bookmark_no,
-               user_id,
-               post_no
-        FROM bookmark
-        WHERE user_id = #{userId}
-    </select>
-
-    <delete id="deletePostBookmarkList" parameterType="bookmarkVO">
-        DELETE FROM bookmark
-        WHERE bookmark_no = #{bookmarkNo}
-    </delete>
-
     <select id="getMyProfile" parameterType="string" resultType="com.example.demo.profile.dto.ProfileDTO$GetMyProfileDTO">
         SELECT user_id as userId,
                email,
@@ -109,8 +78,6 @@
         WHERE user_id = #{user_id} AND role = 'ADMIN'
     </select>
 
-
-
     <select id="getReviewList" parameterType="com.example.demo.common.vo.ReviewVO" resultType="reviewVO">
         SELECT r.review_no reviewNo,
                r.user_id userId,
@@ -123,11 +90,5 @@
               r.project_no = p.project_no
     </select>
 
-    <select id="getProfileHashTagByProfileNo" resultType="java.lang.String">
-        SELECT hashtag
-        FROM skill_hashtag as sh, hashtag as h
-        WHERE sh.skill_hashTag_no = h.hashTag_no
-          AND sh.user_id = #{user_id}
-    </select>
 
 </mapper>
