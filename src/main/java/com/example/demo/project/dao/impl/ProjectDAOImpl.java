@@ -25,10 +25,10 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     private final String NAMESPACE = "projectMapper.";
 
-    @Transactional
     @Override
     public int addProject(ProjectVO projectVO) {
         sqlSession.insert(NAMESPACE + "addProject", projectVO);
+        sqlSession.insert(NAMESPACE + "addHashtag", projectVO);
         return projectVO.getProjectNo();
     }
 
@@ -56,7 +56,6 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     @Override
-    @Transactional
     public TodoVO addTodo(AddTodoDTO addTodoDTO) {
         sqlSession.insert(NAMESPACE + "addTodo", addTodoDTO);
         return sqlSession.selectOne(NAMESPACE + "getTodo", addTodoDTO.getTodoNo());
