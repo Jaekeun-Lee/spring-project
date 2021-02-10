@@ -76,4 +76,9 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 		sqlSession.insert("applicantMapper.uploadFile",hm);
 	}
 
+	@Override
+	public int getAppliedTotalCount(SearchVO searchVO) {
+		return sqlSession.selectOne("applicantMapper.appliedTotalCount", searchVO);
+	}
+
 }

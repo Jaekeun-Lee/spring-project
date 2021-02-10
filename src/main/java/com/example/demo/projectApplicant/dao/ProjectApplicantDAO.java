@@ -30,4 +30,6 @@ public interface ProjectApplicantDAO {
 
 	void uploadFile(HashMap<String, Object> hm);
 
+	int getAppliedTotalCount(SearchVO searchVO);
+
 }

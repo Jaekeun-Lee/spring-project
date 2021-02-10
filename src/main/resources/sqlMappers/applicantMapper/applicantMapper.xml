@@ -198,5 +198,47 @@
 		user_id = #{userId}
 		AND project_no = #{projectNo}
 	 </select>
+	 
+	 <select id="appliedTotalCount" parameterType="com.example.demo.common.vo.SearchVO" resultType="int">
+	 	SELECT COUNT(*)
+	  	FROM(
+	  			SELECT
+				a.applicant_no,
+				a.applicant_status,
+				a.reg_date,
+				p.project_name,
+				p.project_no,
+				p.project_detail,
+				p.user_id,
+				p.application_deadline,
+				p.recruitment_member_cnt,
+				p.project_status,
+				p.meeting_location,
+				p.meeting_method
+				FROM
+				applicant a, project p
+				WHERE
+				a.project_no = p.project_no 
+				AND a.user_id = #{userId}
+				<!--현제부터 몇개월 까지의 list를 출력할건지-->
+				<if test="searchConditionA != null">
+					<if test="searchConditionA == 1">AND a.REG_DATE BETWEEN TRUNC(ADD_MONTHS(sysdate,-1)+1) - TO_CHAR(sysdate,'DD')
+													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
+					<if test="searchConditionA == 2">AND a.REG_DATE BETWEEN TRUNC(ADD_MONTHS(sysdate,-2)+1) - TO_CHAR(sysdate,'DD')
+													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
+					<if test="searchConditionA == 3">AND a.REG_DATE BETWEEN TRUNC(ADD_MONTHS(sysdate,-3)+1) - TO_CHAR(sysdate,'DD')
+													 AND TRUNC(LAST_DAY(sysdate)) +0.99999421</if>
+				</if>
+				<!--신청서 상태-->
+				<if test="searchConditionB != 6">
+					<if test = "searchConditionB == 1" >AND a.applicant_status = 1</if>
+					<if test = "searchConditionB == 2" >AND a.applicant_status = 2</if>
+					<if test = "searchConditionB == 3" >AND a.applicant_status = 3</if>
+					<if test = "searchConditionB == 4" >AND a.applicant_status = 4</if>
+					AND NOT (a.applicant_status = 6)
+				</if>
+				<if test = "searchConditionB == 6" >AND a.applicant_status = 6</if>
+		) countTable	
+	 </select>
 
 </mapper>

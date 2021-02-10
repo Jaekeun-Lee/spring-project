@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.common.vo.PageVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.vo.ProjectVO;
@@ -57,7 +58,7 @@ public class ProjectApplicant {
 								Model model,
 								HttpSession session) throws Exception{
 		System.out.println("/applicantList GET");
-		searchVO.setPageSize(6);
+		searchVO.setPageSize(4);
 		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
@@ -76,14 +77,18 @@ public class ProjectApplicant {
 									HttpSession session)throws Exception{
 		System.out.println("/appliedProjectList GET");
 		
-		searchVO.setPageSize(6);
+		searchVO.setPageSize(3);
 		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
 		}
 		Map<String , Object> map=projectApplicantService.getAppliedProjectList(searchVO);
+		
+		PageVO resultPage = new PageVO( searchVO.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), 5, 3);
+		System.out.println(resultPage);
+		
 		model.addAttribute("appliedList", map.get("list"));
-		System.out.println("@@@@"+map.get("list"));
+		model.addAttribute("resultPage", resultPage);
 		return "projectApplicant/appliedProjectList";
 	}
 	
