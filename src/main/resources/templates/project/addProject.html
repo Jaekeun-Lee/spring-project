@@ -5,14 +5,14 @@
     <title>프로젝트 등록하기</title>
 
 </head>
-<body style="background-color: #fff;">
 <nav th:include="topToolBar.html"></nav>
-<div class="wrapper">
+<body style="background-color: #fff;">
+<div class="container">
     <div class="row">
-        <div class="container col-lg-2 col-md-12">
+        <div class="container col-lg-2 col-md-12 ml-2">
             <div class="page-name col-xs-12"><h3>ADD PROJECT</h3></div>
         </div>
-        <div class="container col-lg-7 col-md-12">
+        <div class="container col-lg-8 col-md-12 mr-1 ml-1">
             <form id="addProjectForm" method="POST" th:action="@{/project/addProject}" enctype="multipart/form-data">
                 <input type="hidden" name="leaderId" th:value="${session.user.userId}"/>
 
@@ -179,8 +179,6 @@
                     </div>
                 </div>
 
-                <!--                <input type="file" name="files" id="file-upload" multiple="multiple">-->
-
                 <div class="field item form-group row">
                     <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">예상진행기간<span
                             class="required">*</span></label>
@@ -198,11 +196,14 @@
                 <div class="form-group control-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Skill Tags</label>
                     <div class="col-md-9 col-sm-9 ">
-                        <input id="tags_1" type="text" class="tags form-control" value="example1, example2, example3"/>
+                        <input id="tags_1" type="text" class="tags form-control" value="example1"/>
                         <div id="suggestions-container"
-                             style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                             style="position: relative; float: left; width: 250px; margin: 10px;">
+                            <input type="hidden" id="skillHashTag" name="skillHashTag">
+                        </div>
                     </div>
                 </div>
+
 
 
                 <div class="form-group">
@@ -225,7 +226,7 @@
                     <label for="meetingLocation1">미팅 위치</label>
                     <select class="form-control" id="meetingLocation1" name="meetingLocation">
                         <option value="선택안함" selected> 시 / 도</option>
-                        <option value="부산광역시">서울특별시</option>
+                        <option value="서울특별시">서울특별시</option>
                         <option value="부산광역시">부산광역시</option>
                         <option value="대구광역시">대구광역시</option>
                         <option value="인천광역시">인천광역시</option>
@@ -284,6 +285,8 @@
         let projectDetail = $('#editor-one').text();
         $('#projectDetail').val(projectDetail);
 
+        $('#skillHashTag').val($('.tag span').text());
+
         $('#addProjectForm').submit();
     })
 
@@ -294,14 +297,14 @@
 
     // 신청자 질문사항 추가
     function addQuestion(elem) {
-        let questionCount = $('div[class=applicantQuestion]').length + 1;
+        let questionCount = $('div[class=applicantQuestion]').length;
         alert("addQuestion" + questionCount)
         let html = `<div class="applicantQuestion">
                         <input type="text" class="form-control col-lg-10 col-md-10"/>
                         <div class="col-lg-1 col-md-1 delete-question-btn" onclick="javascript:deleteQuestion(this)">
                             <span class="glyphicon glyphicon-remove-circle" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
                         </div>`
-        if (questionCount < 3) {
+        if (questionCount < 2) {
             html += `<div class="col-lg-1 col-md-1 add-question-btn" onclick="javascript:addQuestion(this)">
                             <span class="glyphicon glyphicon-plus" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
                         </div>
@@ -329,18 +332,18 @@
     }
 
     function deleteQuestion(elem) {
-        let questionCount = $('div[class=applicantQuestion]').length;
-        alert("deleteQuestion" + questionCount)
         const target = $(elem).parent();
 
+        target.remove();
 
-        if (questionCount == 3) {
-            target.remove();
+        let questionCount = $('div[class=applicantQuestion]').length;
+        alert("deleteQuestion" + questionCount)
+        if (questionCount == 2) {
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').css('display', 'block');
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').attr('onclick', 'javascript:addQuestion(this)');
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').children().attr('class', 'glyphicon glyphicon-plus');
-        } else if (questionCount == 2) {
-            target.remove();
+        } else if (questionCount == 1) {
+            $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').css('display', 'block');
             $('div[class=applicantQuestion]').children('div[class*=question-btn]').attr('onclick', 'javascript:addQuestion(this)');
             $('div[class=applicantQuestion]').children('div[class*=question-btn]').children().attr('class', 'glyphicon glyphicon-plus');
         }
