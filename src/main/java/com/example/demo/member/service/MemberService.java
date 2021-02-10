@@ -25,8 +25,6 @@ public interface MemberService {
 
     int userIdCheck(String userId);
 
-    int userEmailCheck(String email);
-
     MemberVO selectMember(String userId);
 
     /**

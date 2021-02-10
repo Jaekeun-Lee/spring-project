@@ -8,8 +8,7 @@ import lombok.Getter;
 public enum ErrorCd {
 
     WRONG_PASSWORD("wrong.password"),
-
-
+    NOT_FOUND_USER("user.not.found")
     ;
 
     private final String messageKey;

@@ -13,8 +13,8 @@ public class Welcome {
     @GetMapping("/welcome")
     public String welcomePage(Model model) {
 
-        log.info("login user id : {}", SecurityUtils.getCurrentLoginUserId());
-        log.info("login user id : {}", SecurityUtils.getLoginSessionMemberInfo());
+//        log.info("login user id : {}", SecurityUtils.getCurrentLoginUserId());
+//        log.info("login user id : {}", SecurityUtils.getLoginSessionMemberInfo());
 
 //        model.addAttribute("userName", SecurityUtils.getLoginSessionMemberInfo().getUsername());
 

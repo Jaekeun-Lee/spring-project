@@ -25,7 +25,7 @@ public class ProjectVO {
     private Date applicationDeadline;
     private int meetingMethod;
     private String meetingLocation;
-    private List<String> skillHashTag;
+    private String skillHashTag;
     private String applicantQuestionA;
     private String applicantQuestionB;
     private String applicantQuestionC;
@@ -147,11 +147,11 @@ public class ProjectVO {
 		this.meetingLocation = meetingLocation;
 	}
 
-	public List<String> getSkillHashTag() {
+	public String getSkillHashTag() {
 		return skillHashTag;
 	}
 
-	public void setSkillHashTag(List<String> skillHashTag) {
+	public void setSkillHashTag(String skillHashTag) {
 		this.skillHashTag = skillHashTag;
 	}
 
@@ -275,7 +275,7 @@ public class ProjectVO {
 		sb.append(", applicationDeadline=").append(applicationDeadline);
 		sb.append(", meetingMethod=").append(meetingMethod);
 		sb.append(", meetingLocation='").append(meetingLocation).append('\'');
-		sb.append(", skillHashTag=").append(skillHashTag);
+		sb.append(", skillHashTag='").append(skillHashTag).append('\'');
 		sb.append(", applicantQuestionA='").append(applicantQuestionA).append('\'');
 		sb.append(", applicantQuestionB='").append(applicantQuestionB).append('\'');
 		sb.append(", applicantQuestionC='").append(applicantQuestionC).append('\'');

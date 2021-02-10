@@ -1,6 +1,5 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.common.dto.ErrorDTO;
 import com.example.demo.member.dto.MemberDTO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.service.impl.MemberServiceImpl;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,13 +32,7 @@ public class Member {
      */
 
     @GetMapping("/login")
-    public String loginPage(Model model,HttpSession session) {
-
-        if(session.getAttribute("Error") != null) {
-            ErrorDTO errorDTO = (ErrorDTO) session.getAttribute("Error");
-            model.addAttribute("error", errorDTO);
-            session.removeAttribute("Error");
-        }
+    public String loginPage() {
 
         return "login";
     }
@@ -61,24 +53,16 @@ public class Member {
                 ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버에 문제가 발생해 회원 가입에 실패 했습니다.");
     }
 
-    @GetMapping("/logOut")
-    public String logOutPage() {
-        return "logOut";
-    }
-
     @GetMapping("/member/idCheck")
     @ResponseBody
     public int idCheck(@RequestParam("userId") String userId) {
         return memberService.userIdCheck(userId);
     }
-    @GetMapping("/member/emailCheck")
-    @ResponseBody
-    public int emailCheck(@RequestParam("email") String userId) {
-        return memberService.userIdCheck(userId);
-    }
 
     @GetMapping("/login/password/settings")
-    public String changePassword(){return "member/manage/findPassword1";}
+    public String changePassword() {
+        return "member/manage/findPassword1";
+    }
 
 
 }

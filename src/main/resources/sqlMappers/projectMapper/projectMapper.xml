@@ -190,9 +190,8 @@
 						  FROM BOOKMARK
 						  WHERE USER_ID = #{userId:VARCHAR} ) B
 		<if test="searchCondition != null and searchCondition == 2">
-			,(SELECT HASHTAG, SH.PROJECT_NO PROJECT_NO
-			  FROM HASHTAG HA, SKILL_HASHTAG SH
-			  WHERE HA.HASHTAG_NO = SH.HASHTAG_NO) H
+			,(SELECT HASHTAG, PROJECT_NO
+			  FROM HASHTAG) H
 		</if>
 		<where>
 			P.PROJECT_NO = B.BOOKMARK_NO(+)
@@ -212,7 +211,7 @@
 
 			<if test="searchCondition != null">
 				<if test="searchCondition == 1">AND P.PROJECT_NAME LIKE '%'||#{searchKeyword}||'%' </if>
-				<if test="searchCondition == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG = #{searchKeyword} </if>
+				<if test="searchCondition == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG LIKE '%'||#{searchKeyword}||'%'</if>
 				<if test="searchCondition == 3">AND P.PROJECT_DETAIL LIKE '%'||#{searchKeyword}||'%' </if>
 			</if>
 
@@ -225,11 +224,7 @@
 
 			)
 		</where>
-
-		<where>
-			RN BETWEEN #{startRowNum} AND #{endRowNum}
-
-		</where>
+		WHERE RN BETWEEN #{startRowNum} AND #{endRowNum}
 
 	</select>
 
@@ -302,35 +297,6 @@
 		WHERE TODO_NO = #{todoNo}
 	</update>
 
-
-	<select  id= "getAppliedProjectList"  parameterType="com.example.demo.common.vo.SearchVO"	resultMap="projectSelectMap">
-		SELECT *
-		FROM ( SELECT inner_table.*, ROWNUM AS row_seq
-			   FROM (SELECT p.project_name,
-			                p.project_detail,
-			                p.reg_date,
-			                p.user_id,
-			                p.application_deadline,
-			                p.recruitment_member_cnt
-					 FROM applicant a, project p
-			   		 WHERE a.project_no = p.project_no AND a.user_id = #{userId}
-						   <if test="searchConditionB != null">
-							   <if test = "searchConditionB == 1" >
-								   AND a.applicant_status = 1
-							   </if>
-							   <if test = "searchConditionB == 2" >
-								   AND a.applicant_status = 2
-							   </if>
-							   <if test = "searchConditionB == 3" >
-								   AND a.applicant_status = 3
-								   AND a.applicant_status = 4
-							   </if>
-						   </if>
-					 ORDER BY a.APPLICANT_NO) inner_table
-			   WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
-	</select>
-
 	<select id="getProjectReply" parameterType="int" resultType="replyVO">
 		SELECT REPLY_NO ,
 		       PROJECT_NO ,
@@ -341,12 +307,16 @@
 		WHERE REPLY_NO = #{value}
 	</select>
 
+	<insert id="addHashtag" parameterType="projectVO">
+		INSERT INTO HASHTAG (HASHTAG_NO, HASHTAG, PROJECT_NO)
+		VALUES (SEQ_HASHTAG_NO.nextval, #{skillHashTag}, #{projectNo})
+	</insert>
 
 
 	<select id = "getApplicantsCntByProjectNo" 	resultType="int">
 		SELECT COUNT(*)
 		FROM   APPLICANT
-		WHERE  PROJECT_NO = #{project_no}
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
 	<select id = "getProjectMemberByProjectNo" 	resultType="memberVO">
@@ -358,8 +328,8 @@
 
 	<select id = "getProjectHashTagByProjectNo" resultType="string">
 		SELECT HASHTAG
-		FROM   SKILL_HASHTAG sh, HASHTAG h
-		WHERE  sh.HASHTAG_NO = h.HASHTAG_NO AND sh.PROJECT_NO = #{project_no}
+		FROM   HASHTAG
+		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
 	<select id = "getProjectReplyByProjectNo" 	resultType="replyVO">
@@ -396,4 +366,6 @@
 		FROM BOOKMARK
 		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{bookmarkCheckId}
 	</select>
+
+
 </mapper>

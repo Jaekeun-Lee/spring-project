@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import javax.sound.sampled.Port;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,15 +19,21 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     @Qualifier("sqlSessionTemplate")
     private SqlSession sqlSession;
 
+
+    /**
+
+     todo 포트폴리오 수정시 해시태그 부분도 같이 수정하는 코드도 작성해주세요. 2/10일까지 입니다.
+
+    */
+
+
     @Override
     public int addPort(PortfolioVO addPort){
         sqlSession.insert("portfolioMapper.addPort", addPort);
-        return sqlSession.update("portfolioMapper.updateApplicantStatus",addPort.getPortNo());
-    }
+        sqlSession.insert("portfolioMapper.addHashTag", addPort);
+        return sqlSession.update("portfolioMapper.updateApplicantStatus",addPort);
 
-//    public int addInPort(PortfolioVO addInPort){
-//        return sqlSession.insert("portfolioMapper.addInPort", addInPort);
-//    }
+    }
 
     //내부 포트폴리오 등록
     @Override
@@ -60,9 +65,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     public List<PortfolioVO> getPortList(SearchVO searchVO) {
         return sqlSession.selectList("portfolioMapper.getPortList",searchVO);
     }
-    //    public List<PortfolioVO> getPortList(PortfolioVO portfolioVO) {
-    //        return sqlSession.selectList("portfolioMapper.getPortList",portfolioVO);
-    //    }
+
     @Override
     public int getTotalCount(SearchVO searchVO){
         return sqlSession.selectOne("portfolioMapper.getTotalCount",searchVO);

@@ -27,14 +27,15 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         if (exception instanceof UsernameNotFoundException) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
+
+            response.sendRedirect("/login?errorCd=" + ErrorCd.NOT_FOUND_USER.name());
 
         } else if (exception instanceof BadCredentialsException) { // 패스워드 불일치일때 발생한 예외
             String username = request.getParameter("username");
 
 
             int loginFailCount = memberService.getLoginFailCount(username);
-            if (loginFailCount >= 5) {
+            if (loginFailCount + 1 >= 5) {
 
                 response.sendRedirect("/login/password/settings");
                 return;
@@ -42,8 +43,10 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
             memberService.loginFailCountIncrease(username);
 
-            request.getSession().setAttribute("Error", new ErrorDTO(ErrorCd.WRONG_PASSWORD));
-            response.sendRedirect("/login");
+//            request.getSession().setAttribute("Error", new ErrorDTO(ErrorCd.WRONG_PASSWORD));
+
+            response.sendRedirect("/login?errorCd=" + ErrorCd.WRONG_PASSWORD.name());
+
 //        else if(exception instanceof BlockUserException) {
 //
 //        }

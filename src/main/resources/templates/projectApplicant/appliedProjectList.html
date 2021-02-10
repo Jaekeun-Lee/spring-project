@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<link rel="stylesheet" href="/resources/css/style.css">
+	<link rel="stylesheet" href="/resources/css/additional.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
 	
 	<!--  /////////////////////// JQuery //////////////////////// -->
@@ -72,6 +72,13 @@
 
     }
 
+	function fncGetUserList(currentPage) {
+alert("hi");
+		//$("#currentPage").val(currentPage)
+
+		//$("form").attr("method" , "POST").attr("action" , "/applicant/appliedProjectList").submit();
+	}
+	
 	</script>
 	<style>
 	.box-radio-input input[type="radio"]{
@@ -135,7 +142,7 @@
 
 	</div>
 
-	<div id="card_2" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
+	<div class="project-box" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
        <div class="card h-100 ">
          <div class="card-body" style="overflow: hidden;">
          	<div style="float: left; width: 80%;">
@@ -200,6 +207,40 @@
 		</div>
 	</div>	
 </div>
+
+<!-- PageNavigation Start... -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">
+	<tr>
+		<td align="center">
+		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
+			<span th:if= "${ resultPage.currentPage <= resultPage.pageUnit }" >
+					◀ 이전
+			</span>
+			<span th:if="${ resultPage.currentPage > resultPage.pageUnit }">
+					<a href="javascript:fncGetUserList('${ resultPage.currentPage-1}')">◀ 이전</a>
+			</span>
+			
+			<th:each var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
+				<a href="/applicant/appliedProjectList?SearchVO.currentPage=${i}"><span th:text="${i}"/></a>
+				<a th:href="@{/applicant/appliedProjectList(currentPage=${i})}" th:text="${i}"/>
+			</th:each>
+			
+			<span th:each ="i : ${#numbers.sequence(resultPage.beginUnitPage,resultPage.endUnitPage)}">
+				<a th:href="@{/applicant/appliedProjectList(currentPage=${i})}" th:text="${i}"/>
+			</span>
+			
+			<span th:if= "${ resultPage.endUnitPage >= resultPage.maxPage }" >
+					이후 ▶
+			</span>
+			<span th:if= "${ resultPage.endUnitPage < resultPage.maxPage }" >
+					<a href="javascript:fncGetUserList('${resultPage.endUnitPage+1}')">이후 ▶</a>
+			</span>
+			
+
+    	</td>
+	</tr>
+</table>
+<!-- PageNavigation End... -->
 
 </body>
 </html>
