@@ -74,7 +74,6 @@ public class MemberManage {
         return "admin/manage/withdrawal";
     }
 
-
     @GetMapping("/changeDormant")
     public String changeDormant(@Valid MemberDTO.GetListBlackReqDTO param,@RequestParam("userId") String userId, Model model) {
         memberService.changeDormant(userId);
@@ -91,7 +90,6 @@ public class MemberManage {
         model.addAttribute("memberDormantList", memberDormantList);
         return "admin/manage/changeNormal";
     }
-
 
 }
 

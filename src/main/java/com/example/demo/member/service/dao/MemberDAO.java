@@ -55,10 +55,6 @@ public class MemberDAO {
         return sqlSession.selectOne("member.checkOverId", userId);
     }
 
-    public int checkOverEmail(String email) {
-        return sqlSession.selectOne("member.checkOverEmail", email);
-    }
-
     //아이디 찾기
     public MemberVO findUserByUserId(String userId) {
         return null;
@@ -67,10 +63,6 @@ public class MemberDAO {
     //비밀번호 찾기
     public MemberVO findUserByUserPassword(Map<String, Object> param) {
         return sqlSession.selectOne("member.selectFindUserByPassword", param);
-    }
-
-    //비밀번호 재설정
-    public void updateUserPassword(String userId, String password) {
     }
 
     //로그인 실패 이력 업데이트

@@ -82,9 +82,10 @@
             resultType="com.example.demo.member.vo.MemberVO">
         <include refid="from_select"/>
         WHERE MEMBER_STATUS = 'BLACK'
-        <if test="userId != null and userId != ''">
-            AND USER_ID = #{userId}
-        </if>
+        <!--        <if test="userId != null and userId != ''">-->
+        <!--            AND USER_ID = #{userId}-->
+        AND MEMBER_WITHDRAWAL = '0'
+        <!--        </if>-->
         ORDER BY REG_DATE
     </select>
 
@@ -99,14 +100,8 @@
     <!--아이디 중복체크-->
     <select id="checkOverId" resultType="Integer" parameterType="String">
         SELECT count(*)
-        FROM MEMBER c
-    </select>
-
-    <!--이메일 중복체크-->
-    <select id="checkOverEmail" resultType="Integer" parameterType="String">
-        SELECT count(*)
         FROM MEMBER
-        WHERE EMAIL = #{email}
+        WHERE USER_ID = #{userId}
     </select>
 
     <!--비밀번호 실패 횟수 증가-->
@@ -133,14 +128,6 @@
         WHERE USER_ID = #{userId}
     </update>
 
-    <!--    &lt;!&ndash; 회원 탈퇴 &ndash;&gt;-->
-    <!--    <delete id="withdrawal">-->
-    <!--        DELETE-->
-    <!--        FROM MEMBER-->
-    <!--        WHERE USER_ID = #{userId}-->
-    <!--          AND PASSSWORD = #{password}-->
-    <!--    </delete>-->
-
     <!--메일인증된 비밀번호 update-->
     <update id="updatePassword" parameterType="map">
         UPDATE
@@ -156,6 +143,7 @@
         SET MEMBER_WITHDRAWAL = 1
         WHERE USER_ID = #{userId}
     </update>
+
     <!--비활성화-->
     <update id="changeDormant" parameterType="map">
         UPDATE
