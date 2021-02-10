@@ -53,12 +53,6 @@
 
     </style>
 
-
-
-
-
-
-
     <script type="text/javascript">
 <!--로그인 사룔자가 아니라면 로그인창으로 돌려주는 과정-에러남-->
         // if(session.getAttribute("userId") == null){
@@ -91,12 +85,12 @@
             })
         })
 
-        // $(function (){
-        //     $("td.add_post_btn:contains('취소')").on('click', function(){
-        //         // $('form')[0].reset();
-        //         history.go(-1);
-        //     })
-        // })
+        $(function (){
+            $("#cancelPost").on('click', function(){
+                // $('form')[0].reset();
+                history.go(-1);
+            })
+        })
 
     </script>
 
@@ -114,7 +108,10 @@
 
         <div class="add_post_btn" id="addPost" align="right" style="padding-top: 3px;">
             작성
-            <a th:href="@{/comm/getPostList}">취소</a>
+<!--            <a th:href="@{/comm/getPostList}">취소</a>-->
+        </div>
+        <div class="add_post_btn" id="cancelPost" align="right" style="padding-top: 3px;">
+            취소
         </div>
 
 
