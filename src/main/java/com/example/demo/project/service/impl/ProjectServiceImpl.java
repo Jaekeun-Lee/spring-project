@@ -41,9 +41,16 @@ public class ProjectServiceImpl implements ProjectService {
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
 
+        ProjectVO projectVO = projectDAO.getProject(getProjectMap);
+
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("projectVO", projectDAO.getProject(getProjectMap));
+        map.put("projectVO", projectVO);
         map.put("existApplicant", projectDAO.existApplicant(getProjectMap));
+
+        if(projectVO.getSkillHashTag() != null) {
+            String[] hashTagList = projectVO.getSkillHashTag().split("  ");
+            map.put("hashList",hashTagList);
+        }
 
         return map;
     }
