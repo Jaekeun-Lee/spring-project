@@ -1,7 +1,6 @@
 package com.example.demo.member.service;
 
 import com.example.demo.member.dto.MemberDTO;
-import com.example.demo.member.service.dao.MemberDAO;
 import com.example.demo.member.vo.MemberVO;
 import org.springframework.http.ResponseEntity;
 

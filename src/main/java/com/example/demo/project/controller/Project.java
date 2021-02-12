@@ -34,7 +34,7 @@ import java.util.Map;
 @Slf4j
 public class Project {
 
-    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
+    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
 
     public Project(ProjectService projectService) {
         log.info(":: " + getClass().getName() + " Start::");
@@ -80,22 +80,24 @@ public class Project {
 
         ProjectVO addProjectResultVO = projectService.addProject(projectVO);
 
-        List<MultipartFile> fileList = request.getFiles("files");
+        if (request.getFiles("files").get(0).getSize() != 0) {
+            List<MultipartFile> fileList = request.getFiles("files");
 
-        for (MultipartFile mf : fileList) {
+            for (MultipartFile mf : fileList) {
 
-            FileVO fileVO = new FileVO();
+                FileVO fileVO = new FileVO();
 
-            fileVO.setUploadFileName(mf.getOriginalFilename());
-            fileVO.setFileSize(mf.getSize());
-            fileVO.setProjectNo(addProjectResultVO.getProjectNo());
 
-            String safeFile = PATH + mf.getOriginalFilename();
-            mf.transferTo(new File(safeFile));
+                fileVO.setUploadFileName(mf.getOriginalFilename());
+                fileVO.setFileSize(mf.getSize());
+                fileVO.setProjectNo(addProjectResultVO.getProjectNo());
 
-            fileUploadDAO.uploadFile(fileVO);
+                String safeFile = PATH + mf.getOriginalFilename();
+                mf.transferTo(new File(safeFile));
+
+                fileUploadDAO.uploadFile(fileVO);
+            }
         }
-
 
         session.removeAttribute("user");
         MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
@@ -108,11 +110,13 @@ public class Project {
     }
 
     @GetMapping("/getProject")
-    public String getProject(@RequestParam("projectNo") int projectNo, Model model) {
+    public String getProject(@RequestParam("projectNo") int projectNo, Model model, HttpSession session) {
 
+        if(session.getAttribute("user") ==null) return "/login";
         Map<String, Object> map = projectService.getProject(projectNo, SecurityUtils.getLoginSessionMemberInfo().getUsername());
         model.addAttribute("project", map.get("projectVO"));
         model.addAttribute("existApplicant", map.get("existApplicant"));
+        model.addAttribute("hashList", map.get("hashList"));
 
         return "project/getProject";
     }

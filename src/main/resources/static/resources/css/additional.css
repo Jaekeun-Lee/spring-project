@@ -154,6 +154,7 @@ label > a:hover {
     margin: 100px 0;
 }
 
+
 #toast-message {
     width: 250px;
     height: 20px;
@@ -165,3 +166,15 @@ label > a:hover {
 }
 
 
+.form-group-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+@media screen and (max-width: 1000px) {
+
+    #followquick {
+        display: none;
+    }
+
+}
