@@ -1,10 +1,9 @@
 package com.example.demo.member.vo;
 
 import com.example.demo.common.cd.MemberGradeCd;
-import com.example.demo.common.vo.NotiVO;
+import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.cd.AuthorityCd;
-import com.example.demo.common.cd.MemberStatusCd;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

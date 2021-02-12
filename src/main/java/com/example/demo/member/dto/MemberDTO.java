@@ -1,14 +1,9 @@
 package com.example.demo.member.dto;
 
-import com.example.demo.common.cd.MemberGradeCd;
-import com.example.demo.common.cd.MemberStatusCd;
 import com.example.demo.member.vo.MemberVO;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 public class MemberDTO {
 

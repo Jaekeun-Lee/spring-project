@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
@@ -31,8 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final SpringSessionBackedSessionRegistry<Session> sessionRegistry;
 
     private final String[] ALLOW_AUTH_URI_PATTERN = {
-            "/login/**",
-            "/welcome"
+      "/login/**",
+      "/welcome"
     };
 
     @Override
@@ -47,7 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
-
 
         // 모든 리퀘스트에 대해 인증을 요구하는 설정
         http.authorizeRequests(authorize -> {
@@ -82,11 +80,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
         http.sessionManagement((management) ->
-                        management
-                                .maximumSessions(2)
-                                .maxSessionsPreventsLogin(false)
-                                .expiredUrl("/login")
-                                .sessionRegistry(this.sessionRegistry) // 위에 세션 관리 정책들을 적용하는 타겟 세션 레포지토리 설정.
+           management
+                   .maximumSessions(2)
+                   .maxSessionsPreventsLogin(false)
+                   .expiredUrl("/login")
+                   .sessionRegistry(this.sessionRegistry) // 위에 세션 관리 정책들을 적용하는 타겟 세션 레포지토리 설정.
 //                    .expiredSessionStrategy() // default 전략은 LAST_ACCESS_TIME이 마지막인 세션이 expired됨.
         );
     }

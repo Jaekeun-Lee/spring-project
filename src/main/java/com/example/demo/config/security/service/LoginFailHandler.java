@@ -1,11 +1,9 @@
 package com.example.demo.config.security.service;
 
 import com.example.demo.common.cd.ErrorCd;
-import com.example.demo.common.dto.ErrorDTO;
 import com.example.demo.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -5,7 +5,6 @@ import com.example.demo.config.security.vo.SecurityMemberVO;
 import com.example.demo.member.service.dao.MemberDAO;
 import com.example.demo.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
