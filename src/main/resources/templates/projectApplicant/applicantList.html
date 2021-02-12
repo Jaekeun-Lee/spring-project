@@ -96,7 +96,7 @@
 		<tr class="" th:each="applicantVO : ${applicantList}">
 		<th:block th:if="${applicantVO.applicantStatus}!=5">
 		<th:block th:if="${applicantVO.applicantStatus}!=6">
-			<td class="" th:text="이미지"></td>
+			<td class=""></td>
 			<td class="" th:text="${applicantVO.userId}"></td>
 			<td class="" th:text="${#dates.format(applicantVO.aRegDate, 'yyyy-MM-dd')}"></td>
 			<td class=""><button id="getApplicant" type="button" class="btn btn-primary btn-sm">신청서보기</button>

@@ -97,15 +97,19 @@ public class ProjectApplicant {
 								 Model model,
 								 HttpSession session)throws Exception{
 		System.out.println("/endProjectList GET");
-		searchVO.setPageSize(6);
+		searchVO.setPageSize(3);
 		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		searchVO.setSearchConditionB(6);
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
 		}
 		Map<String , Object> map=projectApplicantService.getAppliedProjectList(searchVO);
+		
+		PageVO resultPage = new PageVO( searchVO.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), 5, 3);
+		System.out.println(resultPage);
+		
 		model.addAttribute("appliedList", map.get("list"));
-		System.out.println(map);
+		model.addAttribute("resultPage", resultPage);
 		return "projectApplicant/endProjectList";
 	}
 	

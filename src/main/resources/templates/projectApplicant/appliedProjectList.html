@@ -73,10 +73,8 @@
     }
 
 	function fncGetUserList(currentPage) {
-alert("hi");
-		//$("#currentPage").val(currentPage)
-
-		//$("form").attr("method" , "POST").attr("action" , "/applicant/appliedProjectList").submit();
+		$("#currentPage").val(currentPage)
+		$("form").attr("method" , "POST").attr("action" , "/applicant/appliedProjectList").submit();
 	}
 	
 	</script>
@@ -141,8 +139,13 @@ alert("hi");
 	    </span>
 
 	</div>
-
+	
+	<div th:if="${resultPage.totalCount==0}">
+		<center><h4>신청한 프로젝트가 없습니다</h4><hr></center>
+	<div>
+	
 	<div class="project-box" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
+	
        <div class="card h-100 ">
          <div class="card-body" style="overflow: hidden;">
          	<div style="float: left; width: 80%;">
@@ -178,7 +181,7 @@ alert("hi");
 			</th:block>
 			</th:block>
 			<th:block th:if="${session.user.projectNo}!=0">
-				프로젝트 참가중
+			
 			</th:block>
 				<div class="card-text" th:text="${applicantVO.projectVO.projectDetail}"></div>
 				<div style="float: right; width: 150px;">
