@@ -37,5 +37,5 @@ public interface PostService {
 //    public List<PostVO> getPostList(PostVO postVO);
 
     //조회수 +1
-//    public int plusViewCnt(int seq);
+    public int plusViewCnt(int postNo);
 }

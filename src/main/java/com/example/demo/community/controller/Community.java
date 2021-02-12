@@ -115,10 +115,14 @@ public class Community {
     public String getPost(@RequestParam("postNo") int postNo,
                           HttpSession httpSession,
                           Model model) throws Exception {
+
         PostVO postVO = postService.getPost(postNo);
+        PostVO postVO1 = new PostVO();
+        postService.plusViewCnt(postNo);
         postVO.setUserId(((MemberVO)httpSession.getAttribute("user")).getUserId());
         System.out.println("postVO :" + postVO);
         model.addAttribute("postVO", postVO);
+        model.addAttribute("postVO1", postVO1);
         return "post/getPost";
     }
 
