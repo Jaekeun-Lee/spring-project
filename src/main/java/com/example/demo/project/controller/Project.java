@@ -34,7 +34,7 @@ import java.util.Map;
 @Slf4j
 public class Project {
 
-    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
+    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
 
     public Project(ProjectService projectService) {
         log.info(":: " + getClass().getName() + " Start::");
@@ -114,10 +114,11 @@ public class Project {
 
         if(session.getAttribute("user") ==null) return "/login";
         Map<String, Object> map = projectService.getProject(projectNo, SecurityUtils.getLoginSessionMemberInfo().getUsername());
+
         model.addAttribute("project", map.get("projectVO"));
         model.addAttribute("existApplicant", map.get("existApplicant"));
         model.addAttribute("hashList", map.get("hashList"));
-
+        model.addAttribute("resultPage",map.get("resultPage"));
         return "project/getProject";
     }
 

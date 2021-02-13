@@ -1,8 +1,5 @@
 package com.example.demo.community.vo;
 
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 public class ReplyVO {
@@ -11,9 +8,12 @@ public class ReplyVO {
     private int postNo;
     private int projectNo;
     private String replyUserId;
+    private String replyUserImg;
     private String replyContent;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date regDate;
+
+    public ReplyVO() {
+    }
 
     public int getReplyNo() {
         return replyNo;
@@ -47,6 +47,14 @@ public class ReplyVO {
         this.replyUserId = replyUserId;
     }
 
+    public String getReplyUserImg() {
+        return replyUserImg;
+    }
+
+    public void setReplyUserImg(String replyUserImg) {
+        this.replyUserImg = replyUserImg;
+    }
+
     public String getReplyContent() {
         return replyContent;
     }
@@ -70,6 +78,7 @@ public class ReplyVO {
         sb.append(", postNo=").append(postNo);
         sb.append(", projectNo=").append(projectNo);
         sb.append(", replyUserId='").append(replyUserId).append('\'');
+        sb.append(", replyUserImg='").append(replyUserImg).append('\'');
         sb.append(", replyContent='").append(replyContent).append('\'');
         sb.append(", regDate=").append(regDate);
         sb.append('}');

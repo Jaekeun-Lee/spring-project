@@ -26,6 +26,11 @@ public class SearchVO {
 		super();
 	}
 
+	public SearchVO(int currentPage, int pageSize) {
+		this.currentPage = currentPage;
+		this.pageSize = pageSize;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
