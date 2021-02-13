@@ -24,6 +24,7 @@
 		<result property="projectStatus"    		column="project_status"      		jdbcType="NUMERIC"/>
 		<result property="endProjectCnt"    		column="endProject_cnt"   			jdbcType="NUMERIC"/>
 		<result property="projectDetail"    		column="project_detail"      		jdbcType="VARCHAR"/>
+		<result property="detailHtml"    			column="detail_html"      			jdbcType="VARCHAR"/>
 		<result property="endDate"    				column="end_date"      				jdbcType="DATE"/>
 		<result property="recruitmentMemberCnt"    	column="recruitment_member_cnt"     jdbcType="NUMERIC"/>
 
@@ -33,9 +34,10 @@
 		<!-- collection -->
 		<collection property="teamMember" 			column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
 		<collection property="skillHashTag" 		column="project_no" select="getProjectHashTagByProjectNo"/>
-		<collection property="projectReply" 		column="project_no" select="getProjectReplyByProjectNo"/>
+		<collection property="projectReply" 		column="{projectNo=PROJECT_NO,searchVO.startRowNum=searchVO.startRowNum,searchVO.endRowNum=searchVO.endRowNum}" select="getProjectReplyByProjectNo"/>
 
 	</resultMap>
+
 
 	<resultMap id="getMyProjectByProjectNo" type="myProjectVO">
 		<id			property="projectNo"	column="project_no"		jdbcType="NUMERIC"/>
@@ -99,7 +101,7 @@
 
 	<select id="getProject"  parameterType="hashMap" resultMap="projectSelectMap">
 
-		SELECT P.*, #{userId} AS bookmarkCheckId
+		SELECT P.*, #{userId} AS bookmarkCheckId, #{searchVO.startRowNum} AS "searchVO.startRowNum", #{searchVO.endRowNum} AS "searchVO.endRowNum"
 		FROM PROJECT P
 		WHERE PROJECT_NO = #{projectNo}
 
@@ -185,7 +187,7 @@
 			<when test="sort == 3">P.PROJECT_VIEW_CNT DESC</when>
 			<otherwise>P.PROJECT_NO DESC</otherwise>
 		</choose>
-		) RN, P.*, B.BOOKMARK_NO, #{userId:VARCHAR} AS bookmarkCheckId
+		) RN, P.*, B.BOOKMARK_NO, #{userId:VARCHAR} AS bookmarkCheckId, 1 AS "searchVO.startRowNum", 2 AS "searchVO.endRowNum"
 		FROM PROJECT P, ( SELECT BOOKMARK_NO
 						  FROM BOOKMARK
 						  WHERE USER_ID = #{userId:VARCHAR} ) B
@@ -298,13 +300,13 @@
 	</update>
 
 	<select id="getProjectReply" parameterType="int" resultType="replyVO">
-		SELECT REPLY_NO ,
-		       PROJECT_NO ,
-		       USER_ID as replyUserId,
-		       REPLY_CONTENT ,
-			   TO_DATE(TO_CHAR(REG_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') as regDate
-		FROM REPLY
-		WHERE REPLY_NO = #{value}
+		SELECT r.REPLY_NO,
+			   r.USER_ID as replyUserId,
+			   r.REPLY_CONTENT,
+			   r.REG_DATE,
+			   m.PROFILE_IMAGE	as replyUserImg
+		FROM REPLY r, MEMBER m
+		WHERE r.PROJECT_NO = m.PROJECT_NO AND REPLY_NO = #{value}
 	</select>
 
 	<insert id="addHashtag" parameterType="projectVO">
@@ -332,15 +334,22 @@
 		WHERE  PROJECT_NO = #{projectNo}
 	</select>
 
-	<select id = "getProjectReplyByProjectNo" 	resultType="replyVO">
-		SELECT ROW_NUMBER() over (ORDER BY REG_DATE DESC) as num,
-		       REPLY_NO,
-			   USER_ID as replyUserId,
-			   REPLY_CONTENT,
-			   REG_DATE
-		FROM   REPLY
-		WHERE  PROJECT_NO = #{projectNo}
-		ORDER BY REG_DATE DESC
+	<select id = "getProjectReplyByProjectNo" 	parameterType="map" resultType="replyVO">
+		SELECT *
+		FROM (
+				 SELECT ROW_NUMBER() over (ORDER BY r.REG_DATE DESC) as num,
+						r.REPLY_NO,
+						r.USER_ID as replyUserId,
+						r.REPLY_CONTENT,
+						r.REG_DATE,
+				        r.PROJECT_NO,
+						m.PROFILE_IMAGE	as replyUserImg
+				 FROM REPLY r, MEMBER m
+				 WHERE r.USER_ID = m.USER_ID AND
+					 r.PROJECT_NO = #{projectNo}
+				 ORDER BY REG_DATE DESC
+			 )
+		WHERE NUM BETWEEN #{searchVO.startRowNum} AND #{searchVO.endRowNum}
 	</select>
 
 	<select id = "getTodoListByProjectNo" 		resultType="todoVO">
@@ -367,5 +376,10 @@
 		WHERE PROJECT_NO = #{projectNo} AND USER_ID = #{bookmarkCheckId}
 	</select>
 
+	<select id="replyTotalCount" parameterType="map" resultType="int">
+		select COUNT(*)
+		FROM REPLY
+		WHERE PROJECT_NO=#{projectNo}
+	</select>
 
 </mapper>

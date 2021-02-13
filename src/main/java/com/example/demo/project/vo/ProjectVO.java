@@ -39,6 +39,7 @@ public class ProjectVO {
     private int bookmarkNo;
     private List<FileVO> uploadFiles;
     private int endProjectCnt;
+    private String detailHtml;
 
 	public ProjectVO() {
 	}
@@ -259,6 +260,14 @@ public class ProjectVO {
 		this.endProjectCnt = endProjectCnt;
 	}
 
+	public String getDetailHtml() {
+		return detailHtml;
+	}
+
+	public void setDetailHtml(String detailHtml) {
+		this.detailHtml = detailHtml;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("ProjectVO{");
@@ -289,6 +298,7 @@ public class ProjectVO {
 		sb.append(", bookmarkNo=").append(bookmarkNo);
 		sb.append(", uploadFiles=").append(uploadFiles);
 		sb.append(", endProjectCnt=").append(endProjectCnt);
+		sb.append(", detailHtml='").append(detailHtml).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}

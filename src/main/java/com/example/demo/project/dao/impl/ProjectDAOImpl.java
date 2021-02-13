@@ -1,5 +1,6 @@
 package com.example.demo.project.dao.impl;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.*;
@@ -112,6 +113,16 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Override
     public int updateTodoStatus(Map updateTodoStatusMap) {
         return sqlSession.update(NAMESPACE + "updateTodoStatus", updateTodoStatusMap);
+    }
+
+    @Override
+    public int getReplyTotalCount(Map<String, Object> getProjectMap) {
+        return sqlSession.selectOne(NAMESPACE+"replyTotalCount", getProjectMap);
+    }
+
+    @Override
+    public List<ReplyVO> getReplyList(Map<String, Object> map) {
+        return sqlSession.selectList(NAMESPACE+"getProjectReplyByProjectNo", map);
     }
 
     @Override

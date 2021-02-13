@@ -7,8 +7,7 @@
 </head>
 <nav th:include="topToolBar.html"></nav>
 <body style="background-color: #fff;">
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
 <div class="container">
     <div class="row">
 
@@ -134,124 +133,108 @@
                 </div>
 
 
-                <!--
-
-                                &lt;!&ndash; 프로젝트 정보 &ndash;&gt;
-                                <div class="form-group row"><h4 class="col-lg-12 form-group-header">프로젝트 정보</h4></div>
-                                <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
-                                    <div class="x_title">
-                                        <label>프로젝트 상세정보</label>
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li>
-                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                            </li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                                            <div class="btn-group">
-                                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i
-                                                        class="fa fa-font"></i><b class="caret"></b></a>
-                                                <ul class="dropdown-menu">
-                                                </ul>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i
-                                                        class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a data-edit="fontSize 5">
-                                                            <p style="font-size:17px">Huge</p>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a data-edit="fontSize 3">
-                                                            <p style="font-size:14px">Normal</p>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a data-edit="fontSize 1">
-                                                            <p style="font-size:11px">Small</p>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i
-                                                        class="fa fa-italic"></i></a>
-                                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i
-                                                        class="fa fa-strikethrough"></i></a>
-                                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i
-                                                        class="fa fa-underline"></i></a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i
-                                                        class="fa fa-list-ul"></i></a>
-                                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i
-                                                        class="fa fa-list-ol"></i></a>
-                                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i
-                                                        class="fa fa-dedent"></i></a>
-                                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i
-                                                        class="fa fa-align-left"></i></a>
-                                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i
-                                                        class="fa fa-align-center"></i></a>
-                                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i
-                                                        class="fa fa-align-right"></i></a>
-                                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i
-                                                        class="fa fa-align-justify"></i></a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i
-                                                        class="fa fa-link"></i></a>
-                                                <div class="dropdown-menu input-append">
-                                                    <input class="span2" placeholder="URL" type="text" data-edit="createLink">
-                                                    <button class="btn" type="button">Add</button>
-                                                </div>
-                                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <label class="custom-file-label" id="file-label" for="file-upload">IMAGE UPLOAD</label>
-                                                <input type="file" name="files" id="file-upload" multiple="multiple">
-                                            </div>
-                                            <div class="btn-group">
-                                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i
-                                                        class="fa fa-repeat"></i></a>
-                                            </div>
-                                        </div>
-
-
-                                        <div id="editor-one" name="projectDetail" class="editor-wrapper"></div>
-
-                                        <textarea name="projectDetail" id="projectDetail" style="display:none;"></textarea>
-                                        <br/>
-                                        <b id="fileEA">0</b><span>개의 문서 파일 선택</span>
-                                        <div class="ln_solid"></div>
-                                        <div id="elseFile"></div>
-                                    </div>
-                                </div>-->
-
-                <!-- 프로젝트 상세내용 -->
-                <!-- SmartEditor2 -->
-                <div class="form-group row">
-                    <div class="col-md-12">
-                        <div class="btn-group">
-                            <label class="custom-file-label" id="file-label" for="file-upload">IMAGE UPLOAD</label>
-                            <input type="file" name="files" id="file-upload" multiple="multiple">
+                <!-- 프로젝트 정보 -->
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">프로젝트 정보</h4></div>
+                <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
+                    <div class="x_title">
+                        <label>프로젝트 상세정보</label>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i
+                                        class="fa fa-font"></i><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i
+                                        class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a data-edit="fontSize 5">
+                                            <p style="font-size:17px">Huge</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-edit="fontSize 3">
+                                            <p style="font-size:14px">Normal</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-edit="fontSize 1">
+                                            <p style="font-size:11px">Small</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i
+                                        class="fa fa-italic"></i></a>
+                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i
+                                        class="fa fa-strikethrough"></i></a>
+                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i
+                                        class="fa fa-underline"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i
+                                        class="fa fa-list-ul"></i></a>
+                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i
+                                        class="fa fa-list-ol"></i></a>
+                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i
+                                        class="fa fa-dedent"></i></a>
+                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i
+                                        class="fa fa-align-left"></i></a>
+                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i
+                                        class="fa fa-align-center"></i></a>
+                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i
+                                        class="fa fa-align-right"></i></a>
+                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i
+                                        class="fa fa-align-justify"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i
+                                        class="fa fa-link"></i></a>
+                                <div class="dropdown-menu input-append">
+                                    <input class="span2" placeholder="URL" type="text" data-edit="createLink">
+                                    <button class="btn" type="button">Add</button>
+                                </div>
+                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <label class="custom-file-label" id="file-label" for="file-upload">IMAGE UPLOAD</label>
+                                <input type="file" name="files" id="file-upload" multiple="multiple">
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i
+                                        class="fa fa-repeat"></i></a>
+                            </div>
                         </div>
-                        <textarea name="projectDetail" id="projectDetail" style="width:100%;min-width:260px; height: 300px; "></textarea>
 
+
+                        <div id="editor-one" name="projectDetail" class="editor-wrapper"></div>
+
+                        <textarea name="projectDetail" id="projectDetail" style="display:none;"></textarea>
+
+                        <textarea name="detailHtml" id="detailHtml" style="display:none;"></textarea>
                         <br/>
                         <b id="fileEA">0</b><span>개의 문서 파일 선택</span>
                         <div class="ln_solid"></div>
                         <div id="elseFile"></div>
                     </div>
                 </div>
+
 
                 <!-- 추가 정보 -->
                 <div class="form-group row"><h4 class="col-lg-12 form-group-header">추가 정보</h4></div>
@@ -342,27 +325,7 @@
     </div>
 </div>
 
-
 </body>
-
-
-
-<script>
-    var oEditors = [];
-    nhn.husky.EZCreator.createInIFrame({
-        oAppRef: oEditors, elPlaceHolder: "projectDetail", //저는 textarea의 id와 똑같이 적어줬습니다.
-        sSkinURI: "/smarteditor/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
-        bSkipXssFilter : true,
-        fCreator: "createSEditor2",
-        // htParams: { // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-        //     bUseToolbar: true, // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-        //     bUseVerticalResizer: false, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-        //     bUseModeChanger: false
-        // }
-    });
-
-
-</script>
 
 <script>
     // 등록 전 유효성 검사 필수항목
@@ -381,10 +344,17 @@
     $("#applicationDeadline").attr('min', today);
 
     $('#addProject-btn').on('click', function () {
-        // let projectDetail = $('#editor-one').html();
-        // $('#projectDetail').val(projectDetail);
-        // alert($('#projectDetail').val());
-        oEditors.getById["projectDetail"].exec("UPDATE_CONTENTS_FIELD", []);
+
+        // let imgChild = ;
+
+        $.each($('#editor-one').children('img'),function (index, elem) {
+            alert($(elem).attr('src','/resources/uploadImg/'+$(elem).data('filename')))
+        })
+
+
+        $('#detailHtml').val($('#editor-one').html());
+        $('#projectDetail').val($('#editor-one').text())
+
 
         $('#skillHashTag').val($('.tag span').text());
 
@@ -394,7 +364,6 @@
     // 신청자 질문사항 추가
     function addQuestion(elem) {
         let questionCount = $('div[class=applicantQuestion]').length;
-        alert("addQuestion" + questionCount)
         let html = `<div class="applicantQuestion">
                         <input type="text" class="form-control col-lg-10 col-md-10"/>
                         <div class="col-lg-1 col-md-1 delete-question-btn" onclick="javascript:deleteQuestion(this)">
@@ -433,7 +402,6 @@
         target.remove();
 
         let questionCount = $('div[class=applicantQuestion]').length;
-        alert("deleteQuestion" + questionCount)
         if (questionCount == 2) {
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').css('display', 'block');
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').attr('onclick', 'javascript:addQuestion(this)');
@@ -474,15 +442,13 @@
         $('#fileEA').text('0')
 
         filesArr.forEach(function (f) {
-
             if (f.type.match("image.*")) {
                 sel_files.push(f);
 
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    let img_html = "<img src=\"" + e.target.result + "\" />";
-                    oEditors.getById["projectDetail"].exec("PASTE_HTML", [img_html]);
-                    // $("#iii").append(img_html);
+                    let img_html = "<img src=\"" + e.target.result + "\" data-filename="+f.name+"\" />";
+                    $("#editor-one").append(img_html);
                 }
                 reader.readAsDataURL(f);
             } else {
@@ -568,4 +534,5 @@
     })
 
 </script>
+
 </html>
