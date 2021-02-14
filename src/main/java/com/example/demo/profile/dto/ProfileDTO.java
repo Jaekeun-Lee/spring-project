@@ -45,6 +45,7 @@ public class ProfileDTO {
     @Data
     public static class GetAllProfileDTO{
         private String userId;
+        private String profileImg;
         private String link;
         private String selfIntro;
         private List<PortfolioVO> portfolio;

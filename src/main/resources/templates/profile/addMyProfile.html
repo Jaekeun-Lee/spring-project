@@ -11,6 +11,7 @@
             border-radius: 70%;
             overflow: hidden;
         }
+
         .profile_img {
             width: 100%;
             height: 100%;
@@ -22,7 +23,7 @@
 <body>
 
 <div th:include="topToolBar.html"></div>
-<di class="container">
+<div class="container">
     <form th:action="@{/profile/addMyProfile}" th:method="post" enctype="multipart/form-data">
         <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}"/>
 
@@ -95,7 +96,7 @@
             <label class="col-form-label col-md-3 col-sm-3"
                    style="color:#2c3e50; text-align: center; background-color: #fff; margin: auto 0">자기소개</label>
             <div class="col-md-7 col-sm-7">
-                <input type="text" class="form-control" th:value="${profile.selfIntro}" placeholder="자기소개를 입력해주세요"
+                <input type="text" name="selfIntro" class="form-control" th:value="${profile.selfIntro}" placeholder="자기소개를 입력해주세요"
                        style="height: 150px; "/>
             </div>
         </div>
@@ -104,47 +105,53 @@
             <label class="col-form-label col-md-3 col-sm-3"
                    style="color:#2c3e50; text-align: center; background-color: #fff;">링크</label>
             <div class="col-md-7 col-sm-7">
-                <input type="text" class="form-control" th:value="${profile.link}" placeholder="링크를 입력해주세요"/>
+                <input type="text" name="link" class="form-control" th:value="${profile.link}" placeholder="링크를 입력해주세요"/>
             </div>
         </div>
 
         <label class="col-form-label col-md-9 col-sm-9"></label>
-        <input type="submit" value="등록완료">
+        <input type="submit" class="btn btn-outline-primary" value="등록완료">
+
+        <button type="button" class="btn btn-outline-primary">
+            <a th:href="@{/profile/getMyProfile(userId=${profile.userId})}">취소</a>
+        </button>
+
     </form>
-    </div>
-    <script type="text/javascript">
-        let sel_files = [];
+</div>
+
+<script type="text/javascript">
+    let sel_files = [];
 
 
-        $(function () {
-            $("#uploadFile").on("change", handleImgsFilesSelect);
+    $(function () {
+        $("#uploadFile").on("change", handleImgsFilesSelect);
+    });
+
+
+    function handleImgsFilesSelect(e) {
+        let files = e.target.files;
+        let filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function (f) {
+            if (!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+
+            sel_files.push(f);
+
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                alert(e.target.result);
+                // let img_html = "<img src=\"" + e.target.result + "\" />";
+
+                $(".profile_img").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(f);
         });
+    }
 
 
-        function handleImgsFilesSelect(e) {
-            let files = e.target.files;
-            let filesArr = Array.prototype.slice.call(files);
-
-            filesArr.forEach(function (f) {
-                if (!f.type.match("image.*")) {
-                    alert("확장자는 이미지 확장자만 가능합니다.");
-                    return;
-                }
-
-                sel_files.push(f);
-
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    alert(e.target.result);
-                    // let img_html = "<img src=\"" + e.target.result + "\" />";
-
-                    $(".profile_img").attr('src', e.target.result);
-                }
-                reader.readAsDataURL(f);
-            });
-        }
-
-
-    </script>
+</script>
 </body>
 </html>

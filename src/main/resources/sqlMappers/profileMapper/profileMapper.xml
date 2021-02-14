@@ -33,9 +33,17 @@
 
     <update id="updateMyProfile" parameterType="com.example.demo.profile.dto.ProfileDTO$UpdateMyProfileDTO">
         UPDATE MEMBER
-        SET self_intro = #{selfIntro:VARCHAR},
-            profile_image = #{profileImg:VARCHAR},
-            link=#{link:VARCHAR}
+        SET
+            member_withdrawal = 0
+            <if test="selfIntro != null">
+            ,self_intro = #{selfIntro:VARCHAR}
+            </if>
+            <if test="profileImg != null">
+            ,profile_image = #{profileImg:VARCHAR}
+            </if>
+            <if test="link != null">
+            ,link=#{link:VARCHAR}
+            </if>
         WHERE user_id = #{userId}
     </update>
 
