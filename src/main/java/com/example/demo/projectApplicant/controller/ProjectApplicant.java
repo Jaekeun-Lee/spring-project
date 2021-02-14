@@ -58,7 +58,7 @@ public class ProjectApplicant {
 								Model model,
 								HttpSession session) throws Exception{
 		System.out.println("/applicantList GET");
-		searchVO.setPageSize(4);
+		searchVO.setPageSize(30);
 		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		if(searchVO.getCurrentPage() == 0 ){
 			searchVO.setCurrentPage(1);
@@ -67,7 +67,7 @@ public class ProjectApplicant {
 		Map<String , Object> map=projectApplicantService.getApplicantList(searchVO);
 		
 		model.addAttribute("applicantList", map.get("list"));
-		
+
 		return "projectApplicant/applicantList";
 	}
 	
