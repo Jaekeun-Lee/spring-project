@@ -5,8 +5,8 @@
 
     <div th:include="topToolBar.html"></div>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 
@@ -88,31 +88,15 @@
         <th scope="col">작성날짜</th>
     </tr>
 
-   <!-- <tr>
-        <th class="column-title" width="100">제목</th>
-        <th class="column-title" width="100">작성날짜</th>
-    </tr>
--->
-   <!-- <tr>
-        <td colspan="11" bgcolor="808285" height="1"></td>
-    </tr>-->
     </thead>
 
     <tbody>
 
     <tr class="table-light" th:each="portfolioVO:${portList}">
-        <td> <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
-                th:text="${portfolioVO.portTitle}"></a></td>
+        <td><a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
+               th:text="${portfolioVO.portTitle}"></a></td>
         <td th:text="${#dates.format(portfolioVO.regDate,'yyyy-MM-dd')}" name="등록일자"></td>
     </tr>
-    <!--<tr class="" th:each="portfolioVO:${portList}">
-        <td>
-            <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
-               th:text="${portfolioVO.portTitle}">
-            </a>
-        </td>
-        <td th:text="${#dates.format(portfolioVO.regDate,'yyyy-MM-dd')}" name="등록일자"></td>
-    </tr>-->
 
     </tbody>
 </table>
@@ -157,34 +141,12 @@
                         <td th:text="${projectVO.recruitmentMemberCnt}"></td>
                     </tr>
                     </tbody>
-
-
                 </table>
-
             </div>
-            <!-- <td class="">
-                 <a th:href="@{/port/addInPort(projectNo=${projectVO.projectNo})}"/>내부 포트폴리오 등록
-             </td>-->
         </div>
     </form>
 </div>
-
-
-<!--<button id="test" value="button">
-    버튼
-</button>-->
-
 </body>
 </html>
-
-
-<!--<div class="row form-group col-xs-12">
-            <label for="endProjectName" class="control-label">Q1.팀장이 등록한 질문 </label>
-            <input type="radio" class="form-control" id="endProjectName" name="endProjectName"></p>
--->
-<!--<div class="row form-group col-xs-12" th:each="projectVO:${getEndProjectList}">
-    <input type="radio" name="endProjectName" id="endProjectName" th:value="${projectVO.projectName}" >
-    <label for="endProjectName"  class="form-control">안녕안녕</label>
-</div>-->
 
 

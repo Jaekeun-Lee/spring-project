@@ -4,56 +4,16 @@
 
     <title>포트폴리오 등록</title>
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"/>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
+-->
     <meta charset="UTF-8">
 
-    <script type="text/javascript">
 
-        $(document).ready(function () {
-            $.datepicker.setDefaults($.datepicker.regional['ko']);
-            $("#startDate").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                nextText: '다음 달',
-                prevText: '이전 달',
-                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-                monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                dateFormat: "yy-mm-dd",
-                maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-                onClose: function (selectedDate) {
-                    //시작일(startDate) datepicker가 닫힐때
-                    //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                    $("#endDate").datepicker("option", "minDate", selectedDate);
-                }
-
-            });
-            $("#endDate").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                nextText: '다음 달',
-                prevText: '이전 달',
-                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-                monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                dateFormat: "yy-mm-dd",
-                maxDate: 365,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-                onClose: function (selectedDate) {
-                    // 종료일(endDate) datepicker가 닫힐때
-                    // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
-                    $("#startDate").datepicker("option", "maxDate", selectedDate);
-                }
-
-            });
-        });
-    </script>
 </head>
 <body>
 <div th:include="topToolBar.html"></div>
@@ -69,6 +29,8 @@
     종료일 : <input id="endDate" type="text" name="portProjectEndDate" autocomplete="off"
                  th:value="${getProjectInfo != null}?${#dates.format(getProjectInfo.endDate,'yyyy-MM-dd')}:''"></br>
     설명글 : <input type="text" name="portDescription" autocomplete="off"></br></br>
+    해시태그 : <input type="text" name="portSkillTag" autocomplete="off"
+                  th:value="${getProjectInfo != null}?${getProjectInfo.skillHashTag}:''"></br>
     첨부파일 : <input type="file" class="custom-input" name="file" id="file-upload" multiple="multiple">
     <label class="current-file-label" for="file-upload"></label>
 
@@ -76,8 +38,47 @@
     <input type="submit" value="저장">
 </form>
 
-<!--type,name을 attribute라고 한다.
-타임리프에서 th:attribute를 적으면 동적데이터를 받을 수 있다.-->
+<script type="text/javascript">
 
+    $(document).ready(function () {
+        $.datepicker.setDefaults($.datepicker.regional['ko']);
+        $("#startDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            nextText: '다음 달',
+            prevText: '이전 달',
+            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            dateFormat: "yy-mm-dd",
+            maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+            onClose: function (selectedDate) {
+                //시작일(startDate) datepicker가 닫힐때
+                //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                $("#endDate").datepicker("option", "minDate", selectedDate);
+            }
+
+        });
+        $("#endDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            nextText: '다음 달',
+            prevText: '이전 달',
+            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            dateFormat: "yy-mm-dd",
+            maxDate: 365,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+            onClose: function (selectedDate) {
+                // 종료일(endDate) datepicker가 닫힐때
+                // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
+                $("#startDate").datepicker("option", "maxDate", selectedDate);
+            }
+
+        });
+    });
+</script>
 </body>
 </html>

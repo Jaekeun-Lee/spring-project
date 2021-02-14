@@ -1,8 +1,10 @@
 package com.example.demo.portfolio.controller;
 
-import com.example.demo.common.service.FileUploadService;
+import com.example.demo.common.service.dao.FileUploadDAO;
 import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.SearchVO;
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.portfolio.service.PortfolioService;
 import com.example.demo.portfolio.vo.PortfolioVO;
@@ -16,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,19 +27,25 @@ import java.util.Map;
 @RequestMapping("port/*")
 public class Portfolio {
 
-    @Autowired
-    private PortfolioService portfolioService;
-    private  final String PATH = "C:\\Temp\\";
+    private final String PATH = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
 
     @Autowired
-    @Qualifier("fileUploadServiceImpl")
-    private FileUploadService fileUploadService;
+    @Qualifier("portfolioServiceImpl")
+    private PortfolioService portfolioService;
+
+    @Autowired
+    @Qualifier("fileUploadDAO")
+    private FileUploadDAO fileUploadDAO;
+
+    @Autowired
+    @Qualifier("memberServiceImpl")
+    private MemberService memberService;
 
     //포트폴리오 등록
     @GetMapping("addPort")
-    public String addPortView(@RequestParam("projectNo") int projectNo,Model model) {
-        if(projectNo!=0){
-            model.addAttribute("getProjectInfo",portfolioService.getProjectInfo(projectNo));
+    public String addPortView(@RequestParam("projectNo") int projectNo, Model model) {
+        if (projectNo != 0) {
+            model.addAttribute("getProjectInfo", portfolioService.getProjectInfo(projectNo));
         }
         return "portfolio/addPortfolio";
     }
@@ -44,21 +54,34 @@ public class Portfolio {
     @PostMapping("addPort")
     public String addPort(@ModelAttribute("portfolioVO") PortfolioVO portfolioVO,
                           @ModelAttribute("fileVO") FileVO fileVO, MultipartHttpServletRequest request,
-                          HttpSession session) {
-       /* session.setAttribute("userId","user01");
-        portfolioVO.setUserId((String)session.getAttribute("userId"));*/
+                          HttpSession session) throws IOException {
+
         portfolioVO.setUserId(((MemberVO) session.getAttribute("user")).getUserId());
         portfolioService.addPort(portfolioVO);
 
-        List<MultipartFile> fileList = request.getFiles("file");
-        fileUploadService.fileUpload(fileVO,PATH,fileList);
+        if (request.getFiles("file").get(0).getSize() != 0) {
+            List<MultipartFile> fileList = request.getFiles("file");
+            for (MultipartFile mf : fileList) {
+                fileVO.setUploadFileName(mf.getOriginalFilename());
+                fileVO.setFileSize(mf.getSize());
+                fileVO.setPortfolioNo(portfolioVO.getPortNo());
+
+                String safeFile = PATH + mf.getOriginalFilename();
+                mf.transferTo(new File(safeFile));
+
+                fileUploadDAO.uploadFile(fileVO);
+            }
+        }
+
+        session.removeAttribute("user");
+        MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if (memberVO != null) {
+            session.setAttribute("user", memberVO);
+        }
+
         return "redirect:/port/portList";
 
     }
-
-
-
-
 
     //포트폴리오 수정
     @GetMapping("updatePort")
@@ -75,16 +98,6 @@ public class Portfolio {
         model.addAttribute("portfolio", portfolioService.getPort(portfolioVO.getPortNo()));
         return "portfolio/getPortfolio";
     }
-
-    //포트폴리오 삭제
-  /* @GetMapping("deletePort")
-    public String deletePort(@RequestParam("portNo") int portNo, HttpSession session){
-        PortfolioVO portfolioVO = portfolioService.deletePort(portNo);
-        portfolioVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
-        portfolioService.deletePort(portNo);
-        return "redirect:/port/portList";
-    }*/
-
 
     @GetMapping("deletePort")
     public String deletePort(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model) {
@@ -122,30 +135,11 @@ public class Portfolio {
         List<PortfolioVO> portList = (List<PortfolioVO>) map.get("list");
 
 //        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+portList.get(0).getPortNo());
-        model.addAttribute("endProjectList",endProjectList);
-        model.addAttribute("portList",portList);
+        model.addAttribute("endProjectList", endProjectList);
+        model.addAttribute("portList", portList);
 //        model.addAttribute("portList", map.get("list"));
 
 
         return "portfolio/getPortfolioList";
     }
-
-
-
 }
-  /*  @GetMapping("portList")
-    public String getPortList(@ModelAttribute PortfolioVO portfolioVO, HttpSession session, Model model){
-//        portfolioVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
-        session.setAttribute("userId","user01");
-        portfolioVO.setUserId((String)session.getAttribute("userId"));
-        List<PortfolioVO> portfolioVOList = portfolioService.getPortList(portfolioVO);
-//        List<PortfolioVO> portfolioVOList = portfolioService.getPortList(((MemberVO)session.getAttribute("user")).getUserId());
-        model.addAttribute("portfolio", portfolioVOList);
-       return "portfolio/getPortfolioList";
-
-    }*/
-
-   /* @GetMapping("getEndProjectList")
-    public String getEndProjectList*/
-
-

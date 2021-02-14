@@ -20,38 +20,38 @@
         <association property="portSkillTag" column="portfolio_no" select="getHashTag"/>
 
         <!--//TODO collection 구현해야합니다~-->
-        <collection property="portFileName" column="portfolio_no" select=""/>
+<!--        <collection property="portFileName" column="portfolio_no" select=""/>-->
     </resultMap>
 
     <select id="getPortList" parameterType="searchVO" resultType="portfolioVO">
         SELECT *
         FROM (SELECT inner_table.*, ROWNUM as row_seq
-              FROM( SELECT portfolio_no portNo,
-                             user_id,
-                             project_no,
-                             port_project_start_date,
-                             port_project_end_date,
-                             port_description,
-                             port_thumbnail_image,
-                             port_title,
-                             port_member_cnt,
-                             reg_date
-                    FROM portfolio
-                    <where>
-                        <if test="searchConditionA != null">
-                            <if test="searchConditionA == 1">
-                                port_title LIKE '%'||#{searchKeyword}||'%'
-                            </if>
-                            <if test="searchConditionA == 2">
-                                port_description LIKE '%'||#{searchKeyword}||'%'
-                            </if>
-                            <if test="searchConditionA == 3">
-                                user_id LIKE '%'||#{searchKeyword}||'%'
-                            </if>
-                        </if>
-                    </where>
-                    ORDER BY portfolio_no ) inner_table
-              WHERE ROWNUM &lt;=#{endRowNum} )
+        FROM( SELECT portfolio_no portNo,
+        user_id,
+        project_no,
+        port_project_start_date,
+        port_project_end_date,
+        port_description,
+        port_thumbnail_image,
+        port_title,
+        port_member_cnt,
+        reg_date
+        FROM portfolio
+        <where>
+            <if test="searchConditionA != null">
+                <if test="searchConditionA == 1">
+                    port_title LIKE '%'||#{searchKeyword}||'%'
+                </if>
+                <if test="searchConditionA == 2">
+                    port_description LIKE '%'||#{searchKeyword}||'%'
+                </if>
+                <if test="searchConditionA == 3">
+                    user_id LIKE '%'||#{searchKeyword}||'%'
+                </if>
+            </if>
+        </where>
+        ORDER BY portfolio_no ) inner_table
+        WHERE ROWNUM &lt;=#{endRowNum} )
         WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} AND user_id=#{userId}
     </select>
 
@@ -73,31 +73,31 @@
     <insert id="addPort" parameterType="com.example.demo.portfolio.vo.PortfolioVO" useGeneratedKeys="true" keyColumn="portfolio_no" keyProperty="portNo">
         INSERT
         INTO portfolio (
-                        portfolio_no,
-                        user_id,
-                        <if test="projectNo != 0">
-                        project_no,
-                        </if>
-                        port_project_start_date,
-                        port_project_end_date,
-                        port_description,
-                        port_title,
-                        port_member_cnt,
-                        reg_date
+        portfolio_no,
+        user_id,
+        <if test="projectNo != 0">
+            project_no,
+        </if>
+        port_project_start_date,
+        port_project_end_date,
+        port_description,
+        port_title,
+        port_member_cnt,
+        reg_date
         )
         VALUES(
-               seq_portfolio_no.NEXTVAL,
-               #{userId},
+        seq_portfolio_no.NEXTVAL,
+        #{userId},
         <if test="projectNo != 0">
-               #{projectNo:INTEGER},
+            #{projectNo:INTEGER},
         </if>
-               #{portProjectStartDate},
-               #{portProjectEndDate},
-               #{portDescription},
-               #{portTitle},
-               #{portMemberCnt},
-               SYSDATE
-              )
+        #{portProjectStartDate},
+        #{portProjectEndDate},
+        #{portDescription},
+        #{portTitle},
+        #{portMemberCnt},
+        SYSDATE
+        )
     </insert>
 
     <select id="getProjectInfo" parameterType="int" resultType="projectVO">
@@ -116,8 +116,8 @@
             port_project_end_date = #{portProjectEndDate},
             port_description = #{portDescription},
             port_member_cnt = #{portMemberCnt},
-            port_title = #{portTitle}
-        WHERE portfolio_no = #{portNo}
+            port_title = #{portTitle},
+            WHERE portfolio_no = #{portNo}
     </update>
 
     <select id="getPort" parameterType="int" resultType="com.example.demo.portfolio.vo.PortfolioVO">
@@ -143,19 +143,24 @@
         FROM portfolio
     </select>
 
-    <select id="getHashTag" parameterType="int" resultType="string">
+    <select id="getHashTag" resultType="portfolioVO">
         SELECT HASHTAG
         FROM HASHTAG
         WHERE PORTFOLIO_NO = #{portfolio_no}
     </select>
 
-    <insert id="addHashTag" parameterType="string">
-        INSERT INTO HASHTAG ( HASHTAG_NO, HASHTAG, PORTFOLIO_NO )
-        VALUES ( seq_hashtag_no, #{portSkillTag} , #{portNo} );
+    <update id="updateHashTag" parameterType="portfolioVO">
+        UPDATE hashtag
+        SET hashtag = #{portSkillTag}
+        WHERE portfolio_no=#{portNo}
+    </update>
 
+    <insert id="addHashTag" parameterType="portfolioVO">
+        INSERT INTO HASHTAG ( HASHTAG_NO, HASHTAG, PORTFOLIO_NO)
+        VALUES (SEQ_HASHTAG_NO.nextval, #{portSkillTag}, #{portNo} )
     </insert>
 
-    <update id="updateApplicantStatus" parameterType="portfolioVO">
+   <update id="updateApplicantStatus" parameterType="portfolioVO">
         UPDATE APPLICANT
         SET PORTFOLIO_NO = #{portNo}
         WHERE USER_ID=#{userId} AND PROJECT_NO=#{projectNo} AND APPLICANT_STATUS = 6;

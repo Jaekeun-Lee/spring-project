@@ -1,42 +1,33 @@
 package com.example.demo.profile.controller;
 
-import com.example.demo.common.service.FileUploadService;
 import com.example.demo.common.vo.BookmarkVO;
-import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.ReviewVO;
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.member.vo.MemberVO;
-import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.OutputBuffer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.event.ListDataEvent;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("profile/*")
 @RequiredArgsConstructor
 public class Profile {
 
+    private final MemberService memberService;
     private final ProfileService profileService;
+
+    private final String PATH = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
 
 
     //기본정보 등록
@@ -52,21 +43,29 @@ public class Profile {
                                MultipartHttpServletRequest request,
                                HttpSession session, Model model) throws IOException {
 
-        String path = "C:\\Temp\\";
 
-        List<MultipartFile> fileList = request.getFiles("imageFile");
 
-        for (MultipartFile mf : fileList) {
-            path += mf.getOriginalFilename();
+        if (request.getFiles("imageFile").get(0).getSize() != 0) {
+            List<MultipartFile> fileList = request.getFiles("imageFile");
 
-            mf.transferTo(new File(path));
+            for (MultipartFile mf : fileList) {
+                String upload = PATH+mf.getOriginalFilename();
 
-            param.setProfileImg(mf.getOriginalFilename());
+                mf.transferTo(new File(upload));
+
+                param.setProfileImg(mf.getOriginalFilename());
+            }
         }
 
         param.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
         profileService.updateMyProfile(param);
         model.addAttribute("profile",profileService.getMyProfile(param.getUserId()));
+
+        session.removeAttribute("user");
+        MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if (memberVO != null) {
+            session.setAttribute("user", memberVO);
+        }
 
         return "profile/getMyProfile";
     }
@@ -74,9 +73,8 @@ public class Profile {
     //기본정보 조회
     @GetMapping("getMyProfile")
     public String getMyProfile(@RequestParam("userId") String userId, Model model){
-
-
         ProfileDTO.GetMyProfileDTO getMyProfile = profileService.getMyProfile(userId);
+
         model.addAttribute("profile",getMyProfile);
         return "profile/getMyProfile";
     }
