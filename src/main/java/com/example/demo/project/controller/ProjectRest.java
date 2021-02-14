@@ -8,7 +8,9 @@ import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.dto.AddTodoDTO;
 import com.example.demo.project.dto.ProjectBookmarkDTO;
 import com.example.demo.project.dto.ProjectReplyDTO;
+import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.service.ProjectService;
+import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.project.vo.TodoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +94,20 @@ public class ProjectRest {
         return projectService.getReplyList(searchVO, projectNo);
     }
 
+    @PostMapping("/getProjectList")
+    public List<ProjectVO> getProjectList(@RequestBody ProjectSearchDTO projectSearchDTO) {
+
+        System.out.println("===========================================================");
+
+        System.out.println("===========================================================\n\n\n\n\n\n\n\n");
+
+        System.out.println(projectSearchDTO);
+        System.out.println("\n\n\n\n\n\n\n\n===========================================================");
+        System.out.println("===========================================================");
+        return projectService.getProjectList(projectSearchDTO);
+
+    }
+
     private int sessionUpdateUtil(HttpSession session) {
         session.removeAttribute("user");
         MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
@@ -101,5 +117,7 @@ public class ProjectRest {
         }
         return 0;
     }
+
+
 
 }

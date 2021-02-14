@@ -69,7 +69,8 @@
 			APPLICANT_QUESTION_A,
 			APPLICANT_QUESTION_B,
 			APPLICANT_QUESTION_C,
-			RECRUITMENT_MEMBER_CNT
+			RECRUITMENT_MEMBER_CNT,
+		    DETAIL_HTML
 		)
 		VALUES(seq_project_no.NEXTVAL,
 		       #{leaderId},
@@ -86,7 +87,8 @@
 		       #{applicantQuestionA:VARCHAR},
 		       #{applicantQuestionB:VARCHAR},
 		       #{applicantQuestionC:VARCHAR},
-		       #{recruitmentMemberCnt})
+		       #{recruitmentMemberCnt},
+		       #{detailHtml})
 
 	</insert>
 
@@ -191,13 +193,11 @@
 		FROM PROJECT P, ( SELECT BOOKMARK_NO
 						  FROM BOOKMARK
 						  WHERE USER_ID = #{userId:VARCHAR} ) B
-		<if test="searchCondition != null and searchCondition == 2">
 			,(SELECT HASHTAG, PROJECT_NO
 			  FROM HASHTAG) H
-		</if>
 		<where>
 			P.PROJECT_NO = B.BOOKMARK_NO(+)
-
+			AND P.PROJECT_NO = H.PROJECT_NO(+)
 			<if test="projectCategory != null">
 				AND
 				<foreach item="projectCategory" collection="projectCategory" separator="OR" open="(" close=")">
@@ -213,7 +213,7 @@
 
 			<if test="searchCondition != null">
 				<if test="searchCondition == 1">AND P.PROJECT_NAME LIKE '%'||#{searchKeyword}||'%' </if>
-				<if test="searchCondition == 2">AND P.PROJECT_NO = H.PROJECT_NO AND H.HASHTAG LIKE '%'||#{searchKeyword}||'%'</if>
+				<if test="searchCondition == 2">AND H.HASHTAG LIKE '%'||#{searchKeyword}||'%'</if>
 				<if test="searchCondition == 3">AND P.PROJECT_DETAIL LIKE '%'||#{searchKeyword}||'%' </if>
 			</if>
 

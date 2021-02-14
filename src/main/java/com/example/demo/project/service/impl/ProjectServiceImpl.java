@@ -32,6 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
         Map<String, Object> map = new HashMap<>();
         map.put("projectNo", projectDAO.addProject(projectVO));
         map.put("userId", projectVO.getLeaderId());
+        map.put("searchVO", new SearchVO(1,5));
 
         return projectDAO.updateMemberStatus(map) == 1 ? projectDAO.getProject(map) : null;
     }
