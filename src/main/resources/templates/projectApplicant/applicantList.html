@@ -56,32 +56,37 @@
 </head>
 <body>
 <div th:include="topToolBar.html" ></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container">
+	 
+		<div class="collapse navbar-collapse" id="navbarColor02">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/project/myProject">투두리스트</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/applicant/applicantList">신청서목록</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" style = "diplay:none;"/>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+
 <div class="wrapper">
 	<h4 class="display-3">프로젝트 참여 요청</h4>
+
+
+
 	
-	<div class="row">
-        <div class="category-box col-lg-3">
-            <div class="searchCondition-list" style="display: inline-block; width : 90%;">
-                <div class="sear">
-                    <div>
-						<a href="/applicant/appliedProjectList">신청 프로젝트</a><hr/>
-					</div>
-					<div>
-						<a href="/applicant/endProjectList">완료 프로젝트</a><hr/>
-					</div>
-					<div>
-						<a href="/applicant/applicantList">신청서 확인</a><hr/>
-					</div>			                
-                </div>
-            </div>
-            <div id="line"></div>
-        </div>
-
-
-	<div class="card-list-box col-lg-8">
 	<table id="table" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 		<tr>
-			<th class="column-title" width="100"> </th>
+
 			<th class="column-title" width="100">유저아이디</th>
 			<th class="column-title" width="100">신청일</th>
 			<th class="column-title" width="100"> </th>
@@ -96,7 +101,7 @@
 		<tr class="" th:each="applicantVO : ${applicantList}">
 		<th:block th:if="${applicantVO.applicantStatus}!=5">
 		<th:block th:if="${applicantVO.applicantStatus}!=6">
-			<td class=""></td>
+			
 			<td class="" th:text="${applicantVO.userId}"></td>
 			<td class="" th:text="${#dates.format(applicantVO.aRegDate, 'yyyy-MM-dd')}"></td>
 			<td class=""><button id="getApplicant" type="button" class="btn btn-primary btn-sm">신청서보기</button>
@@ -125,7 +130,6 @@
 			</div>
 		</div>
 	</table>
-	</div>
 </div>
 
 
