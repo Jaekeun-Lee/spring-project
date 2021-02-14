@@ -182,5 +182,12 @@
         WHERE POST_NO = #{postNo}
     </update>
 
+<!--    댓글수 총 카운팅-->
+<!--    <update id="totalReplyCnt"  parameterType="int">-->
+<!--        UPDATE POST-->
+<!--        SET REPLY_CNT = REPLY_CNT +1-->
+<!--        WHRER POST_NO = #{postNo}-->
+<!--    </update>-->
+
 
 </mapper>
