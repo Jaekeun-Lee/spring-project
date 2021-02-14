@@ -1,37 +1,23 @@
 package com.example.demo.profile.controller;
 
-import com.example.demo.common.service.FileUploadService;
 import com.example.demo.common.vo.BookmarkVO;
-import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.ReviewVO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.member.vo.MemberVO;
-import com.example.demo.portfolio.vo.PortfolioVO;
 import com.example.demo.profile.dto.ProfileDTO;
 import com.example.demo.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.OutputBuffer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.event.ListDataEvent;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("profile/*")
@@ -40,6 +26,8 @@ public class Profile {
 
     private final MemberService memberService;
     private final ProfileService profileService;
+
+    private final String PATH = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
 
 
     //기본정보 등록
@@ -57,16 +45,16 @@ public class Profile {
 
 
 
-        String path = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
+        if (request.getFiles("imageFile").get(0).getSize() != 0) {
+            List<MultipartFile> fileList = request.getFiles("imageFile");
 
-        List<MultipartFile> fileList = request.getFiles("imageFile");
+            for (MultipartFile mf : fileList) {
+                String upload = PATH+mf.getOriginalFilename();
 
-        for (MultipartFile mf : fileList) {
-            path += mf.getOriginalFilename();
+                mf.transferTo(new File(upload));
 
-            mf.transferTo(new File(path));
-
-            param.setProfileImg(mf.getOriginalFilename());
+                param.setProfileImg(mf.getOriginalFilename());
+            }
         }
 
         param.setUserId(((MemberVO)session.getAttribute("user")).getUserId());

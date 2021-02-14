@@ -23,21 +23,12 @@
         인원 수 : <div th:text="${portfolio.portMemberCnt}"></div>
         프로젝트 시작일 : <div th:text="${#dates.format(portfolio.portProjectStartDate, 'yyyy-MM-dd')}"></div>
         프로젝트 종료일 : <div th:text="${#dates.format(portfolio.portProjectEndDate, 'yyyy-MM-dd')}"></div>
-        <!--<div th:text="${portfolio.portSkillTag}"></div>-->
+        해시태그 : <div th:text="${portfolio.portSkillTag}"></div>
         설명 : <div th:text="${portfolio.portDescription}"></div>
 
     <a th:href="@{/port/portList(userId=${portfolio.userId})}">목록</a>
     <a th:href="@{/port/updatePort(portNo=${portfolio.portNo})}">수정</a>
     <a th:href="@{/port/deletePort(portNo=${portfolio.portNo})}">삭제</a>
 
-    <!--<button id="test" value="button">
 
-    </button>-->
-
-    <!--
-    #은 수정 전 페이지를 의미하는 것   ????
-    <a href="#" th:href="@{/port/updatePort/{portNo}(portNo=${portfolio.portNo})}">수정</a>
-    -->
-
-<!--</form>-->
 </body>

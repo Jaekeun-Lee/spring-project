@@ -24,15 +24,17 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
      todo 포트폴리오 수정시 해시태그 부분도 같이 수정하는 코드도 작성해주세요. 2/10일까지 입니다.
 
-    */
+     */
 
 
     @Override
     public int addPort(PortfolioVO addPort){
-        sqlSession.insert("portfolioMapper.addPort", addPort);
-        sqlSession.insert("portfolioMapper.addHashTag", addPort);
-        return sqlSession.update("portfolioMapper.updateApplicantStatus",addPort);
 
+        sqlSession.insert("portfolioMapper.addPort", addPort);
+        if (addPort.getProjectNo() != 0){
+            sqlSession.update("portfolioMapper.updateApplicantStatus",addPort);
+        }
+        return sqlSession.insert("portfolioMapper.addHashTag", addPort);
     }
 
     //내부 포트폴리오 등록
@@ -48,6 +50,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     @Override
     public int updatePort(PortfolioVO updatePort){
+        sqlSession.update("portfolioMapper.updateHashTag",updatePort);
         return sqlSession.update("portfolioMapper.updatePort", updatePort);
     }
 
@@ -58,6 +61,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     @Override
     public PortfolioVO getPort(int portNo){
+        sqlSession.selectOne("portfolioMapper.getHashTag",portNo);
         return sqlSession.selectOne("portfolioMapper.getPort", portNo);
     }
 
@@ -71,7 +75,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         return sqlSession.selectOne("portfolioMapper.getTotalCount",searchVO);
     }
 
-     @Override
+    @Override
     public void portUploadFile(HashMap<String, Object> files) {
         sqlSession.insert("portfolioMapper.portUploadFile",files);
     }

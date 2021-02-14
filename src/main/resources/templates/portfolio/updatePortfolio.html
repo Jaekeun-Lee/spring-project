@@ -60,8 +60,10 @@
     <!--<input type="text" name="portDescription">-->
     프로젝트 시작일 : <input id="startDate" type="text" name="portProjectStartDate" th:value="${#dates.format(portfolio.portProjectStartDate, 'yyyy-MM-dd')}" autocomplete="off"></br>
     프로젝트 종료일 : <input id="endDate" type="text" name="portProjectEndDate" th:value="${#dates.format(portfolio.portProjectEndDate, 'yyyy-MM-dd')}" autocomplete="off"></br>
-    설명 : <input type="text" name="portDescription" th:value="${portfolio.portDescription}"></input></br>
-   <!-- <input type="text" name="portSkillTag" th:value="${portfolio.portSkillTag}"></br>-->
+    설명 : <input type="text" name="portDescription" th:value="${portfolio.portDescription}"></br>
+    해시태그 : <input type="text" name="portSkillTag" th:value="${portfolio.portSkillTag}">
+    첨부파일 : <input type="file" class="custom-input" name="file" id="file-upload" multiple="multiple">
+
     <input type="submit" value="확인">
 </form>
 </body>
