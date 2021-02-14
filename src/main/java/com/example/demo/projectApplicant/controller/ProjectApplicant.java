@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.common.vo.PageVO;
 import com.example.demo.common.vo.SearchVO;
+import com.example.demo.member.service.MemberService;
+import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.vo.ProjectVO;
 import com.example.demo.projectApplicant.dto.UpdateApplicantStatusDTO;
@@ -32,6 +34,10 @@ public class ProjectApplicant {
 	@Autowired
 	@Qualifier("projectApplicantServiceImpl")
 	private ProjectApplicantService projectApplicantService;
+	
+	@Autowired
+    @Qualifier("memberServiceImpl")
+	private MemberService memberService;
 	
 	public ProjectApplicant() {
 		System.out.println(this.getClass());
@@ -53,11 +59,10 @@ public class ProjectApplicant {
 		return "redirect:../project/getProject?projectNo="+applicantVO.getProjectVO().getProjectNo();
 	}
 	
-	@RequestMapping(value = "/applicantList", method = RequestMethod.GET)
+	@RequestMapping(value = "/applicantList")
 	public String applicantList(@ModelAttribute("searchVO") SearchVO searchVO,
 								Model model,
 								HttpSession session) throws Exception{
-		System.out.println("/applicantList GET");
 		searchVO.setPageSize(30);
 		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		if(searchVO.getCurrentPage() == 0 ){
@@ -125,12 +130,34 @@ public class ProjectApplicant {
 	
 	@RequestMapping(value = "/updateApplicantStatus", method = RequestMethod.GET)
 	public String updateApplicantStatus(@ModelAttribute("updateApplicantStatusDTO")UpdateApplicantStatusDTO updateApplicantStatusDTO,
+										@ModelAttribute("searchVO") SearchVO searchVO,
+										Model model,
 										HttpSession session) {
-		updateApplicantStatusDTO.setUserId("user03");
-		System.out.println("hi");
-		System.out.println(updateApplicantStatusDTO);
-		//projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
-		return null;
+		System.out.println("@@@@@업데이트");
+		updateApplicantStatusDTO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
+		int applicantNo = updateApplicantStatusDTO.getApplicantNo();
+		
+		projectApplicantService.updateApplicantStatus(updateApplicantStatusDTO);
+		ApplicantVO applicantVO = projectApplicantService.getApplicant(applicantNo);
+		
+		session.removeAttribute("user");
+        MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if (memberVO != null) {
+            session.setAttribute("user", memberVO);
+        }
+        System.out.println("@@업데이트전");
+        
+        searchVO.setPageSize(30);
+		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
+		if(searchVO.getCurrentPage() == 0 ){
+			searchVO.setCurrentPage(1);
+		}
+		
+		Map<String , Object> map=projectApplicantService.getApplicantList(searchVO);
+		
+		model.addAttribute("applicantList", map.get("list"));
+        
+        return "projectApplicant/applicantList";
 	}
 	
 }

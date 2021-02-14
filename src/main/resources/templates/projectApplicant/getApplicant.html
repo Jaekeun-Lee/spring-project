@@ -7,40 +7,20 @@
 	<!--  /////////////////////// JQuery //////////////////////// -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="/js/bpopup/jquery.bpopup.min.js"></script>
-	<!--  ////////////////////// Bootstrap /////////////////////// -->
 	
 	<!--  ////////////////////// JavaScript /////////////////////// -->
 	<script type="text/javascript">
 		
     	$('#updateApplicant_2_btn').on("click", function(){
     		var applicantNo = $(this).attr('data-applicantno')
-    		test(2,applicantNo)
+    		self.location = "/applicant/updateApplicantStatus?applicantStatus=2&applicantNo="+applicantNo;
     	});
 	    
 		
     	$('#updateApplicant_3_btn').on("click", function(){
     		var applicantNo = $(this).attr('data-applicantno')
-    		test(3,applicantNo)
+    		self.location = "/applicant/updateApplicantStatus?applicantStatus=3&applicantNo="+applicantNo;
     	});
-		
-		function test(applicantStatus, applicantNo){
-			$.ajax({
-					url : "/applicant/json/updateApplicantStatus/"+applicantStatus+"/"+applicantNo,
-					method : "get" ,
-					dataType : "html" ,
-					headers : {
-						"Accept" : "application/json",
-						"Content-Type" : "application/json"
-					},
-					success : function(JSONData , status) {
-						console.log("성공")
-						var displayValue = "신청서가 성공적으로 처리되었습니다."
-						$('#delete').empty();
-						$('#append').append(displayValue);
-					}
-				})
-			
-		}
 	
 	</script>
 	

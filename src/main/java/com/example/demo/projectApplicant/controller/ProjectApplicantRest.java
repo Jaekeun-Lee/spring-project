@@ -56,8 +56,6 @@ public class ProjectApplicantRest {
         if (memberVO != null) {
             session.setAttribute("user", memberVO);
         }
-		
-        System.out.println("@@@"+session.getAttribute("user"));
         
 		return applicantVO;
 	}

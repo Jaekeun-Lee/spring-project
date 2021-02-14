@@ -18,44 +18,37 @@
     </style>
 </head>
 <nav th:include="topToolBar.html"></nav>
-<body style="height: 3000px;">
+<body style="height: 1500px;">
 <div class="container">
     <header>
 
     </header>
-    <h1 style="margin-top :100px;">Hello~! We are developing...</h1>
+    <h1 style="margin-top :100px;">image</h1>
+    <hr>
 
-    <span th:text="${session.user.userId}"></span>
-    <span th:text="${session.user.email}"></span>
-    <span th:text="${session.user.name}"></span>
 
-    <div id="content">
-        <div class="card category-box col-lg-3">
-            <h3>회원관리</h3>
-            <a href="/login" class="btn btn-outline-primary">로그인</a>
-            <a href="/logout" class="btn btn-outline-primary">로그아웃</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member/list" class="btn btn-outline-primary">전체회원목록</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member/list/black" class="btn btn-outline-primary">블랙리스트</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member/list/dormant" class="btn btn-outline-primary">비 활성화 회원 목록</a>
-            <a href="/port/addPort" class="btn btn-outline-primary"> 포트폴리오 등록 </a>
-            <a href="/port/portList" class="btn btn-outline-primary"> 포트폴리오 목록조회 </a>
-            <a href="/port/getPort?portNo=75" class="btn btn-outline-primary"> 포트폴리오 조회 </a>
-        </div>
-        <div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" class="card category-box col-lg-3">
-            <h3>커뮤니티</h3>
-            <a href="/comm/addPost" class="btn btn-outline-primary"> 글 작성 </a>
-            <a href="/comm/getPostList" class="btn btn-outline-primary"> 글 목록 </a>
-            <a href="/comm/getPost?postNo=2" class="btn btn-outline-primary"> 글 조회 </a>
-            <a href="/comm/updatePost?postNo=2" class="btn btn-outline-primary"> 글 수정 </a>
-        </div>
-        <div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="card category-box col-lg-3">
-            <h3>프로젝트</h3>
-            <a href="/project/addProject" class="btn btn-outline-primary"> 프로젝트 등록 </a>
-            <a href="/project/getProject?projectNo=1" class="btn btn-outline-primary"> 프로젝트 조회 </a>
-            <a href="/applicant/applicantList" class="btn btn-outline-primary"> 팀장이 받은 신청서 </a>
-            <a href="/applicant/appliedProjectList" class="btn btn-outline-primary"> 제출한 신청서 목록 </a>
-        </div>
-    </div>
+
+		<div class="welcome-project-box" th:each="project : ${projectList}" >
+			<div style="float: left; width: 80%;">
+					<div style="float: left;">
+						<a th:href="@{/project/getProject(projectNo=${project.projectNo})}"
+	                       th:text="${project.projectName}"></a>
+					</div>
+			</div>
+		</div>
+		
+
+		
+		<div class="welcome-community-box" th:each="postVO : ${postList}" >
+			<div style="float: left; width: 80%;">
+				<div style="float: left;">
+					<a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
+					th:text="${postVO.postName}"></a>
+				</div>
+			</div>
+		</div>
+		
+    
 </div>
 </body>
 </html>
