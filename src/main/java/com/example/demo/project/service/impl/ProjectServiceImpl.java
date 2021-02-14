@@ -1,5 +1,7 @@
 package com.example.demo.project.service.impl;
 
+import com.example.demo.common.vo.PageVO;
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
@@ -38,12 +40,32 @@ public class ProjectServiceImpl implements ProjectService {
     public Map<String, Object> getProject(int projectNo, String userId) {
 
         Map<String, Object> getProjectMap = new HashMap<>();
+        SearchVO searchVO = new SearchVO(1, 5);
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
+        getProjectMap.put("searchVO", searchVO);
+
+        System.out.println("=======================================================");
+        System.out.println(searchVO);
+        System.out.println("=======================================================");
+
+
+
+        ProjectVO projectVO = projectDAO.getProject(getProjectMap);
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("projectVO", projectDAO.getProject(getProjectMap));
+        map.put("projectVO", projectVO);
         map.put("existApplicant", projectDAO.existApplicant(getProjectMap));
+
+        int totalCount = projectDAO.getReplyTotalCount(getProjectMap);
+
+        PageVO resultPage = new PageVO( searchVO.getCurrentPage(), totalCount,5, searchVO.getPageSize());
+        map.put("resultPage", resultPage);
+
+        if(projectVO.getSkillHashTag() != null) {
+            String[] hashTagList = projectVO.getSkillHashTag().split("  ");
+            map.put("hashList",hashTagList);
+        }
 
         return map;
     }
@@ -121,6 +143,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public int updateTodoStatus(Map updateTodoStatusMap) {
         return projectDAO.updateTodoStatus(updateTodoStatusMap);
+    }
+
+    @Override
+    public List<ReplyVO> getReplyList(SearchVO searchVO, int projectNo) {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("searchVO", searchVO);
+        map.put("projectNo", projectNo);
+        return projectDAO.getReplyList(map);
     }
 
 }

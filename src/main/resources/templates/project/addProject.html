@@ -7,29 +7,64 @@
 </head>
 <nav th:include="topToolBar.html"></nav>
 <body style="background-color: #fff;">
+
 <div class="container">
     <div class="row">
-        <div class="container col-lg-2 col-md-12 ml-2">
-            <div class="page-name col-xs-12"><h3>ADD PROJECT</h3></div>
+
+        <!-- left side bar -->
+        <div class="container col-lg-2 col-md-12 ml-2 ">
+
+            <div id="followquick" class="page-name col-xs-12">
+                <h4 class="mb-3">ADD PROJECT FORM</h4>
+                <div class="statusCheck">
+                    <input type="text" id="input-check-1" value="기본 정보" class="form-control" disabled=""
+                           style="border:none; background-color: #fff; margin-bottom: 5px;">
+                </div>
+                <div class="statusCheck">
+                    <input type="text" id="input-check-2" value="프로젝트 분류" class="form-control" disabled=""
+                           style="border:none; background-color: #fff; margin-bottom: 5px;">
+                </div>
+                <div class="statusCheck">
+                    <input type="text" id="input-check-3" value="프로젝트 정보" class="form-control" disabled=""
+                           style="border:none; background-color: #fff; margin-bottom: 5px;">
+                </div>
+                <div class="statusCheck">
+                    <input type="text" id="input-check-4" value="추가 정보" class="form-control" disabled=""
+                           style="border:none; background-color: #fff; margin-bottom: 5px;">
+                </div>
+                <div class="statusCheck">
+                    <input type="text" id="input-check-5" value="모집 요건" class="form-control" disabled=""
+                           style="border:none; background-color: #fff; margin-bottom: 5px;">
+                </div>
+            </div>
+
         </div>
-        <div class="container col-lg-8 col-md-12 mr-1 ml-1">
+
+
+        <!-- right form data -->
+        <div class="container col-lg-9 col-md-12 mr-1 ml-1">
             <form id="addProjectForm" method="POST" th:action="@{/project/addProject}" enctype="multipart/form-data">
                 <input type="hidden" name="leaderId" th:value="${session.user.userId}"/>
 
+
+                <!-- 기본 정보 -->
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">기본 정보</h4></div>
                 <div class="field item form-group row">
-                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">프로젝트 제목<span
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left"><strong>프로젝트
+                        제목</strong><span
                             class="required">*</span></label>
                     <div class="col-lg-8 col-md-8">
                         <input class="form-control" data-validate-length-range="6" data-validate-words="2"
                                data-parsley-minlength="15" data-parsley-maxlength="30" data-parsley-trigger="keyup"
                                data-parsley-validation-threshold="1"
-                               name="projectName" placeholder="예) SpringBoot 를 활용한 쇼핑몰 플랫폼 구축" autocomplete="off"
+                               name="projectName" placeholder="예) SpringBoot를 활용한 쇼핑몰 플랫폼 구축" autocomplete="off"
                                required="required">
                     </div>
                 </div>
 
                 <div class="field item form-group row">
-                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">예상 시작일 <span
+                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left"><strong>예상
+                        시작일</strong> <span
                             class="required">*</span></label>
                     <div class="col-lg-8 col-md-8">
                         <input id="preStartDate" name="preStartDate" class="date-picker form-control"
@@ -38,8 +73,24 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label class="control-label col-md-4 col-sm-4 " for="recruitmentMemberCnt"><strong>모집 인원 수</strong></label>
+                    <div class="col-md-8 col-sm-8 ">
+                        <select class="form-control" id="recruitmentMemberCnt" name="recruitmentMemberCnt">
+                            <option value="1" selected>1 명</option>
+                            <option value="2">2 명</option>
+                            <option value="3">3 명</option>
+                            <option value="4">4 명</option>
+                            <option value="5">5 명</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- 프로젝트 분류 -->
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">프로젝트 분류</h4></div>
                 <div class="form-group" style="display: block">
-                    <label class="control-label">프로젝트 진행분류</label>
+                    <label class="control-label"><strong>프로젝트 진행 분류</strong></label>
                     <div class="custom-control custom-radio">
                         <input type="radio" id="customRadio1" name="progressClassification" class="custom-control-input"
                                value="1" checked>
@@ -53,22 +104,8 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="control-label col-md-3 col-sm-3 " for="recruitmentMemberCnt">모집인원수</label>
-                    <div class="col-md-9 col-sm-9 ">
-                        <select class="form-control" id="recruitmentMemberCnt" name="recruitmentMemberCnt">
-                            <option value="1" selected>1 명</option>
-                            <option value="2">2 명</option>
-                            <option value="3">3 명</option>
-                            <option value="4">4 명</option>
-                            <option value="5">5 명</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="form-group row" style="display: block">
-                    <label class="col-md-3">프로젝트 카테고리</label>
-                    <div class="btn-group btn-group-toggle col-md-9" data-toggle="buttons">
+                    <label class="col-md-4"><strong>프로젝트 카테고리</strong></label>
+                    <div class="btn-group btn-group-toggle col-md-8" data-toggle="buttons">
                         <label class="btn btn-outline-primary active" style="margin-right: 5px">
                             <input type="radio" name="projectCategory" id="projectCategory1" value="1" checked=""> 개발
                         </label>
@@ -81,9 +118,26 @@
                     </div>
                 </div>
 
+                <div class="field item form-group row">
+                    <label class="col-form-label col-lg-4 col-md-4 label-align" style="text-align: left">예상진행기간<span
+                            class="required">*</span></label>
+                    <div class="col-lg-8 col-md-8">
+                        <div class="input-group mb-3">
+                            <input type="text" id="prePeriod" name="prePeriod" class="form-control"
+                                   placeholder="ex) 100" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">일</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 프로젝트 정보 -->
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">프로젝트 정보</h4></div>
                 <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
                     <div class="x_title">
-                        <label>프로젝트 상세정보 입력</label>
+                        <label>프로젝트 상세정보</label>
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
                                 <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -172,6 +226,8 @@
                         <div id="editor-one" name="projectDetail" class="editor-wrapper"></div>
 
                         <textarea name="projectDetail" id="projectDetail" style="display:none;"></textarea>
+
+                        <textarea name="detailHtml" id="detailHtml" style="display:none;"></textarea>
                         <br/>
                         <b id="fileEA">0</b><span>개의 문서 파일 선택</span>
                         <div class="ln_solid"></div>
@@ -179,32 +235,19 @@
                     </div>
                 </div>
 
-                <div class="field item form-group row">
-                    <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">예상진행기간<span
-                            class="required">*</span></label>
-                    <div class="col-lg-8 col-md-8">
-                        <div class="input-group mb-3">
-                            <input type="text" id="prePeriod" name="prePeriod" class="form-control"
-                                   placeholder="ex) 100" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text">일</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+                <!-- 추가 정보 -->
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">추가 정보</h4></div>
                 <div class="form-group control-group row">
-                    <label class="control-label col-md-3 col-sm-3 ">Skill Tags</label>
-                    <div class="col-md-9 col-sm-9 ">
-                        <input id="tags_1" type="text" class="tags form-control" value="example1"/>
+                    <label class="control-label col-md-4 col-sm-4 ">Skill Tags</label>
+                    <div class="col-md-8 col-sm-8 ">
+                        <input id="tags_1" type="text" class="tags form-control" value=""/>
                         <div id="suggestions-container"
                              style="position: relative; float: left; width: 250px; margin: 10px;">
                             <input type="hidden" id="skillHashTag" name="skillHashTag">
                         </div>
                     </div>
                 </div>
-
-
 
                 <div class="form-group">
                     <label class="control-label">미팅 방식</label>
@@ -247,6 +290,8 @@
                     </select>
                 </div>
 
+
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">모집 요건</h4></div>
                 <div class="field item form-group row">
                     <label class="col-form-label col-lg-4 col-md-4  label-align" style="text-align: left">신청서 제출 마감일
                         <span class="required">*</span></label>
@@ -279,26 +324,46 @@
 
     </div>
 </div>
+
+</body>
+
 <script>
+    // 등록 전 유효성 검사 필수항목
+    let validator = new FormValidator({"events": ['blur', 'input', 'change']}, document.forms[0]);
+    // on form "submit" event
+    document.forms[0].onsubmit = function (e) {
 
-    $('#addProject-btn').on('click', function () {
-        let projectDetail = $('#editor-one').text();
-        $('#projectDetail').val(projectDetail);
-
-        $('#skillHashTag').val($('.tag span').text());
-
-        $('#addProjectForm').submit();
-    })
+        let submit = true,
+            validatorResult = validator.checkAll(this);
+        return !!validatorResult.valid;
+    };
 
     // 날짜 선택 ( 최소날짜 오늘로 설정 )
     let today = new Date().toISOString().substring(0, 10);
     $("#preStartDate").attr('min', today);
     $("#applicationDeadline").attr('min', today);
 
+    $('#addProject-btn').on('click', function () {
+
+        // let imgChild = ;
+
+        $.each($('#editor-one').children('img'),function (index, elem) {
+            alert($(elem).attr('src','/resources/uploadImg/'+$(elem).data('filename')))
+        })
+
+
+        $('#detailHtml').val($('#editor-one').html());
+        $('#projectDetail').val($('#editor-one').text())
+
+
+        $('#skillHashTag').val($('.tag span').text());
+
+        $('#addProjectForm').submit();
+    })
+
     // 신청자 질문사항 추가
     function addQuestion(elem) {
         let questionCount = $('div[class=applicantQuestion]').length;
-        alert("addQuestion" + questionCount)
         let html = `<div class="applicantQuestion">
                         <input type="text" class="form-control col-lg-10 col-md-10"/>
                         <div class="col-lg-1 col-md-1 delete-question-btn" onclick="javascript:deleteQuestion(this)">
@@ -337,7 +402,6 @@
         target.remove();
 
         let questionCount = $('div[class=applicantQuestion]').length;
-        alert("deleteQuestion" + questionCount)
         if (questionCount == 2) {
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').css('display', 'block');
             $('div[class=applicantQuestion]').children('div[class*=add-question-btn]').attr('onclick', 'javascript:addQuestion(this)');
@@ -361,18 +425,8 @@
 
     }
 
-    // 등록 전 유효성 검사 필수항목
-    let validator = new FormValidator({"events": ['blur', 'input', 'change']}, document.forms[0]);
-    // on form "submit" event
-    document.forms[0].onsubmit = function (e) {
-        let submit = true,
-            validatorResult = validator.checkAll(this);
-        console.log(validatorResult);
-        return !!validatorResult.valid;
-    };
 
     let sel_files = [];
-
 
     $("#file-upload").on("change", function handleImgsFilesSelect(e) {
         let files = e.target.files;
@@ -388,13 +442,12 @@
         $('#fileEA').text('0')
 
         filesArr.forEach(function (f) {
-            ;
             if (f.type.match("image.*")) {
                 sel_files.push(f);
 
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    let img_html = "<img src=\"" + e.target.result + "\" />";
+                    let img_html = "<img src=\"" + e.target.result + "\" data-filename="+f.name+"\" />";
                     $("#editor-one").append(img_html);
                 }
                 reader.readAsDataURL(f);
@@ -428,7 +481,58 @@
     }
 
 
+    $('#followquick').animate({'top': $(document).scrollTop() + 100 + 'px'});
+    //follow quick menu
+    $(window).scroll(function () {
+        $("#followquick").stop();
+        $('#followquick').animate({'top': $(document).scrollTop() + 100 + 'px'}, 700);
+
+    });
+
+    $('form').change(function () {
+
+        if ($('#input-check-1').attr('class') == 'form-control') {
+            if ($('input[name=projectName]').val() != '' && $('#preStartDate').val() != '') {
+                $('#input-check-1').addClass('is-valid')
+                $('#input-check-1').fadeOut();
+                $('#input-check-1').fadeIn();
+            }
+        }
+
+        if ($('#input-check-2').attr('class') == 'form-control') {
+            if ($('#prePeriod').val() != '') {
+                $('#input-check-2').addClass('is-valid')
+                $('#input-check-2').fadeOut();
+                $('#input-check-2').fadeIn();
+            }
+        }
+
+
+        if ($('#input-check-3').attr('class') == 'form-control') {
+            if ($('#editor-one').text() != '') {
+                $('#input-check-3').addClass('is-valid')
+                $('#input-check-3').fadeOut();
+                $('#input-check-3').fadeIn();
+            }
+        }
+
+        if ($('#input-check-4').attr('class') == 'form-control') {
+            if ($('.tag').text() != '') {
+                $('#input-check-4').addClass('is-valid')
+                $('#input-check-4').fadeOut();
+                $('#input-check-4').fadeIn();
+            }
+        }
+
+        if ($('#input-check-5').attr('class') == 'form-control') {
+            if ($('#applicationDeadline').val() != '') {
+                $('#input-check-5').addClass('is-valid')
+                $('#input-check-5').fadeOut();
+                $('#input-check-5').fadeIn();
+            }
+        }
+    })
+
 </script>
 
-</body>
 </html>

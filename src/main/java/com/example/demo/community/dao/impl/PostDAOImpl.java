@@ -96,9 +96,9 @@ public class PostDAOImpl implements PostDAO {
         return sqlSession.selectOne("postMapper.getTotalCount", searchVO);
     }
 
-//    @Override
-//    public int plusViewCnt(int seq){
-//
-//        return  sqlSession.update("postMapper.plusViewCnt", seq);
-//    }
+    @Override
+    public int plusViewCnt(int postNo){
+
+        return  sqlSession.update("postMapper.plusViewCnt", postNo);
+    }
 }

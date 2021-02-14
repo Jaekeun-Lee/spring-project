@@ -1,5 +1,6 @@
 package com.example.demo.project.controller;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.util.SecurityUtils;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 
@@ -81,6 +83,13 @@ public class ProjectRest {
     @PostMapping("/updateProjectLeader")
     public int updateProjectLeader(@RequestBody Map<String, Object> updateProjectLeaderMap, HttpSession session) {
         return projectService.updateProjectLeader(updateProjectLeaderMap) == 1 ? sessionUpdateUtil(session) : 0;
+    }
+
+    @GetMapping("/getReplyList")
+    public List<ReplyVO> getReplyList(@RequestParam("projectNo") int projectNo,
+                                      @ModelAttribute("currentPage") SearchVO searchVO) {
+
+        return projectService.getReplyList(searchVO, projectNo);
     }
 
     private int sessionUpdateUtil(HttpSession session) {

@@ -1,5 +1,6 @@
 package com.example.demo.project.dao;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dto.*;
 import com.example.demo.project.vo.MyProjectVO;
@@ -59,6 +60,9 @@ public interface ProjectDAO {
     //리뷰 작성
     int addReview(List<AddReviewDTO> addReviewDTOList);
 
-
     int updateTodoStatus(Map updateTodoStatusMap);
+
+    int getReplyTotalCount(Map<String, Object> getProjectMap);
+
+    List<ReplyVO> getReplyList(Map<String, Object> map);
 }

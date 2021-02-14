@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-
     <style>
 
         .category-box {
@@ -21,7 +19,6 @@
 </head>
 <nav th:include="topToolBar.html"></nav>
 <body style="height: 3000px;">
-
 <div class="container">
     <header>
 
@@ -37,21 +34,21 @@
             <h3>회원관리</h3>
             <a href="/login" class="btn btn-outline-primary">로그인</a>
             <a href="/logout" class="btn btn-outline-primary">로그아웃</a>
-            <a href="/admin/member/list" class="btn btn-outline-primary">전체회원목록</a>
-            <a href="/admin/member/list/black" class="btn btn-outline-primary">블랙리스트</a>
-            <a href="/admin/member/list/dormant" class="btn btn-outline-primary">비 활성화 회원 목록</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member/list" class="btn btn-outline-primary">전체회원목록</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member/list/black" class="btn btn-outline-primary">블랙리스트</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/member/list/dormant" class="btn btn-outline-primary">비 활성화 회원 목록</a>
             <a href="/port/addPort" class="btn btn-outline-primary"> 포트폴리오 등록 </a>
             <a href="/port/portList" class="btn btn-outline-primary"> 포트폴리오 목록조회 </a>
             <a href="/port/getPort?portNo=75" class="btn btn-outline-primary"> 포트폴리오 조회 </a>
         </div>
-        <div class="card category-box col-lg-3">
+        <div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" class="card category-box col-lg-3">
             <h3>커뮤니티</h3>
             <a href="/comm/addPost" class="btn btn-outline-primary"> 글 작성 </a>
             <a href="/comm/getPostList" class="btn btn-outline-primary"> 글 목록 </a>
             <a href="/comm/getPost?postNo=2" class="btn btn-outline-primary"> 글 조회 </a>
             <a href="/comm/updatePost?postNo=2" class="btn btn-outline-primary"> 글 수정 </a>
         </div>
-        <div class="card category-box col-lg-3">
+        <div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="card category-box col-lg-3">
             <h3>프로젝트</h3>
             <a href="/project/addProject" class="btn btn-outline-primary"> 프로젝트 등록 </a>
             <a href="/project/getProject?projectNo=1" class="btn btn-outline-primary"> 프로젝트 조회 </a>

@@ -1,5 +1,6 @@
 package com.example.demo.project.service;
 
+import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
 import com.example.demo.project.dto.*;
 import com.example.demo.project.vo.MyProjectVO;
@@ -56,7 +57,7 @@ public interface ProjectService {
     //todolist 상태변경
     int updateTodoStatus(Map updateTodoStatusMap);
 
-
+    List<ReplyVO> getReplyList(SearchVO searchVO, int projectNo);
 
 
     //파일 다운로드 - 보류

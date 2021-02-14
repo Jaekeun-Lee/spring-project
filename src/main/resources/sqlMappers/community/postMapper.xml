@@ -176,11 +176,11 @@
     </select>
 
 <!--    조회수 +1-->
-<!--    <update id="plusViewCnt"    parameterType="int">-->
-<!--        UPDATE  POST-->
-<!--        SET ViewCnt = ViewCnt +1-->
-<!--        WHERE SEQ = #{SEQ}-->
-<!--    </update>-->
+    <update id="plusViewCnt"    parameterType="int">
+        UPDATE  POST
+        SET View_Cnt = View_Cnt +1
+        WHERE POST_NO = #{postNo}
+    </update>
 
 
 </mapper>

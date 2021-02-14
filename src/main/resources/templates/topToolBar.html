@@ -8,12 +8,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="navbar-collapse collapse" id="navbarColor01" style="">
+            <div class="collapse navbar-collapse" id="navbarColor01" style="">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="true"
-                           aria-expanded="false">프로젝트</a>
+                           aria-expanded="false">PROJECT</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/project/addProject">프로젝트 등록</a>
                             <a class="dropdown-item" href="/project/getProjectList">프로젝트 찾기</a>
@@ -63,7 +63,7 @@
                         <li id="nav-profile-box" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="true" aria-expanded="false">
-                                <img id="nav-profile-image" th:src="|/resources/img/${session.user.profileImg}|"
+                                <img id="nav-profile-image" th:src="|/resources/uploadImg/${session.user.profileImg}|"
                                      alt="profile_img">
                                 <span id="nav-login-id" th:text="${session.user.userId}"></span>
                             </a>
