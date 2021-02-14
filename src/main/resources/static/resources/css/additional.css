@@ -82,6 +82,7 @@ label > a:hover {
 
 .member-info {
     border: 1px solid #777777;
+    border-radius: 2px;
 }
 
 #empty-reply {
