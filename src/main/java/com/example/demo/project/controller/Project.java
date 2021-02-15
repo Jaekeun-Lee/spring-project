@@ -9,6 +9,8 @@ import com.example.demo.project.dto.AddReviewDTO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.vo.ProjectVO;
+import com.example.demo.projectApplicant.service.ProjectApplicantService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +46,10 @@ public class Project {
     @Autowired
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
+    
+    @Autowired
+	@Qualifier("projectApplicantServiceImpl")
+	private ProjectApplicantService projectApplicantService;
 
     @Autowired
     @Qualifier("fileUploadDAO")
@@ -79,6 +85,7 @@ public class Project {
                              HttpSession session) throws Exception{
 
         ProjectVO addProjectResultVO = projectService.addProject(projectVO);
+        projectApplicantService.addProApplicant(projectVO);
 
         if (request.getFiles("files").get(0).getSize() != 0) {
             List<MultipartFile> fileList = request.getFiles("files");
