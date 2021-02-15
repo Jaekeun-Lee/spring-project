@@ -38,7 +38,7 @@
     }
 /*-----------------------------------------------------------------------*/
     .reply-box{
-    
+
     	margin:0 auto;
         display: grid;
 
@@ -206,8 +206,8 @@
 <title>게시물 상세조회</title>
 </head>
 <body>
-<form>
-    <div class="container">
+<form class="container">
+<!--    <div class="container">-->
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
     <input type="hidden"    name="postNo"   id="postNo"   th:value="${postVO.postNo}">
 <!--    <div th:text="${postVO.postNo}">번호</div>-->
@@ -223,12 +223,12 @@
         <a th:href="@{/comm/deletePost(postNo=${postVO.postNo})}">삭제</a>
 
     </div>
-    </div>
+<!--    </div>-->
 </form>
 
 <!--에이작스 포스트방식으로 댓글 리퀘스트-->
-<form>
-    <div class="reply-box">
+<form class="reply-box">
+<!--    <div class="reply-box">-->
         <h5 id="reply-list">댓글</h5>
         <div th:each="replyVO:${postVO.postReply}" class="card-secondary mb-3"    style="...">
             <input type="hidden"    name="replyNo"  id="replyNo"    th:value="${replyVO.replyNo}">
@@ -238,18 +238,30 @@
                 <p th:text="${#dates.format(replyVO.regDate, 'yyyy-MM-dd')}"    class="card-text"></p>
                 <button type="button"   id="update-reply-btn"   class="btn btn-primary">수정</button>
                 <button type="button" id='delete-reply-btn' class="btn btn-primary">삭제</button>
-            </div>  
+            </div>
         </div>
 
-       
-        <div class="card-header">댓글다는사람의 로그이정보 띄워줘야함</div>
-        <input class="form-control"   id="replyContent"   rows="3"    style="..."></input>
-        <div class="card-header"    style="...">
+    <div class="form-group">
+        <div class="card-header">
+            <img class="profile-image float-left"
+                 th:src="|/resources/uploadImg/${session.user.profileImg}|"
+                 alt="profile_img">
+            <h5 class="float-left mt-1 ml-2 mb-0" th:text="${session.user.userId}"></h5>
+            <div class="float-right">
+                <div class="btn-group" role="group" aria-label="Third group">
+                    <a id="kakao" href="javascript:;" class="btn btn-secondary"><i
+                            class="fa fa-comment"></i></a>
+                    <a id="facebook" class="btn btn-secondary"><i class="fa fa-facebook"></i></a>
+                    <a id="twitter" class="btn btn-secondary"><i class="fa fa-twitter"></i></a>
+                    <a id="share" class="btn btn-secondary"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <input class="form-control"   id="replyContent"   rows="3"    style="..."></input>
             <button type="button"   id="add-reply-btn"  class="btn btn-primary">작성</button>
         </div>
-        
-
     </div>
+
+<!--    </div>-->
 </form>
 
 </body>
