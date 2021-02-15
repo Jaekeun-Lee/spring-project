@@ -99,9 +99,11 @@
 <!--        <button type="button"   id="update-reply-btn"   class="btn btn-primary">수정</button>-->
 
 <!--    <input type="submit"    value="완료">-->
+        <a align="right" th:href="@{/comm/getPost(postNo=${postVO.postNo})}">취소</a>
     </div>
+
 </form>
-<a th:href="@{/comm/getPost(postNo=${postVO.postNo})}">취소</a>
+
 </table>
 </body>
 </html>
