@@ -17,7 +17,7 @@
         <result property="portThumbnailImg" column="PORT_THUMBNAIL_IMAGE" jdbcType="VARCHAR"/>
 
         <!--association-->
-        <association property="portSkillTag" column="portfolio_no" select="getHashTag"/>
+<!--        <association property="portSkillTag" column="portfolio_no" select="getHashTag"/>-->
 
         <!--//TODO collection 구현해야합니다~-->
 <!--        <collection property="portFileName" column="portfolio_no" select=""/>-->
@@ -143,7 +143,7 @@
         FROM portfolio
     </select>
 
-    <select id="getHashTag" resultType="portfolioVO">
+    <!--<select id="getHashTag" resultType="portfolioVO">
         SELECT HASHTAG
         FROM HASHTAG
         WHERE PORTFOLIO_NO = #{portfolio_no}
@@ -158,7 +158,7 @@
     <insert id="addHashTag" parameterType="portfolioVO">
         INSERT INTO HASHTAG ( HASHTAG_NO, HASHTAG, PORTFOLIO_NO)
         VALUES (SEQ_HASHTAG_NO.nextval, #{portSkillTag}, #{portNo} )
-    </insert>
+    </insert>-->
 
    <update id="updateApplicantStatus" parameterType="portfolioVO">
         UPDATE APPLICANT

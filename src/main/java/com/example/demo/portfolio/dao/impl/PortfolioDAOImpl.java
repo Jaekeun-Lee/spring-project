@@ -30,11 +30,12 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     @Override
     public int addPort(PortfolioVO addPort){
 
-        sqlSession.insert("portfolioMapper.addPort", addPort);
+
         if (addPort.getProjectNo() != 0){
             sqlSession.update("portfolioMapper.updateApplicantStatus",addPort);
         }
-        return sqlSession.insert("portfolioMapper.addHashTag", addPort);
+        return sqlSession.insert("portfolioMapper.addPort", addPort);
+//        return sqlSession.insert("portfolioMapper.addHashTag", addPort);
     }
 
     //내부 포트폴리오 등록
@@ -50,7 +51,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     @Override
     public int updatePort(PortfolioVO updatePort){
-        sqlSession.update("portfolioMapper.updateHashTag",updatePort);
+//        sqlSession.update("portfolioMapper.updateHashTag",updatePort);
         return sqlSession.update("portfolioMapper.updatePort", updatePort);
     }
 
@@ -61,7 +62,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     @Override
     public PortfolioVO getPort(int portNo){
-        sqlSession.selectOne("portfolioMapper.getHashTag",portNo);
+//        sqlSession.selectOne("portfolioMapper.getHashTag",portNo);
         return sqlSession.selectOne("portfolioMapper.getPort", portNo);
     }
 
