@@ -35,6 +35,13 @@
 		$("#currentPage").val(currentPage)
 		$("form").attr("method" , "POST").attr("action" , "/applicant/appliedProjectList").submit();
 	}
+	
+	$(function(){
+    	$('#add-review').on("click", function(){
+    		alert('hi');
+    	});
+    });
+	
 	</script>
 	<style>
 	.box-radio-input input[type="radio"]{
@@ -98,7 +105,7 @@
 		<center><h4>신청한 프로젝트가 없습니다</h4><hr></center>
 	</div>
 	
-	<div id="card_2" th:each="applicantVO : ${appliedList}" style="height:150px;">
+	<div class="project-box" th:each="applicantVO : ${appliedList}" style="width:100%; height:200px;">
        <div class="card h-100 ">
          <div class="card-body" style="overflow: hidden;">
          	<div style="float: left; width: 80%;">
@@ -111,7 +118,7 @@
 			</div>
 			<div th:if="${applicantVO.applicantStatus}==6">
 				<div id="deleteButton" style="float: right; width: 17%;">
-					<button id="updateApplicant_5_btn" type="button" class="btn btn-success" style="width:70px;">리뷰작성</button>
+					<button id="add-review" type="button" class="btn btn-success">리뷰작성</button>
 					<div id="applicantNo" style="display:none" th:text="${applicantVO.applicantNo}"/>
 				</div>
 			</div>
