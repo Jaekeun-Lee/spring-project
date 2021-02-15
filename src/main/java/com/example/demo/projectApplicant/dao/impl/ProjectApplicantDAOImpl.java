@@ -81,4 +81,9 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 		return sqlSession.selectOne("applicantMapper.appliedTotalCount", searchVO);
 	}
 
+	@Override
+	public void addProApplicant(ProjectVO projectVO) {
+		sqlSession.insert("applicantMapper.addProApplicant",projectVO);
+	}
+
 }

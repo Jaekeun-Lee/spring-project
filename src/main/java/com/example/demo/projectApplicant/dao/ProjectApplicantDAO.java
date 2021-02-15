@@ -17,6 +17,8 @@ public interface ProjectApplicantDAO {
 	ProjectVO getProject(int projectNo);
 	
 	void addApplicant(ApplicantVO applicantVO);
+	
+	void addProApplicant(ProjectVO projectVO);
 
 	ApplicantVO getApplicant(int applicantNo);
 	

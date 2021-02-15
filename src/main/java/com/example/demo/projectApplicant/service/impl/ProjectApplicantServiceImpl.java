@@ -87,4 +87,9 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 		projectapplicantDAO.uploadFile(hm);
 	}
 
+	@Override
+	public void addProApplicant(ProjectVO projectVO) {
+		projectapplicantDAO.addProApplicant(projectVO);
+	}
+
 }

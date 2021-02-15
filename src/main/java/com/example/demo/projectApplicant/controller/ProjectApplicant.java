@@ -133,7 +133,6 @@ public class ProjectApplicant {
 										@ModelAttribute("searchVO") SearchVO searchVO,
 										Model model,
 										HttpSession session) {
-		System.out.println("@@@@@업데이트");
 		updateApplicantStatusDTO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
 		int applicantNo = updateApplicantStatusDTO.getApplicantNo();
 		
@@ -145,7 +144,6 @@ public class ProjectApplicant {
         if (memberVO != null) {
             session.setAttribute("user", memberVO);
         }
-        System.out.println("@@업데이트전");
         
         searchVO.setPageSize(30);
 		searchVO.setUserId(((MemberVO)session.getAttribute("user")).getUserId());
