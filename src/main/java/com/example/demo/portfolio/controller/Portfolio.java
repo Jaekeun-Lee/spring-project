@@ -27,7 +27,7 @@ import java.util.Map;
 @RequestMapping("port/*")
 public class Portfolio {
 
-    private final String PATH = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
+    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
 
     @Autowired
     @Qualifier("portfolioServiceImpl")

@@ -27,7 +27,7 @@ public class Profile {
     private final MemberService memberService;
     private final ProfileService profileService;
 
-    private final String PATH = "C:\\study\\spring-project\\src\\main\\resources\\static\\resources\\img\\";
+    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
 
 
     //기본정보 등록

@@ -91,7 +91,8 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Override
     public int updateProjectLeader(Map<String, Object> updateProjectLeaderMap) {
         sqlSession.update(NAMESPACE + "updateProjectLeader", updateProjectLeaderMap);
-        return sqlSession.update(NAMESPACE + "updateMemberProjectToNull", updateProjectLeaderMap.get("beforeLeaderId"));
+        sqlSession.update(NAMESPACE + "updateMemberProjectToNull", updateProjectLeaderMap.get("beforeLeaderId"));
+        return sqlSession.update(NAMESPACE + "updateApplicantStatus", updateProjectLeaderMap);
     }
 
     @Override

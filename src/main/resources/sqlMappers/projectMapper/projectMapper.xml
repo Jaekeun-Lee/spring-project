@@ -258,6 +258,12 @@
 		WHERE USER_ID = #{value}
 	</update>
 
+	<update id="updateApplicantStatus" parameterType="hashMap">
+		UPDATE APPLICANT
+		SET APPLICANT_STATUS = 6
+		WHERE PROJECT_NO = #{projectNo} AND APPLICANT_STATUS = 5;
+	</update>
+
 	
 	<insert id="addEndProjectCount" parameterType="hashMap">
 		INSERT INTO END_VOTE (END_VOTE_NO, USER_ID, PROJECT_NO)
