@@ -273,7 +273,7 @@
 
 	<update id="updateProjectNoOfTeamMembers" parameterType="hashMap">
 		UPDATE MEMBER
-		SET PROJECT_NO = REPLACE(PROJECT_NO,#{projectNo},NULL);
+		SET PROJECT_NO = REPLACE(PROJECT_NO,#{projectNo},NULL)
 	</update>
 
 
