@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/resources/css/additional.css">
     <title>Welcome</title>
     <style>
 
@@ -23,31 +24,34 @@
     <header>
 
     </header>
-    <h1 style="margin-top :100px;">image</h1>
+    <!--<div style="margin-top :100px;"/> -->
+	<img id="title-image" th:src="@{/resources/img/title.png}"/>
     <hr>
-
-
-
-		<div class="welcome-project-box" th:each="project : ${projectList}" >
-			<div style="float: left; width: 80%;">
-					<div style="float: left;">
+	<div class="col-sm-6 main-block-left">
+		<h4><i class="glyphicon glyphicon-file"></i> 프로젝트</h4>
+		<div class="card border-light mb-3">
+				<div class="welcome-project-box" th:each="project : ${projectList}" >
+					<div style="float: left; width: 100%;">
 						<a th:href="@{/project/getProject(projectNo=${project.projectNo})}"
-	                       th:text="${project.projectName}"></a>
+						th:text="${project.projectName}"></a>
+						<div th:text="${project.leaderId}" style="float:right; color:#A4A4A4;"/>
 					</div>
-			</div>
-		</div>
-		
-
-		
-		<div class="welcome-community-box" th:each="postVO : ${postList}" >
-			<div style="float: left; width: 80%;">
-				<div style="float: left;">
-					<a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
-					th:text="${postVO.postName}"></a>
 				</div>
+		</div>
+	</div>
+		
+	<div class="col-sm-6 main-block-right">
+	<h4><i class="fa fa-comment"></i> 커뮤니티</h4>
+	<div class="card border-light mb-3">
+		<div class="welcome-community-box" th:each="postVO : ${postList}" >
+			<div style="float: left; width: 100%;">
+				<a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
+				th:text="${postVO.postName}"></a>
+				<div th:text="${postVO.userId}" style="float:right; color:#A4A4A4;"/>
 			</div>
 		</div>
-		
+	</div>
+	</div>
     
 </div>
 </body>
