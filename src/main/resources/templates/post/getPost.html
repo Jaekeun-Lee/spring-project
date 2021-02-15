@@ -21,10 +21,10 @@
         /*grid-template-columns: 100px  2fr  1fr;*/
 
 
-        grid-template-rows:10px 10px 30px 10px 500px;
+        grid-template-rows:10px 50px 30px 10px 500px;
         /*grid-template-rows: 200px  1fr 1fr;*/
 
-        row-gap: 10px;
+        row-gap: 8px;
 
         grid-template-areas:
     "header"
@@ -32,7 +32,7 @@
     "button";
     }
 
-    textarea{
+    #postContent{
         width: 1150px;
         height: 500px;
         resize: none;
@@ -65,8 +65,6 @@
         "main"
         "button";
     }
-
-
 
     </style>
 
@@ -212,12 +210,12 @@
 <!--<form th:action="@{/post/getPost}" th:method="get">-->
     <input type="hidden"    name="postNo"   id="postNo"   th:value="${postVO.postNo}">
 <!--    <div th:text="${postVO.postNo}">번호</div>-->
-    <div th:text="${postVO.postName}">제목</div>
+    <div class="h2" th:text="${postVO.postName}">제목</div>
     <div th:text="${postVO.userId}">작성자</div>
-    <div th:text="${#dates.format(postVO.regDate, 'yyyy-MM-dd')}">작성날짜</div>
+    <div id="postdate" th:text="${#dates.format(postVO.regDate, 'yyyy-MM-dd')}">작성날짜</div>
 <!--    <div th:text="${postVO.postContent}">내용</div>-->
-    <textarea cols="120" rows="30" name="postContent"  th:text="${postVO.postContent}" readonly>내용</textarea><br>
-
+	<div class="jumbotron" id="postContent" th:text="${postVO.postContent}" />
+	
     <div class="get_post_btn" align="right">
         <a th:href="@{/comm/getPostList}">목록</a>
         <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>

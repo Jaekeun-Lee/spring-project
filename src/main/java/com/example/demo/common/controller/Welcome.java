@@ -62,7 +62,6 @@ public class Welcome {
         }
 
         Map<String,Object> map = postService.getPostList(searchVO);
-        System.out.println("@@@?"+map.get("list"));
 
         model.addAttribute("postList",map.get("list"));
         model.addAttribute("projectList", projectList);
