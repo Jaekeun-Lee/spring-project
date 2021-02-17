@@ -36,51 +36,51 @@ public class ProjectApplicantDAOTest {
 	}
 	
 	//@Test
-	public void getProject(){
-		
-		ProjectVO projectVO = new ProjectVO();
-		
-		projectVO = projectApplicantService.getProject(3);
-		System.out.println(projectVO);
-		
-		Assert.assertEquals("user02", projectVO.getLeaderId());
-
-	}
+//	public void getProject(){
+//		
+//		ProjectVO projectVO = new ProjectVO();
+//		
+//		projectVO = projectApplicantService.getProject(3);
+//		System.out.println(projectVO);
+//		
+//		Assert.assertEquals("user02", projectVO.getLeaderId());
+//
+//	}
 	
 	//@Test
-	public void addProject() {
+//	public void addProject() {
 		
 		//Change the project number to sequence... : hyein
 		//Check userVO projectNO : hyein
-		ProjectVO projectVO = new ProjectVO();
-		Date deadLine = new Date(2021-01-10);
-		Date preStartDate = new Date(2021-01-11);
-		Date today = new Date();
-		
-		
-		projectVO.setApplicantQuestionA("test질문A");
-		projectVO.setApplicantQuestionB("test질문B");
-		projectVO.setApplicantQuestionC("test질문C");
-		projectVO.setApplicationDeadline(deadLine);
-		projectVO.setLeaderId("user02");
-		projectVO.setMeetingLocation("서울시 중랑구");
-		projectVO.setMeetingMethod(2);
-		projectVO.setPrePeriod(3);
-		projectVO.setPreStartDate(preStartDate);
-		projectVO.setProgressClassification(2);
-		projectVO.setProjectCategory(1);
-		projectVO.setProjectName("기존 유지 보수 프로젝트");
-		projectVO.setProjectNo(3);
-		projectVO.setRegDate(today);
-		projectVO.setRecruitmentMemberCnt(4);
-		projectVO.setProjectDetail("test 상세 정보");
-		
-		projectApplicantService.addProject(projectVO);
-		
-		projectVO = projectApplicantService.getProject(3);
-		
-		Assert.assertEquals("user02", projectVO.getLeaderId());
-	}
+//		ProjectVO projectVO = new ProjectVO();
+//		Date deadLine = new Date(2021-01-10);
+//		Date preStartDate = new Date(2021-01-11);
+//		Date today = new Date();
+//		
+//		
+//		projectVO.setApplicantQuestionA("test질문A");
+//		projectVO.setApplicantQuestionB("test질문B");
+//		projectVO.setApplicantQuestionC("test질문C");
+//		projectVO.setApplicationDeadline(deadLine);
+//		projectVO.setLeaderId("user02");
+//		projectVO.setMeetingLocation("서울시 중랑구");
+//		projectVO.setMeetingMethod(2);
+//		projectVO.setPrePeriod(3);
+//		projectVO.setPreStartDate(preStartDate);
+//		projectVO.setProgressClassification(2);
+//		projectVO.setProjectCategory(1);
+//		projectVO.setProjectName("기존 유지 보수 프로젝트");
+//		projectVO.setProjectNo(3);
+//		projectVO.setRegDate(today);
+//		projectVO.setRecruitmentMemberCnt(4);
+//		projectVO.setProjectDetail("test 상세 정보");
+//		
+//		projectApplicantService.addProject(projectVO);
+//		
+//		projectVO = projectApplicantService.getProject(3);
+//		
+//		Assert.assertEquals("user02", projectVO.getLeaderId());
+//	}
 	
 	//@Test
 	public void getApplicant() {

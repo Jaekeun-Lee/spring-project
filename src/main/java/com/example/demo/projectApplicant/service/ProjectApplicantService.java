@@ -11,10 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProjectApplicantService {
-	
-	void addProject(ProjectVO projectVO);
-	
-	ProjectVO getProject(int projectNo);
 
     void addApplicant(ApplicantVO applicantVO);
     

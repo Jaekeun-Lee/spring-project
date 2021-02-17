@@ -32,13 +32,7 @@
 				<collection property="teamMember" 			column="project_no" javaType="java.util.ArrayList" ofType="memberVO" select="getProjectMemberByProjectNo"/>
 			</association>
 	</resultMap>
-
-
-	<resultMap id="testSelectMap" type="com.example.demo.projectApplicant.vo.TestHashVO">
-		<result property="hashNo"	    column="hashtag_no"          jdbcType="NUMERIC"/>
-		<result property="hashTag"    column="hashtag"      jdbcType="VARCHAR"/>
-	</resultMap>
-
+	
 	<resultMap id="toDoSelectMap" type="com.example.demo.project.vo.TodoVO">
 	        <result property="todoNo"	    column="todo_no"          jdbcType="NUMERIC"/>
 	        <result property="projectNO"    column="project_no"      jdbcType="NUMERIC"/>

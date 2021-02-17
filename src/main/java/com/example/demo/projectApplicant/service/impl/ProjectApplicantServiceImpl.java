@@ -30,16 +30,6 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	public ProjectApplicantServiceImpl() {
 		System.out.println("::"+getClass()+".default Constructor Call....");
 	}
-	
-	@Override
-	public void addProject(ProjectVO projectVO) {
-		projectapplicantDAO.addProject(projectVO);
-	}
-
-	@Override
-	public ProjectVO getProject(int projectNo) {
-		return projectapplicantDAO.getProject(projectNo);
-	}
 
 	@Override
 	public void addApplicant(ApplicantVO applicantVO) {
