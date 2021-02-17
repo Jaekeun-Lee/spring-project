@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
-
     <link href="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/resources/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -19,26 +18,8 @@
             crossorigin="anonymous">
     </script>
 
-    <script>
-        $(function () {
-            $("#login_form").keypress(function (e) {
-                if (e.keyCode === 13) {
-                    loginReq();
-                }
-            });
-        });
-
-    </script>
-
-    <script>
-        $(document).ready(function (){
-            console.log("load page...")
-
-
-        });
-    </script>
 </head>
-<body class="login">
+<body class="login" th:fragment="login">
 <div>
     <div class="login_wrapper">
         <div class="animate form v">
@@ -57,9 +38,10 @@
                             <span th:if="${param.errorCd != null && #strings.equals(param.errorCd, 'NOT_FOUND_USER')}" th:text="#{not.found.user}"></span>
                         </div>
                         <div>
-                            <a class="btn btn-default submit" href="javascript:loginReq()">Log in</a>
-
-                            <a class="reset_pass" href="/findPassword1">Lost your password?</a>
+                            <a class="btn btn-default m-0" href="/findPassword1">Lost your password?</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-secondary w-100" href="javascript:loginReq()">Log in</a>
                         </div>
 
                         <div class="clearfix"></div>
@@ -69,9 +51,6 @@
                             </p>
                             <div class="clearfix"></div>
                             <br>
-                            <div>
-                                <h1><i class="fa fa-paw"></i> Spring Matching!</h1>
-                            </div>
                         </div>
                     </div>
                 </form>
@@ -79,11 +58,19 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $("#login_form").keypress(function (e) {
+            if (e.keyCode === 13) {
+                loginReq();
+            }
+        });
+    });
 
+</script>
 <script type="text/javascript">
 
     function loginReq() {
-        // console.log("aaaa")
         $("#login_form").submit();
     }
 

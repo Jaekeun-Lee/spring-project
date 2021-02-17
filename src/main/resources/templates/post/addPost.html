@@ -1,297 +1,116 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-
 <head>
 
     <meta charset="UTF-8">
-<!--    <div th:include="topToolBar.html"></div>-->
-    <!--    <link rel="stylesheet" href="/css/admin.css" type="text/css">-->
-<!--    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+    <link rel="stylesheet" href="/resources/css/additional.css" type="text/css">
 
     <style>
-        .container {
-            display: grid;
-
-            /*grid-template-columns: 200px;*/
-            /*grid-template-columns: 1fr 1fr 1fr;*/
-            /*grid-template-columns: 100px  2fr  1fr;*/
-
-
-            grid-template-rows:10px 30px 500px;
-            /*grid-template-rows: 200px  1fr 1fr;*/
-
-            row-gap: 10px;
-
-            grid-template-areas:
-                "header"
-                "main"
-                "button";
-
-
-            /*    position: center;*/
-            /*    top: 0;*/
-            /*    left: 0;*/
-            /*    right: 0;*/
-            /*    bottom: 0;*/
-            /*    margin: 2.5% 30% 10%;*/
-            /*    width: 600px;*/
+        .panel-heading, .note-toolbar {
+            text-align: center;
         }
-
-        a {
-            color: red;
-        }
-
-        textarea {
-            width: 1150px;
-            height: 500px;
-            resize: none;
-        }
-
     </style>
 </head>
 <body>
-<div th:include="topToolBar.html"></div>
-<div class="container">
-    <form id="addPostForm" th:action="@{/comm/addPost}" th:method="post" enctype="multipart/form-data">
-
-        <!--    <div class="item">A</div>-->
-        <!--    <div class="item">B</div>-->
-        <!--    <div class="item">C</div>-->
-<!--        <br>-->
-<!--        <input type="text" placeholder="제목을 입력하세요." name="postName">-->
-        <!--        <textarea type="resize: both;" cols="80" rows="40"  placeholder="내용을 입력하세요." name="postContent"></textarea>-->
-        <!--        <input multiple type="file" name="files">-->
-
-        <!--    ----------------------------------------------------------------------------------------------------->
-        <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
-            <div class="x_title"><br>
-                <input type="text" placeholder="제목을 입력하세요." name="postName">
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i
-                                class="fa fa-font"></i><b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i
-                                class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a data-edit="fontSize 5">
-                                    <p style="font-size:17px">Huge</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a data-edit="fontSize 3">
-                                    <p style="font-size:14px">Normal</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a data-edit="fontSize 1">
-                                    <p style="font-size:11px">Small</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                        <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i
-                                class="fa fa-italic"></i></a>
-                        <a class="btn" data-edit="strikethrough" title="Strikethrough"><i
-                                class="fa fa-strikethrough"></i></a>
-                        <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i
-                                class="fa fa-underline"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i
-                                class="fa fa-list-ul"></i></a>
-                        <a class="btn" data-edit="insertorderedlist" title="Number list"><i
-                                class="fa fa-list-ol"></i></a>
-                        <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i
-                                class="fa fa-dedent"></i></a>
-                        <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i
-                                class="fa fa-align-left"></i></a>
-                        <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i
-                                class="fa fa-align-center"></i></a>
-                        <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i
-                                class="fa fa-align-right"></i></a>
-                        <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i
-                                class="fa fa-align-justify"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i
-                                class="fa fa-link"></i></a>
-                        <div class="dropdown-menu input-append">
-                            <input class="span2" placeholder="URL" type="text" data-edit="createLink">
-                            <button class="btn" type="button">Add</button>
-                        </div>
-                        <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <label class="custom-file-label" id="file-label" for="file-upload">IMAGE UPLOAD</label>
-                        <input type="file" name="file" id="file-upload" multiple="multiple">
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                        <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i
-                                class="fa fa-repeat"></i></a>
-                    </div>
-                </div>
-
-
-                <div id="editor-one" name="postContent" class="editor-wrapper"></div>
-
-                <textarea name="postContent" id="postContent" style="display:none;"></textarea>
-
-                <textarea name="detailHtml" id="detailHtml" style="display:none;"></textarea>
-                <br/>
-                <!--<b id="fileEA">0</b><span>개의 문서 파일 선택</span>-->
-                <div class="ln_solid"></div>
-                <div id="elseFile"></div>
-            </div>
+<nav th:include="topToolBar.html"></nav>
+<div class="container" style="margin-top: 140px">
+    <form id="addPostForm" action="/comm/addPost" method="post">
+        <div class="col-md-12 mb-2">
+            <input class="w-100 pl-2" type="text" placeholder="제목을 입력하세요." name="postName"
+                   style="height: 60px; font-size: 25px; border:none; background-color: #fff">
+            <hr class="mt-0 mb-3"/>
         </div>
-        <div class="form-group">
-            <!--            <div class="add_post_btn" id="addPost" align="right" style="padding-top: 3px;">-->
-            <!--                작성-->
-            <!--            </div>-->
-            <input type="submit" id="addPost-btn" class="btn btn-outline-primary col-12" value="작성"/>
-            <input type="submit" id="cancelPost-btn" class="btn btn-outline-primary col-12" value="취소"/>
-
+        <div class="col-md-12">
+            <textarea class="summernote col-md-12" name="postContent"></textarea>
         </div>
-<!--        <div class="add_post_btn" id="cancelPost" align="right" style="padding-top: 3px;">-->
-<!--            취소-->
-<!--        </div>-->
+
+        <div class="form-group row float-right mr-3">
+            <input type="submit" id="cancelPost-btn" class="btn btn-outline-secondary" value="취소"/>
+            <input type="submit" id="addPost-btn" class="btn btn-outline-primary" value="작성"/>
+        </div>
     </form>
 </div>
-</body>
 
-<!--    ----------------------------------------------------------------------------------------------------->
-
-<!--        <div class="add_post_btn" id="addPost" align="right" style="padding-top: 3px;">-->
-<!--            작성-->
-<!--&lt;!&ndash;            <a th:href="@{/comm/getPostList}">취소</a>&ndash;&gt;-->
-<!--        </div>-->
-<!--        <div class="add_post_btn" id="cancelPost" align="right" style="padding-top: 3px;">-->
-<!--            취소-->
-<!--        </div>-->
-
-
-<script type="text/javascript">
-    <!--로그인 사룔자가 아니라면 로그인창으로 돌려주는 과정-에러남-->
-    // if(session.getAttribute("userId") == null){
-    //     session.setAttribute("loginMessage", "게시물 작성은 <br>로그인이 필요합니다.");
-    //     response.sendRediect("/login");
-    //     return;
-    // }
-    let sel_files = [];
-
-    $("#file-upload").on("change", function handleImgsFilesSelect(e) {
-        let files = e.target.files;
-        let filesArr = Array.prototype.slice.call(files);
-
-        $("#elseFile").empty();
-        for (let i = 0; i < files.length; i++) {
-            if (!checkExtension(files[i].name, files[i].size)) {
-                return false;
-            }
-        }
-        $('#file-label').text(files.length + "개 파일 선택")
-        $('#fileEA').text('0')
-
-        filesArr.forEach(function (f) {
-            if (f.type.match("image.*")) {
-                sel_files.push(f);
-
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    let img_html = "<img src=\"" + e.target.result + "\" data-filename=" + f.name + "\" />";
-                    $("#editor-one").append(img_html);
+<script>
+    $('.summernote').summernote({
+        height: 400,
+        lang: "ko-KR",
+        focus: true,
+        callbacks: {
+            onImageUpload: function (files, editor, welEditable) {
+                for (var i = files.length - 1; i >= 0; i--) {
+                    sendFile(files[i], this);
                 }
-                reader.readAsDataURL(f);
-            } else {
-                let fileName = f.name;
-                $('#fileEA').text(files.length);
-                $("#elseFile").append(fileName);
-
             }
+        },
+        toolbar: [
+            // 글꼴 설정
+            ['fontname', ['fontname']],
+            // 글자 크기 설정
+            ['fontsize', ['fontsize']],
+            // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+            ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+            // 글자색
+            ['color', ['forecolor', 'color']],
+            // 표만들기
+            ['table', ['table']],
+            // 글머리 기호, 번호매기기, 문단정렬
+            ['para', ['ul', 'ol', 'paragraph']],
+            // 줄간격
+            ['height', ['height']],
+            // 그림첨부, 링크만들기, 동영상첨부
+            ['insert', ['picture', 'link']],
+            // 코드보기, 확대해서보기, 도움말
+            ['view', ['codeview']]
+        ],
+        // 추가한 글꼴
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋음체', '바탕체'],
+        // 추가한 폰트사이즈
+        fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
 
-        });
     });
 
-    function checkExtension(fileName, fileSize) {
-
-        let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-        let maxSize = 41943040;  //40MB
-
-        if (fileSize >= maxSize) {
-            alert('파일 사이즈 초과');
-            $("input[type='file']").val("");  //파일 초기화
-            return false;
-        }
-
-        if (regex.test(fileName)) {
-            alert('업로드 불가능한 파일이 있습니다.');
-            $("input[type='file']").val("");  //파일 초기화
-            return false;
-        }
-        return true;
+    function sendFile(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+        $.ajax({
+            data: form_data,
+            type: "POST",
+            url: '/fileUpload',
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (img_name) {
+                $(el).summernote('editor.insertImage', img_name);
+            }
+        });
     }
 
+</script>
+
+<script type="text/javascript">
 
     function fncAddPost() {
-        let postName = $("input[name='postName']").val();
-        let postContent = $("input[name='postContent']").val();
-
+        let postName = $('#postName').val();
         if (postName == null || postName.length < 1) {
             alert("제목을 입력해주세요.");
             return false;
         }
-
-        // if(postContent == null || postContent.length<1){
-        //     alert("내용은 한글자이상 입력해야합니다.")
-        //     return;
-        // }
-
-
-        // $("form").attr("method" , "POST").attr("action" , "/comm/addPost").attr("encType","multipart/form-data").submit();
-        $('#addPostForm').attr("method", "POST").attr("action", "/comm/addPost").submit();
+        $('#addPostForm').submit();
     }
 
-
-    // $(function () {
-    //     $(".add_post_btn:contains('작성')").on('click', function () {
-    //         fncAddPost();
-    //     })
-    // })
     $('#addPost-btn').on('click', function () {
         fncAddPost();
-
-        $.each($('#editor-one').children('img'), function (index, elem) {
-            alert($(elem).attr('src', '/resources/uploadImg/' + $(elem).data('filename')))
-        })
-
-
-        $('#detailHtml').val($('#editor-one').html());
-        $('#postContent').val($('#editor-one').text())
-
-
         $('#addPostForm').submit();
     })
 
-    $(function () {
-        $("#cancelPost-btn").on('click', function () {
-            // $('#addPostForm')[0].reset();
-            history.go(-1);
-        })
+    $("#cancelPost-btn").on('click', function () {
+        history.go(-1);
     })
 
 </script>
+
+</body>
 </html>

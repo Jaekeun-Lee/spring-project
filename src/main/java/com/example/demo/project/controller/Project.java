@@ -112,7 +112,7 @@ public class Project {
             session.setAttribute("user", memberVO);
         }
 
-        return "welcome";
+        return "redirect:/welcome";
 
     }
 
@@ -131,7 +131,7 @@ public class Project {
 
     @GetMapping("/getProjectList")
     public String getProjectList(@ModelAttribute("projectSearchDTO") ProjectSearchDTO projectSearchDTO, Model model) {
-
+        projectSearchDTO.setUserId(SecurityUtils.getLoginSessionMemberInfo().getUsername());
         System.out.println("projectSearchDTO" + projectSearchDTO);
         if (projectSearchDTO.getCurrentPage() == 0) {
             projectSearchDTO.setCurrentPage(DEFAULT_PAGE);

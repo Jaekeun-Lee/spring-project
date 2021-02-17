@@ -2,8 +2,6 @@ package com.example.demo.common.controller;
 
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.service.PostService;
-import com.example.demo.member.util.SecurityUtils;
-import com.example.demo.member.vo.MemberVO;
 import com.example.demo.project.dto.ProjectSearchDTO;
 import com.example.demo.project.service.ProjectService;
 import com.example.demo.project.vo.ProjectVO;

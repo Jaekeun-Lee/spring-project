@@ -19,8 +19,6 @@
                             <a class="dropdown-item" href="/project/getProjectList">프로젝트 찾기</a>
                             <a class="dropdown-item" href="/project/myProject">내 프로젝트</a>
                             <a class="dropdown-item" href="/applicant/appliedProjectList">신청한 프로젝트</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
                         </div>
                     </li>
 
@@ -40,7 +38,7 @@
                         <a class="nav-link" href="/port/portList">포트폴리오</a>
                     </li>
 
-                    <th:block th:if="${session.user.role.equals('ADMIN')}">
+                    <th:block th:if="${session.user != null && session.user.role.equals('ADMIN')}">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="true"
@@ -55,8 +53,7 @@
 
                     <th:block th:if="${session.user == null}">
                         <li class="nav-item dropdown">
-                            <a class="nav-link my-2 my-lg-0" href="/login" style="color : #fff">로그인</a>
-                            <a class="nav-link my-2 my-lg-0" href="/signUp" style="color : #fff">회원가입</a>
+                            <a class="nav-link" href="/login" style="color : #fff">로그인</a>
                         </li>
                     </th:block>
                     <th:block th:if="${session.user != null}">

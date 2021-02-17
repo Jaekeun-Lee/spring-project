@@ -4,11 +4,13 @@
     <link rel="stylesheet" href="/resources/css/additional.css">
     <title>프로젝트 등록하기</title>
 
-</head>
-<nav th:include="topToolBar.html"></nav>
-<body style="background-color: #fff;">
 
-<div class="container">
+
+</head>
+
+<body>
+<nav th:include="topToolBar.html"></nav>
+<div class="container" style="margin-bottom: 200px">
     <div class="row">
 
         <!-- left side bar -->
@@ -132,108 +134,27 @@
                     </div>
                 </div>
 
-
-                <!-- 프로젝트 정보 -->
-                <div class="form-group row"><h4 class="col-lg-12 form-group-header">프로젝트 정보</h4></div>
-                <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
-                    <div class="x_title">
-                        <label>프로젝트 상세정보</label>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i
-                                        class="fa fa-font"></i><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                </ul>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i
-                                        class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a data-edit="fontSize 5">
-                                            <p style="font-size:17px">Huge</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-edit="fontSize 3">
-                                            <p style="font-size:14px">Normal</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-edit="fontSize 1">
-                                            <p style="font-size:11px">Small</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i
-                                        class="fa fa-italic"></i></a>
-                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i
-                                        class="fa fa-strikethrough"></i></a>
-                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i
-                                        class="fa fa-underline"></i></a>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i
-                                        class="fa fa-list-ul"></i></a>
-                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i
-                                        class="fa fa-list-ol"></i></a>
-                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i
-                                        class="fa fa-dedent"></i></a>
-                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i
-                                        class="fa fa-align-left"></i></a>
-                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i
-                                        class="fa fa-align-center"></i></a>
-                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i
-                                        class="fa fa-align-right"></i></a>
-                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i
-                                        class="fa fa-align-justify"></i></a>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i
-                                        class="fa fa-link"></i></a>
-                                <div class="dropdown-menu input-append">
-                                    <input class="span2" placeholder="URL" type="text" data-edit="createLink">
-                                    <button class="btn" type="button">Add</button>
-                                </div>
-                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                            </div>
-                            <div class="btn-group">
-                                <label class="custom-file-label" id="file-label" for="file-upload">IMAGE UPLOAD</label>
-                                <input type="file" name="files" id="file-upload" multiple="multiple">
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i
-                                        class="fa fa-repeat"></i></a>
-                            </div>
-                        </div>
-
-
-                        <div id="editor-one" name="projectDetail" class="editor-wrapper"></div>
-
-                        <textarea name="projectDetail" id="projectDetail" style="display:none;"></textarea>
-
-                        <textarea name="detailHtml" id="detailHtml" style="display:none;"></textarea>
-                        <br/>
-                        <b id="fileEA">0</b><span>개의 문서 파일 선택</span>
-                        <div class="ln_solid"></div>
-                        <div id="elseFile"></div>
-                    </div>
+                <div class="form-group row"><h4 class="col-lg-12 form-group-header">프로젝트 상세정보</h4></div>
+                <div class="form-group row">
+                    <textarea class="summernote col-md-12" name="detailHtml"></textarea>
                 </div>
+                <input type="hidden" id="projectDetail" name="projectDetail">
+
+
+
+                <div class="form-group row">
+                    <div class="mb-5 col-md-11">
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="file-upload" style="text-align: center">+ 프로젝트 관련자료 추가</label>
+                            <input type="file" name="files" id="file-upload" multiple="multiple">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <span><b id="fileEA">0</b>개의 문서 파일 & <b id="imageEA">0</b> 개의 이미지 선택</span><br/>
+                    </div>
+                    <div id="elseFile" class="col-md-12 p-3 mt-3" style="border-radius: 10px;"></div>
+                </div>
+
 
 
                 <!-- 추가 정보 -->
@@ -241,7 +162,7 @@
                 <div class="form-group control-group row">
                     <label class="control-label col-md-4 col-sm-4 ">Skill Tags</label>
                     <div class="col-md-8 col-sm-8 ">
-                        <input id="tags_1" type="text" class="tags form-control" value=""/>
+                        <label for="tags_1"></label><input id="tags_1" type="text" class="tags form-control" value=""/>
                         <div id="suggestions-container"
                              style="position: relative; float: left; width: 250px; margin: 10px;">
                             <input type="hidden" id="skillHashTag" name="skillHashTag">
@@ -309,13 +230,13 @@
                                placeholder="예) 스프링부트 관련 프로젝트를 진행해본적이 있나요?"/>
                         <div class="col-lg-2 col-md-2 add-question-btn" onclick="javascript:addQuestion(this)">
                             <span class="glyphicon glyphicon-plus"
-                                  style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
+                                  style="margin-top: 5px;margin-bottom: 10px;font-size: 19px;"></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" id="addProject-btn" class="btn btn-outline-primary col-12" value="등록완료"/>
+                    <input type="submit" id="addProject-btn" class="btn btn-outline-primary col-12 mt-5" value="등록완료"/>
                 </div>
             </form>
 
@@ -326,6 +247,63 @@
 </div>
 
 </body>
+<script>
+    $('.summernote').summernote({
+        height: 300,
+        lang: "ko-KR",
+        focus : true,
+        callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                for (var i = files.length - 1; i >= 0; i--) {
+                    sendFile(files[i], this);
+                }
+            }
+        },
+        toolbar: [
+            // 글꼴 설정
+            ['fontname', ['fontname']],
+            // 글자 크기 설정
+            ['fontsize', ['fontsize']],
+            // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            // 글자색
+            ['color', ['forecolor','color']],
+            // 표만들기
+            ['table', ['table']],
+            // 글머리 기호, 번호매기기, 문단정렬
+            ['para', ['ul', 'ol', 'paragraph']],
+            // 줄간격
+            ['height', ['height']],
+            // 그림첨부, 링크만들기, 동영상첨부
+            ['insert',['picture','link']],
+            // 코드보기, 확대해서보기, 도움말
+            ['view', ['codeview']]
+        ],
+        // 추가한 글꼴
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+        // 추가한 폰트사이즈
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+
+    });
+
+    function sendFile(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+        $.ajax({
+            data: form_data,
+            type: "POST",
+            url: '/fileUpload',
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function(img_name) {
+                $(el).summernote('editor.insertImage', img_name);
+            }
+        });
+    }
+
+</script>
 
 <script>
     // 등록 전 유효성 검사 필수항목
@@ -344,20 +322,8 @@
     $("#applicationDeadline").attr('min', today);
 
     $('#addProject-btn').on('click', function () {
-
-        // let imgChild = ;
-
-        $.each($('#editor-one').children('img'),function (index, elem) {
-            alert($(elem).attr('src','/resources/uploadImg/'+$(elem).data('filename')))
-        })
-
-
-        $('#detailHtml').val($('#editor-one').html());
-        $('#projectDetail').val($('#editor-one').text())
-
-
+        $('#projectDetail').val($('.note-editable').text())
         $('#skillHashTag').val($('.tag span').text());
-
         $('#addProjectForm').submit();
     })
 
@@ -367,11 +333,11 @@
         let html = `<div class="applicantQuestion">
                         <input type="text" class="form-control col-lg-10 col-md-10"/>
                         <div class="col-lg-1 col-md-1 delete-question-btn" onclick="javascript:deleteQuestion(this)">
-                            <span class="glyphicon glyphicon-remove-circle" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
+                            <span class="glyphicon glyphicon-remove-circle" style="margin-top: 5px;margin-bottom: 10px;font-size: 19px;"></span>
                         </div>`
         if (questionCount < 2) {
             html += `<div class="col-lg-1 col-md-1 add-question-btn" onclick="javascript:addQuestion(this)">
-                            <span class="glyphicon glyphicon-plus" style="margin-top: 10px;margin-bottom: 10px;font-size: 19px;"></span>
+                            <span class="glyphicon glyphicon-plus" style="margin-top: 5px;margin-bottom: 10px;font-size: 19px;"></span>
                         </div>
                     </div>`
         } else {
@@ -426,6 +392,8 @@
     }
 
 
+
+
     let sel_files = [];
 
     $("#file-upload").on("change", function handleImgsFilesSelect(e) {
@@ -438,27 +406,36 @@
                 return false;
             }
         }
-        $('#file-label').text(files.length + "개 파일 선택")
-        $('#fileEA').text('0')
+
+        $('elseFile').empty();
+        $('#fileEA').text('0');
+        $('#imageEA').text('0');
+        let fileEA = 0;
+        let imageEA = 0;
 
         filesArr.forEach(function (f) {
+
             if (f.type.match("image.*")) {
                 sel_files.push(f);
-
+                imageEA ++;
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    let img_html = "<img src=\"" + e.target.result + "\" data-filename="+f.name+"\" />";
-                    $("#editor-one").append(img_html);
+                    let img_html = "<img class=\"d-inline-block mr-2\" src=\"" + e.target.result + "\" data-filename=\"" + f.name + "\" style=\"width: 100px; height: 100px;\" >"
+                    $("#elseFile").append(img_html);
                 }
                 reader.readAsDataURL(f);
             } else {
+                fileEA ++;
                 let fileName = f.name;
-                $('#fileEA').text(files.length);
-                $("#elseFile").append(fileName);
+
+                let img_html = "<img class=\"d-inline-block mr-2\" src=\"/resources/img/file.png\" style=\"width: 100px; height: 100px;\" >"
+                $("#elseFile").append(img_html);
 
             }
 
         });
+        $('#fileEA').text(fileEA);
+        $('#imageEA').text(imageEA);
     });
 
     function checkExtension(fileName, fileSize) {
@@ -532,6 +509,7 @@
             }
         }
     })
+
 
 </script>
 

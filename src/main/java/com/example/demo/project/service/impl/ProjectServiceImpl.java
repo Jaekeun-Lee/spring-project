@@ -3,7 +3,6 @@ package com.example.demo.project.service.impl;
 import com.example.demo.common.vo.PageVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.ReplyVO;
-import com.example.demo.member.util.SecurityUtils;
 import com.example.demo.project.dao.ProjectDAO;
 import com.example.demo.project.dto.*;
 import com.example.demo.project.service.ProjectService;
@@ -45,11 +44,6 @@ public class ProjectServiceImpl implements ProjectService {
         getProjectMap.put("projectNo", projectNo);
         getProjectMap.put("userId", userId);
         getProjectMap.put("searchVO", searchVO);
-
-        System.out.println("=======================================================");
-        System.out.println(searchVO);
-        System.out.println("=======================================================");
-
 
 
         ProjectVO projectVO = projectDAO.getProject(getProjectMap);
@@ -98,7 +92,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectVO> getProjectList(ProjectSearchDTO projectSearchDTO) {
-        projectSearchDTO.setUserId(SecurityUtils.getLoginSessionMemberInfo().getUsername());
+        if(projectSearchDTO.getUserId()==null) projectSearchDTO.setUserId("jack");
         return projectDAO.getProjectList(projectSearchDTO);
     }
 

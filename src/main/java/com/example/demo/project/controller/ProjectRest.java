@@ -73,8 +73,8 @@ public class ProjectRest {
     }
 
     @PostMapping("/endProject")
-    public int addEndProjectCount(@RequestBody Map<String, Object> endProjectCountMap) {
-        return projectService.addEndProjectCount(endProjectCountMap);
+    public int addEndProjectCount(@RequestBody Map<String, Object> endProjectCountMap,HttpSession session) {
+        return projectService.addEndProjectCount(endProjectCountMap) == 1 ? sessionUpdateUtil(session) : 0;
     }
 
     @GetMapping("/deleteProject")
@@ -96,14 +96,7 @@ public class ProjectRest {
 
     @PostMapping("/getProjectList")
     public List<ProjectVO> getProjectList(@RequestBody ProjectSearchDTO projectSearchDTO) {
-
-        System.out.println("===========================================================");
-
-        System.out.println("===========================================================\n\n\n\n\n\n\n\n");
-
-        System.out.println(projectSearchDTO);
-        System.out.println("\n\n\n\n\n\n\n\n===========================================================");
-        System.out.println("===========================================================");
+        projectSearchDTO.setUserId(SecurityUtils.getLoginSessionMemberInfo().getUsername());
         return projectService.getProjectList(projectSearchDTO);
 
     }

@@ -57,7 +57,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             authorize
                     .antMatchers(ALLOW_AUTH_URI_PATTERN).hasAnyRole("ADMIN", "USER", "ANONYMOUS")
                     .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/user/**").hasRole("USER");
+                    .antMatchers("/user/**").hasRole("USER")
+                    .antMatchers("/project/**").hasRole("USER")
+                    .antMatchers("/applicant/**").hasRole("USER")
+                    .antMatchers("/port/**").hasRole("USER")
+                    .antMatchers("/comm/**").hasRole("USER");
 
         });
 

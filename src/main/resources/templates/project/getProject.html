@@ -154,12 +154,17 @@
                 <p>프로젝트 참여 신청 전 신청서에 질문에 대한 답변을 작성해 주세요.</p>
                 <br/>
 
-                <i class="fa fa-dot-circle-o">&nbsp;<span class="p-3" th:if="${project.applicantQuestionA != null}"
-                                                          th:text="${project.applicantQuestionA}"></span></i><br/><br/>
-                <i class="fa fa-dot-circle-o">&nbsp;<span class="p-3" th:if="${project.applicantQuestionB != null}"
-                                                          th:text="${project.applicantQuestionB}"></span></i><br/><br/>
-                <i class="fa fa-dot-circle-o">&nbsp;<span class="p-3" th:if="${project.applicantQuestionC != null}"
-                                                          th:text="${project.applicantQuestionC}"></span></i>
+                <th:block th:if="${project.applicantQuestionA != null}"></th:block>
+                    <i class="fa fa-dot-circle-o">&nbsp;<span class="p-3" th:text="${project.applicantQuestionA}"></span></i><br/><br/>
+                </th:block>
+
+                <th:block th:if="${project.applicantQuestionB != null}"></th:block>
+                    <i class="fa fa-dot-circle-o">&nbsp;<span class="p-3" th:text="${project.applicantQuestionB}"></span></i><br/><br/>
+                </th:block>
+
+                <th:block th:if="${project.applicantQuestionC != null}"></th:block>
+                    <i class="fa fa-dot-circle-o">&nbsp;<span class="p-3" th:text="${project.applicantQuestionC}"></span></i><br/><br/>
+                </th:block>
             </div>
 
 

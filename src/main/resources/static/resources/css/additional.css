@@ -1,6 +1,7 @@
 label > a:hover {
     text-decoration: none;
 }
+
 #projectDetail {
     padding: 30px;
     min-height: 100%;
@@ -17,6 +18,7 @@ label > a:hover {
     background-color: #eee;
     margin-right: 8px;
 }
+
 .wrapper {
     float: none;
     width: 85%;
@@ -175,10 +177,72 @@ label > a:hover {
     border-bottom: 1px solid #ccc;
 }
 
+.in-card-project-detail {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: inherit;
+}
+
+.searchCondition-list {
+    display: inline-block;
+    width: 90%;
+}
+
+.in-card-category {
+    width: 5%;
+}
+
+.in-card-locate {
+    width: 15%;
+}
+
+.in-card-hashtag {
+    width: 30%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+
+.in-card-project-info {
+    width: 25%;
+}
+
+.in-card-project-detail {
+    width: 70%;
+}
+
 @media screen and (max-width: 1000px) {
 
     #followquick {
         display: none;
     }
 
+    .searchCondition-list {
+        width: 100%;
+    }
+
+    #line {
+        display: none;
+    }
+
+    .in-card-category {
+        width: 15%;
+    }
+
+    .in-card-locate {
+        width: 37%;
+    }
+
+    .in-card-hashtag {
+        width: 45%;
+    }
+
+    .in-card-project-info {
+        display: none;
+    }
+
+    .in-card-project-name {
+        font-size: 18px;
+    }
+
+    .in-card-project-detail {
+        width: 100%;
+    }
 }

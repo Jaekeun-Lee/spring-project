@@ -1,4 +1,8 @@
 server:
+  servlet:
+    session:
+      timeout: 20m
+
   port: 8282
   error:
     whitelabel:
@@ -27,12 +31,10 @@ spring:
     password: spring
 
 
-  #TODO 개발 중에 필요하므로 true를 추천...
   devtools:
     livereload:
       enabled: true
 
-  #최대 허용파일크기 설정 (Default - 1MB)
   servlet:
     multipart:
       file-size-threshold: 1MB
@@ -47,5 +49,3 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true  #언더바 -> 카멜케이스
     call-setters-on-nulls: true
-
-
