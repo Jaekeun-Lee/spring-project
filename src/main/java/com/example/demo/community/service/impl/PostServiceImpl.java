@@ -31,9 +31,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void addPost(PostVO postVO){
-        postDAO.addPost(postVO);
-
+    public int addPost(PostVO postVO){
+        return postDAO.addPost(postVO);
     }
 
     @Override
@@ -86,10 +85,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Map<String,Object> getPostList(SearchVO searchVO){
         List<PostVO> list = postDAO.getPostList(searchVO);
-        int totalcount = postDAO.getTotalCount(searchVO);
-        Map<String, Object> map = new HashMap<String, Object>();
+        int totalCount = postDAO.getTotalCount(searchVO);
+        Map<String, Object> map = new HashMap();
         map.put("list", list);
-        map.put("totalCount", new Integer(totalcount));
+        map.put("totalCount", new Integer(totalCount));
         return map;
     }
 //    @Override
@@ -100,5 +99,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public int plusViewCnt(int postNo){
         return postDAO.plusViewCnt(postNo);
+    }
+
+    @Override
+    public List<PostVO> getPostListJSON(SearchVO searchVO){
+        return postDAO.getPostList(searchVO);
     }
 }

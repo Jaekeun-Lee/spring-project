@@ -39,7 +39,7 @@
         <result property="regDate"      column="reg_date"       jdbcType="DATE"/>
     </resultMap>
 
-    <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO">
+    <insert id="addPost" parameterType="com.example.demo.community.vo.PostVO" useGeneratedKeys="true" keyProperty="postNo" keyColumn="POST_NO">
         insert
         into POST(post_no,
                   post_name,
@@ -80,19 +80,18 @@
                 REG_DATE,
                 VIEW_CNT,
                 REPLY_CNT
-
         FROM POST
         WHERE POST_NO = #{postNo}
     </select>
 
     <select id="getReply"       parameterType="replyVO"      resultType="replyVO">
-        SELECT REPLY_NO,
-               POST_NO,
-               USER_ID as replyUserId,
-               REPLY_CONTENT,
-               TO_DATE(TO_CHAR(REG_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') as regDate
-        FROM REPLY
-        WHERE USER_ID = #{replyUserId} AND REPLY_CONTENT = #{replyContent}
+        SELECT r.REPLY_NO,
+               r.USER_ID as replyUserId,
+               r.REPLY_CONTENT,
+               r.REG_DATE,
+               m.PROFILE_IMAGE	as replyUserImg
+        FROM REPLY r, MEMBER m
+        WHERE r.USER_ID = m.USER_ID AND r.USER_ID = #{replyUserId} AND r.REPLY_CONTENT = #{replyContent}
     </select>
 
 
@@ -159,15 +158,17 @@
                 ORDER BY POST_NO ) inner_table
             WHERE ROWNUM &lt;=#{endRowNum} )
         WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+        ORDER BY REG_DATE DESC
     </select>
 
     <select id="getPostReplyByPostNo"   resultType="replyVO">
-        select REPLY_NO as replyno,
-               USER_ID as replyuserid,
-               REPLY_CONTENT as replycontent,
-               REG_DATE as reg_date
-        FROM REPLY
-        WHERE POST_NO = #{postNo}
+        SELECT r.REPLY_NO,
+               r.USER_ID as replyUserId,
+               r.REPLY_CONTENT,
+               r.REG_DATE,
+               m.PROFILE_IMAGE	as replyUserImg
+        FROM REPLY r, MEMBER m
+        WHERE r.USER_ID = m.USER_ID AND POST_NO = #{postNo}
     </select>
 
     <select id="getTotalCount"  parameterType="pageVO"    resultType="int">

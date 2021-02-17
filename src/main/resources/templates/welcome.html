@@ -32,18 +32,19 @@
             <div class="card border-light p-3">
                 <div class="welcome-project-box mb-1" th:each="project : ${projectList}">
                     <th:block th:if="${session.user != null}">
-                        <div class="list-box w-50 float-left">
+                        <div class="list-box float-left"
+                             style="width :70%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                             <a th:href="@{/project/getProject(projectNo=${project.projectNo})}"
                                th:text="${project.projectName}"
-                               style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></a>
+                               ></a>
                         </div>
                         <div class="w-25 float-right" th:text="${project.leaderId}"/>
                     </th:block>
 
 
                     <th:block th:if="${session.user == null}">
-                        <div class="list-box w-50 float-left"
-                             style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                        <div class="list-box float-left"
+                             style="width :70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                             <a href="#"
                                th:text="${project.projectName}"
                             ></a>
@@ -58,19 +59,19 @@
             <h5><i class="fa fa-comment"></i> 커뮤니티</h5>
             <div class="card border-light p-3">
                 <div class="welcome-community-box mb-1" th:each="postVO : ${postList}">
-                    <th:block th:if="${session.user != null}">
-                        <div class="list-box w-50 float-left">
+                    <th:block th:if="${session.user != null}" >
+                        <div class="list-box float-left"
+                             style="width :70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                             <a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
-                               th:text="${postVO.postName}"
-                               style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></a>
+                               th:text="${postVO.postName}"></a>
                         </div>
                         <div class="w-25 float-right" th:text="${postVO.userId}"/>
                     </th:block>
 
 
                     <th:block th:if="${session.user == null}">
-                        <div class="list-box w-50 float-left"
-                             style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                        <div class="list-box float-left"
+                             style="width :70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                             <a href="#"
                                th:text="${postVO.postName}"
                             ></a>

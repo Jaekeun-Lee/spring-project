@@ -4,12 +4,13 @@ import com.example.demo.common.vo.SearchVO;
 import com.example.demo.community.vo.PostVO;
 import com.example.demo.community.vo.ReplyVO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PostService {
 
     //게시물 등록
-    public void addPost(PostVO postVO);
+    public int addPost(PostVO postVO);
 
     //reply등록/조회
     public ReplyVO addReply(ReplyVO replyVO);
@@ -38,4 +39,6 @@ public interface PostService {
 
     //조회수 +1
     public int plusViewCnt(int postNo);
+
+    List<PostVO> getPostListJSON(SearchVO searchVO);
 }

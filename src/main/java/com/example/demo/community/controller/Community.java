@@ -60,11 +60,12 @@ public class Community {
 //        데이터 임의세팅
 //        httpSession.setAttribute("userId", "user01");
         postVO.setUserId(((MemberVO)httpSession.getAttribute("user")).getUserId());
-        postService.addPost(postVO);
+        int postNo = postService.addPost(postVO);
 
-        model.addAttribute("post", postVO);
+        PostVO resultPostVO = postService.getPost(postNo);
+        model.addAttribute("post", resultPostVO);
 
-        return "post/getPost";
+        return "redirect:/comm/getPost?postNo="+postNo;
     }
 
 //    @PostMapping("/multi")
@@ -175,19 +176,15 @@ public class Community {
 //    }
 
     @GetMapping("getPostList")
-    public String getPostList(@ModelAttribute("searchVO") SearchVO  searchVO,
-                              HttpSession httpSession,
+    public String getPostList(@ModelAttribute("searchVO") SearchVO searchVO,
                               Model model)throws Exception{
 
-        System.out.println("getPostList : GET");
-        searchVO.setPageSize(20);
-        searchVO.setUserId(((MemberVO) httpSession.getAttribute("user")).getUserId());
+        searchVO.setPageSize(10);
         if(searchVO.getCurrentPage() == 0 ){
             searchVO.setCurrentPage(1);
         }
 
         Map<String,Object> map = postService.getPostList(searchVO);
-        System.out.println("searchVO::"+searchVO);
 
         model.addAttribute("postList",map.get("list"));
 

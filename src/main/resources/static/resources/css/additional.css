@@ -1,7 +1,9 @@
 label > a:hover {
     text-decoration: none;
 }
-
+a {
+    color : #ff2929;
+}
 #projectDetail {
     padding: 30px;
     min-height: 100%;

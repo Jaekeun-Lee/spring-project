@@ -28,9 +28,10 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
-    public void addPost(PostVO postVO){
+    public int addPost(PostVO postVO){
 
         sqlSession.insert("postMapper.addPost",postVO);
+        return postVO.getPostNo();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 public interface PostDAO {
 
     //Post등록
-    public void addPost(PostVO postVO);
+    public int addPost(PostVO postVO);
 
     //reply등록
     public ReplyVO addReply(ReplyVO replyVO);
