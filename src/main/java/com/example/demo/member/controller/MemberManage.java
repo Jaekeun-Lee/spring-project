@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -70,26 +71,26 @@ public class MemberManage {
     }
 
     @GetMapping("/withdrawal")
-    public String withdrawal(@RequestParam("userId") String userId) {
-        memberService.deleteMember(userId);
-        return "admin/manage/withdrawal";
+    @ResponseBody
+    public int withdrawal(@RequestParam("userId") String userId) {
+
+        return memberService.deleteMember(userId);
     }
 
     @GetMapping("/changeDormant")
-    public String changeDormant(@Valid MemberDTO.GetListBlackReqDTO param,@RequestParam("userId") String userId, Model model) {
-        memberService.changeDormant(userId);
-        List<MemberVO> memberBackList = memberDAO.selectMemberBackList(param.convertSignUpDTOToMemberVO());
-
-        model.addAttribute("memberBlackList", memberBackList);
-        return "admin/manage/changeDormant";
+    @ResponseBody
+    public int changeDormant(@RequestParam("userId") String userId) {
+//        List<MemberVO> memberBackList = memberDAO.selectMemberBackList(param.convertSignUpDTOToMemberVO());
+//        model.addAttribute("memberBlackList", memberBackList);
+        return memberService.changeDormant(userId);
     }
 
     @GetMapping("/changeNormal")
-    public String changeNormal(@Valid MemberDTO.GetListDormantReqDTO param,@RequestParam("userId") String userId, Model model) {
-        memberService.changeNormal(userId);
-        List<MemberVO> memberDormantList = memberDAO.selectMemberDormantList(param.convertSignUpDTOToMemberVO());
-        model.addAttribute("memberDormantList", memberDormantList);
-        return "admin/manage/changeNormal";
+    @ResponseBody
+    public int changeNormal(@RequestParam("userId") String userId) {
+//        List<MemberVO> memberDormantList = memberDAO.selectMemberDormantList(param.convertSignUpDTOToMemberVO());
+//        model.addAttribute("memberDormantList", memberDormantList);
+        return memberService.changeNormal(userId);
     }
 
 }

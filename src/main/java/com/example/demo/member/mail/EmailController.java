@@ -7,9 +7,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
@@ -36,7 +34,8 @@ public class EmailController {
     }
 
     @GetMapping(value = "/findPasswordReq")
-    public ModelAndView sendEmailAction(@RequestParam Map<String, Object> paramMap, ModelMap model, ModelAndView mv) throws Exception {
+    @ResponseBody
+    public int sendEmailAction(@RequestParam Map<String, Object> paramMap) throws Exception {
 
         String userId = (String) paramMap.get("userId");
         String email = (String) paramMap.get("email");
@@ -58,15 +57,14 @@ public class EmailController {
                 msg.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(email));
                 mailSender.send(msg);
 
+                return 1;
             } catch (MessagingException e) {
                 e.printStackTrace();
+                return 0;
             }
-            mv.setViewName("member/manage/emailSuccess");
-            return mv;
-        } else {
-            mv.setViewName("welcome");
-            return mv;
 
+        } else {
+            return 0;
         }
     }
 

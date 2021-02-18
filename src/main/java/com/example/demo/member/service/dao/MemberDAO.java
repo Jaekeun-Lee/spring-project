@@ -80,17 +80,19 @@ public class MemberDAO {
         return sqlSession.update("member.updateFailureCountReset", userId);
     }
 
-    public void updatePassword(Map <String,Object> map){
-        sqlSession.update("member.updatePassword",map);
+    public void updatePassword(Map<String, Object> map) {
+        sqlSession.update("member.updatePassword", map);
     }
-    public int deleteMember(String userId){
-        return sqlSession.update("member.withdrawal",userId);
+
+    public int deleteMember(String userId) {
+        return sqlSession.update("member.withdrawal", userId);
 
     }
 
     public int changeDormant(Map<String, Object> map) {
-        return sqlSession.update("member.changeDormant",map);
+        return sqlSession.update("member.changeDormant", map);
     }
+
     public int changeNormal(Map<String, Object> map) {
         return sqlSession.update("member.changeNormal", map);
     }

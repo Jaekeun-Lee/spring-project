@@ -104,6 +104,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 로그인 실패 - 비밀번호가 틀린경우, 로그인 실패 이력 업데이트
+     *
      * @param userId
      * @return
      */
@@ -114,6 +115,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 유저의 로그인 실패 이력 조회
+     *
      * @param userId
      * @return
      */
@@ -125,6 +127,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 로그인 성공일때 fail count 초기화
+     *
      * @param userId
      * @return
      */
@@ -140,16 +143,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int changeDormant(String userId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
         map.put("memberStatus", MemberStatusCd.DORMANT);
         return memberDAO.changeDormant(map);
     }
 
     @Override
     public int changeNormal(String userId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
         map.put("memberStatus", MemberStatusCd.NORMAL);
         return memberDAO.changeNormal(map);
     }
