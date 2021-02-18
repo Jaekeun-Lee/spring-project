@@ -1,9 +1,15 @@
 label > a:hover {
     text-decoration: none;
 }
-a {
-    color : #ff2929;
+
+.project-upload-files {
+    padding: 10px;
+    height: 40px;
+    border: 1px solid #f7f7f7;
+    border-radius: 5px;
+    margin-bottom: 3px;
 }
+
 #projectDetail {
     padding: 30px;
     min-height: 100%;
@@ -210,6 +216,8 @@ a {
     width: 70%;
 }
 
+
+
 @media screen and (max-width: 1000px) {
 
     #followquick {
@@ -248,3 +256,4 @@ a {
         width: 100%;
     }
 }
+

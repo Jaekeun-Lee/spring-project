@@ -8,23 +8,131 @@
     <style>
         #title-image {
             background-image: url("/resources/img/title.png");
-            width: 100%;
+            width: 25%;
             height: 400px;
             background-repeat: no-repeat;
             background-position: 50% 50%;
         }
-        @media screen and (max-width: 767px) {
 
-            .main-block-right {
-                margin-top : 50px;
+        @media screen and (max-width: 989px) {
+            #title-image {
+                display: block;
+                width: 100%;
             }
 
+            .name {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+
+            .main-block-left {
+                margin-top: 50px;
+            }
+
+            .main-block-right {
+                margin-top: 50px;
+            }
+
+            .name {
+                margin: 300px auto 0 auto;
+            }
+
+        }
+
+        .name {
+            font-size: 35px;
+            line-height: 1.5;
+            position: sticky;
+            margin-top: 150px;
+            margin-left: 30%;
+            background-color: #f7f7f7;
+
+        }
+
+        .name-job {
+            display: inline-block;
+            vertical-align: top;
+            color: #2c3e50;
+            height: 1.5em;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 5px 5px #f7f7f7;
+        }
+
+        .name-job::after {
+            content: '';
+            background-color: inherit;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            box-shadow: inset 0 0 5px 10px #f7f7f7;
+        }
+
+        .foot-text {
+            font-size: 30px;
+            text-align: center;
+            margin-left: 30px;
+        }
+
+        .name-job-list {
+            animation-name: rolling;
+            animation: rolling 10s infinite;
+
+        }
+
+        /* Animation */
+        @keyframes rolling {
+            0% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-20%);
+            }
+            50% {
+                transform: translateY(-40%);
+            }
+            75% {
+                transform: translateY(-60%);
+            }
+            100% {
+                transform: translateY(-80%);
+            }
+        }
+
+        li {
+            list-style: none;
         }
     </style>
 </head>
 <nav class="mb-0" th:include="topToolBar.html"></nav>
 <body style="height: 1500px;">
-<div class="row" id="title-image"></div>
+<div class="row">
+    <div class="name">
+        <!-- Rolling Animation -->
+        <div class="name-job">
+            <ul class="name-job-list">
+                <li>Application</li>
+                <li>W E B</li>
+                <li>Software</li>
+                <li>Web Design</li>
+                <li>Shopping Mall</li>
+            </ul>
+        </div>
+        <h4 class="foot-text">프로젝트는</h4>
+        <h4 class="foot-text">Baeum</h4>
+
+        <!-- //Rolling Animation -->
+    </div>
+    <div id="title-image"></div>
+
+
+</div>
+
 <div class="row">
     <div class="container mt-5">
         <div class="col-md-6 main-block-left">
@@ -36,7 +144,7 @@
                              style="width :70%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                             <a th:href="@{/project/getProject(projectNo=${project.projectNo})}"
                                th:text="${project.projectName}"
-                               ></a>
+                            ></a>
                         </div>
                         <div class="w-25 float-right" th:text="${project.leaderId}"/>
                     </th:block>
@@ -45,7 +153,7 @@
                     <th:block th:if="${session.user == null}">
                         <div class="list-box float-left"
                              style="width :70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                            <a href="#"
+                            <a class="not-login" href="#"
                                th:text="${project.projectName}"
                             ></a>
                         </div>
@@ -59,7 +167,7 @@
             <h5><i class="fa fa-comment"></i> 커뮤니티</h5>
             <div class="card border-light p-3">
                 <div class="welcome-community-box mb-1" th:each="postVO : ${postList}">
-                    <th:block th:if="${session.user != null}" >
+                    <th:block th:if="${session.user != null}">
                         <div class="list-box float-left"
                              style="width :70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                             <a th:href="@{/comm/getPost(postNo=${postVO.postNo})}"
@@ -72,7 +180,7 @@
                     <th:block th:if="${session.user == null}">
                         <div class="list-box float-left"
                              style="width :70%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                            <a href="#"
+                            <a class="not-login" href="#"
                                th:text="${postVO.postName}"
                             ></a>
                         </div>
@@ -101,7 +209,7 @@
     </div>
 </div>
 <script>
-    $('.list-box').click(function () {
+    $('.not-login').click(function () {
         $('#login-popup').bPopup();
     })
 

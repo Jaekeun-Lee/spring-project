@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<div th:include="topToolBar.html"></div>
+<nav th:include="topToolBar.html"></nav>
 <div class="container">
     <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}">
 
@@ -31,16 +31,16 @@
                style="color:#2c3e50; text-align: center; background-color: #fff;">
         </label><br/>
 
-        <label class="col-form-label col-md-2 col-sm-2"
-               style="color:#2c3e50; text-align: center; background-color: #fff;"></label>
-        <div class="account-setting-img" style="margin-left: 3px;">
-            <th:block th:if="${session.user.profileImg == 'DEFAULTImage.jpg'}">
-                <img class="profile_img" src="/resources/img/pro_default.png" style="width: 150px;height: 150px">
-            </th:block>
-            <th:block th:if="${session.user.profileImg != 'DEFAULTImage.jpg'}">
-                <img class="profile_img" th:src="|/resources/uploadImg/${session.user.profileImg}|"
-                     style="width: 150px;height: 150px">
-            </th:block>
+        <div class="col-md-12 form-group row">
+            <div class="account-setting-img" style="margin: 50px auto 50px 50%">
+                <th:block th:if="${session.user.profileImg == 'DEFAULTImage.jpg'}">
+                    <img class="profile_img" src="/resources/img/pro_default.png" style="width: 150px;height: 150px">
+                </th:block>
+                <th:block th:if="${session.user.profileImg != 'DEFAULTImage.jpg'}">
+                    <img class="profile_img" th:src="|/resources/uploadImg/${session.user.profileImg}|"
+                         style="width: 150px;height: 150px">
+                </th:block>
+            </div>
         </div>
     </div>
 
@@ -93,8 +93,10 @@
         <label class="col-form-label col-md-3 col-sm-3"
                style="color:#2c3e50; text-align: center; background-color: #fff;">자기소개</label>
         <div class="col-md-7 col-sm-7">
-            <div th:text="${profile.selfIntro}" class="form-control" readonly="readonly"
-                 style="color:#2c3e50; text-align: center; background-color: #fff;"></div>
+            <div class="form-control h-100 p-2" readonly="readonly"
+                 style="color:#2c3e50; text-align: center; background-color: #fff;">
+                <span th:text="${profile.selfIntro}"></span>
+            </div>
         </div>
     </div>
 

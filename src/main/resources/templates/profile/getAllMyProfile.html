@@ -4,6 +4,7 @@
 <head>
     <title>전체보기 조회</title>
 
+    <link rel="stylesheet" href="/resources/css/additional.css">
     <style>
         .account-setting-img {
             width: 150px;
@@ -21,80 +22,76 @@
 
 </head>
 <body>
-<div th:include="topToolBar.html"></div>
+<nav th:include="topToolBar.html"></nav>
 <div class="container">
     <input type="hidden" id="userId" name="userId" th:value="${getAllMyProfile.getUserId()}">
 
     <div class="form-group row">
-        <label class="col-form-label col-md-2 col-sm-2"
-               style="color:#2c3e50; text-align: center; background-color: #fff;">
+        <div class="col-md-4" style="font-size: 20px">
+
+            <div class="form-group account-setting-img" style="margin: 10px auto">
+                <th:block th:if="${session.user.profileImg == 'DEFAULTImage.jpg'}">
+                    <img class="profile_img" src="/resources/img/pro_default.png"
+                         style="width: 150px;height: 150px">
+                </th:block>
+                <th:block th:if="${session.user.profileImg != 'DEFAULTImage.jpg'}">
+                    <img class="profile_img" th:src="|/resources/uploadImg/${session.user.profileImg}|"
+                         style="width: 150px;height: 150px">
+                </th:block>
+            </div>
 
             <div class="form-group row">
-                <label class="col-form-label col-md-2 col-sm-2"
-                       style="color:#2c3e50; text-align: center; background-color: #fff;">
-                    <div class="account-setting-img" style="margin-left: 3px;">
-                        <th:block th:if="${session.user.profileImg == 'DEFAULTImage.jpg'}">
-                            <img class="profile_img" src="/resources/img/pro_default.png"
-                                 style="width: 150px;height: 150px">
-                        </th:block>
-                        <th:block th:if="${session.user.profileImg != 'DEFAULTImage.jpg'}">
-                            <img class="profile_img" th:src="|/resources/uploadImg/${session.user.profileImg}|"
-                                 style="width: 150px;height: 150px">
-                        </th:block>
-                    </div>
-                </label>
-            </div>
-            <p>
-            <div>
-                <div th:text="${getAllMyProfile.userId}" class="fa fa-user" readonly="readonly"
-                     style="color:#2c3e50; background-color: #fff; border-style: hidden">
-                </div>
-            </div>
-            </p>
+                <table class="table table-hover">
+                    <tr>
+                        <td class="border-0" width="20%"><i class="fa fa-user ml-3"></i></td>
+                        <td class="border-0" width="80%"><span th:text="${getAllMyProfile.userId}" style="font-size: 15px"></span></td>
+                    </tr>
 
-            <p>
-            <div>
-                <div th:text="${getAllMyProfile.link}" class="fa fa-tags" readonly="readonly"
-                     style="color:#2c3e50; text-align: left; background-color: #fff; border-style: hidden">
-                </div>
+                    <tr class="border-0">
+                        <td class="border-0" width="20%"><i class="fa fa-tags ml-3"></i></td>
+                        <td class="border-0" width="80%"><span th:text="${getAllMyProfile.link}" style="font-size: 13px"></span></td>
+                    </tr>
+                </table>
             </div>
-            </p>
+        </div>
+        <div class="col-md-8">
 
-        </label>
-        <div class="col-md-7 col-sm-7">
-            <p>
-                <br/><br/><br/>
-            </p>
-            <div th:text="${getAllMyProfile.selfIntro}" class="form-control" readonly="readonly"
-                 style="color:#2c3e50; text-align: left; background-color: #fff; border-style: hidden">
+            <div class="form-group row"><h4 class="col-lg-12 form-group-header">자기소개</h4></div>
+
+            <div class="m-3 p-3" style="border: 1px solid #f7f7f7; border-radius: 5px">
+                <span th:text="${getAllMyProfile.selfIntro}"></span>
+            </div>
+
+            <div class="form-group row"><h4 class="col-lg-12 form-group-header">포트폴리오</h4></div>
+            <div>
+                <table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
+                    <thead>
+                        <tr>
+                            <th width="80%" class="column-title">제목</th>
+                            <th width="20%" class="column-title" style="text-align: center">작성날짜</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="11" bgcolor="808285" height="1"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="portfolioVO:${getAllMyProfile.portfolio}">
+                        <td width="80%" >
+                            <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
+                               th:text="${portfolioVO.portTitle}"></a></td>
+                        <td width="20%" th:text="${#dates.format(portfolioVO.regDate,'yyyy-MM-dd')}" name="regDate"></td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
-        <thead>
-        <tr>
-            <th class="column-title" width="100">제목</th>
-            <th class="column-title" width="100">작성날짜</th>
-        </tr>
 
-        <tr>
-            <td colspan="11" bgcolor="808285" height="1"></td>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        <tr class="" th:each="portfolioVO:${getAllMyProfile.portfolio}">
-            <td>
-                <a th:href="@{/port/getPort(portNo=${portfolioVO.portNo})}"
-                   th:text="${portfolioVO.portTitle}"></a></td>
-            <td th:text="${#dates.format(portfolioVO.regDate,'yyyy-MM-dd')}" name="regDate"></td>
-        </tr>
-
-
-        </tbody>
-    </table>
 </div>
 </body>
 </html>

@@ -10,7 +10,7 @@
         <result property="projectNo"    column="project_no" jdbcType="INTEGER"/>
         <result property="portProjectStartDate" column="port_project_start_date" jdbcType="DATE"/>
         <result property="portProjectEndDate" column="port_project_end_date"    jdbcType="DATE"/>
-        <result property="portDescription" column="port_description" jdbcType="VARCHAR"/>
+        <result property="portDescription" column="port_description" jdbcType="CLOB"/>
         <result property="portTitle" column="port_title" jdbcType="VARCHAR"/>
         <result property="portMemberCnt" column="port_member_cnt" jdbcType="INTEGER"/>
         <result property="regDate" column="reg_date" jdbcType="DATE"/>

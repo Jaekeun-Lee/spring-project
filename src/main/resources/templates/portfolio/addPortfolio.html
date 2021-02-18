@@ -67,116 +67,9 @@
 
     </div>
 
-    <div class="x_panel col-md-12 col-sm-12" style="margin: 100px 0; width: 100%">
-        <div class="x_title">
-            <label>포트폴리오 상세정보</label>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i
-                            class="fa fa-font"></i><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i
-                            class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a data-edit="fontSize 5">
-                                <p style="font-size:17px">Huge</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-edit="fontSize 3">
-                                <p style="font-size:14px">Normal</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-edit="fontSize 1">
-                                <p style="font-size:11px">Small</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                    <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i
-                            class="fa fa-italic"></i></a>
-                    <a class="btn" data-edit="strikethrough" title="Strikethrough"><i
-                            class="fa fa-strikethrough"></i></a>
-                    <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i
-                            class="fa fa-underline"></i></a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i
-                            class="fa fa-list-ul"></i></a>
-                    <a class="btn" data-edit="insertorderedlist" title="Number list"><i
-                            class="fa fa-list-ol"></i></a>
-                    <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i
-                            class="fa fa-dedent"></i></a>
-                    <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn btn-info" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i
-                            class="fa fa-align-left"></i></a>
-                    <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i
-                            class="fa fa-align-center"></i></a>
-                    <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i
-                            class="fa fa-align-right"></i></a>
-                    <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i
-                            class="fa fa-align-justify"></i></a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i
-                            class="fa fa-link"></i></a>
-                    <div class="dropdown-menu input-append">
-                        <input class="span2" placeholder="URL" type="text" data-edit="createLink">
-                        <button class="btn" type="button">Add</button>
-                    </div>
-                    <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                </div>
-                <div class="btn-group">
-                    <label class="custom-file-label" id="file-label" for="file-upload">IMAGE UPLOAD</label>
-                    <input type="file" name="file" id="file-upload" multiple="multiple">
-                </div>
-                <div class="btn-group">
-                    <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                    <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i
-                            class="fa fa-repeat"></i></a>
-                </div>
-            </div>
-
-
-            <div id="editor-one" name="portDescription" class="editor-wrapper"></div>
-
-            <textarea name="portDescription" id="portDescription" style="display:none;"></textarea>
-
-            <textarea name="detailHtml" id="detailHtml" style="display:none;"></textarea>
-            <br/>
-            <!--<b id="fileEA">0</b><span>개의 문서 파일 선택</span>-->
-            <div class="ln_solid"></div>
-            <div id="elseFile"></div>
-        </div>
+    <div class="form-group w-100 mt-5 mb-5">
+        <textarea class="summernote col-md-12" name="portDescription"></textarea>
     </div>
-
-
-   <!-- <div class="form-group control-group row">
-        <label class="control-label col-md-3 col-sm-3">Skill Tags</label>
-        <div class="col-md-9 col-sm-9 ">
-            <input id="tags_1" type="text" class="tags form-control" value=""/>
-            <div id="suggestions-container"
-                 style="position: relative; float: left; width: 250px; margin: 10px;">
-                <input type="hidden" id="portSkillTag" name="portSkillTag" autocomplete="off"
-                       th:value="${getProjectInfo != null}?${getProjectInfo.skillHashTag}:''">
-            </div>
-        </div>
-    </div>-->
-
-    <!-- 첨부파일 : <input type="file" class="custom-input" name="file" id="file-upload" multiple="multiple">
-     <label class="current-file-label" for="file-upload"></label>-->
 
 
     <div class="form-group">
@@ -184,9 +77,64 @@
     </div>
 </form>
 </div>
-</body>
 
 
+<script>
+    $('.summernote').summernote({
+        height: 300,
+        lang: "ko-KR",
+        callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                for (var i = files.length - 1; i >= 0; i--) {
+                    sendFile(files[i], this);
+                }
+            }
+        },
+        toolbar: [
+            // 글꼴 설정
+            ['fontname', ['fontname']],
+            // 글자 크기 설정
+            ['fontsize', ['fontsize']],
+            // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            // 글자색
+            ['color', ['forecolor','color']],
+            // 표만들기
+            ['table', ['table']],
+            // 글머리 기호, 번호매기기, 문단정렬
+            ['para', ['ul', 'ol', 'paragraph']],
+            // 줄간격
+            ['height', ['height']],
+            // 그림첨부, 링크만들기, 동영상첨부
+            ['insert',['picture','link']],
+            // 코드보기, 확대해서보기, 도움말
+            ['view', ['codeview']]
+        ],
+        // 추가한 글꼴
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+        // 추가한 폰트사이즈
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+
+    });
+
+    function sendFile(file, el) {
+        var form_data = new FormData();
+        form_data.append('file', file);
+        $.ajax({
+            data: form_data,
+            type: "POST",
+            url: '/fileUpload',
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function(img_name) {
+                $(el).summernote('editor.insertImage', img_name);
+            }
+        });
+    }
+
+</script>
 <script type="text/javascript">
 
     $('#addPortfolio-btn').on('click', function () {
@@ -261,5 +209,5 @@
         return true;
     }
 </script>
-
+</body>
 </html>

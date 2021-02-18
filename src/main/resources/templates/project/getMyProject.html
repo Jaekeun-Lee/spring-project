@@ -11,10 +11,9 @@
 
 <nav class="mb-0" th:include="topToolBar.html"></nav>
 
-<th:block th:if=${session.user.userId}==${myProject.leaderId}>
+<th:block th:if="${session.user.userId}==${myProject.leaderId}">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -23,11 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/applicant/applicantList">신청서목록</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link" style = "diplay:none;"/>
+                        <a class="nav-link" style="diplay:none;"/>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -39,7 +36,7 @@
     <input type="hidden" id="userId" th:value="${session.user.userId}">
     <input type="hidden" id="projectNo" th:value="${myProject.projectNo}">
     <div id="myProjectHeader" class="row">
-        <h1 class="display-6" th:text="${myProject.projectName}"></h1>
+        <h3 class="display-6" th:text="${myProject.projectName}"></h3>
         <hr class="my-4">
     </div>
 
@@ -53,7 +50,7 @@
                 <tr>
                     <td colspan="5">
                         <input type="text" class="form-control" placeholder="TODO 작성" id="todoContent"
-                               style="background-color: #fbfbfb; border-bottom: 2px solid #888;">
+                               style="background-color: #f7f7f7; border:none; border-bottom: 1px solid #888;">
                     </td>
                     <td>
                         <button type="button" id="add-todo-btn" class="btn btn-outline-primary">ADD</button>
@@ -68,16 +65,15 @@
                 <th:block th:each="todo:${myProject.todoList}">
                     <tr>
                         <th>
-
-                            <label class="btn btn-outline-success"
+                            <label class="btn btn-outline-success ml-3" style="height: 24px;"
                                    th:classappend="${todo.todoStatus==2} ? '' : active">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     <input type="checkbox" autocomplete="off" name="todoStatus"
                                            th:checked="${todo.todoStatus==1}"
-                                           th:value="${todo.todoStatus==2} ? 1 : 2" th:data-todono="${todo.todoNo}" style="display: none"/>
+                                           th:value="${todo.todoStatus==2} ? 1 : 2" th:data-todono="${todo.todoNo}"
+                                           style="display: none"/>
                                 </div>
                             </label>
-
                         </th>
                         <td colspan="3" th:text="${todo.todoContent}"></td>
                         <td th:text="${todo.userId}"></td>
@@ -131,9 +127,6 @@
     </div>
 
 
-
-
-
     <!-- 프로젝트 탈퇴 확인 pop up -->
     <div class="modal" id="withdraw-popup">
         <div class="modal-dialog" role="document">
@@ -150,7 +143,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소</button>
-                    <button type="button" class="btn btn-primary" id="confirm-withdraw" >프로젝트 탈퇴하기</button>
+                    <button type="button" class="btn btn-primary" id="confirm-withdraw">프로젝트 탈퇴하기</button>
                 </div>
             </div>
         </div>
@@ -182,12 +175,15 @@
                 <div class="modal-footer">
                     <th:block th:each="votedMember:${myProject.votedMember}">
                         <th:block th:if="${votedMember == session.user.userId}">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" data-close="close">이미 종료 투표에 참여하셨습니다.</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" data-close="close">이미 종료
+                                투표에 참여하셨습니다.
+                            </button>
                         </th:block>
                     </th:block>
                     <th:block th:if="${!myProject.votedMember.contains(session.user.userId)}">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소</button>
-                        <button type="button" class="btn btn-primary" id="confirm-end" >프로젝트 종료 동의</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소
+                        </button>
+                        <button type="button" class="btn btn-primary" id="confirm-end">프로젝트 종료 동의</button>
                     </th:block>
                 </div>
             </div>
@@ -211,7 +207,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소</button>
-                    <button type="button" class="btn btn-warning" id="confirm-delete" >프로젝트 삭제</button>
+                    <button type="button" class="btn btn-warning" id="confirm-delete">프로젝트 삭제</button>
                 </div>
             </div>
         </div>
@@ -236,7 +232,8 @@
                                 <th:block th:if="${member.userId}!=${myProject.leaderId}">
                                     <tr>
                                         <td>
-                                            <input type="radio" id="afterLeaderId" name="afterLeaderId" th:value="${member.userId}">
+                                            <input type="radio" id="afterLeaderId" name="afterLeaderId"
+                                                   th:value="${member.userId}">
                                         </td>
                                         <th th:text="${member.profileImg}"></th>
                                         <td th:text="${member.userId}"></td>
@@ -251,7 +248,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-close="close">취소</button>
-                    <button type="button" class="btn btn-warning" id="confirm-updateLeader" >권한 위임 후 탈퇴하기</button>
+                    <button type="button" class="btn btn-warning" id="confirm-updateLeader">권한 위임 후 탈퇴하기</button>
                 </div>
             </div>
         </div>
@@ -262,7 +259,8 @@
     let projectNo = $('#projectNo').val();
     let userId = $('#userId').val();
 
-    $('#add-todo-btn').on("click", function () {
+
+    function addTodo() {
         $.ajax({
             type: 'POST',
             url: '/project/addTodo',
@@ -278,10 +276,10 @@
                 const regDate = todoVO.regDate.substring(0, 10);
 
                 let html =
-                    "<tr class=\"table-secondary\">\n" +
+                    "<tr>\n" +
                     "   <th>\n" +
                     "       <div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\">\n" +
-                    "           <label class=\"btn btn-outline-success\">\n" +
+                    "           <label class=\"btn btn-outline-success ml-3\" style=\"height: 24px;\">\n" +
                     "               <input type=\"checkbox\" autocomplete=\"off\">\n" +
                     "           </label>\n" +
                     "       </div>\n" +
@@ -299,10 +297,20 @@
             }
 
         })
+    }
+
+    $("#todoContent").keypress(function (e) {
+        if (e.keyCode === 13) {
+            addTodo();
+        }
+    });
+
+    $('#add-todo-btn').on("click", function () {
+        addTodo();
     })
 
 
-    $('input[name=todoStatus]').on("click" , function () {
+    $('input[name=todoStatus]').on("click", function () {
         let todoNo = $(this).data("todono")
         let todoStatus = $(this).val()
 
@@ -316,10 +324,10 @@
             context: this,
             contentType: 'application/json',
             success: function (data) {
-                if(todoStatus === "1") {
-                    $(this).attr('value',2)
+                if (todoStatus === "1") {
+                    $(this).attr('value', 2)
                 } else {
-                    $(this).attr('value',1)
+                    $(this).attr('value', 1)
                 }
 
             }
@@ -327,26 +335,25 @@
 
     })
 
-    $('#withdraw-btn').click(function(){
+    $('#withdraw-btn').click(function () {
         $('#withdraw-popup').bPopup();
     });
-    $('#end-btn').click(function(){
+    $('#end-btn').click(function () {
         $('#end-popup').bPopup();
     });
-    $('#delete-btn').click(function(){
+    $('#delete-btn').click(function () {
         $('#delete-popup').bPopup();
     });
-    $('#updateLeader-btn').click(function(){
+    $('#updateLeader-btn').click(function () {
         $('#updateLeader-popup').bPopup();
     });
 
 
-    $("button[data-close=close]").click(function(){
+    $("button[data-close=close]").click(function () {
         $('.modal').bPopup().close();
         $('.modal').bPopup().close();
         $('.modal').bPopup().close();
     });
-
 
 
     $('#confirm-withdraw').click(function () {
@@ -354,10 +361,10 @@
             type: 'GET',
             url: '/project/withdraw',
             data: {
-                userId:userId
+                userId: userId
             },
             success: function (data) {
-                if(data == "1") {
+                if (data == "1") {
                     alert("프로젝트 탈퇴 완료")
                     window.location.replace("/project/getProjectList");
                 } else {
@@ -375,12 +382,12 @@
             data: JSON.stringify({
                 teamMemberCnt: $('#teamMemberCnt').text(),
                 votedMemberCnt: $('#votedMemberCnt').text(),
-                projectNo:projectNo,
-                userId:userId
+                projectNo: projectNo,
+                userId: userId
             }),
-            contentType : 'application/json',
+            contentType: 'application/json',
             success: function (data) {
-                if(data == "1") {
+                if (data == "1") {
                     alert("프로젝트 종료 투표 완료")
                     window.location.replace("/welcome");
                 } else {
@@ -396,10 +403,10 @@
             type: 'GET',
             url: '/project/deleteProject',
             data: {
-                projectNo:projectNo
+                projectNo: projectNo
             },
             success: function (data) {
-                if(data == "1") {
+                if (data == "1") {
                     alert("프로젝트 삭제 완료")
                     window.location.replace("/project/getProjectList");
                 } else {
@@ -415,13 +422,13 @@
             type: 'POST',
             url: '/project/updateProjectLeader',
             data: JSON.stringify({
-                projectNo:projectNo,
-                beforeLeaderId:userId,
-                afterLeaderId:$('input[id=afterLeaderId]:checked').val()
+                projectNo: projectNo,
+                beforeLeaderId: userId,
+                afterLeaderId: $('input[id=afterLeaderId]:checked').val()
             }),
-            contentType : 'application/json',
+            contentType: 'application/json',
             success: function (data) {
-                if(data == "1") {
+                if (data == "1") {
                     alert("권한 위임 후 탈퇴 완료")
                     window.location.replace("/project/getProjectList");
                 } else {

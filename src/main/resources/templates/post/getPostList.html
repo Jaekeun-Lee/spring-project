@@ -8,11 +8,12 @@
         table {
             text-align: center;
         }
+
         .postNo {
             width: 5%;
         }
 
-        .postName{
+        .postName {
             width: 55%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -40,8 +41,8 @@
 
 </head>
 <nav th:include="topToolBar.html"></nav>
-<body >
-<div class="container mt-5" style="margin-bottom: 200px">
+<body>
+<div class="container mt-5" style="margin-bottom: 500px">
     <div class="mr-3">
         <a id="add_post_btn" class="btn btn-success " th:href="@{/comm/addPost}"><i class="fa fa-pencil"></i> 새 글 작성</a>
     </div>
@@ -74,14 +75,12 @@
 </div>
 <script type="text/javascript">
 
-    var maxHeight = $(document).height();
-    var currentScroll = $(window).scrollTop() + $(window).height();
-
 
     let count = 1;//스크롤 바닥 감지
+
     window.onscroll = function (e) {//추가 임시콘텐츠
         //window height + window scroll 값이 document height 보다 클 경우.
-        if (maxHeight <= currentScroll + 100) {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
             //실행할 로직(컨텐츠 추가)
             count++;
 
@@ -94,8 +93,7 @@
                 contentType: 'application/json',
                 success: function (data) {
                     let count = $('#postList').children(':last').children('.postNo').children().text()
-                    console.log("count :: " + count)
-
+                    console.log("count :: " + count);
                     if (data == '') {
                         alert("마지막 페이지 입니다.")
                         currentPage--;
@@ -105,28 +103,28 @@
 
                         for (i in array) {
                             count++;
-                            html += createCardBox(array[i],count);
+                            html += createCardBox(array[i], count);
                         }
 
                         $("#postList").append(html);
                     }
 
-                },
-            })
+                }
+            });
         }
-    };
+    }
 
-    function createCardBox(elem,count) {
-        let regDate = elem.regDate.substring(0,10);
+    function createCardBox(elem, count) {
+        let regDate = elem.regDate.substring(0, 10);
         let rtnHtml = `
         <tr scope="row">
-                <td class="postNo"><span>`+count+`</span></td>
+                <td class="postNo"><span>` + count + `</span></td>
                 <td class="postName pl-4 pt-3" style="text-align: left;">
-                    <a href="/comm/getPost?postNo=`+elem.postNo+`">`+elem.postName+`</a>
+                    <a href="/comm/getPost?postNo=` + elem.postNo + `">` + elem.postName + `</a>
                 </td>
-                <td class="userid"><span>`+elem.userId+`</span></td>
-                <td class="regdate"><span>`+regDate+`</span></td>
-                <td class="viewcnt"><span>`+elem.viewCnt+`</span></td>
+                <td class="userid"><span>` + elem.userId + `</span></td>
+                <td class="regdate"><span>` + regDate + `</span></td>
+                <td class="viewcnt"><span>` + elem.viewCnt + `</span></td>
             </tr>`
 
         return rtnHtml;

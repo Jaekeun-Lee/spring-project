@@ -92,7 +92,7 @@
                 <!-- 지원자 수 박스 -->
                 <div class="card-box-unit col-md-3">
                     <h6 class="card-subtitle mb-2 text-muted">지원자 수</h6>
-                    <span th:text="${project.applicantsCnt}"></span>
+                    <span th:text="${project.applicantsCnt -1}"></span>
                     <span>명</span>
                 </div>
             </div>
@@ -147,6 +147,18 @@
                 </script>
             </div>
 
+            <!-- 업로드 파일 -->
+            <div class="project-detail-box col-md-12">
+                <a class="file-download" th:href="|/fileDownload/${file.uploadFileName}|" th:each="file:${project.uploadFiles}" >
+                    <div class="project-upload-files">
+                        <i class="fa fa-paperclip"></i>
+                        <span class="ml-2" th:text="${file.uploadFileName}" />
+                        <div class="float-right">
+                            <i class="fa fa-download" style="color:#777777"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
 
             <!-- 신청전 질문 -->
             <div class="project-detail-box col-md-12">

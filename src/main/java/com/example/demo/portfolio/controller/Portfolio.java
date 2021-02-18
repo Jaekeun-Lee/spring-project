@@ -1,7 +1,6 @@
 package com.example.demo.portfolio.controller;
 
 import com.example.demo.common.service.dao.FileUploadDAO;
-import com.example.demo.common.vo.FileVO;
 import com.example.demo.common.vo.SearchVO;
 import com.example.demo.member.service.MemberService;
 import com.example.demo.member.util.SecurityUtils;
@@ -14,11 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +23,10 @@ import java.util.Map;
 @RequestMapping("port/*")
 public class Portfolio {
 
-    private final String PATH = "C:\\spring-project\\src\\main\\resources\\static\\resources\\uploadImg\\";
 
     @Autowired
     @Qualifier("portfolioServiceImpl")
     private PortfolioService portfolioService;
-
-    @Autowired
-    @Qualifier("fileUploadDAO")
-    private FileUploadDAO fileUploadDAO;
 
     @Autowired
     @Qualifier("memberServiceImpl")
@@ -53,25 +44,10 @@ public class Portfolio {
     //포트폴리오 등록
     @PostMapping("addPort")
     public String addPort(@ModelAttribute("portfolioVO") PortfolioVO portfolioVO,
-                          @ModelAttribute("fileVO") FileVO fileVO, MultipartHttpServletRequest request,
                           HttpSession session) throws IOException {
 
         portfolioVO.setUserId(((MemberVO) session.getAttribute("user")).getUserId());
         portfolioService.addPort(portfolioVO);
-
-        if (request.getFiles("file").get(0).getSize() != 0) {
-            List<MultipartFile> fileList = request.getFiles("file");
-            for (MultipartFile mf : fileList) {
-                fileVO.setUploadFileName(mf.getOriginalFilename());
-                fileVO.setFileSize(mf.getSize());
-                fileVO.setPortfolioNo(portfolioVO.getPortNo());
-
-                String safeFile = PATH + mf.getOriginalFilename();
-                mf.transferTo(new File(safeFile));
-
-                fileUploadDAO.uploadFile(fileVO);
-            }
-        }
 
         session.removeAttribute("user");
         MemberVO memberVO = memberService.selectMember(SecurityUtils.getLoginSessionMemberInfo().getUsername());
