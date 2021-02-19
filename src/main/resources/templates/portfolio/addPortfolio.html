@@ -46,7 +46,7 @@
             <input id="endDate" name="portProjectEndDate" class="date-picker form-control"
                    placeholder="yyyy-mm-dd" type="date" required="required" onfocus="this.type='date'"
                    onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'"
-                   th:value="${getProjectInfo != null}?${#dates.format(getProjectInfo.endDate,'yyyy-MM-dd')}:''">
+                   value="2021-02-20">
         </div>
     </div>
 
@@ -59,7 +59,7 @@
                    data-parsley-validation-threshold="1"
                    name="portMemberCnt" placeholder="예) 5" autocomplete="off"
                    required="required"
-                   th:value="${getProjectInfo != null}?${getProjectInfo.recruitmentMemberCnt}:''">
+                   value="2">
         </div>
         <div class="col-lg-1 col-md-1" style="text-align: left; margin: auto 0">
             명

@@ -2,34 +2,187 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
 <head>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
     <title>리뷰 목록</title>
-</head>
-<body>
-<div th:include="topToolBar.html" ></div>
-<table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
-    <thead>
-    <tr>
-        <th class="column-title" width="100">프로젝트명</th>
-        <th class="column-title" width="100">grade</th>
-        <th class="column-title" width="100">comment</th>
-    </tr>
-    <tr>
-        <td colspan="11" bgcolor="808285" height="1"></td>
-    </tr>
-    </thead>
+    <nav th:include="topToolBar.html"></nav>
+    <style>
+        .account-setting-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 70%;
+            overflow: hidden;
+        }
 
-    <tbody>
-    <tr class="" th:each="reviewVO:${reviewList}">
-    <input type="hidden" id="projectNo" th:value="${reviewVO.projectNo}"/>
-        <td th:text="${reviewVO.projectName}"/>
-        <td th:text="${reviewVO.reviewGrade}"/>
-        <td th:text="${reviewVO.reviewComment}"/>
-    </tr>
-    </tbody>
-</table>
+        .profile_img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row mb-5 mt-5">
+        <div class="col-md-4" style="font-size: 20px">
+
+            <div class="form-group account-setting-img" style="margin: 10px auto">
+                <th:block th:if="${session.user.profileImg == 'DEFAULTImage.jpg'}">
+                    <img class="profile_img" src="/resources/img/pro_default.png"
+                         style="width: 150px;height: 150px">
+                </th:block>
+                <th:block th:if="${session.user.profileImg != 'DEFAULTImage.jpg'}">
+                    <img class="profile_img" th:src="|/resources/uploadImg/${session.user.profileImg}|"
+                         style="width: 150px;height: 150px">
+                </th:block>
+            </div>
+
+            <div class="form-group row">
+                <table class="table table-hover">
+                    <tr>
+                        <td class="border-0" width="20%"><i class="fa fa-user ml-3"></i></td>
+                        <td class="border-0" width="80%"><span th:text="${session.user.userId}"
+                                                               style="font-size: 15px"></span></td>
+                    </tr>
+
+                    <tr class="border-0">
+                        <td class="border-0" width="20%"><i class="fa fa-tags ml-3"></i></td>
+                        <td class="border-0" width="80%"><span th:text="${session.user.link}"
+                                                               style="font-size: 13px"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-8">
+
+            <div id="canvas-holder" style="width:70%">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                    </div>
+                </div>
+                <div >
+                    <i class="fa fa-square green"></i><span style="color: #18bc9c"> 추천</span><br/>
+                    <i class="fa fa-square blue"></i><span > 보통</span><br/>
+                    <i class="fa fa-square red"></i><span > 비추천</span>
+                </div>
+                <canvas id="chart-area" style="display: block; width: 513px; height: 256px;" width="513" height="256"
+                        class="chartjs-render-monitor"></canvas>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row reviewTable mt-5">
+        <table width="100%" border="0" cellpadding="0" style="margin-top:10px;">
+            <thead class="mt-2">
+            <tr>
+                <th class="column-title" width="100">프로젝트명</th>
+                <th class="column-title" width="100">grade</th>
+                <th class="column-title" width="100">comment</th>
+            </tr>
+            <tr>
+                <td colspan="11" bgcolor="808285" height="1"></td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr class="reviewL" th:each="reviewVO:${reviewList}">
+                <input type="hidden" id="projectNo" th:value="${reviewVO.projectNo}"/>
+                <td th:text="${reviewVO.projectName}"/>
+                <td class="reviewCnt" th:text="${reviewVO.reviewGrade}"/>
+                <td th:text="${reviewVO.reviewComment}"/>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="row" style="width: 100%; padding: 10px; margin: 20px 0 100px 0; background-color: #777777" >
+        <a href="#" style="margin: 0 auto">더보기</a>
+    </div>
+</div>
+<script>
+    let down = $('td:contains("-1")');
+    let normal = $('td:contains("0")');
+    let reviewCnt = $('.reviewCnt');
+
+    let up = reviewCnt.length - normal.length - down.length;
+    console.log(up);
+    var randomScalingFactor = function () {
+        return Math.round(1 * 100);
+    };
+
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    Math.round(down.length),
+                    Math.round(normal.length),
+                    Math.round(up)
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.blue,
+                    window.chartColors.green,
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                '비추천',
+                '보통',
+                '추천',
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    };
+
+    window.onload = function () {
+        var ctx = document.getElementById('chart-area').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    };
+
+    document.getElementById('randomizeData').addEventListener('click', function () {
+        config.data.datasets.forEach(function (dataset) {
+            dataset.data = dataset.data.map(function () {
+                return randomScalingFactor();
+            });
+        });
+
+        window.myPie.update();
+    });
+
+    var colorNames = Object.keys(window.chartColors);
+    document.getElementById('addDataset').addEventListener('click', function () {
+        var newDataset = {
+            backgroundColor: [],
+            data: [],
+            label: 'New dataset ' + config.data.datasets.length,
+        };
+
+        for (var index = 0; index < config.data.labels.length; ++index) {
+            newDataset.data.push(randomScalingFactor());
+
+            var colorName = colorNames[index % colorNames.length];
+            var newColor = window.chartColors[colorName];
+            newDataset.backgroundColor.push(newColor);
+        }
+
+        config.data.datasets.push(newDataset);
+        window.myPie.update();
+    });
+
+    document.getElementById('removeDataset').addEventListener('click', function () {
+        config.data.datasets.splice(0, 1);
+        window.myPie.update();
+    });
+</script>
 </body>
+</html>

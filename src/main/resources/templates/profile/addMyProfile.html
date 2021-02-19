@@ -22,7 +22,7 @@
 
 <body>
 
-<div th:include="topToolBar.html"></div>
+<nav th:include="topToolBar.html"></nav>
 <div class="container">
     <form th:action="@{/profile/addMyProfile}" th:method="post" enctype="multipart/form-data">
         <input type="hidden" id="userId" name="userId" th:value="${profile.getUserId()}"/>
@@ -142,7 +142,6 @@
 
             let reader = new FileReader();
             reader.onload = function (e) {
-                alert(e.target.result);
                 // let img_html = "<img src=\"" + e.target.result + "\" />";
 
                 $(".profile_img").attr('src', e.target.result);

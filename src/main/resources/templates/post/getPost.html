@@ -37,7 +37,7 @@
             <div class="mt-2">
                 <a th:href="@{/comm/updatePost(postNo=${postVO.postNo})}">수정</a>
                 <span>&nbsp;|&nbsp;</span>
-                <a th:href="@{/comm/deletePost(postNo=${postVO.postNo})}">삭제</a>
+                <a id="deletePost-btn" th:href="@{/comm/deletePost(postNo=${postVO.postNo})}">삭제</a>
             </div>
         </th:block>
 
@@ -78,7 +78,7 @@
                     <h5 th:text="${replyVO.replyUserId}" class="float-left mt-1 ml-2 mb-0"></h5>
 
                     <th:block th:if="${session.user.userId == replyVO.replyUserId}">
-                        <a class="delete-reply-btn float-right mb-0">&nbsp;|&nbsp;삭제</a>
+                        <button class="border-0 delete-reply-btn float-right mb-0">&nbsp;|&nbsp;삭제</button>
                     </th:block>
                     <p th:text="${#dates.format(replyVO.regDate, 'yyyy-MM-dd')}" class="float-right mb-0"></p>
 
@@ -112,25 +112,10 @@
 
 <script type="text/javascript">
 
-    // function del(postNo){
-    //     let chk = confirm("정말 삭제하시겠습니까?");
-    //     if (chk){
-    //         // location.href='/comm/delete?postNo='+(postVO.postNo);
-    //         location.href="deletePost?postNo=(postNo)";
-    //     }
-    // }
-    /*---------------------------------------------------*/
-    // let formObj = $("form[role='form']");
-    //
-    // $("#delete_btn").click(function (){
-    //
-    //     formObj.attr("action", "/comm/deletePost");
-    //     formObj.attr("method", "get");
-    //     formObj.submit();
-    // })
-    /*---------------------------------------------------*/
-
-
+    $("#deletePost-btn").click(function () {
+        alert("게시물 삭제가 완료되었습니다.")
+    })
+    
     $('#add-reply-btn').on('click', function () {
 
         $.ajax({
@@ -174,39 +159,6 @@
 
     })
 
-    /*$('#update-reply-btn').on('click', function () {
-        $.ajax({
-            type: 'POST',
-            url: '/comm/updateReply',
-            data: JSON.stringify({
-                replyNo: $('#replyNo').val(),
-                replyContent: $('#replyContent').val()
-            }),//서버로 보낼 데이터를지정해주는
-            dataType: 'text',//받아올때 서버에서
-            contentType: 'application/json',//서버에 데이터를 보낼때
-            success: function (data) {
-                alert("댓글 수정 완료");
-                const replyVO = JSON.parse(data);
-                const regDate = replyVO.regDate.substring(0, 10);
-
-                let html =
-                    "<div class=\"card bg-secondary mb-3\" style=\"max-width: 20rem;\">" +
-                    "   <div class=\"card-header\">" + replyVO.replyUserId + "</div>" +
-                    "       <div class=\"card-body\">" +
-                    "           <h4 class=\"card-title\">" + replyVO.replyContent + "</h4>" +
-                    "       <p class=\"card-text\">" + regDate + "</p>" +
-                    "   </div>" +
-                    "</div>"
-
-                $('#reply-list').update(html);
-                $('#replyContent').val("");
-            },
-            error: function (e) {
-                alert("댓글 수정 실패" + e)
-            }
-        })
-    })*/
-
 
     $('.delete-reply-btn').on('click', function () {
         let replyNo = $(this).parent().attr('data-replyno');
@@ -221,11 +173,8 @@
                 contentType: 'application/json',
                 context: this,
                 success: function (data) {
-                    if (data == '1') {
-                        $(this).parent().parent().remove()
-                        alert("댓글 삭제 완료");
-                    }
-
+                    $(this).parent().parent().remove()
+                    alert("댓글 삭제 완료");
                 },
                 error: function (e) {
                     alert("댓글 삭제 실패" + e)

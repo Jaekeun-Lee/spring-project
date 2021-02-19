@@ -235,7 +235,7 @@
                                             <input type="radio" id="afterLeaderId" name="afterLeaderId"
                                                    th:value="${member.userId}">
                                         </td>
-                                        <th th:text="${member.profileImg}"></th>
+                                        <th ><img id="nav-profile-image" th:src="|/resources/uploadImg/${member.profileImg}|"></th>
                                         <td th:text="${member.userId}"></td>
                                     </tr>
                                 </th:block>
@@ -375,7 +375,7 @@
         })
     })
 
-    $('#confirm-end').click(function () {
+    /*$('#confirm-end').click(function () {
         $.ajax({
             type: 'POST',
             url: '/project/endProject',
@@ -396,6 +396,10 @@
 
             }
         })
+    })*/
+    $('#confirm-end').click(function () {
+        alert("모든 팀원들의 동의로 프로젝트가 종료됩니다.")
+        window.location.replace("/welcome");
     })
 
     $('#confirm-delete').click(function () {

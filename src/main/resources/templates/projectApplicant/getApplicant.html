@@ -28,7 +28,9 @@
 </head>
 <body>
 <form id="detailForm">
-	    <h1><label for="Title" class="control-label">신   청   서</label></h1>
+	<div class="row mt-5 mb-5">
+			<a href="/applicant/appliedProjectList"><h4>신청서</h4></a>
+	</div>
 	    <br>
 
 			<div th:if="${applicantVO.projectVO.applicantQuestionA}!=null">

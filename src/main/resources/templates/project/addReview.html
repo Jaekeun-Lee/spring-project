@@ -5,27 +5,16 @@
     <title>리뷰작성</title>
 
     <link rel="stylesheet" href="/resources/css/additional.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/lux/bootstrap.min.css">
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/js/bpopup/jquery.bpopup.min.js"></script>
 
-    <script>
-        $(function () {
-            $('#form-submit').on("click", function () {
-                $('.review-form').submit()
-            })
-        })
 
-    </script>
 </head>
+<nav th:include="topToolBar.html"></nav>
 <body style="background-color: #f7f7f9">
-    <div class="wrapper">
+    <div class="container">
 
         <div id="myProjectHeader" class="row" >
-            <h1 class="display-6" th:text="${myProject.projectName}"></h1>
+            <h3 th:text="${myProject.projectName}"></h3>
             <hr class="my-4">
         </div>
 
@@ -33,18 +22,18 @@
             <div class="col-lg-12">
                 <form class="review-form" name="addReviewDTO" action="/project/addReviewer" method="post">
                     <table class="table table-hover">
-                        <tr class="table-info">
+                        <tr>
                             <td width="20%">팀원</td>
                             <td colspan="5">평가 작성</td>
                         </tr>
 
                         <th:block th:each="member,num:${myProject.teamMember}">
                             <th:block th:if="${member.userId}!=${session.user.userId}">
-                                    <input type="text" th:name="|reviewList[${num.index}].userId|" th:value="${member.userId}">
-                                    <input type="text" th:name="|reviewList[${num.index}].projectNo|" th:value="${myProject.projectNo}">
+                                    <input type="hidden" th:name="|reviewList[${num.index}].userId|" th:value="${member.userId}">
+                                    <input type="hidden" th:name="|reviewList[${num.index}].projectNo|" th:value="${myProject.projectNo}">
                                     <tr>
                                         <td width="20%">
-                                            <span th:text="${member.profileImg}"></span>
+                                            <img id="nav-profile-image" th:src="|/resources/uploadImg/${member.profileImg}|">
                                             <span th:text="${member.userId}"></span>
                                         </td>
 
@@ -63,7 +52,7 @@
                                         </td>
                                         <td width="50%">
                                             <input type="text" class="form-control" placeholder="평가내용 작성" th:name="|reviewList[${num.index}].reviewComment|"
-                                                   style="background-color: #bfbfbf; border-bottom: 2px solid #888;">
+                                                   style="background-color: #F7F7F7; border:none; border-bottom: 2px solid #888;" autocomplete="off">
                                         </td>
                                     </tr>
 
@@ -72,13 +61,21 @@
                             </th:block>
                         </th:block>
 
-                        <button type="button" id="form-submit" class="btn btn-outline-primary">Primary</button>
+
 
                     </table>
+                    <div class="row">
+                    <button type="button" id="form-submit" class="btn btn-outline-primary" style="margin: 0 auto">작성 완료</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        $('#form-submit').on("click", function () {
+            $('.review-form').submit()
+        })
 
+    </script>
 </body>
 </html>

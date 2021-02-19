@@ -252,6 +252,11 @@
 		WHERE PROJECT_NO = #{projectNo}
 	</update>
 
+	<update id="updateApplicantStatus" parameterType="int">
+		UPDATE APPLICANT
+		SET APPLICANT_STATUS = 6
+		WHERE PROJECT_NO = 130 AND APPLICANT_STATUS = 5;
+	</update>
 
 	<update id="updateMemberProjectToNull" parameterType="string">
 		UPDATE MEMBER
@@ -259,11 +264,7 @@
 		WHERE USER_ID = #{value}
 	</update>
 
-	<update id="updateApplicantStatus" parameterType="hashMap">
-		UPDATE APPLICANT
-		SET APPLICANT_STATUS = 6
-		WHERE PROJECT_NO = #{projectNo} AND APPLICANT_STATUS = 5;
-	</update>
+
 
 	
 	<insert id="addEndProjectCount" parameterType="hashMap">
@@ -272,10 +273,10 @@
 	</insert>
 
 
-	<update id="updateProjectStatus" parameterType="hashMap">
+	<update id="updateProjectStatus" parameterType="int">
 		UPDATE PROJECT
 		SET PROJECT_STATUS = 3, END_DATE = SYSDATE
-		WHERE PROJECT_NO = #{projectNo}
+		WHERE PROJECT_NO = 130
 	</update>
 
 	<update id="updateProjectNoOfTeamMembers" parameterType="hashMap">
@@ -313,7 +314,7 @@
 			   r.REG_DATE,
 			   m.PROFILE_IMAGE	as replyUserImg
 		FROM REPLY r, MEMBER m
-		WHERE r.PROJECT_NO = m.PROJECT_NO AND REPLY_NO = #{value}
+		WHERE r.USER_ID=m.USER_ID AND REPLY_NO = #{value}
 	</select>
 
 	<insert id="addHashtag" parameterType="projectVO">

@@ -79,14 +79,18 @@
 	</div>
 </nav>
 
-<div class="wrapper">
-	<h4 class="display-3">프로젝트 참여 요청</h4>
+<div class="container">
+	<div class="row mt-5 mb-5">
+		<div class="col-lg-3 pt-5" style="text-align: center;">
+			<a href="/applicant/appliedProjectList"><h4>프로젝트 신청서 목록</h4></a>
+		</div>
+	</div>
 
 
 
 	
 	<table id="table" width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-		<tr>
+		<tr class="mb-2">
 
 			<th class="column-title" width="100">유저아이디</th>
 			<th class="column-title" width="100">신청일</th>
@@ -98,8 +102,8 @@
 		<td colspan="11" bgcolor="808285" height="1"></td>
 		</tr>
 		
-		<tbody>
-		<tr class="" th:each="applicantVO : ${applicantList}">
+		<tbody >
+		<tr th:each="applicantVO : ${applicantList}">
 		<th:block th:if="${applicantVO.applicantStatus}!=5">
 		<th:block th:if="${applicantVO.applicantStatus}!=6">
 			

@@ -20,6 +20,7 @@
                PROFILE_IMAGE   as profileImg,
                REG_DATE        as regDate,
                PROJECT_NO      as projectNo,
+               link            as link,
                PROJECT_WITHDRAWAL_DATE as projectWithdrawalDate
         FROM MEMBER
     </sql>

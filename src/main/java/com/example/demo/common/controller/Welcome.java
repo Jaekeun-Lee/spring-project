@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 public class Welcome {
 	
-	public Welcome() {
-		log.info(":: " + getClass().getName() + " Start::");
-	}
-
 	@Autowired
     @Qualifier("projectServiceImpl")
     ProjectService projectService;
@@ -43,29 +39,20 @@ public class Welcome {
     						  @ModelAttribute("searchVO") SearchVO  searchVO) {
 
     	// project 
-        if (projectSearchDTO.getCurrentPage() == 0) {
-            projectSearchDTO.setCurrentPage(DEFAULT_PAGE);
-        }
+        projectSearchDTO.setCurrentPage(DEFAULT_PAGE);
         projectSearchDTO.setPageSize(PAGE_SIZE);
 
         List<ProjectVO> projectList = projectService.getProjectList(projectSearchDTO);
 
-        log.info(projectSearchDTO.toString());
-        
         // community
-        searchVO.setPageSize(7);
-
-        if(searchVO.getCurrentPage() == 0 ){
-            searchVO.setCurrentPage(1);
-        }
+        searchVO.setCurrentPage(DEFAULT_PAGE);
+        searchVO.setPageSize(PAGE_SIZE);
 
         Map<String,Object> map = postService.getPostList(searchVO);
 
         model.addAttribute("postList",map.get("list"));
         model.addAttribute("projectList", projectList);
-    	
-        //공통모듈은 통일해서 사용하면 참 좋겠어요 ㅠㅠ
-        
+
         return "welcome";
     }
 }

@@ -2,13 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:background-color="http://www.w3.org/1999/xhtml">
 <meta charset="UTF-8">
 <head>
-
-
-
-
-
-
-
     <style>
         #add_portfolio_get_pop_up {
             background-color: #fff;
@@ -91,11 +84,11 @@
 
                     <tbody>
                     <tr>
-                        <td class="label"><a th:href="@{/port/addPort(projectNo=${projectVO.projectNo})}"
+                        <td class="label" colspan="2"><a th:href="@{/port/addPort(projectNo=${projectVO.projectNo})}"
                                              th:text="${projectVO.projectName}"></a></td>
                         <td th:text="${#dates.format(projectVO.applicationDeadline,'yyyy-MM-dd')}"></td>
                         <td th:text="${#dates.format(projectVO.endDate,'yyyy-MM-dd')}"></td>
-                        <td th:text="${projectVO.recruitmentMemberCnt}"></td>
+<!--                        <td th:text="${projectVO.recruitmentMemberCnt}"></td>-->
                     </tr>
                     </tbody>
                 </table>

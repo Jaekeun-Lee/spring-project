@@ -147,18 +147,7 @@
                 </script>
             </div>
 
-            <!-- 업로드 파일 -->
-            <div class="project-detail-box col-md-12">
-                <a class="file-download" th:href="|/fileDownload/${file.uploadFileName}|" th:each="file:${project.uploadFiles}" >
-                    <div class="project-upload-files">
-                        <i class="fa fa-paperclip"></i>
-                        <span class="ml-2" th:text="${file.uploadFileName}" />
-                        <div class="float-right">
-                            <i class="fa fa-download" style="color:#777777"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
+
 
             <!-- 신청전 질문 -->
             <div class="project-detail-box col-md-12">
@@ -186,9 +175,20 @@
                       th:text="'#'+${tag}" class="hashtag mt-2"></span>
             </div>
 
+            <!-- 업로드 파일 -->
             <div class="project-detail-box col-md-12">
                 <h5>관련 첨부 자료</h5>
+                <a class="file-download" th:href="|/fileDownload/${file.uploadFileName}|" th:each="file:${project.uploadFiles}" >
+                    <div class="project-upload-files">
+                        <i class="fa fa-paperclip"></i>
+                        <span class="ml-2" th:text="${file.uploadFileName}" />
+                        <div class="float-right">
+                            <i class="fa fa-download" style="color:#777777"></i>
+                        </div>
+                    </div>
+                </a>
             </div>
+
 
 
             <div class="project-detail-box col-md-12" id="reply-list">
@@ -575,6 +575,10 @@
         })
     }
 
+    function aa(elem) {
+        confirm("삭제하시겠습니까?")
+        $(elem).parent().parent().remove();
+    }
     function addReplyDataToHtml(replyVO) {
 
         let html =
@@ -587,7 +591,7 @@
                     `
         if (userId == replyVO.replyUserId) {
             html += `
-                            <p id="deleteReply" class="float-right mb-0">&nbsp;|&nbsp;삭제</p>
+                            <p id="deleteReply" class="float-right mb-0" onclick="javascript:aa(this)">&nbsp;|&nbsp;삭제</p>
                             <p id="updateReply" class="float-right mb-0">&nbsp;&nbsp;수정</p>`
         }
         html += `
