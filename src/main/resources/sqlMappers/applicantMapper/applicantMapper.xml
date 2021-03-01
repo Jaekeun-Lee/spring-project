@@ -254,5 +254,20 @@
 				<if test = "searchConditionB == 6" >AND a.applicant_status = 6</if>
 		) countTable	
 	 </select>
+	 
+	 <select id="applicantTotalCount" parameterType="com.example.demo.common.vo.SearchVO" resultType="int">
+	 	SELECT COUNT(*)
+	  	FROM(	SELECT m.profile_image, a.user_id, a.reg_date, a.applicant_no, a.applicant_status
+				FROM member m, applicant a
+				WHERE m.user_id = a.user_id
+				AND a.project_no = ( SELECT
+				project_no
+				FROM project
+				WHERE user_id=#{userId}
+				AND (project_status='1'
+				OR project_status='2')
+			)
+		) countTable	
+	 </select>
 
 </mapper>

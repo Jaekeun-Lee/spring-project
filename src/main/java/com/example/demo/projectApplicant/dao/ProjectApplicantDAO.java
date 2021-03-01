@@ -12,10 +12,6 @@ import com.example.demo.projectApplicant.vo.ApplicantVO;
 
 public interface ProjectApplicantDAO {
 	
-	void addProject(ProjectVO projectVO);
-	
-	ProjectVO getProject(int projectNo);
-	
 	void addApplicant(ApplicantVO applicantVO);
 	
 	void addProApplicant(ProjectVO projectVO);
@@ -24,14 +20,14 @@ public interface ProjectApplicantDAO {
 	
 	List<ApplicantVO> getApplicantList(SearchVO searchVO);
 	
+	int getApplicantTotalCount(SearchVO searchVO);
+	
 	List<ApplicantVO> getAppliedApplicantList(SearchVO searchVO);
+	
+	int getAppliedTotalCount(SearchVO searchVO);
 	
 	void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);
 	
 	void updateProjectMember(UpdateApplicantStatusDTO updateApplicantStatusDTO);
-
-	void uploadFile(HashMap<String, Object> hm);
-
-	int getAppliedTotalCount(SearchVO searchVO);
 
 }

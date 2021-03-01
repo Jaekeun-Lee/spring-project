@@ -21,8 +21,6 @@ public interface ProjectApplicantService {
     Map<String,Object> getAppliedProjectList(SearchVO searchVO);
 
     Map<String,Object> getApplicantList(SearchVO searchVO);
-    
-    void fileUpload(int projectNo, String originFileName, long fileSize);
 
     //Rest - DTO
     void updateApplicantStatus(UpdateApplicantStatusDTO updateApplicantStatusDTO);

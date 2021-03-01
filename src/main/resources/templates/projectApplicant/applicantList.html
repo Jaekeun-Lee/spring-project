@@ -37,6 +37,12 @@
     
 	<!--  ////////////////////// JavaScript /////////////////////// -->
 	<script type="text/javascript">
+	
+	function fncGetUserList(currentPage) {
+		$("#currentPage").val(currentPage)
+		$("form").attr("method" , "POST").attr("action" , "/applicant/applicantList").submit();
+	}
+	
 	<!-- 레이어 팝업 -->
     ;(function($) {
         $(function() {
@@ -137,6 +143,40 @@
 	</table>
 </div>
 
+
+			<!-- PageNavigation Start... -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
+                <tr>
+                    <td align="center">
+                        <input type="hidden" id="currentPage" name="currentPage" value=""/>
+                        <span th:if="${ resultPage.currentPage <= resultPage.pageUnit }">
+					◀ 이전
+			</span>
+                        <span th:if="${ resultPage.currentPage > resultPage.pageUnit }">
+					<a href="javascript:fncGetUserList('${ resultPage.currentPage-1}')">◀ 이전</a>
+			</span>
+
+                        <th:each var="i" begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
+                            <a href="/applicant/applicantList?SearchVO.currentPage=${i}"><span th:text="${i}"/></a>
+                            <a th:href="@{/applicant/applicantList(currentPage=${i})}" th:text="${i}"/>
+                        </th:each>
+
+                        <span th:each="i : ${#numbers.sequence(resultPage.beginUnitPage,resultPage.endUnitPage)}">
+				<a th:href="@{/applicant/applicantList(currentPage=${i})}" th:text="${i}"/>
+			</span>
+
+                        <span th:if="${ resultPage.endUnitPage >= resultPage.maxPage }">
+					이후 ▶
+			</span>
+                        <span th:if="${ resultPage.endUnitPage < resultPage.maxPage }">
+					<a href="javascript:fncGetUserList('${resultPage.endUnitPage+1}')">이후 ▶</a>
+			</span>
+
+
+                    </td>
+                </tr>
+            </table>
+            <!-- PageNavigation End... -->
 
 
 </body>

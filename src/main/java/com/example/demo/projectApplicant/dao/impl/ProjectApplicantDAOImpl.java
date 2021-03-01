@@ -32,18 +32,16 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	}
 
 	@Override
-	public void addProject(ProjectVO projectVO) {
-		sqlSession.insert("projectMapper.addProject",projectVO);
-	}
-
-	@Override
-	public ProjectVO getProject(int projectNo) {
-		return sqlSession.selectOne("projectMapper.getProject",projectNo);
-	}
-
-	@Override
 	public void addApplicant(ApplicantVO applicantVO) {
 		sqlSession.insert("applicantMapper.addApplicant",applicantVO);
+	}
+	
+	/*
+	 * 팀장의 프로젝트 상태 변경 메소드
+	 */
+	@Override
+	public void addProApplicant(ProjectVO projectVO) {
+		sqlSession.insert("applicantMapper.addProApplicant",projectVO);
 	}
 
 	@Override
@@ -65,25 +63,20 @@ public class ProjectApplicantDAOImpl implements ProjectApplicantDAO{
 	public List<ApplicantVO> getApplicantList(SearchVO searchVO) {
 		return sqlSession.selectList("applicantMapper.getApplicantList",searchVO);
 	}
+	
+	@Override
+	public int getApplicantTotalCount(SearchVO searchVO) {
+		return sqlSession.selectOne("applicantMapper.applicantTotalCount", searchVO);
+	}
 
 	@Override
 	public List<ApplicantVO> getAppliedApplicantList(SearchVO searchVO) {
 		return sqlSession.selectList("applicantMapper.getAppliedApplicantList",searchVO);
 	}
-
-	@Override
-	public void uploadFile(HashMap<String, Object> hm) {
-		sqlSession.insert("applicantMapper.uploadFile",hm);
-	}
-
+	
 	@Override
 	public int getAppliedTotalCount(SearchVO searchVO) {
 		return sqlSession.selectOne("applicantMapper.appliedTotalCount", searchVO);
-	}
-
-	@Override
-	public void addProApplicant(ProjectVO projectVO) {
-		sqlSession.insert("applicantMapper.addProApplicant",projectVO);
 	}
 
 }

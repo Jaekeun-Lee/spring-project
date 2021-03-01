@@ -52,8 +52,10 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 	@Override
 	public Map<String, Object> getApplicantList(SearchVO searchVO) {
 		List<ApplicantVO> list = projectapplicantDAO.getApplicantList(searchVO);
+		int totalCount = projectapplicantDAO.getApplicantTotalCount(searchVO);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
 
@@ -65,16 +67,6 @@ public class ProjectApplicantServiceImpl implements ProjectApplicantService{
 		map.put("list", list);
 		map.put("totalCount", new Integer(totalCount));
 		return map;
-	}
-
-	@Override
-	public void fileUpload(int projectNo, String originFileName, long fileSize) {
-		HashMap<String, Object> hm = new HashMap();
-		hm.put("projectNo", projectNo);
-		hm.put("originalfileName", originFileName);
-		hm.put("fileSize", fileSize);
-		
-		projectapplicantDAO.uploadFile(hm);
 	}
 
 	@Override
